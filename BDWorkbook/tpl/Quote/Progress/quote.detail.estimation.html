@@ -1,0 +1,99 @@
+﻿<div class="wrapper-xs clearfix">
+    <div class="inline" ng-hide="vm.checkAllDone(vm.quote)">
+        <select class="input-sm form-control w-sm inline v-middle" data-ng-model="vm.selectedBulkAction" data-ng-options="action for action in vm.bulkActions">
+            <option value="">Bulk action</option>
+        </select>
+        <button class="btn btn-sm btn-default" data-ng-click="vm.bulkAction()" data-ng-disabled="!vm.selectedBulkAction">Apply</button>
+    </div>
+
+    <div class="pull-right" data-ng-if="vm.enableCostAdd(vm.quote)">
+        <div data-ng-if="vm.quote.BusinessType.Id===1&& vm.quote.State.toUpperCase()!=='NZ'">
+            <button type="button" class="btn btn-sm btn-default btn-addon" ng-click="vm.sendToWp()" data-ng-if="vm.checkAllDone(vm.quote)===true&&vm.enableSendBtn(vm.quote)">
+                <i class=" fa fa-send">
+                </i>Send
+            </button>
+            <button type="button" class="btn btn-sm btn-default btn-addon" ng-click="vm.addCost()">
+                <i class="fa fa-plus"></i>Add
+            </button>
+        </div>
+
+        <div class="pull-right" data-ng-if="vm.quote.BusinessType.Id!==1||vm.quote.State.toUpperCase()==='NZ'">
+            <button type="button" class="btn btn-sm btn-default btn-addon" ng-click="vm.sendToWpNoInfo()" data-ng-if="vm.checkAllDone(vm.quote)===true&& vm.enableSendBtn(vm.quote)">
+                <i class="fa  fa-send"></i>Send
+            </button>
+            <button type="button" class="btn btn-sm btn-default btn-addon" ng-click="vm.downloadCost(vm.quote)">
+                <i class="fa  fa-download"></i>Download
+            </button>
+            <button type="button" class="btn btn-sm btn-default btn-addon" ng-click="vm.uploadCost()">
+                <i class="fa fa-upload"></i>Upload
+            </button>
+            <script type="text/ng-template" id="modal.quote.cost.upload.html">
+                <div ng-include="'tpl/Quote/Modals/modal.quote.cost.upload.html'"></div>
+            </script>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="input-group m-b-xxs bg-white-only b">
+    <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+    <input type="text" class="form-control input-sm no-border text-sm" placeholder="Search" ng-model="vm.search" data-ng-change="vm.resetPage()">
+</div>
+<ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+    <li class="list-group-item clearfix b-l-2x"
+        data-ng-class="{'bg-light lter b-l-warning':cost.selected}"
+        data-ng-repeat="cost in vm.quote.QuoteCost|filter:vm.search| orderBy:'-Status' | startFrom:vm.currentPage*vm.pageSize | limitTo:vm.pageSize">
+        <div class="pull-right">
+            <select class="input-sm form-control w-xs inline v-middle" data-ng-if="cost.Status===0" data-ng-model="cost.action" data-ng-options="action for action in vm.costActions" data-ng-click="vm.costAction(cost)">
+                <option value="" class="">Action</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="i-checks m-b-none" data-ng-if="cost.Status===0"><input type="checkbox" name="selectedCosts[]" value="{{cost.Id}}" data-ng-model="cost.selected"><i></i></label>
+            <a ui-sref="quote.detail.progress.costDetail({id:vm.quote.Id,costId:cost.Id})" class="text-md text-info">
+                {{cost.Id}}
+                <ng-switch on="cost.IsSameAddress">
+                    <span ng-switch-when="false">{{cost.Company}}</span>
+                    <span ng-switch-default>{{vm.quote.Company}}</span>
+                </ng-switch>
+            </a>
+            <ng-switch on="cost.Status">
+                <span class="label bg-danger" ng-switch-when="0">Draft</span>
+                <span class="label bg-success" ng-switch-when="1">Finalized</span>
+            </ng-switch>
+        </div>
+
+
+        <small class="block text-ellipsis  m-t-xs" ng-switch on="cost.IsSameAddress">
+            <span ng-switch-when="false">
+                {{cost.Address.Unit}}
+                {{cost.Address.Number}}
+                {{cost.Address.Street}}
+                {{cost.Address.Suburb}}
+                {{cost.State}}
+                {{cost.Postcode}}
+            </span>
+            <span ng-switch-default>
+                <em>* address same as quote</em>
+            </span>
+        </small>
+
+
+        <small class="block m-t-xs">
+            <span class="m-r-sm">Price PA: {{cost.PricePa}}</span>
+            <span class="m-r-sm">Return PW: {{cost.ReturnPw}}</span>
+        </small>
+        <em class="text-xs">Last Update on <span class="text-danger">{{cost.LastUpdateDate | fromNow}}</span></em>
+    </li>
+</ul>
+
+<div class="wrapper-xs b-r text-right bg-white">
+    <span class="text-muted" data-ng-show="vm.quote.QuoteCost.length>0">{{vm.currentPage+1}}/{{vm.numberOfPages((vm.quote.QuoteCost |filter:vm.search).length)+'(Total:'+(vm.quote.QuoteCost |filter:vm.search).length+')'}}</span>
+    <div class="btn-group">
+        <button type="button" class="btn btn-sm btn-bg btn-default" ng-click="vm.currentPage=vm.currentPage-1" ng-disabled="vm.currentPage == 0"><i class="fa fa-chevron-left"></i></button>
+        <button type="button" class="btn btn-sm btn-bg btn-default" ng-click="vm.currentPage=vm.currentPage+1" ng-disabled="vm.currentPage >= (vm.quote.QuoteCost |filter:vm.search).length/vm.pageSize - 1"><i class="fa fa-chevron-right"></i></button>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿<form name="form" class="form-horizontal form-validation">
+    <div class="modal-header">List of change</div>
+    <div class="modal-body wrapper">
+        <div class="form-group" ng-repeat-start="model in viewModel">
+            <label class="col-sm-2 control-label font-bold">{{model.firstname}} {{model.lastname}}</label>
+            <div class="col-sm-8 w-md">
+                <select name="account" class="form-control m-b" ng-model="model.option" ng-options="option.desc as option.desc for option in options" required>
+                    <option value="">Please choose</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" ng-repeat="change in model.changes">
+            <label class="col-sm-3 control-label font-bold">{{change.key}}:</label>
+            <div class="col-sm-9">
+                <label class="control-label m-r-sm text-muted">{{change.from}}</label>
+                <i class="fa fa-arrow-right m-r-sm"></i>
+                <label class="control-label text-danger">{{change.to}}</label>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in" ng-repeat-end></div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default m-r-sm" ng-click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary m-r-sm" ng-click="confirm(form)">Confirm</button>
+    </div>
+</form>
+
+

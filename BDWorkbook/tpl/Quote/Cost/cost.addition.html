@@ -1,0 +1,70 @@
+﻿<loading data-ng-show="loading"></loading>
+<div data-ng-hide="loading">
+    <div class="wrapper bg-light lter b-b">
+        <span class="font-bold">5.Costing Additonal</span>
+    </div>
+    <div class="wrapper">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <tabset class="tab-container">
+                    <tab heading="Equipment">
+                        <div class="row m-b">
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input type="text" class="input-sm form-control" placeholder="Search">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered m-b-none footable toggle-circle" >
+                            <thead>
+                                <tr>
+                                    <th data-toggle="true">
+                                        Code
+                                    </th>
+                                    <th data-hide="all">
+                                        Description
+                                    </th>
+                                    <th data-hide="all">
+                                        Large Equipment
+                                    </th>
+                                    <th data-hide="all">
+                                        Purchase Price
+                                    </th>
+                                    <th data-hide="phone">
+                                        Units From Subby
+                                    </th>
+                                    <th data-hide="phone">
+                                        Units From Quad
+                                    </th>
+                                    <th data-hide="phone">
+                                        Total Cost
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="equipment in costAddition.equipments" footable-sync ng-class="{'footable-even': $even, 'footable-odd': $odd}">
+                                    <td>{{equipment.Code}}</td>
+                                    <td>{{equipment.Description}}</td>
+                                    <td>{{equipment.IsLargeEquipment}}</td>
+                                    <td>{{equipment.Price}}</td>
+                                    <td>{{equipment.UnitsFromSubby}}</td>
+                                    <td>{{equipment.UnitsFromQuad}}</td>
+                                    <td>{{equipment.TotalCost}}</td>
+                                </tr>
+                            </tbody>
+                           
+                        </table>
+                        
+                    </tab>
+                </tabset>
+                <div class="clearfix">
+                    <a ui-sref="quote.cost.addition" class="pull-right btn btn-sm  btn-info m-t-n-xs">Next >></a>
+                    <a class="pull-right btn btn-sm  btn-primary m-t-n-xs m-r">Save for later</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

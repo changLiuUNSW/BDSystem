@@ -1,0 +1,36 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <title>Quad Service BD System</title>
+    <meta name="description" content="app, web app, responsive, responsive layout, admin, AngularJS, Quad Services, BD System" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="~/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/loading-bar.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/toastr.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/loading.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/select.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/footable/footable.core.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/xeditable.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/sweetalert.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/ng-table.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/ng-table-resizable.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/daterangepicker-bs3.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/app.css" type="text/css" />
+    @RenderSection("styles", false)
+</head>
+<body class="auth-Intercepter waiting-for-angular" data-ng-controller="AppCtrl">
+    <div id="initializing-panel"></div>
+    @RenderBody()
+    @Scripts.Render("~/bundles/Jqlibs")
+    @Scripts.Render("~/bundles/JqUnminifylibs")
+    @Scripts.Render("~/bundles/ngUnminifylibs")
+    @Scripts.Render("~/bundles/nglibs")
+    @RenderSection("scripts", false)
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿<div class="modal-header">
+</div>
+<div class="modal-body">
+    <button class="btn btn-default btn-block"
+            ng-repeat-start="action in endModal.actions"
+            ng-bind="action.Description"
+            ng-click="action.active = !action.active"
+            ng-class="{'active' : action.active}"></button>
+    <div class="form-group m-t-sm">
+        <textarea ng-if="action.active && endModal.needInput(action) === 'text'" 
+                  class="form-control" 
+                  style="resize: none" 
+                  rows="3"
+                  ng-model="action.InfoForDa">
+        </textarea>
+    </div>
+    <div ng-repeat-end
+         ng-if="action.active && endModal.needInput(action) === 'date'"
+         class="input-group">
+        <input type="text"
+               class="form-control"
+               placeholder="YYYY-MM-DD"
+               ng-model="action.CallbackDate"
+               min-date="endModal.dtOptions.minDate"
+               datepicker-popup
+               is-open="endModal.dtOptions.dtOpened">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="endModal.dtOptions.dtOpen($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+        </span>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="endModal.cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="endModal.confirm()">Confirm</button>
+</div>

@@ -1,0 +1,32 @@
+﻿@using System.Web.Optimization
+@Html.Partial("_LoginHolder")
+<div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}">
+    <!-- navbar -->
+    @Html.Partial("_Header")
+    <!-- / navbar -->
+    <!-- menu -->
+    <div data-ng-include=" 'tpl/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}" ng-class="{'hide': app.settings.hideAside }">
+    </div>
+    <!-- / menu -->
+    <!-- content -->
+    <div class="app-content">
+        <div ui-butterbar></div>
+        <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside"></a>
+        <div class="fade-in-up" ui-view data-ng-class="{'app-content-full': app.settings.application,'app-content-body':!app.settings.application,'app-content': app.settings.application,'m-n': app.settings.hideAside }">
+
+        </div>
+    </div>
+    <!-- /content -->
+    <!-- footer -->
+    <div class="app-footer wrapper b-t bg-light" data-ng-class="{'hide':app.settings.hidefooter}">
+        <span class="pull-right">{{app.version}} <a href ui-scroll="app" class="m-l-sm text-muted"><i class="fa fa-long-arrow-up"></i></a></span>
+        &copy; @DateTime.Now.Year Quad Service Copyright.
+    </div>
+    <!-- / footer -->
+    <div data-ng-include=" 'tpl/blocks/settings.html' " class="settings panel panel-default" data-ng-hide="app.settings.hideSetting">
+    </div>
+</div>
+
+@section scripts{
+@Scripts.Render("~/bundles/BDWorkBook")
+}

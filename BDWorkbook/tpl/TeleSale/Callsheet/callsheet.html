@@ -1,0 +1,28 @@
+﻿<div class="hbox hbox-auto-sm hbox-auto-xs "
+     page-init="{
+         application:true,
+         hidefooter:true,
+         hideSetting:true
+         }">
+    <div class="col">
+        <div class="vbox">
+            <div class="wrapper-md bg-light lter b-b" ui-view="header"></div>
+            <div class="wrapper-lg" spinner-loading ng-if="callsheet.loading"></div>
+            <div class="row-row" ng-if="callsheet.showDetail && !callsheet.loading">
+                <div class="cell scrollable">
+                    <div class="cell-inner">
+                        <div class="wrapper-md">
+                            <button class="btn btn-default"
+                                    ng-repeat="call in callsheet.calls"
+                                    ui-sref="telesale.callSheet.detail(call)"
+                                    ng-bind="call.Site.Key"></button>
+                            <div ui-view="detail"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col w-xxl bg-white lter b-l" ui-view="script" ng-if="callsheet.contact">
+    </div>
+</div>

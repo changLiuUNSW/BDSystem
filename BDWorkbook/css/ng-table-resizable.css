@@ -1,0 +1,10 @@
+﻿.rc-handle-container { position: relative; }
+.rc-handle {
+    cursor: ew-resize;
+    margin-left: -3px;
+    position: absolute;
+    width: 7px;
+    z-index: 2;
+}
+.table.rc-table-resizing { cursor: ew-resize; }
+.table.rc-table-resizing thead, table.rc-table-resizing thead > th, table.rc-table-resizing thead > th > a { cursor: ew-resize; }

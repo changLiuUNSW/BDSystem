@@ -1,0 +1,141 @@
+<!-- first -->
+<ul class="nav">
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span>Components</span>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="dashboard">
+            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+            <span class="font-bold">Dashboard</span>
+        </a>
+    </li>
+    
+    <li ui-sref-active="active">
+        <a ui-sref="lead.list.group">
+            <i class="glyphicon glyphicon-tags icon text-info-dker"></i>
+            <span class="font-bold">Lead</span>
+        </a>
+    </li>
+    
+    <li ng-class="{active:$state.includes('quote')}">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="icon-calculator icon text-info-lter"></i>
+            <span class="font-bold">Quote</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>Quote</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="quote.progress.group">
+                    <span>Progress</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="quote.current.list">
+                    <span>Current</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    
+    <li ng-class="{active:$state.includes('Admin')}">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-edit icon text-info-lter"></i>
+            <span class="font-bold">Admin</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>Admin</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="Admin.site.summary">
+                    <span>Site</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="Admin.contactPerson.summary">
+                    <span>Contact Person</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    
+    <li ng-class="{active:$state.includes('telesale')}">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-earphone icon text-info-lter"></i>
+            <span class="font-bold">TeleSale</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>TeleSale</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="telesale.callSheet">
+                    <span>Contact</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="telesale.queue">
+                    <span>Queue</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('calladmin')}">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-th-large icon text-info-lter"></i>
+            <span class="font-bold">CallAdmin</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>CallAdmin</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="calladmin.allocation">
+                    <span>Allocation</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="calladmin.leadpriority">
+                    <span>BD / GM / ROP</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="calladmin.area">
+                    <span>Area / Zone</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="calladmin.report">
+                    <span>Report</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<!-- / third -->

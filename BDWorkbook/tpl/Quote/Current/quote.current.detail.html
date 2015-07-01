@@ -1,0 +1,180 @@
+﻿<div page-init="
+     {asideFixed:true,
+     hideSetting:true
+     }">
+    <div class="bg-light lter b-b wrapper-sm hidden-print">
+        <div class="btn-group">
+            <a ui-sref="quote.current.list" tooltip="Back" class="btn btn-sm btn-default w-xxs w-auto-xs">
+                <i class="fa fa-long-arrow-left"></i>
+            </a>
+            <button class="btn btn-sm btn-default w-xxs w-auto-xs" tooltip="Delete"><i class="fa fa-trash-o"></i></button>
+        </div>
+    </div>
+    <loading ng-if="vm.loading"></loading>
+    <div class="wrapper-sm" data-ng-if="!vm.loading">
+        <div class="panel b-light clearfix">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8 col-lg-9">
+                        <p class="text-muted">
+                            Last update: {{vm.quote.LastUpdateDate|date:"dd/MM/yyyy 'at' h:mma"}}
+                        </p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="text-uppercase font-bold m-t-sm">Status</p>
+                                <h4 class="m-t-none m-b-md text-uppercase" data-ng-class="{
+                                    'text-success':vm.quote.Status.Id!==vm.quoteStatusType.Cancel&& vm.quote.Status.Id!==vm.quoteStatusType.Dead,
+                                    'text-danger':vm.quote.Status.Id===vm.quoteStatusType.Cancel||vm.quote.Status.Id===vm.quoteStatusType.Dead}">
+                                    {{vm.quote.Status.Name}}
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="text-uppercase font-bold m-t-sm">Price PA</p>
+                                <h4 class="m-t-none m-b-md text-info text-uppercase">{{vm.quote.TotalPA||'N/A'}}</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="text-uppercase font-bold m-t-sm">Return PW</p>
+                                <h4 class="m-t-none m-b-md text-primary text-uppercase">{{vm.quote.TotalPW||'N/A'}}</h4>
+                            </div>  
+                            <div class="col-md-3">
+                                <div class="m-t-sm m-b-sm">
+                                    <span class="text-uppercase font-bold">Successful Rate</span> 
+                                    <a class="btn btn-xs btn-info pull-right" data-ng-if="!vm.rateEditing" data-ng-click="vm.rateEditing=true">Edit</a>
+                                    <a class="btn btn-xs btn-danger pull-right" data-ng-if="vm.rateEditing" data-ng-click="vm.updateRating(vm.quote.SuccessRate)">Update</a>
+                                </div>
+                                <h4 class="m-t-none m-b-md  text-danger">
+                                    {{vm.quote.SuccessRate||'N/A'}}<span data-ng-if="vm.quote.SuccessRate">%</span>
+                                    <input type="range" name="rate" min="1" max="100" ng-model="vm.quote.SuccessRate" data-ng-if="vm.rateEditing">
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 m-t-xs">
+                        <button class="btn btn-xs btn-info pull-right" ng-click="vm.downloadQuote(vm.quote)" data-ng-if="vm.quote.FileName"><i class="fa fa-fw fa-download"></i> Download</button>
+                        <p class="text-uppercase font-bold m-b-sm">QUOTE DETAILS</p>
+                        <ul class="list-unstyled text-muted">
+                            <li>
+                                <strong class="thumb-lg">ID:</strong>
+                                <span>{{vm.quote.Id}}</span>
+                            </li>
+                            <li>
+                                <strong class="thumb-lg">Type:</strong>
+                                <span>{{vm.quote.BusinessType.Type}}</span>
+                            </li>
+                            <li>
+                                <strong class="thumb-lg">Company: </strong>
+                                {{vm.quote.Company}}
+                            </li>
+                            <li>
+                                <strong class="thumb-lg">Created:</strong>
+                                <span>{{vm.quote.CreatedDate|date:'dd/MM/yyyy'}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+             
+                <div class="row b-t b-light padder-v">
+                    <div class="col-md-4 col-lg-3  b-r b-light no-border-xs">
+
+                        <p class="text-uppercase font-bold m-b-sm">Price Detail</p>
+                        <ul class="list-unstyled text-muted">
+                            <li>
+                                <strong>Price PA: </strong>
+                                <span>{{vm.quote.TotalPA||'N/A'}}</span>
+                            </li>
+                            <li>
+                                <strong>Return PW: </strong>
+                                <span>{{vm.quote.TotalPW||'N/A'}}</span>
+                            </li>
+                            <li data-ng-if="vm.quote.LastUploadDate">
+                                <strong>Last Upload: </strong>
+                                <span>{{vm.quote.LastUploadDate|date:'dd/MM/yyyy h:mma'}}</span>
+                            </li>
+                            <li data-ng-if="vm.quote.PrintDate">
+                                <strong>Last Print: </strong>
+                                <span>{{vm.quote.PrintDate|date:'dd/MM/yyyy h:mma'}}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="col-md-4 col-lg-3 b-r b-light no-border-xs">
+                        <p class="text-uppercase font-bold m-b-sm">Contact Detail</p>
+                        <ul class="list-unstyled text-muted">
+                            <li>
+                                <strong>Name:</strong>
+                                <span>{{vm.quote.Title}}</span>
+                                <span>{{vm.quote.Firstname}}</span>
+                                <span>{{vm.quote.Lastname}}</span>
+                            </li>
+                            <li>
+                                <strong>Position:</strong>
+                                {{vm.quote.Position}}
+                            </li>
+                            <li>
+                                <strong>Phone:</strong>
+                                <a data-ng-href="tel:{{vm.quote.Phone}}" class="text-info">
+                                    {{vm.quote.Phone}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-lg-3 b-r b-light no-border-xs">
+                        <p class="text-uppercase font-bold m-b-sm">QP</p>
+                        <ul class="list-unstyled text-muted">
+                            <li>
+                                <strong>Initial:</strong>
+                                {{vm.quote.LeadPersonal.Initial}}
+                            </li>
+                            <li>
+                                <strong>Name:</strong>
+                                {{vm.quote.LeadPersonal.Name}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12 col-lg-3">
+                        <p class="text-uppercase font-bold m-b-sm">Address</p>
+                        <ul class="list-unstyled text-muted">
+                            <li>
+                                <strong>Location:</strong>
+                                <span>{{vm.quote.Address.Unit}}</span>
+                                <span>{{vm.quote.Addresse.Number}}</span>
+                                <span>{{vm.quote.Address.Street}}</span>
+                                <span>{{vm.quote.Address.Suburb}}</span>
+                                <span>{{vm.quote.State}}</span>
+                                <span>{{vm.quote.Postcode}}</span>
+                            </li>
+                            <li>
+                                <strong>Region: </strong>
+                                {{vm.quote.SalesBox.Region}}
+                            </li>
+                            <li>
+                                <strong>Zone: </strong>
+                                {{vm.quote.SalesBox.Zone}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="m-t-sm">
+                    <ul class="nav nav-pills nav-sm">
+                        <li data-ng-repeat="tab in vm.tabs" data-ng-class="{'active':vm.tabs.selected===tab}">
+                            <a href data-ng-click="vm.tabs.selected=tab">{{tab}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel b-light"
+             data-ng-show="vm.tabs.selected==='Contact'"
+             data-ng-include="'tpl/Quote/Current/quote.current.detail.contact.html'"></div>
+        <div class="panel b-light"
+             data-ng-show="vm.tabs.selected==='Dead'"
+             data-ng-include="'tpl/Quote/Current/quote.current.detail.dead.html'"></div>
+        <div class="panel b-light"
+             data-ng-show="vm.tabs.selected==='Adjustment'"
+             data-ng-include="'tpl/Quote/Current/quote.current.detail.adjust.html'"></div>
+    </div>
+</div>

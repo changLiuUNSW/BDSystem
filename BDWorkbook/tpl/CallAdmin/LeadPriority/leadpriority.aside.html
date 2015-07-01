@@ -1,0 +1,29 @@
+﻿<div class="vbox">
+    <div class="wrapper-xs b-b">
+        <div class="input-group m-b-xxs">
+            <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+            <input type="text" class="form-control input-sm no-border no-bg text-md " placeholder="Search Name" ng-model="query">
+        </div>
+    </div>
+    <div class="row-row">
+        <div class="cell scrollable">
+            <div class="cell-inner">
+                <div class="m-t-n-xxs">
+                    <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                        <a class="list-group-item m-l"
+                           ng-repeat="person in leadPriority.persons | filter:query | orderBy: person.Name"
+                           ng-class="{'select m-l-none': person.Id === leadPriority.selected.Id }"
+                           ng-click="leadPriority.select(person)">
+                            <span class="block text-ellipsis m-l-n" ng-class="{'m-l-none': person.Id === leadPriority.selected.Id }">
+                                {{person.Name}}
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper b-t text-center">
+        <a href class="btn btn-sm btn-default btn-addon" ng-click="leadPriority.add()" ng-disabled="leadPriority.editable"><i class="fa fa-plus fa-fw m-r-xs"></i>New Personal</a>
+    </div>
+</div>

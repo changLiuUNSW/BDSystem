@@ -1,0 +1,9 @@
+﻿<div page-init="{
+         application:true,
+         hidefooter:true,
+         hideSetting:true
+         }"
+     class="hbox hbox-auto-xs hbox-auto-sm">
+    <div ng-show="report.loading" spinner-loading></div>
+    <div class="col" ng-hide="report.loading" ui-view="statistic"></div>
+</div>

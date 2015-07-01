@@ -1,0 +1,113 @@
+﻿<div class="hbox hbox-auto-xs hbox-auto-sm"
+     page-init="{hideSetting:true}">
+    <div class="col w-md bg-light dk b-r bg-auto">
+        <div class="wrapper b-b bg">
+            <button class="btn btn-sm btn-default pull-right visible-sm visible-xs" ui-toggle-class="show" target="#filter-menu"><i class="fa fa-bars"></i></button>
+            <div class="text-center font-bold">Quote Current</div>
+        </div>
+        
+        <div class="wrapper hidden-sm hidden-xs" id="filter-menu">
+            <ul class="nav nav-pills nav-stacked nav-sm">
+                <li data-ng-class="{'active':vm.filter.overdue===undefined}">
+                    <a data-ng-click="vm.overdueClick(undefined)">
+                        All
+                    </a>
+                </li>
+                <li ng-repeat="overdue in vm.overdueList" data-ng-class="{'active':vm.filter.overdue===overdue.Field}">
+                    <a data-ng-click="vm.overdueClick(overdue.Field)">
+                        {{overdue.Name|ucfirst}}
+                        <b class="badge bg-info lt pull-right" data-ng-show="overdue.Count">{{overdue.Count}}</b>
+                    </a>
+                </li>
+            </ul>
+            <div class="line b-b b-info"></div>
+            <form>
+                <div class="m-b-sm text-muted text-xs">
+                    <span>Filters</span>
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <select class="form-control" ng-model="vm.filter.bizTypeSelect" data-ng-options="key as key for (key , value) in vm.bizTypesList" data-ng-change="vm.loadingQuoteList()">
+                        <option value="">Please select...</option>
+                    </select>
+                </div> 
+                <div class="form-group">
+                    <a class="btn btn-xs btn-default pull-right" data-ng-show="vm.filter.sortColumn" data-ng-class="{'active':vm.filter.order==='desc'}" data-ng-click="vm.orderClick('desc')">desc</a>
+                    <a class="btn btn-xs btn-default pull-right" data-ng-show="vm.filter.sortColumn" data-ng-class="{'active':vm.filter.order==='asc'}" data-ng-click="vm.orderClick('asc')">asc</a>
+                    <label>Sort by</label>
+                    <select class="form-control" ng-model="vm.filter.sortColumn" data-ng-options="item.field as item.name for item in vm.columnsList" data-ng-change="vm.loadingQuoteList()">
+                        <option value="">Please select...</option>
+                    </select>
+                </div> 
+            </form>
+        </div>
+    </div>
+    <div class="col">
+        <div class="padder b-b bg-light" style="margin-top: 11px">
+            <pageable page-size-changed="vm.setListPageSize" current-page-changed="vm.ListPageChanges" total-items="vm.paging.totalItems" page-size="vm.paging.pageSize"></pageable>
+        </div>
+        <div class="input-group m-b-xxs bg-white-only" id="searchBar">
+            <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+            <input type="text" class="form-control input-sm no-border text-sm" placeholder="Search" ng-model="vm.filter.keyword" data-ng-change="vm.loadingQuoteList()">
+        </div>
+
+        <!-- list -->
+        <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+            <li ng-repeat="quote in vm.quotes" class="list-group-item clearfix b-l-3x" label-color="quote.QuoteType">
+                <div class="pull-right text-sm text-muted">
+                    <span class="hidden-xs">{{ quote.LastUpdateDate  | fromNow}}</span>
+                </div>
+                <div class="clear">
+                    <div>
+                        <a class="text-md text-info" ui-sref="quote.detail.current({id:quote.Id})">
+                            {{quote.Id+' '+quote.Company}}
+                        </a>
+                        <span class="label bg-light">{{quote.QuoteType}}</span>
+                        <span class="label bg-danger" data-ng-if="quote.StatusId===vm.quoteStatusType.WPIssues">Adjusting</span>
+                    </div>
+                    <div class="clear text-ellipsis">
+                        {{quote.Unit}}
+                        {{quote.Number}}
+                        {{quote.Street}}
+                        {{quote.Suburb}}
+                        {{quote.State}}
+                        {{quote.Postcode}}
+                    </div>
+                    <div class="clear">
+                        <span class="m-r-xs">
+                            <i class="fa fa-phone fa-fw text-muted" tooltip="Phone"></i>
+                            <a data-ng-href="tel:{{quote.Phone}}" class="text-info" data-ng-if="quote.Phone">
+                                {{quote.Phone||'N/A'}}
+                            </a>
+                            <span data-ng-if="!quote.Phone">N/A</span>
+                        </span>
+                        <span class="m-r-xs">
+                            Price PA: {{quote.LastestPA||quote.TotalPA||'N/A'}}
+                        </span>
+                        <span class="m-r-xs">
+                            Return PW: {{quote.TotalPW||'N/A'}}
+                        </span>
+                        <span class="m-r-xs">
+                            Last Contact: {{(quote.LastContactDate|date:'dd/MM/yyyy')||'N/A'}}
+                        </span>
+                        <span class="m-r-xs">
+                            QP:
+                            {{quote.QpInitial}}
+                            {{quote.QpName}}
+                        </span>
+                    </div>
+                    <div class="clear">
+                        <span class="label bg-light  pos-rlt m-r inline wrapper-xs">
+                            <i class="arrow right arrow-light"></i>Overdue:
+                        </span>
+                        <span class="m-r-sm text-danger font-bold" data-ng-if="quote.ContactCheckOverDue">Contact</span> 
+                        <span class="m-r-sm text-primary font-bold" data-ng-if="quote.DeadCheckOverDue">Dead Check</span>
+                        <span class="m-r-sm text-info font-bold" data-ng-if="quote.AjustCheckOverDue">Adjust Check</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!-- / list -->
+
+    </div>
+</div>

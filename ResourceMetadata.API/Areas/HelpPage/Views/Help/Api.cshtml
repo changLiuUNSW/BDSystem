@@ -1,0 +1,22 @@
+@using System.Web.Http
+@using ResourceMetadata.API.Areas.HelpPage.Models
+@model HelpPageApiModel
+
+@{
+    var description = Model.ApiDescription;
+    ViewBag.Title = description.HttpMethod.Method + " " + description.RelativePath;
+}
+
+<link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="container">
+    <section>
+        <div>
+            <p>
+                @Html.ActionLink("Help Page Home", "Index")
+            </p>
+        </div>
+    </section>
+    <section>
+        @Html.DisplayForModel()
+    </section>
+</div>

@@ -1,0 +1,34 @@
+﻿<div class="hbox" page-init="{
+         application:true,
+         hidefooter:true,
+         hideSetting:true
+         }">
+    <div class="row-row">
+        <div class="wrapper bg-light lter b-b">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="m-n font-thin h3 text-black v-middle">Call admin</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <div class="inline">
+                        <div class="btn-group">
+                            <button class="btn btn-lg btn-primary" tooltip="home" tooltip-placement="bottom" ui-sref="ts.dash">
+                                <i class="fa fa-home"></i>
+                            </button>
+                            <button class="btn btn-lg btn-primary" tooltip="managers" tooltip-placement="bottom" ui-sref="ts.leadpriority">
+                                <i class="fa fa-users"></i>
+                            </button>
+                            <button class="btn btn-lg btn-primary" tooltip="allocations" tooltip-placement="bottom" ui-sref="ts.allocation">
+                                <i class="fa fa-tasks"></i>
+                            </button>
+                            <button class="btn btn-lg btn-primary" tooltip="reports" tooltip-placement="bottom" ui-sref="ts.report">
+                                <i class="fa fa-database"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hbox" ui-view></div>
+    </div>
+</div>

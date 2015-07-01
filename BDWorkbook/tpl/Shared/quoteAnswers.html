@@ -1,0 +1,12 @@
+﻿<div data-ng-repeat="result in quoteQa|filterBy: ['Question.Type']: qaType">
+    <div>
+        <strong class="block">{{result.Question.Name}}</strong>
+        <small class="text-muted text-xs block m-t-xs">{{result.Time|date:'dd/MM/yyyy'}}</small>
+    </div>
+    <div class="m-t-xs">
+        <span>{{result.Answer.Name}}</span>
+        <p ng-if="result.Answer.Type===vm.answerType.Date">{{result.Additional|date:'dd/MM/yyyy'}}</p>
+        <p ng-if="result.Answer.Type===vm.answerType.Text" style="white-space: pre;">Detail: {{result.Additional}}</p>
+        <p data-ng-if="result.Question.TextOnly===true" style="white-space: pre;">{{result.Additional}}</p>
+    </div>
+</div>

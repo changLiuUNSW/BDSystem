@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E1EA83DE-CAEC-4896-B5B2-1420CD45F591}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess.Console</RootNamespace>
+    <AssemblyName>DataAccess.Console</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migration\Excel\PhoneBookCopier.cs" />
+    <Compile Include="Migration\Excel\SmallQuoteCopier.cs" />
+    <Compile Include="Migration\Excel\SpecCopier.cs" />
+    <Compile Include="Migration\Excel\SqlCmd.cs" />
+    <Compile Include="Migration\DB\Copier.cs" />
+    <Compile Include="Migration\Excel\QualificationCopier.cs" />
+    <Compile Include="Migration\Excel\WorkbookCopier.cs" />
+    <Compile Include="Models\COMPTEMP.cs" />
+    <Compile Include="Context\CompanyContext.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\ReportHelper.cs" />
+    <Compile Include="Scripts\ScriptFactory.cs" />
+    <Compile Include="Scripts\Types\BmsScriptCreator.cs" />
+    <Compile Include="Scripts\Types\CleaningQuestionCreator.cs" />
+    <Compile Include="Scripts\Types\CleaningScriptCreator.cs" />
+    <Compile Include="Scripts\Types\GovScriptCreator.cs" />
+    <Compile Include="Scripts\Types\IScriptCreator.cs" />
+    <Compile Include="Scripts\Types\LpmScriptCreator.cs" />
+    <Compile Include="Scripts\Types\OprScriptCreator.cs" />
+    <Compile Include="Scripts\Serialization\SerializeHelper.cs" />
+    <Compile Include="Scripts\Types\PmsScriptCreator.cs" />
+    <Compile Include="Scripts\Types\QualificationCreator.cs" />
+    <Compile Include="Scripts\Types\ScriptCreator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="resource\Company Directory 2015 04.13.rock.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess.Common\DataAccess.Common.csproj">
+      <Project>{a3b36dfa-6708-4139-a94a-bcfd85d0d656}</Project>
+      <Name>DataAccess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess.EntityFramework\DataAccess.EntityFramework.csproj">
+      <Project>{68a2fd1a-0bc5-4ca7-a1f6-cf1b8220bd3b}</Project>
+      <Name>DataAccess.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DateAccess.Services\DateAccess.Services.csproj">
+      <Project>{d32c3402-14d1-487e-800d-6823dc5de7d3}</Project>
+      <Name>DateAccess.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

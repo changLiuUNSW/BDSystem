@@ -1,0 +1,17 @@
+﻿<div class="wrapper-md">
+    <div class="vbox">
+        <div class="input-group m-b-sm">
+            <label class="btn btn-info" ng-model="statistic.type" btn-radio="statistic.reportType.complete">All</label>
+            <label class="btn btn-info" ng-model="statistic.type" btn-radio="statistic.reportType.weekly">Weekly</label>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <input class="form-control w-sm" placeholder="Search" ng-model="statistic.query">
+            </div>
+            <div class="panel-body">
+                <div ng-if="statistic.loading" spinner-loading></div>
+                <div ng-if="!statistic.loading" ui-view="table"></div>
+            </div>
+        </div>
+    </div>
+</div>

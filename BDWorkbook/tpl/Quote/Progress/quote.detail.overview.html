@@ -1,0 +1,159 @@
+﻿<div class="wrapper-sm">
+    <div class="panel b-light clearfix">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6 col-lg-9">
+                    <p class="text-muted">
+                        Last update: {{vm.quote.LastUpdateDate|date:"dd/MM/yyyy 'at' h:mma"}}
+                    </p>
+                    <p class="text-uppercase font-bold m-b-none m-t-xl">Status</p>
+                    <h3 class="m-t-none m-b-md text-uppercase" data-ng-class="{'text-success':vm.quote.Status.Name.toLowerCase()!=='cancel','text-danger':vm.quote.Status.Name.toLowerCase()==='cancel'}">
+                        {{vm.quote.Status.Name}}
+                    </h3>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <button class="btn btn-xs btn-info pull-right" ng-click="vm.downloadQuote(vm.quote)" data-ng-if="vm.quote.FileName"><i class="fa fa-fw fa-download"></i>Quote</button>
+                    <p class="text-uppercase font-bold m-b-sm">QUOTE DETAILS</p>
+                    <ul class="list-unstyled text-muted">
+                        <li>
+                            <strong class="thumb-lg">ID:</strong>
+                            <span>{{vm.quote.Id}}</span>
+                        </li>
+                        <li>
+                            <strong class="thumb-lg">Type:</strong>
+                            <span>{{vm.quote.BusinessType.Type}}</span>
+                        </li>
+                        <li>
+                            <strong class="thumb-lg">Company: </strong>
+                            {{vm.quote.Company}}
+                        </li>
+                        <li>
+                            <strong class="thumb-lg">Created:</strong>
+                            <span>{{vm.quote.CreatedDate|date:'dd/MM/yyyy'}}</span>
+                        </li>
+                        <li>
+                            <strong class="thumb-lg">QP Initials:</strong>
+                            {{vm.quote.LeadPersonal.Initial}}
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+            
+            <div class="row b-t b-light padder-v">
+                <div class="col-md-6 col-lg-3 b-r b-light no-border-xs">
+                    <p class="text-uppercase font-bold m-b-sm">Address</p>
+                    <ul class="list-unstyled text-muted">
+                        <li>
+                            <strong>Location:</strong>
+                            <span>{{vm.quote.Address.Unit}}</span>
+                            <span>{{vm.quote.Addresse.Number}}</span>
+                            <span>{{vm.quote.Address.Street}}</span>
+                            <span>{{vm.quote.Address.Suburb}}</span>
+                            <span>{{vm.quote.State}}</span>
+                            <span>{{vm.quote.Postcode}}</span>
+                        </li>
+                        <li>
+                            <strong>Region: </strong>
+                            {{vm.quote.SalesBox.Region}}
+                        </li>
+                        <li>
+                            <strong>Zone: </strong>
+                            {{vm.quote.SalesBox.Zone}}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 col-lg-3 b-r b-light no-border-xs">
+                    <p class="text-uppercase font-bold m-b-sm">Contact Detail</p>
+                    <ul class="list-unstyled text-muted">
+                        <li>
+                            <strong>Name:</strong>
+                            <span>{{vm.quote.Title}}</span>
+                            <span>{{vm.quote.Firstname}}</span>
+                            <span>{{vm.quote.Lastname}}</span>
+                        </li>
+                        <li>
+                            <strong>Position:</strong>
+                            {{vm.quote.Position}}
+                        </li>
+                        <li>
+                            <strong>Phone:</strong>
+                            <a data-ng-href="tel:{{vm.quote.Phone}}" class="text-info">
+                                {{vm.quote.Phone}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 b-r b-light no-border-xs">
+                    <p class="text-uppercase font-bold m-b-sm">QP</p>
+                    <ul class="list-unstyled text-muted">
+                        <li>
+                            <strong>Initial:</strong>
+                            {{vm.quote.LeadPersonal.Initial}}
+                        </li>
+                        <li>
+                            <strong>Name:</strong>
+                            {{vm.quote.LeadPersonal.Name}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <button class="btn btn-xs btn-info pull-right" ng-click="vm.downloadPricePage(vm.quote)" data-ng-if="vm.quote.PricePageName"><i class="fa fa-fw fa-download"></i>Price</button>
+                    <p class="text-uppercase font-bold m-b-sm">Price Detail</p>
+                    <ul class="list-unstyled text-muted">
+                        <li>
+                            <strong>Price PA: </strong>
+                            <span>{{vm.quote.TotalPA||'N/A'}}</span>
+                        </li>
+                        <li>
+                            <strong>Return PW: </strong>
+                            <span>{{vm.quote.TotalPW||'N/A'}}</span>
+                        </li>
+                        <li data-ng-if="vm.quote.LastUploadDate">
+                            <strong>Last Upload: </strong>
+                            <span>{{vm.quote.LastUploadDate|date:'dd/MM/yyyy h:mma'}}</span>
+                        </li>
+                        <li data-ng-if="vm.quote.PrintDate">
+                            <strong>Last Print: </strong>
+                            <span>{{vm.quote.PrintDate|date:'dd/MM/yyyy h:mma'}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel b-light" data-ng-if="vm.quote.Histories.length">
+        <div class="panel-body">
+            <div class="font-bold">Last Activity</div>
+            <div class="m-t-sm">
+                <p>{{(vm.quote.Histories| orderBy:'-Time'| first).Description}}</p>
+            </div>
+            <div class="text-muted">
+                <span class="m-r-xs"><i class="fa fa-user text-muted"></i> by {{(vm.quote.Histories| orderBy:'-Time'| first).User}}</span>
+                <span class="m-r-xs"><i class="fa fa-clock-o text-muted"></i> {{(vm.quote.Histories| orderBy:'-Time'| first).Time|date: 'dd/MM/yyyy'}}</span>
+                <span class="m-r-xs">
+                     {{(vm.quote.Histories| orderBy:'-Time'| first).FromStatus.Name}} 
+                    <i class="fa fa-long-arrow-right text-muted"></i>
+                    {{(vm.quote.Histories| orderBy:'-Time'| first).ToStatus.Name}} 
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="panel b-light" data-ng-if="(vm.quote.QuoteIssues|filter:{'Resolved':false}).length">
+        <div class="panel-body">
+            <div class="font-bold">Outstanding issue</div>
+            <div class="m-t-sm">
+                <p class="text-danger">{{(vm.quote.QuoteIssues|filter:{'Resolved':false}|orderBy:'-CreatedDate'|first).IssueDetail}}</p>
+            </div>
+            <div class="text-muted">
+                <span class="m-r-xs"><i class="fa fa-user text-muted"></i> by {{(vm.quote.QuoteIssues|filter:{'Resolved':false}|orderBy:'-CreatedDate'|first).CreatedBy}}</span>
+                <span class="m-r-xs"><i class="fa fa-clock-o text-muted"></i> {{(vm.quote.QuoteIssues|filter:{'Resolved':false}|orderBy:'-CreatedDate'|first).CreatedDate|date: 'dd/MM/yyyy'}}</span>
+                <span class="m-r-xs">Next Status: {{(vm.quote.QuoteIssues|filter:{'Resolved':false}|orderBy:'-CreatedDate'|first).NextStatus.Name}}</span>  
+            </div>
+        </div>
+    </div>
+   
+    
+</div>

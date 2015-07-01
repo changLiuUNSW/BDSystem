@@ -1,0 +1,92 @@
+﻿<div class="hbox hbox-auto-xs hbox-auto-sm" page-init>
+    <!-- main -->
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">Contact Person</h1>
+                    <small class="text-muted">Welcome to Contact Person Dashboard</small>
+                </div>
+            </div>
+        </div>
+        <!-- / main header -->
+        <div class="wrapper-md">
+            <!-- Count Summary -->
+            <div class="loading" ng-if="loading">
+                <div class="double-bounce1"></div><div class="double-bounce2"></div>
+            </div>
+            <form name="form" ng-if="!loading">
+                <div class="row row-sm text-center">
+                    <div class="col-sm-3 col-xs-6" data-ng-repeat="item in dashboardList">
+                        <div class="r bg-{{item.color}} item hbox no-border m-b ">
+
+                            <a ui-sref="Admin.search({group:'person',bizType:item.Type})" class="col padder-v dk r-r">
+                                <span class="text-white">
+                                    {{item.Type|ucfirst}}
+                                </span>
+                                <div class="text-white font-bold h3"><span>{{item.TotalCount}}</span></div>
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--/ Count Summary -->
+
+                <div class="panel">
+                    <div class="panel-heading wrapper b-b b-light">
+                        <h4 class="font-thin m-t-none m-b-none text-muted">
+                            Update History
+                        </h4>
+                    </div>
+                    <div class="row wrapper">
+                        <div class="col-sm-5 m-b-xs">
+                            <select ng-model="actionList.selected" name="action" ng-options="action.text for action in actionList" class="input-sm form-control w-sm inline v-middle" required>
+                                <option value="">Bulk action</option>
+                            </select>
+                            <button class="btn btn-sm btn-default" data-ng-click="applyAction(actionList.selected)" data-ng-disabled="form.action.$invalid">Apply</button>
+                        </div>
+
+                    </div>
+                    <div class="table-responsive">
+                        <table ng-table="tableParams" class="table table-striped b-t b-light ng-table-resizable-columns">
+                            <tr ng-repeat="history in $data">
+                                <td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+                                    <input type="checkbox" ng-model="checkboxes.items[history.Id]" />
+                                </td>
+                                <td data-title="'Site Key'" sortable="'SiteKey'">
+                                    <a ui-sref="Admin.contactPerson.detail.history({id:history.OriginalContactPersonId})" style="color:#428bca">{{history.SiteKey}}</a>
+                                </td>
+                                <td data-title="'First Name'" sortable="'Firstname'">
+                                    {{history.Firstname}}
+                                </td>
+                                <td data-title="'Last Name'" sortable="'Lastname'">
+                                    {{history.Lastname}}
+                                </td>
+                                <td data-title="'Current First Name'" sortable="'CurrentFirstName'">
+                                    {{history.CurrentFirstName}}
+                                </td>
+                                <td data-title="'Current Last Name'" sortable="'CurrentLastName'">
+                                    {{history.CurrentLastName}}
+                                </td>
+                                <td data-title="'Update Time'" sortable="'Time'">
+                                    {{history.Time | date :'dd/MM/yyyy'}}
+                                </td>
+                            </tr>
+                        </table>
+                        <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+                            <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+                        </script>
+
+
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- / main -->
+</div>

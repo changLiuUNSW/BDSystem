@@ -1,0 +1,51 @@
+﻿<div class="modal-header bg-info">
+    <span class="pull-right">
+        <a href ng-click="vm.cancel()"><i class="fa fa-times fa-fw"></i></a>
+    </span>
+    <div class="clear">
+        Group Detail
+    </div>
+</div>
+<form class="modal-body form-validation" name="buildingForm" autocomplete="off" novalidate>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <div class="clear">
+                    <div class="h3 m-t-xs m-b-xs">
+                        <span>{{vm.group.Name}}</span>
+                        <a class="btn btn-sm btn-danger pull-right" data-ng-disabled="buildingForm.$invalid" ng-click="vm.save()">Save</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+                <div class="col-sm-6">
+                    
+
+                    <label>Code</label>
+                    <select ng-model="vm.group.Code" class="form-control text-uppercase"
+                            ng-options="opt for opt in vm.codeDrp(vm.group.Type)">
+                        <option value=""></option>
+                    </select>
+                </div>
+               
+                <div class="col-sm-6">
+                    <label>Type</label>
+                    <select ng-model="vm.group.Type" class="form-control"
+                            ng-options="opt for opt in vm.typeDrp" data-ng-disabled="vm.groupType" required>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" ng-model="vm.group.Name" required>
+             
+            </div>
+            <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" ng-model="vm.group.Description">
+            </div>
+        </div>
+    </div>
+</form>

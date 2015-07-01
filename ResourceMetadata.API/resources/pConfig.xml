@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<PriorityConfig>
+  <SuperAccount>DHUD</SuperAccount>
+  <SuperAccountPriority>18</SuperAccountPriority>
+  <SuperPriority>01</SuperPriority>
+</PriorityConfig>

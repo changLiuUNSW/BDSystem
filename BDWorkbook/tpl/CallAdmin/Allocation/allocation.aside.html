@@ -1,0 +1,23 @@
+﻿<div class="vbox">
+    <div class="wrapper">
+        <div class="input-group">
+            <input type="text" class="form-control input-sm" placeholder="search" ng-model="query.person">
+            <span class="input-group-addon input-sm"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
+    <div class="row-row">
+        <div class="cell scrollable">
+            <div class="cell-inner">
+                <div class="wrapper">
+                    <div ng-repeat="person in data.persons | filter: query.person" class="bg-white-only r r-2x m-b-xs wrapper-sm" style="cursor:pointer" ng-style="person.style" ng-click="edit.selectPerson(person)">
+                        <p class="form-control m-t-n-xs no-border no-padder no-bg">{{person.Name}}</p>
+                        <div class="clearfix">
+                            <div class="text-xs text-muted pull-left">{{person.Initial}}</div>
+                            <div class="text-xs text-muted pull-right">{{person.LeadGroup.Group}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

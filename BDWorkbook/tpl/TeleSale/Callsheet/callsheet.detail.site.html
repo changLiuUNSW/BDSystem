@@ -1,0 +1,118 @@
+﻿<!--<style>
+    .popover-content {
+        width: 200px;
+    }
+</style>-->
+
+<div class="col-md-12 b-b m-b">
+    <div class="hbox m-t">
+        <div class="col col-md-4 bg-light">
+            <address class="padder-v text-lg">
+                <strong ng-bind="site.data.Name"></strong><br/>
+                <span ng-bind="site.data.Unit"></span>
+                <span ng-bind="site.data.Number"></span>
+                <span ng-bind="site.data.Street"></span><br/>
+                <span ng-bind="site.data.Suburb"></span>
+                <span ng-bind="site.data.State"></span>
+                <span ng-bind="site.data.Postcode"></span><br/>
+                <span>Phone: <span ng-bind="site.data.Phone || 'N/A'"></span></span><br/>
+                <span>Building name: <span ng-bind="site.data.BuildingName || 'N/A'"></span></span><br/>
+                <span>Size: <span ng-bind="site.data.Size"></span></span><br/>
+            </address>
+        </div>
+        <div class="col">
+            <div class="alert alert-info m-l" ng-hide="site.data.Groups && site.data.Groups.length > 0">
+                No associated group found.
+            </div>
+            <div class="panel no-border m-l" ng-hide="!site.data.Groups || site.data.Groups.length <= 0">
+                <div class="list-group bg-white no-border">
+                    <a class="list-group-item no-border"
+                       ng-repeat="group in site.data.Groups"
+                       popover-template="site.popover.group.url"
+                       popover-title="{{group.GroupName}}"
+                       popover-placement="bottom"
+                       popover-trigger="mouseenter"
+                       ng-click="site.expandGroup(group)">
+                        <i class="fa fa-building v-middle"></i>
+                        <span class="v-middle" ng-bind="group.GroupName"></span>
+                        <span class="label bg-primary v-middle" ng-bind="group.Type"></span>
+                        <span class="label bg-info v-middle" ng-bind="group.Code"></span>
+                        <span class="badge bg-primary v-middle" ng-bind="group.Sites.length"></span>
+                        <i ng-hide="!group.Phone" class="fa fa-phone v-middle" ng-bind="group.Phone || 'N/A'"></i>
+                        <span>
+                            <i ng-hide="!group.Firstname && !group.Lastname" class="fa fa-user">
+                                <span ng-bind="group.Firstname"></span> <span ng-bind="group.Lastname"></span>
+                            </i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--<div class="form-group col-md-3">
+            <label class="control-label font-bold">Property manager</label>
+            <div class="input-group">
+                <input type="text" class="form-control col-md-6" value="{{site.group.Firstname}} {{site.group.Lastname}}" disabled>
+                <div class="input-group-btn">
+                    <button class="btn btn-primary"
+                            type="button"
+                            popover-placement="bottom"
+                            popover-template="site.popoverUrl">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>-->
+    <div class="row m-t">
+        <div class="col-md-12">
+            <tabset class="tab-container">
+                <tab heading="Contact Person">
+                    <span class="pull-right">
+                        <a class="pull-left" tooltip="Add" ng-click="site.newContactPerson()">
+                            <i class="fa fa-plus text-muted fa m-r-sm"></i>
+                        </a>
+                    </span>
+                    <table class="table table-responsive" ng-table="site.contactPersonParams">
+                        <tr ng-repeat="person in $data" ng-class="{'active':person.selected}">
+                            <td data-title="'Name'"
+                                class="text-center v-middle"
+                                ng-click="person.selected = !person.selected">
+                                <a>
+                                    <span ng-bind="person.Firstname"></span>
+                                    <span ng-bind="person.Lastname"></span>
+                                </a>
+                            </td>
+                            <td data-title="'Cleaning'" 
+                                class="text-center v-middle" 
+                                ng-click="site.assignContactPerson(person, 'cleaning')">
+                                <a class="list-icon">
+                                    <div>
+                                        <i class="fa fa-check" ng-if="site.matchContact(person, 'cleaning')"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td data-title="'Security'"
+                                class="text-center v-middle" 
+                                ng-click="site.assignContactPerson(person, 'security')">
+                                <a class="list-icon">
+                                    <div>
+                                        <i class="fa fa-check" ng-if="site.matchContact(person, 'security')"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td data-title="'Maintenance'"
+                                class="text-center v-middle" 
+                                ng-click="site.assignContactPerson(person, 'maintenance')">
+                                <a class="list-icon">
+                                    <div>
+                                        <i class="fa fa-check" ng-if="site.matchContact(person, 'maintenance')"></i>
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>

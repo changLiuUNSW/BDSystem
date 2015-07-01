@@ -1,0 +1,24 @@
+﻿<div class="hbox hbox-auto-xs hbox-auto-sm"
+     page-init="{asideFolded:true,hideSetting:true}">
+    <div class="col w-lg bg-light dk b-r bg-auto bg-auto-left">
+        <div class="wrapper b-b bg">
+            <button class="btn btn-sm btn-default pull-right visible-sm visible-xs" ui-toggle-class="show" target="#filter-menu"><i class="fa fa-bars"></i></button>
+            <div class="text-center font-bold">ESTIMATION STEPS</div>
+        </div>
+        <div class="wrapper hidden-sm hidden-xs" id="filter-menu">
+            <div class="list-group">
+                <a class="list-group-item b-l-warning b-l-4x"
+                   data-ng-repeat="group in cost.groups"
+                   ui-sref="{{group.state}}"
+                   ui-sref-active="border-active">
+                    <span class="block font-bold">{{$index+1}}. {{group.title}}</span>
+                    <small class="text-muted">{{group.sub}}</small>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <!-- header -->
+        <div ui-view></div>
+    </div>
+</div>

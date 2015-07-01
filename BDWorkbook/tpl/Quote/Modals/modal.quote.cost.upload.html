@@ -1,0 +1,93 @@
+﻿<div class="modal-body">
+    <div class="bg-light b-r bg-auto">
+        <div class="wrapper-md dker b-b">
+            <h3 class="m-n font-thin">Please Upload</h3>
+        </div>
+        <div class="wrapper-md">
+            <form name="uploadform" class="form-validation" autocomplete="off">
+                <div class="form-group pull-in clearfix">
+                    <div class="col-sm-5">
+                        <label>Is address different with quote?</label>
+
+                        <select ng-model="vm.cost.IsSameAddress" class="form-control"
+                                ng-options="o.v as o.n for o in [{ n: 'No', v: true }, { n: 'Yes', v: false }]" required>
+                            <option value="">Please choose...</option>
+                        </select>
+                    </div>
+                </div>
+                <div data-ng-if="vm.cost.IsSameAddress===false">
+                    
+                    <div class="form-group">
+                        <label>Comany Name</label>
+                        <input type="text" class="form-control" ng-model="vm.cost.Company" required>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-3">
+                            <label>Unit</label>
+                            <input type="text" class="form-control" data-ng-model="vm.cost.Address.Unit" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label>Number</label>
+                            <input type="text" class="form-control" data-ng-model="vm.cost.Address.Number" required />
+                        </div>
+                        <div class="col-sm-7">
+                            <label>Street Name</label>
+                            <input type="text" class="form-control" data-ng-model="vm.cost.Address.Street" required />
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-4">
+                            <label>Suburb</label>
+                            <input type="text" class="form-control" data-ng-model="vm.cost.Address.Suburb" required />
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Post Code</label>
+                            <input type="text"
+                                   ng-model="vm.cost.Postcode"
+                                   typeahead="postCode.Postcode as postCode.Postcode+','+postCode.State for postCode in vm.getPostCodeAndState(null,$viewValue)"
+                                   typeahead-loading="loadingPostCode" class="form-control"
+                                   typeahead-on-select="vm.postCodeAndState($item)"
+                                   autocomplete="off">
+                            <i ng-show="loadingPostCode" class="fa fa-refresh text-muted"></i>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>State</label>
+                            <input type="hidden" data-ng-model="vm.cost.State" required />
+                            <p class="form-control-static">{{vm.cost.State||'N/A'}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group pull-in clearfix">
+                    <div class="col-sm-6">
+                        <label>Price/Annual</label>
+                        <input type="number" class="form-control" data-ng-model="vm.cost.PricePa" required />
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Return/Week</label>
+                        <input type="number" class="form-control" data-ng-model="vm.cost.ReturnPw" required />
+                    </div>
+                </div>
+
+                <label>Upload Workbook <em class="text-muted">(only allow File Types: xls, xlsx and xlsm . Maximum File Size: 2 MB)</em></label>
+                <div ngf-drag-over-class="b-info" class=" b-a m-b b-2x b-dashed wrapper-lg lter text-center" ngf-drop ngf-select ngf-max-size='2097152' ngf-change="vm.fileChanged($files, $event, $rejectedFiles)" ngf-accept="vm.validate($file)" ng-model="vm.files" data-ng-hide="vm.files">
+                    Drop file here or click to upload
+                </div>
+                <div ngf-no-file-drop class="m-b text-center">File Drag/Drop is not supported for this browser</div>
+            </form>
+            <div data-ng-repeat="file in vm.files">
+                <p class="font-bold">{{file.name}} {{ file.size/1024/1024|number:2 }} MB</p>
+            </div>
+            <button type="button" class="btn btn-addon btn-success btn-sm" data-ng-click="vm.uploadFile(vm.files)" data-ng-disabled="!vm.files||uploadform.$invalid">
+                <i class="fa fa-arrow-circle-o-up"></i>Upload
+            </button>
+            <button type="button" class="btn btn-addon btn-danger btn-sm" data-ng-disabled="!vm.files" data-ng-click="vm.files=undefined">
+                <i class="fa fa-trash-o"></i> Remove
+            </button>
+            <button type="button" class="btn btn-addon btn-warning btn-sm" data-ng-click="vm.cancel()">
+                <i class="fa fa-ban"></i> Cancel
+            </button>
+        </div>
+    </div>
+</div>

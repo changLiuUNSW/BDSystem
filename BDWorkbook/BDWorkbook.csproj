@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EE7240EC-1121-45CC-AA99-5DABDEB533FA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BDWorkbook</RootNamespace>
+    <AssemblyName>BDWorkbook</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\animate.css" />
+    <Content Include="css\app.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\daterangepicker-bs3.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\font.css" />
+    <Content Include="css\footable\fonts\footable.svg" />
+    <Content Include="css\footable\footable.core.css" />
+    <Content Include="css\footable\footable.core.min.css" />
+    <Content Include="css\footable\footable.metro.css" />
+    <Content Include="css\footable\footable.metro.min.css" />
+    <Content Include="css\footable\footable.standalone.css" />
+    <Content Include="css\footable\footable.standalone.min.css" />
+    <Content Include="css\loading-bar.css" />
+    <Content Include="css\loading.css" />
+    <Content Include="css\ng-table-resizable.css" />
+    <Content Include="css\ng-table.css" />
+    <Content Include="css\select.css" />
+    <Content Include="css\select.min.css" />
+    <Content Include="css\simple-line-icons.css" />
+    <Content Include="css\sweetalert.css" />
+    <Content Include="css\toastr.css" />
+    <Content Include="css\ui-bootstrap-csp.css" />
+    <Content Include="css\xeditable.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="fonts\Simple-Line-Icons.svg" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="img\clear.png" />
+    <Content Include="img\contacts-icon.jpg" />
+    <Content Include="img\loading.gif" />
+    <Content Include="Scripts\app\app.config.js" />
+    <Content Include="Scripts\app\app.router.js" />
+    <Content Include="Scripts\app\app.run.js" />
+    <Content Include="Scripts\app\controllers\Admin\Admin.js" />
+    <Content Include="Scripts\app\controllers\Admin\AdminSearchController.js" />
+    <Content Include="Scripts\app\controllers\Admin\ContactPerson\ContactPersonController.js" />
+    <Content Include="Scripts\app\controllers\Admin\ContactPerson\ContactPersonHistoryController.js" />
+    <Content Include="Scripts\app\controllers\Admin\ContactPerson\ContactPersonSummaryController.js" />
+    <Content Include="Scripts\app\controllers\Admin\Site\AdminSiteContactPersonController.js" />
+    <Content Include="Scripts\app\controllers\Admin\Site\AdminSiteController.js" />
+    <Content Include="Scripts\app\controllers\Admin\Site\AdminSiteDetailController.js" />
+    <Content Include="Scripts\app\controllers\Admin\Site\AdminSiteInfoController.js" />
+    <Content Include="Scripts\app\controllers\Admin\Site\AdminSiteSummaryController.js" />
+    <Content Include="Scripts\app\controllers\CallAdmin\Allocation\allocationController.js" />
+    <Content Include="Scripts\app\controllers\CallAdmin\Area\areaController.js" />
+    <Content Include="Scripts\app\controllers\CallAdmin\callAdminController.js" />
+    <Content Include="Scripts\app\controllers\CallAdmin\LeadPriority\shiftEstimationController.js" />
+    <Content Include="Scripts\app\controllers\CallAdmin\LeadPriority\leadpriorityController.js" />
+    <Content Include="Scripts\app\controllers\CallAdmin\Report\reportController.js" />
+    <Content Include="Scripts\app\controllers\CallAdmin\Report\reportStatisticController.js" />
+    <Content Include="Scripts\app\controllers\Lead\Lead.js" />
+    <Content Include="Scripts\app\controllers\Lead\LeadDetailController.js" />
+    <Content Include="Scripts\app\controllers\Lead\LeadListController.js" />
+    <Content Include="Scripts\app\controllers\Lead\LeadListGroupController.js" />
+    <Content Include="Scripts\app\controllers\Lead\Modals\ModalLeadBDContactController.js" />
+    <Content Include="Scripts\app\controllers\Lead\Modals\ModalLeadChangeQpController.js" />
+    <Content Include="Scripts\app\controllers\Lead\Modals\ModalLeadSiteVisitController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostResultController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostExtraController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostQuadLabourController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostAdditionController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostInfoController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostAreaController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostLocationController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost_v2\costController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost_v2\costEquipmentController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost_v2\costPeriodicalController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost_v2\costSummaryController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost_v2\costSupplyController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Modals\ModalQuoteAdjustController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Modals\ModalQuoteDeadController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Modals\ModalQuoteContactController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Modals\ModalquotecostUploadController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Modals\ModalQuotePriceCheckController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Modals\ModalQuotePrintController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Modals\ModalQuotePreReviewController.js" />
+    <Content Include="Scripts\app\controllers\Quote\Modals\ModalQuoteReviewController.js" />
+    <Content Include="Scripts\app\controllers\Quote\quote.js" />
+    <Content Include="Scripts\app\controllers\Quote\Cost\quoteCostDetailController.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteCurrentDetailController.test.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteCurrentDetailController.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteCurrentListController.test.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteCurrentListController.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteProgressController.test.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteProgressDetailController.test.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteProgressDetailController.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteProgressGroupController.test.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteProgressGroupController.js" />
+    <Content Include="Scripts\app\controllers\Quote\quoteProgressController.js" />
+    <Content Include="Scripts\app\controllers\Shared\confirmationController.js" />
+    <Content Include="Scripts\app\controllers\Shared\DatepickerController.js" />
+    <Content Include="Scripts\app\controllers\Shared\ModalContactController.js" />
+    <Content Include="Scripts\app\controllers\Shared\ModalContactPersonController.js" />
+    <Content Include="Scripts\app\controllers\Shared\ModalSiteGroupController.js" />
+    <Content Include="Scripts\app\controllers\Shared\ModalSiteGroupDetailController.js" />
+    <Content Include="Scripts\app\controllers\Shared\Shared.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\callsheetContactController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\callsheetController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\callsheetDetailController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\callsheetHeaderController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\modalActionController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\modalCallLineController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\modalConfirmController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\callsheetScriptController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\callsheetSiteController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\modalEndCallController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\CallSheet\modalGroupController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\Queue\queueAsideController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\Queue\queueInfoController.js" />
+    <Content Include="Scripts\app\directives\app-date.js" />
+    <Content Include="Scripts\app\directives\auth-intercepter.js" />
+    <Content Include="Scripts\app\directives\googleChart.js" />
+    <Content Include="Scripts\app\directives\historyBack.js" />
+    <Content Include="Scripts\app\directives\confirmDialog.js" />
+    <Content Include="Scripts\app\directives\directives.js" />
+    <Content Include="Scripts\app\directives\footable.js" />
+    <Content Include="Scripts\app\directives\google-map.js" />
+    <Content Include="Scripts\app\directives\label-color.js" />
+    <Content Include="Scripts\app\directives\loading.js" />
+    <Content Include="Scripts\app\directives\ng-droppable.js" />
+    <Content Include="Scripts\app\directives\pageable.js" />
+    <Content Include="Scripts\app\directives\pageInit.js" />
+    <Content Include="Scripts\app\directives\quoteQA.js" />
+    <Content Include="Scripts\app\directives\quoteQuestion.js" />
+    <Content Include="Scripts\app\directives\set-ng-animate.js" />
+    <Content Include="Scripts\app\directives\spinner-loading.js" />
+    <Content Include="Scripts\app\directives\ui-butterbar.js" />
+    <Content Include="Scripts\app\directives\ui-fullscreen.js" />
+    <Content Include="Scripts\app\directives\ui-module.js" />
+    <Content Include="Scripts\app\directives\ui-nav.js" />
+    <Content Include="Scripts\app\directives\ui-scroll.js" />
+    <Content Include="Scripts\app\directives\ui-shift.js" />
+    <Content Include="Scripts\app\directives\ui-toggle-class.js" />
+    <Content Include="Scripts\app\filters\filters.js" />
+    <Content Include="Scripts\app\filters\arrayFilters.js" />
+    <Content Include="Scripts\app\filters\fromNow.js" />
+    <Content Include="Scripts\app\filters\timestamp.js" />
+    <Content Include="Scripts\app\filters\offset.js" />
+    <Content Include="Scripts\app\filters\startFrom.js" />
+    <Content Include="Scripts\app\filters\yesOrNo.js" />
+    <Content Include="Scripts\app\services\data\leadService.js" />
+    <Content Include="Scripts\app\services\data\quoteCostService.js" />
+    <Content Include="Scripts\app\services\data\telesaleService.js" />
+    <Content Include="Scripts\app\services\shared\cleaningHelper.js" />
+    <Content Include="Scripts\app\services\shared\contactPersonHelper.js" />
+    <Content Include="Scripts\app\services\data\callService.js" />
+    <Content Include="Scripts\app\services\data\contactPersonService.js" />
+    <Content Include="Scripts\app\services\data\quoteService.js" />
+    <Content Include="Scripts\app\services\data\saleBoxService.js" />
+    <Content Include="Scripts\app\services\data\searchService.js" />
+    <Content Include="Scripts\app\services\data\siteGroupService.js" />
+    <Content Include="Scripts\app\services\data\siteService.js" />
+    <Content Include="Scripts\app\services\data\summaryService.js" />
+    <Content Include="Scripts\app\services\interceptor\authInterceptorService.js" />
+    <Content Include="Scripts\app\services\shared\formatter.js" />
+    <Content Include="Scripts\app\services\shared\googleApiLoader.js" />
+    <Content Include="Scripts\app\services\shared\logger.js" />
+    <Content Include="Scripts\app\services\map\mapService.js" />
+    <Content Include="Scripts\app\services\shared\mobileService.js" />
+    <Content Include="Scripts\app\services\shared\quoteWorkFlowHelper.js" />
+    <Content Include="Scripts\app\services\shared\typeLibrary.js" />
+    <Content Include="Scripts\app\services\shared\utility.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <!--<Content Include="Content\SMQ\FooTable\fonts\footable.eot" />
+    <Content Include="Content\SMQ\FooTable\fonts\footable.ttf" />
+    <Content Include="Content\SMQ\FooTable\fonts\footable.woff" />-->
+    <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\config.js" />
+    <Content Include="Scripts\app\controllers\CallAdmin\callAdmin.js" />
+    <Content Include="Scripts\app\controllers\DashBoard\DashBoard.js" />
+    <Content Include="Scripts\app\controllers\DashBoard\DashBoardController.js" />
+    <Content Include="Scripts\app\controllers\Home\AppControllers.js" />
+    <Content Include="Scripts\app\controllers\Home\Home.js" />
+    <Content Include="Scripts\app\controllers\Home\SigninFormController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\Queue\queueController.js" />
+    <Content Include="Scripts\app\controllers\Telesale\Telesale.js" />
+    <Content Include="Scripts\app\directives\contextMenu.js" />
+    <Content Include="Scripts\app\directives\si-wizard.js" />
+    <Content Include="Scripts\app\filters\filterPriority.js" />
+    <Content Include="Scripts\app\services\data\apiService.js" />
+    <Content Include="Scripts\app\services\services.js" />
+    <Content Include="Scripts\app\services\data\userService.js" />
+    <Content Include="Scripts\app\test\plugins\waitsForAndRuns.test.js" />
+    <Content Include="Scripts\vendor-others\angularjs-dropdown-multiselect.js" />
+    <Content Include="Scripts\vendor-others\ng-bs-daterangepicker.js" />
+    <Content Include="Scripts\vendor-others\ng-table-resizable-columns.src.js" />
+    <Content Include="Scripts\vendor-others\SweetAlert.js" />
+    <Content Include="Scripts\vendor-others\ui-load.js" />
+    <Content Include="tpl\Access\page_404.html" />
+    <Content Include="tpl\Admin\ContactPerson\personDetail.html" />
+    <Content Include="tpl\Admin\ContactPerson\personSummary.html" />
+    <Content Include="tpl\Admin\search.html" />
+    <Content Include="tpl\Admin\search.table.html" />
+    <Content Include="tpl\Admin\Site\cleaning\call.cleaning.html" />
+    <Content Include="tpl\Admin\Site\maintenance\call.maintenance.html" />
+    <Content Include="tpl\Admin\Site\security\call.security.html" />
+    <Content Include="tpl\Admin\Site\cleaning\contract.cleaning.html" />
+    <Content Include="tpl\Admin\Site\maintenance\contract.maintenance.html" />
+    <Content Include="tpl\Admin\Site\security\contract.security.html" />
+    <Content Include="tpl\Admin\Site\site.contactPerson.html" />
+    <Content Include="tpl\Admin\Site\site.detail.html" />
+    <Content Include="tpl\Admin\Site\site.html" />
+    <Content Include="tpl\Admin\Site\site.siteInfo.html" />
+    <Content Include="tpl\Admin\Site\siteSummary.html" />
+    <Content Include="tpl\CallAdmin\Allocation\allocation.aside.html" />
+    <Content Include="tpl\CallAdmin\Allocation\allocation.html" />
+    <Content Include="tpl\CallAdmin\Allocation\allocation.table.html" />
+    <Content Include="tpl\CallAdmin\Allocation\dash\allocation.html" />
+    <Content Include="tpl\CallAdmin\Area\area.html" />
+    <Content Include="tpl\CallAdmin\Area\area.postcode.html" />
+    <Content Include="tpl\CallAdmin\dash.content.html" />
+    <Content Include="tpl\CallAdmin\LeadPriority\leadpriority.aside.html" />
+    <Content Include="tpl\CallAdmin\LeadPriority\leadpriority.content.html" />
+    <Content Include="tpl\CallAdmin\LeadPriority\leadpriority.html" />
+    <Content Include="tpl\CallAdmin\LeadPriority\leadPriority.shift.html" />
+    <Content Include="tpl\CallAdmin\LeadPriority\leadpriority.stats.html" />
+    <Content Include="tpl\CallAdmin\LeadPriority\shiftEstimation_modal.html" />
+    <Content Include="tpl\CallAdmin\LeadPriority\dash\leadpriority.html" />
+    <Content Include="tpl\CallAdmin\Report\dash\report.html" />
+    <Content Include="tpl\CallAdmin\Report\report.statistic.html" />
+    <Content Include="tpl\CallAdmin\Report\report.statistic.table.html" />
+    <Content Include="tpl\CallAdmin\Report\report.html" />
+    <Content Include="tpl\CallAdmin\dash.html" />
+    <Content Include="tpl\DashBoard\index.html" />
+    <Content Include="tpl\Lead\lead.detail.overview.html" />
+    <Content Include="tpl\Lead\lead.detail.html" />
+    <Content Include="tpl\Lead\lead.list.group.html" />
+    <Content Include="tpl\Lead\lead.list.html" />
+    <Content Include="tpl\Lead\Modals\modal.lead.BDcontact.html" />
+    <Content Include="tpl\Lead\Modals\modal.lead.changeQp.html" />
+    <Content Include="tpl\Quote\Cost\cost.html" />
+    <Content Include="tpl\Quote\Cost\cost.detail.html" />
+    <Content Include="tpl\Quote\Cost\cost.location.html" />
+    <Content Include="tpl\Quote\Cost\cost.area.html" />
+    <Content Include="tpl\Quote\Cost\cost.info.html" />
+    <Content Include="tpl\Quote\Cost\cost.addition.html" />
+    <Content Include="tpl\Quote\Cost\cost.quadlabour.html" />
+    <Content Include="tpl\Quote\Cost\cost.extra.html" />
+    <Content Include="tpl\Quote\Cost\cost.result.html" />
+    <Content Include="tpl\Quote\Current\quote.current.detail.dead.html" />
+    <Content Include="tpl\Quote\Current\quote.current.detail.adjust.html" />
+    <Content Include="tpl\Quote\Current\quote.current.detail.contact.html" />
+    <Content Include="tpl\Quote\Current\quote.current.detail.html" />
+    <Content Include="tpl\Quote\Current\quote.current.list.html" />
+    <Content Include="tpl\Quote\Modals\modal.quote.adjust.html" />
+    <Content Include="tpl\Quote\Modals\modal.quote.dead.html" />
+    <Content Include="tpl\Quote\Modals\modal.quote.contact.html" />
+    <Content Include="tpl\Quote\Modals\modal.quote.cost.upload.html" />
+    <Content Include="tpl\Quote\Modals\modal.quote.prereview.html" />
+    <Content Include="tpl\Quote\Modals\modal.quote.priceCheck.html" />
+    <Content Include="tpl\Quote\Modals\modal.quote.print.html" />
+    <Content Include="tpl\Quote\Modals\modal.quote.review.html" />
+    <Content Include="tpl\Quote\Progress\quote.detail.cost.html" />
+    <Content Include="tpl\Quote\Progress\quote.detail.issues.html" />
+    <Content Include="tpl\Quote\Progress\quote.detail.history.html" />
+    <Content Include="tpl\Quote\Progress\quote.detail.overview.html" />
+    <Content Include="tpl\Quote\Progress\quote.detail.estimation.html" />
+    <Content Include="tpl\Quote\Progress\quote.detail.html" />
+    <Content Include="tpl\Quote\Progress\quote.progress.group.html" />
+    <Content Include="tpl\Quote\Progress\quote.progress.html" />
+    <Content Include="tpl\Shared\modal.contact.html" />
+    <Content Include="tpl\Shared\modal.contactPerson.html" />
+    <Content Include="tpl\Shared\modal.siteGroup.detail.html" />
+    <Content Include="tpl\Shared\modal.siteGroup.html" />
+    <Content Include="tpl\Shared\person.detail.form.html" />
+    <Content Include="tpl\Shared\quoteAnswers.html" />
+    <Content Include="tpl\Shared\quoteQuestion.html" />
+    <Content Include="tpl\Telesale\Callsheet\callsheet.detail.contact.html" />
+    <Content Include="tpl\Telesale\Callsheet\callsheet.detail.html" />
+    <Content Include="tpl\Telesale\Callsheet\callsheet.html" />
+    <Content Include="tpl\Telesale\Callsheet\callsheet.header.html" />
+    <Content Include="tpl\Telesale\Callsheet\callsheet.script.html" />
+    <Content Include="tpl\Telesale\Callsheet\callsheet.detail.site.html" />
+    <Content Include="tpl\Telesale\Callsheet\modal.action.html" />
+    <Content Include="tpl\Telesale\Callsheet\modal.endCall.html" />
+    <Content Include="tpl\Telesale\Callsheet\modal.group.html" />
+    <Content Include="tpl\Telesale\Callsheet\popover.group.html" />
+    <Content Include="tpl\Telesale\Callsheet\popover.search.html" />
+    <Content Include="tpl\Telesale\Queue\queue.aside.html" />
+    <Content Include="tpl\Telesale\Queue\queue.html" />
+    <Content Include="tpl\Telesale\Callsheet\callsheet.cleaning.html" />
+    <Content Include="tpl\Telesale\Callsheet\modal.callLine.html" />
+    <Content Include="tpl\Shared\confirmationModal.html" />
+    <Content Include="tpl\Telesale\Callsheet\modal.confirm.html" />
+    <Content Include="tpl\blocks\aside.html" />
+    <Content Include="tpl\blocks\header.html" />
+    <Content Include="tpl\blocks\nav.html" />
+    <Content Include="tpl\blocks\settings.html" />
+    <Content Include="tpl\Telesale\Queue\queue.info.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_LoginHolder.cshtml" />
+    <Content Include="tpl\Telesale\Callsheet\callsheet.security.html" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\Simple-Line-Icons.eot" />
+    <Content Include="fonts\Simple-Line-Icons.ttf" />
+    <Content Include="fonts\Simple-Line-Icons.woff" />
+    <Content Include="fonts\sourcesanspro\sourcesanspro-bold.woff" />
+    <Content Include="fonts\sourcesanspro\sourcesanspro-light.woff" />
+    <Content Include="fonts\sourcesanspro\sourcesanspro.woff" />
+    <Content Include="tpl\Lead\lead.detail.history.html" />
+    <Content Include="tpl\Lead\Modals\modal.lead.sitevisit.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="bower.json" />
+    <Content Include=".bowerrc" />
+    <Content Include="package.json" />
+    <Content Include=".jshintrc" />
+    <Content Include="css\footable\fonts\footable.eot" />
+    <Content Include="css\footable\fonts\footable.ttf" />
+    <Content Include="css\footable\fonts\footable.woff" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\app\test\mock\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50251</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49545/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

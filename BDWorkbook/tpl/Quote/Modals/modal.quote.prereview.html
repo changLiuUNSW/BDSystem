@@ -1,0 +1,35 @@
+﻿<div class="modal-body wrapper-lg">
+    <form name="form" class="form-validation">
+        <div>
+            <h3 class="m-t-none m-b font-thin">Pre-Review</h3>
+            <p>Is everything all right?</p>
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='yes'}"
+               data-ng-click="vm.action='yes'">
+                <i class="glyphicon glyphicon-ok pull-left"></i>Yes
+            </a>
+
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='no'}"
+               data-ng-click="vm.action='no'">
+                <i class="glyphicon glyphicon-remove pull-left"></i>No
+            </a>
+        </div>
+        <div class="m-t">
+            <div class="form-group" data-ng-if="vm.action==='no'">
+                <label>Please upload<em class="text-muted">(only allow File Types: doc, docx and pdf. Maximum File Size: 20 MB)</em></label>
+                <div ngf-drag-over-class="b-info" class=" b-a m-b b-2x b-dashed wrapper-lg lter text-center" ngf-drop ngf-select ngf-max-size='20971520' ngf-change="vm.fileChanged($files, $event, $rejectedFiles)" ngf-accept="vm.validate($file)" ng-model="vm.files" data-ng-hide="vm.files">
+                    Drop file here or click to upload
+                </div>
+                <div ngf-no-file-drop class="m-b text-center">File Drag/Drop is not supported for this browser</div>
+                <div data-ng-repeat="file in vm.files">
+                    <p class="font-bold">{{file.name}} {{ file.size/1024/1024|number:2 }} MB</p>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="text-right m-t-lg">
+        <button class="btn btn-sm btn-success" data-ng-disabled="form.$invalid||vm.action===undefined||(vm.action==='no'&&!vm.files)" ng-click="vm.ok(vm.action)">OK</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+﻿<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <div class="col wrapper-md">
+        <div class="clearfix m-b">
+            <div class="pull-left">
+                <a class="btn btn-sm btn-default" data-ng-class="{'active': bizTypeColumn.term ==='cleaning'}"
+                   data-ng-click="selectType('cleaning')">Cleaning</a>
+                <a class="btn btn-sm btn-default" data-ng-class="{'active': bizTypeColumn.term ==='security'}"
+                   data-ng-click="selectType('security')">Security</a>
+                <a class="btn btn-sm btn-default" data-ng-class="{'active': bizTypeColumn.term ==='maintenance'}"
+                   data-ng-click="selectType('maintenance')">Maintenance</a>
+                <a data-ng-if="table==='person'"
+                   class="btn btn-sm btn-default" data-ng-class="{'active': bizTypeColumn.term ==='other'}"
+                   data-ng-click="selectType('other')">Other</a>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading {{panelHeader.colorClass}} no-border">
+                <span ng-dropdown-multiselect="" options="dropdownHeaders" selected-model="showHeaders"
+                      extra-settings="dropdownSettings"
+                      events="onItemSelect(showHeaders)">
+                </span>
+                <span class="text-lt">
+                    {{panelHeader.name}}
+                </span>
+            </div>
+            <div class="table-responsive">
+                <table class="table ng-table-resizable-columns table-condensed table-striped" ng-table="tableParams" show-filter="true">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="column in columns" ng-show="column.visible"
+                                class="text-center " ng-class="{
+                    'sortable':column.sortable!==false,
+                    'sort-asc': tableParams.isSortBy(column.field, 'asc'),
+                    'sort-desc': tableParams.isSortBy(column.field, 'desc')
+                  }"
+                                ng-click="column.sortable===false||tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
+                                <div>{{column.field}}</div>
+                            </th>
+                        </tr>
+                        <script type="text/ng-template" id="ng-table/filters/dateTime.html">
+                            <input type="daterange" ng-model="temp"
+                                   ng-change="setDateValue(temp,name)"
+                                   separator="-" format="DD/MM/YYYY" onkeydown="return false" class="form-control">
+                        </script>
+                        <script type="text/ng-template" id="ng-table/filters/boolean.html">
+                            <select class="form-control"
+                                    data-ng-model="params.filter()[name]">
+                                <option value=""></option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </script>
+                        <script type="text/ng-template" id="ng-table/filters/list.html">
+                            <input type="text" class="form-control" data-ng-model="params.filter()[name]"/>
+                        </script>
+                        <tr class="ng-table-filters" ng-init="tableParams">
+                            <th ng-repeat="column in columns" ng-show="column.visible" class="filter">
+                                <div ng-repeat="(name, filter) in column.filter">
+                                    <div ng-if="column.filterTemplateURL" ng-show="column.filterTemplateURL">
+                                        <div ng-include="column.filterTemplateURL"></div>
+                                    </div>
+                                    <div ng-if="!column.filterTemplateURL" ng-show="!column.filterTemplateURL">
+                                        <div ng-include="'ng-table/filters/' + filter + '.html'"></div>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in dataList">
+                            <td ng-repeat="column in columns" sortable="column.field" ng-show="column.visible">
+                                <a href="{{url(data)}}" target="_blank" data-ng-if="column.navigate" style="color:#428bca">
+                                    <span ng-switch="column.type">
+                                        <span ng-switch-when="dateTime" data-ng-bind="data[column.field]| date:'dd/MM/yyyy'"></span>
+                                        <span ng-switch-when="boolean" data-ng-bind="data[column.field]|yesOrNo"></span>
+                                        <span ng-switch-default>{{data[column.field]}}</span>
+                                    </span>
+                                </a>
+                                <span ng-switch="column.type" data-ng-if="!column.navigate">
+                                    <span ng-switch-when="dateTime" data-ng-bind="data[column.field]| date:'dd/MM/yyyy'"></span>
+                                    <span ng-switch-when="boolean" data-ng-bind="data[column.field]|yesOrNo"></span>
+                                    <span ng-switch-when="list" data-ng-bind="data[column.field]"></span>
+                                    <span ng-switch-default>{{data[column.field]}}</span>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-if="dataList.length<=0" class="row wrapper-sm" ng-show="!loading">
+                    <div class="col-sm-12 text-left">
+                        <p class="text-muted">Cannot find any data</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <pageable page-size-changed="setDataListPageSize" current-page-changed="dataListPageChanges" total-items="paging.totalItems" page-size="paging.pageSize"></pageable>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<style>
+    
+    /* This is a hack to handle responsive issue */
+ /*   .table-responsive {
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 100%;
+    }
+
+        .table-responsive > .table {
+            margin-bottom: 0;
+        }
+*/
+    .ng-table-pager {
+        display: none;
+    }
+</style>

@@ -1,0 +1,25 @@
+﻿<div class="hbox hbox-auto-xs hbox-auto-sm"
+     page-init="{hideSetting:true}">
+    <div class="col w-md bg-light dk b-r bg-auto bg-auto-left">
+        <div class="wrapper b-b bg">
+            <button class="btn btn-sm btn-default pull-right visible-sm visible-xs" ui-toggle-class="show" target="#filter-menu"><i class="fa fa-bars"></i></button>
+            <div class="text-center font-bold">Lead Summary</div>
+        </div>
+        <div class="wrapper hidden-sm hidden-xs" id="filter-menu">
+            <ul class="nav nav-pills nav-stacked nav-sm">
+                <li ui-sref-active="active">
+                    <a ui-sref="lead.list.group({status:null})">
+                        All
+                    </a>
+                </li>
+                <li ng-repeat="status in vm.statusList" ui-sref-active="active" data-ng-if="!status.Hidden">
+                    <a ui-sref="lead.list.group({status:status.Name.toLowerCase()})">
+                        {{status.Name|ucfirst}}
+                        <b class="badge bg-info lt pull-right" data-ng-show="status.Count">{{status.Count}}</b>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col" ui-view></div>
+</div>

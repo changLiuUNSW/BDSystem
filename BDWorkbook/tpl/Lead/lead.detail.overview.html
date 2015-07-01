@@ -1,0 +1,79 @@
+﻿<div class="col-md-3 b-r">
+    <p class="text-uppercase font-bold m-b-sm">Lead Details</p>
+    <ul class="list-unstyled text-muted m-b-md">
+        <li><strong>ID:</strong> {{vm.lead.Id}}</li>
+        <li><strong>Type:</strong> {{vm.lead.BusinessType.Type}}</li>
+        <li><strong>TeleSale:</strong> {{vm.lead.Telesale.Name}} {{vm.lead.Telesale.Initial}}</li>
+        <li><strong>Created:</strong> {{vm.lead.CreatedDate|date:'dd/MM/yyyy HH:mm'}}</li>
+
+    </ul>
+</div>
+<div class="col-md-3 b-r">
+    <p class="text-uppercase font-bold m-b-sm">Address</p>
+      
+    <ul class="list-unstyled text-muted m-b-md">
+        <li><strong>Company: </strong>{{vm.lead.Contact.Site.Name}}</li>
+        <li>
+            <strong>Location:</strong>
+            <span>{{vm.lead.Address.Unit}}</span>
+            <span>{{vm.lead.Addresse.Number}}</span>
+            <span>{{vm.lead.Address.Street}}</span>
+            <span>{{vm.lead.Address.Suburb}}</span>
+            <span>{{vm.lead.Address.State}}</span>
+            <span>{{vm.lead.Address.Postcode}}</span>
+        </li>
+        <li>
+            <strong>Region: </strong>
+            {{vm.lead.SalesBox.Region}}
+        </li>
+        <li>
+            <strong>Zone: </strong>
+            {{vm.lead.SalesBox.Zone}}
+        </li>
+    </ul>
+       
+      
+</div>
+
+<div class="col-md-3 b-r">
+    <p class="text-uppercase font-bold m-b-sm">Contact Person</p>
+    <ul class="list-unstyled text-muted m-b-md">
+        <li>
+            <strong>Name:</strong>
+            <span>{{vm.lead.Contact.ContactPerson.Title}}</span>
+            <span>{{vm.lead.Contact.ContactPerson.Firstname}}</span>
+            <span>{{vm.lead.Contact.ContactPerson.Lastname}}</span>
+        </li>
+        <li>
+            <strong>Position:</strong>
+            {{vm.lead.Contact.ContactPerson.Position}}
+        </li>
+        <li>
+            <strong>Mobile:</strong>
+            <a data-ng-href="tel:{{vm.lead.Contact.ContactPerson.Mobile}}" class="text-info">
+                {{vm.lead.Contact.ContactPerson.Mobile}}
+            </a>
+        </li>
+        <li>
+            <strong>DirectLine:</strong>
+            <a data-ng-href="tel:{{vm.lead.Contact.ContactPerson.DirectLine}}" class="text-info">
+                {{vm.lead.Contact.ContactPerson.DirectLine}}
+            </a>
+        </li>
+        <li>
+            <strong>Email:</strong>
+            <a data-ng-href="mailto:{{vm.lead.Contact.ContactPerson.Email}}" class="text-info">
+                {{vm.lead.Contact.ContactPerson.Email}}
+            </a>
+        </li>
+    </ul>
+
+
+</div>
+<div class="col-md-3">
+    <p class="text-uppercase font-bold m-b-sm">QP</p>
+    <ul class="list-unstyled text-muted m-b-md">
+        <li><strong>Initial:</strong> {{vm.lead.LeadPersonal.Initial}}</li>
+        <li><strong>Name:</strong> {{vm.lead.LeadPersonal.Name}}</li>
+    </ul>
+</div>

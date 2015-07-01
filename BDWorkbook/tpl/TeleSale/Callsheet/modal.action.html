@@ -1,0 +1,27 @@
+﻿<div class="modal-body wrapper-md">
+    <form class="form-validation">
+        <div class="form-group">
+            <label class="control-label" ng-repeat-start="input in action.inputs" ng-bind="action.formatName(input.name)"></label>
+            <textarea ng-if="!action.isDate" class="form-control" ng-model="input.action[input.name]" style="resize:none" rows:10 ></textarea>
+            <div ng-if="action.isDate" ng-repeat-end class="input-group">
+                <input type="text" 
+                        class="form-control"
+                        placeholder="YYYY-MM-DD"
+                        ng-model="input.action[input.name]"
+                        min-date="action.dtOptions.minDate"
+                        datepicker-popup
+                        is-open="action.dtOptions.dtOpened">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="action.dtOptions.dtOpen($event)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </form>
+    <div class="text-right m-t-lg">
+        <button type="submit" class="btn btn-default" ng-click="action.cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary m-r-sm" ng-click="action.confirm()">Ok</button>
+    </div>
+</div>
+

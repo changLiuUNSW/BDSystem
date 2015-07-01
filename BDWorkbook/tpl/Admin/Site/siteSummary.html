@@ -1,0 +1,84 @@
+﻿<div class="hbox hbox-auto-xs hbox-auto-sm"
+     page-init>
+    <!-- main -->
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">Site</h1>
+                    <small class="text-muted">Welcome to Site Dashboard</small>
+                </div>
+            </div>
+        </div>
+        <script type="text/ng-template" id="ModalGroupDetail.html">
+            <div ng-include="'tpl/Shared/modal.siteGroup.html'"></div>
+        </script>
+        <!-- / main header -->
+        <div class="wrapper-md">
+            <!-- Count Summary -->
+            <div class="loading" ng-if="vm.loading">
+                <div class="double-bounce1"></div><div class="double-bounce2"></div>
+            </div>
+            <div ng-if="!vm.loading">
+                <div class="row row-sm text-center">
+                    <div class="col-sm-3 col-xs-6" data-ng-repeat="item in vm.dashboardList">
+                        <div class="r bg-{{item.color}} item hbox no-border m-b ">
+                            <a ui-sref="Admin.search({group:'site',bizType:item.Type})" class="col padder-v dk r-r" data-ng-if="item.linkable">
+                                <span class="text-white">
+                                    {{item.Type|ucfirst}}
+                                </span>
+                                <div class="text-white font-bold h3"><span>{{item.TotalCount}}</span></div>
+
+                            </a>
+                            <div class="col padder-v dk r-r" data-ng-if="!item.linkable">
+                                <span class="text-white">
+                                    {{item.Type|ucfirst}}
+                                </span>
+                                <div class="text-white font-bold h3"><span>{{item.TotalCount}}</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--/ Count Summary -->
+
+                <div class="panel">
+                    <div class="panel-heading wrapper">
+                        <span class="pull-right">
+                            <a href data-ng-click="vm.addGroup()" tooltip="Add"><i class="fa fa-plus fa-fw m-r-xs"></i></a>
+                        </span>
+                        <h4 class="font-thin m-t-none m-b-none text-muted">
+                            Group List
+                        </h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table ng-table="vm.tableParams" show-filter="true" class="table table-striped b-t b-light ng-table-resizable-columns table-condensed">
+                            <tr ng-repeat="group in $data">
+                                <td data-title="'Name'" sortable="'Name'" filter="{ 'Name': 'text' }">
+                                    <a href data-ng-click="vm.groupDetail(group)" style="color:#428bca"> {{group.Name}}</a>
+                                </td>
+                                <td data-title="'Type'" sortable="'Type'" filter="{ 'Type': 'text' }">
+                                    {{group.Type}}
+                                </td>
+                                <td class="text-uppercase" data-title="'Code'" sortable="'Code'" filter="{ 'Code': 'text' }">
+                                    {{group.Code}}
+                                </td>
+                                <td data-title="'Description'" sortable="'Description'" filter="{ 'Description': 'text' }">
+                                    {{group.Description}}
+                                </td>
+
+                                <td data-title="'Number of Sites'" sortable="'Count'" filter="{ 'Count': 'text' }">
+                                    {{group.Count}}
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / main -->
+</div>

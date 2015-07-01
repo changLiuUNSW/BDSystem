@@ -1,0 +1,2 @@
+﻿physical implementation of DAL for retriving raw data from databases. This project should not be exposed to service / view layers.
+Using a interface abstraction layer instead of exposing concrete repository entity

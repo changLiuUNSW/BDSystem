@@ -1,0 +1,69 @@
+﻿<div class="wrapper-md">
+    <accordion close-others="true">
+        <accordion-group data-ng-repeat="call in model.cleaningDetail.calls" is-open="call.status.open" ng-init="call.status.open=$first">
+            <accordion-heading>
+                <span class="m-xs" tooltip-placement="bottom" tooltip="contact person"><i class="fa fa-user text-muted"></i> {{(call.ContactPerson.Firstname||'')+' '+ (call.ContactPerson.Lastname||'')}}</span>
+                <span class="m-xs" tooltip-placement="bottom" tooltip="Code"><i class=" fa fa-database text-muted"></i>{{call.Code}}</span>
+                <span class="m-xs" tooltip-placement="bottom" tooltip="Last contact date"><i class="fa fa-clock-o text-muted"></i>{{call.LastCall|date:'dd/MM/yyyy'}}</span>
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': call.status.open, 'glyphicon-chevron-right': !call.status.open}"></i>
+            </accordion-heading>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="h4">Call Detail</span>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Code</label>
+                            <input type="text" class="form-control" placeholder="" ng-model="call.Code" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Call cycle</label>
+                            <select class="form-control"
+                                    ng-model="call.CallFrequency"
+                                    ng-options="s.value as s.text for s in cleaningHelper.select.callCycle" required></select>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Last call</label>
+                            <div class="input-group" ng-controller="DatepickerCtrl">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="call.LastCall" is-open="opened" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Next call</label>
+                            <div class="input-group" ng-controller="DatepickerCtrl">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="call.NextCall" is-open="opened" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>DA to Check</label>
+                            <select class="form-control"
+                                    ng-model="call.DaToCheck"
+                                    ng-options="s.value as s.text for s in cleaningHelper.select.trueOrFalseSelect" required></select>
+                        </div>
+                      
+                    </div>
+                    <div class="form-group" data-ng-if="call.DaToCheck">
+                        <label>DA Check Infomartion</label>
+                        <textarea class="form-control" rows="4" placeholder="DA Check Infomartion" data-ng-model="call.DaToCheckInfo" required></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Note Pad</label>
+                <textarea class="form-control" rows="15" placeholder="Type your Notes" data-ng-model="call.Note"></textarea>
+            </div>
+        </accordion-group>
+    </accordion>
+</div>

@@ -1,0 +1,32 @@
+﻿<div class="modal-header bg-info">
+    <span class="pull-right">
+        <a href ng-click="cancel()"><i class="fa fa-times fa-fw"></i></a>
+    </span>
+    <div class="clear">
+        Person
+    </div>
+</div>
+
+
+<form class="modal-body form-validation" name="profileForm" autocomplete="off" novalidate>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <a href="" class="pull-left thumb-md avatar b-3x m-r">
+                    <img src="/Content/img/contacts-icon.jpg" alt="...">
+                </a>
+                <div class="clear">
+                    <div class="h3 m-t-xs m-b-xs">
+                        <span>{{contactPerson.Title}}</span>
+                        <span>{{contactPerson.Firstname}}</span>
+                        <span>{{contactPerson.Lastname}}</span>
+                        <a class="btn btn-sm btn-danger pull-right" data-ng-disabled="profileForm.$invalid || contactPersonHelper.nameCheck(contactPerson.Firstname,contactPerson.Lastname)" ng-click="save()">Save</a>
+
+                    </div>
+                    <small class="text-muted">{{contactPerson.Position}}</small>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body" data-ng-include="'tpl/Shared/person.detail.form.html'"></div>
+    </div>
+</form>

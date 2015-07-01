@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<ApplicationSettings>
+  <BugEmail>chang@quadservices.com.au</BugEmail>
+  <SMTPServer>localhost</SMTPServer>
+<!--  <SMTPServer>mail01.quadservices.local</SMTPServer>-->
+  <SMTPUser></SMTPUser>
+  <SMTPPassword></SMTPPassword>
+  <FromEmail>BDSystem@quadservices.com.au</FromEmail>
+  <!--  If cannot find recepient Email Address, always sending to Admin Email Addr-->  
+  <AdminEmail>chang@quadservices.com.au</AdminEmail>
+  
+  <WPEmail>chang@quadservices.com.au</WPEmail>
+  <BDGMEmail>chang@quadservices.com.au</BDGMEmail>
+  <QuoteFinalReviewEmail>chang@quadservices.com.au</QuoteFinalReviewEmail>
+<!--  <TestingOverrideEmail>chang@quadservices.com.au</TestingOverrideEmail>-->
+  <BDGMInitial>DHUD</BDGMInitial>
+  <!--  all paths are relative to the physical path of API domain -->
+  <TempFolder>App_Data\Temp</TempFolder>
+  <QuotePresentClientEmailPath>App_Data\MailTemplates\quotePresentClientAlert.htm</QuotePresentClientEmailPath>
+  <QuoteDocumentEmailPath>App_Data\MailTemplates\quoteDocument.htm</QuoteDocumentEmailPath>
+  <QuotePrintEmailPath>App_Data\MailTemplates\quotePrint.htm</QuotePrintEmailPath>
+  <NewLeadAlertEmailPath>App_Data\MailTemplates\newLeadAlert.htm</NewLeadAlertEmailPath>
+  <LeadAppointmentEmailPath>App_Data\MailTemplates\leadAppointment.htm</LeadAppointmentEmailPath>
+  <QuoteCostsEmailPath>App_Data\MailTemplates\quoteCosts.htm</QuoteCostsEmailPath>
+  <QuoteMergedEmailPath>App_Data\MailTemplates\quoteMerged.htm</QuoteMergedEmailPath>
+  <QuoteIssueAlertEmailPath>App_Data\MailTemplates\quoteIssueAlert.htm</QuoteIssueAlertEmailPath>
+  <CostUploadPath>App_Data\CostUpload</CostUploadPath>
+  <QuoteUploadPath>App_Data\QuoteUpload</QuoteUploadPath>
+  <SecurityWorkBookPath>App_Data\Security Estimation workbook - v5.xlsm</SecurityWorkBookPath>
+  <NzWorkBookPath>App_Data\NZ Small-Medium quote costing workbook_v8.14.xlsm</NzWorkBookPath>
+</ApplicationSettings>

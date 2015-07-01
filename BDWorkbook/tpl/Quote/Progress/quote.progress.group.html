@@ -1,0 +1,60 @@
+﻿<div class="padder b-b bg-light" style="margin-top: 11px">
+    <pageable page-size-changed="vm.setListPageSize" current-page-changed="vm.ListPageChanges" total-items="vm.paging.totalItems" page-size="vm.paging.pageSize"></pageable>
+</div>
+<div class="input-group m-b-xxs bg-white-only" id="searchBar">
+    <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+    <input type="text" class="form-control input-sm no-border text-sm" placeholder="Search {{vm.currentStatus.Name}}" ng-model="vm.keyword" data-ng-change="vm.loadingQuoteList()">
+</div>
+
+<!-- list -->
+<ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+    <li ng-repeat="quote in vm.quotes" class="list-group-item clearfix b-l-3x" label-color="quote.QuoteType">
+        <div class="pull-right text-sm text-muted">
+            <span class="hidden-xs">{{ quote.LastUpdateDate  | fromNow}}</span>
+        </div>
+        <div class="clear">
+            <div>
+                <a class="text-md text-info" ui-sref="quote.detail.progress.overview({id:quote.Id})">
+                    {{quote.Id+' '+quote.Company}}
+                </a>
+                <span class="label bg-light">{{quote.Status}}</span>
+                <span class="label bg-light">{{quote.QuoteType}}</span>
+            </div>
+            <div class="clear text-ellipsis">
+                {{quote.Unit}}
+                {{quote.Number}}
+                {{quote.Street}}
+                {{quote.Suburb}}
+                {{quote.State}}
+                {{quote.Postcode}}
+            </div>
+            <div class="clear">
+                <span class="m-r-xs">
+                    <i class="fa fa-phone fa-fw text-muted" tooltip="Phone"></i>
+                    <a data-ng-href="tel:{{quote.Phone}}" class="text-info" data-ng-if="quote.Phone">
+                        {{quote.Phone||'N/A'}}
+                    </a>
+                    <span data-ng-if="!quote.Phone">N/A</span>
+                </span>
+                <span class="m-r-xs">
+                    <i class="fa fa-user fa-fw text-muted" tooltip="Contact Name"></i>
+                    {{quote.Firstname}}
+                    {{quote.Lastname}}
+                </span>
+
+                <span class="m-r-xs">
+                    QP: 
+                    {{quote.QpInitial}}
+                    {{quote.QpName}}
+                </span>
+                <span class="m-r-xs">
+                    Price PA: {{quote.LastestPA||quote.TotalPA||'N/A'}}
+                </span>
+                <span class="m-r-xs">
+                    Return PW: {{quote.TotalPW||'N/A'}}
+                </span>
+            </div>
+        </div>
+    </li>
+</ul>
+<!-- / list -->

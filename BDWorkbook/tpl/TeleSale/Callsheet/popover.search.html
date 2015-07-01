@@ -1,0 +1,24 @@
+﻿<div class="panel panel-default" ng-if="site.queryGroup.Id">
+    <div class="panel-body">
+        <span class="font-bold">{{site.queryGroup.GroupName}}</span><br>
+        <span>Company: {{site.queryGroup.AgentComp}}</span><br>
+        <span>Type: {{site.queryGroup.Type || 'N/A'}}</span><br />
+        <span>Description: {{site.queryGroup.Description || 'N/A'}}</span><br />
+        <span>Code: {{site.queryGroup.Code || 'N/A'}}</span><br />
+        <span>Manager: {{site.queryGroup.Firstname}} {{site.queryGroup.Lastname}}</span><br/>
+        <span>Phone: {{site.queryGroup.Phone}}</span>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="text"
+                   class="form-control"
+                   ng-focus="true"
+                   ng-model="site.queryGroup"
+                   placeholder="Search property manager"
+                   typeahead-on-select="site.onSelectQuery($item, $model, $label)"
+                   typeahead="group as group.Firstname + ' ' + group.Lastname for group in site.queryGroups($viewValue) | limitTo:5" class="form-control">    
+        </div>
+    </div>
+</div>

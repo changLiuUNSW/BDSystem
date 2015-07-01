@@ -1,0 +1,76 @@
+﻿<div class="wrapper-sm">
+    <div class="panel b-light clearfix">
+        <div class="panel-body">
+            <div data-ng-init="currentPage=0;pageSize=4;quoteIssueFilter={'Resolved':false}">
+                <div class="pull-right">
+                    <span class="text-black-lter" data-ng-show="vm.quote.QuoteIssues.length>0">{{currentPage+1}}/{{vm.numberOfPages((vm.quote.QuoteIssues |filter:quoteIssueFilter).length)+'(Total:'+(vm.quote.QuoteIssues |filter:quoteIssueFilter).length+')'}}</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-bg btn-default" ng-click="currentPage=currentPage-1" ng-disabled="currentPage == 0"><i class="fa fa-chevron-left"></i></button>
+                        <button type="button" class="btn btn-sm btn-bg btn-default" ng-click="currentPage=currentPage+1" ng-disabled="currentPage >= (vm.quote.QuoteIssues |filter:quoteIssueFilter).length/pageSize - 1"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="btn-toolbar">
+                    <div class="btn-group" dropdown>
+                        <button class="btn btn-default btn-sm btn-bg" dropdown-toggle>
+                            Filter <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu text-left text-sm" role="menu">
+                            <li><a href data-ng-click="quoteIssueFilter=undefined">All</a></li>
+                            <li><a href data-ng-click="quoteIssueFilter={'Resolved':false}">Outstanding</a></li>
+                            <li><a href data-ng-click="quoteIssueFilter={'Resolved':true}">Resolved</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group list-group-lg no-borders pull-in m-b-none">
+                <li class="list-group-item" data-ng-repeat="issue in vm.quote.QuoteIssues| orderBy:'-SolvedDate' |filter:quoteIssueFilter| startFrom:currentPage*pageSize | limitTo:pageSize">
+                    <div class="m-b-xs">
+
+                        <span class="h4  text-primary">{{issue.CreatedBy}}</span>
+                        <div class="text-muted m-l-sm pull-right">
+                            <span class="label bg-primary m-r-xs" data-ng-if="issue.UploadRequired">Upload</span>
+                            <ng-switch on="issue.Resolved">
+                                <span class="label bg-success m-r-xs" ng-switch-when="true">Resolved</span>
+                                <span class="label bg-danger m-r-xs" ng-switch-default>Outstanding</span>
+                            </ng-switch>
+                            {{issue.CreatedDate | fromNow}}
+                        </div>
+                    </div>
+                    <div class="m-b">
+                        <p style="white-space: pre;">{{issue.IssueDetail}}</p>
+                    </div>
+                    <div class="b wrapper-sm pos-rlt bg-light r r-2x" data-ng-if="issue.Resolved">
+                        <div class="m-b-xs">
+                            <span class="text-md">{{issue.SolvedBy}}</span>
+
+                            <div class="text-muted m-l-sm pull-right">
+                                {{issue.SolvedDate | fromNow}}
+                            </div>
+                        </div>
+                        <p style="white-space: pre;">{{issue.SolverComments}}</p>
+
+                    </div>
+                    <div class="panel panel-default m-t-md m-b-n-sm pos-rlt" data-ng-if="!issue.Resolved">
+                        <form name="solverForm">
+                            <textarea class="form-control no-borders" rows="3" data-ng-model="issue.SolverComments" placeholder="Your comment..." required></textarea>
+                            <div class="panel-footer bg-light lter">
+                                <button class="btn btn-success btn-sm" data-ng-disabled="solverForm.$invalid||(issue.UploadRequired&&!issue.files.length)" data-ng-click="vm.resolveIssue(issue,vm)">Resolve</button>
+                                <button class="btn btn-addon btn-default btn-sm" ngf-select ngf-max-size='20971520' ngf-accept="vm.validate($file)" ngf-change="vm.fileChanged($files, $event, $rejectedFiles)" ng-model="issue.files" data-ng-if="!issue.files.length&& issue.UploadRequired">
+                                    <i class="fa fa-paperclip"></i>Upload 
+                                    <span data-ng-if="issue.UploadPricePageOnly" class="font-bold">Price page only</span>
+                                    <span data-ng-if="!issue.UploadPricePageOnly" class="font-bold">Quote document</span>
+                                </button>
+                                <div class="inline" data-ng-repeat="file in issue.files">
+                                    {{file.name}} {{ file.size/1024/1024|number:2 }} MB<a href data-ng-click="issue.files.splice($index,1)"><i class="fa fa-trash-o text-danger-dker"></i></a>
+                                </div>
+                            </div>
+                        </form>
+                   
+                    </div>
+              
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>

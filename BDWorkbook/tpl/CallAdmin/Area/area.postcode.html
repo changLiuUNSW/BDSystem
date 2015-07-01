@@ -1,0 +1,32 @@
+﻿<div class="input-group pull-right">
+    <input class="form-control w-sm" ng-model="query.postcode" placeholder="Search postcode" ng-change="query.find(query.postcode)">
+</div>
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>Postcode</th>
+            <th>State</th>
+            <th>Zone</th>
+            <th>Region</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="salesbox in data.salesboxes | orderBy: 'Postcode'" style="cursor:pointer">
+            <td style="width: 20%">{{salesbox.Postcode}}</td>
+            <td style="width: 20%">{{salesbox.State}}</td>
+            <td style="width: 20%">{{salesbox.Zone}}</td>
+            <td style="width: 20%">{{salesbox.Region}}</td>
+            <td class="text-center">
+                <!--<button class="btn btn-sm btn-info">Edit</button>-->
+                <button class="btn btn-sm btn-danger" ng-click="edit.remove(salesbox)">Del</button>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" class="text-right">
+                <pagination total-items="paging.totalItems" ng-model="paging.currentPage" items-per-page="paging.itemsPerPage" num-pages ="paging.numPages" class="pagination-sm" boundary-links="true" max-size="5" rotate="false"></pagination>
+            </td>
+        </tr>
+    </tfoot>
+</table>

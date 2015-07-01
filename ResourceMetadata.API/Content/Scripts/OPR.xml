@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Quadservices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="www.quadservices.com.au">
+  <Scripts>
+    <Script Type="OPR">
+      <Decisions>
+        <Decision>
+          <If>true</If>
+          <Question>Can I speak to @ContactName please?</Question>
+          <Decisions>
+            <Decision Type="QaAndQt">
+              <If>true</If>
+              <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. Currently we provide cleaning service to @SiteGroup. I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+              <Decisions>
+                <Decision>
+                  <If>false</If>
+                  <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>@AskQualification</Question>
+                      <Decisions />
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision>
+                  <If>true</If>
+                  <Question>I would like to confirm your address and phone number.</Question>
+                  <Decisions />
+                </Decision>
+              </Decisions>
+            </Decision>
+            <Decision Type="Inhouse">
+              <If>true</If>
+              <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. I am calling to see if our manager can be of assistance with your cleaning requirements</Question>
+              <Decisions>
+                <Decision>
+                  <If>false</If>
+                  <Question>Can I just confirm that you still employ your own cleaning staff directly, or do you now use outside.</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>@AskQualification</Question>
+                      <Decisions />
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision>
+                  <If>true</If>
+                  <Question>I would like to confirm your address and phone number.</Question>
+                  <Decisions />
+                </Decision>
+              </Decisions>
+            </Decision>
+            <Decision Type="ClnAndSec">
+              <If>true</If>
+              <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning &amp; security company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning and security services</Question>
+              <Decisions>
+                <Decision>
+                  <If>false</If>
+                  <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>@AskQualification</Question>
+                      <Decisions />
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision>
+                  <If>true</If>
+                  <Question>I would like to confirm your address and phone number.</Question>
+                  <Decisions />
+                </Decision>
+              </Decisions>
+            </Decision>
+            <Decision Type="Cleaning">
+              <If>true</If>
+              <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services</Question>
+              <Decisions>
+                <Decision>
+                  <If>false</If>
+                  <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>@AskQualification</Question>
+                      <Decisions />
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision>
+                  <If>true</If>
+                  <Question>I would like to confirm your address and phone number.</Question>
+                  <Decisions />
+                </Decision>
+              </Decisions>
+            </Decision>
+            <Decision>
+              <If>false</If>
+              <Question>We would like to offer a free quotation for cleaning services.</Question>
+              <Decisions>
+                <Decision Type="QaAndQt">
+                  <If>true</If>
+                  <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. Currently we provide cleaning service to @SiteGroup. I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>@AskQualification</Question>
+                          <Decisions />
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision Type="Inhouse">
+                  <If>true</If>
+                  <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. I am calling to see if our manager can be of assistance with your cleaning requirements</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>Can I just confirm that you still employ your own cleaning staff directly, or do you now use outside.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>@AskQualification</Question>
+                          <Decisions />
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision Type="ClnAndSec">
+                  <If>true</If>
+                  <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning &amp; security company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning and security services</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>@AskQualification</Question>
+                          <Decisions />
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision Type="Cleaning">
+                  <If>true</If>
+                  <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>@AskQualification</Question>
+                          <Decisions />
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+              </Decisions>
+            </Decision>
+          </Decisions>
+        </Decision>
+        <Decision>
+          <If>false</If>
+          <Question>Could you please tell me the name of the person who is responsible for the cleaning of your premises?</Question>
+          <Decisions>
+            <Decision>
+              <If>true</If>
+              <Question>Can I speak to @ContactName please?</Question>
+              <Decisions>
+                <Decision Type="QaAndQt">
+                  <If>true</If>
+                  <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. Currently we provide cleaning service to @SiteGroup. I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>@AskQualification</Question>
+                          <Decisions />
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision Type="Inhouse">
+                  <If>true</If>
+                  <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. I am calling to see if our manager can be of assistance with your cleaning requirements</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>Can I just confirm that you still employ your own cleaning staff directly, or do you now use outside.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>@AskQualification</Question>
+                          <Decisions />
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision Type="ClnAndSec">
+                  <If>true</If>
+                  <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning &amp; security company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning and security services</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>@AskQualification</Question>
+                          <Decisions />
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision Type="Cleaning">
+                  <If>true</If>
+                  <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services</Question>
+                  <Decisions>
+                    <Decision>
+                      <If>false</If>
+                      <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>@AskQualification</Question>
+                          <Decisions />
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision>
+                      <If>true</If>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <Decisions />
+                    </Decision>
+                  </Decisions>
+                </Decision>
+                <Decision>
+                  <If>false</If>
+                  <Question>We would like to offer a free quotation for cleaning services.</Question>
+                  <Decisions>
+                    <Decision Type="QaAndQt">
+                      <If>true</If>
+                      <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. Currently we provide cleaning service to @SiteGroup. I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                          <Decisions>
+                            <Decision>
+                              <If>false</If>
+                              <Question>@AskQualification</Question>
+                              <Decisions />
+                            </Decision>
+                            <Decision>
+                              <If>true</If>
+                              <Question>I would like to confirm your address and phone number.</Question>
+                              <Decisions />
+                            </Decision>
+                          </Decisions>
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision Type="Inhouse">
+                      <If>true</If>
+                      <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. I am calling to see if our manager can be of assistance with your cleaning requirements</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>Can I just confirm that you still employ your own cleaning staff directly, or do you now use outside.</Question>
+                          <Decisions>
+                            <Decision>
+                              <If>false</If>
+                              <Question>@AskQualification</Question>
+                              <Decisions />
+                            </Decision>
+                            <Decision>
+                              <If>true</If>
+                              <Question>I would like to confirm your address and phone number.</Question>
+                              <Decisions />
+                            </Decision>
+                          </Decisions>
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision Type="ClnAndSec">
+                      <If>true</If>
+                      <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning &amp; security company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning and security services</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                          <Decisions>
+                            <Decision>
+                              <If>false</If>
+                              <Question>@AskQualification</Question>
+                              <Decisions />
+                            </Decision>
+                            <Decision>
+                              <If>true</If>
+                              <Question>I would like to confirm your address and phone number.</Question>
+                              <Decisions />
+                            </Decision>
+                          </Decisions>
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                    <Decision Type="Cleaning">
+                      <If>true</If>
+                      <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services</Question>
+                      <Decisions>
+                        <Decision>
+                          <If>false</If>
+                          <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+                          <Decisions>
+                            <Decision>
+                              <If>false</If>
+                              <Question>@AskQualification</Question>
+                              <Decisions />
+                            </Decision>
+                            <Decision>
+                              <If>true</If>
+                              <Question>I would like to confirm your address and phone number.</Question>
+                              <Decisions />
+                            </Decision>
+                          </Decisions>
+                        </Decision>
+                        <Decision>
+                          <If>true</If>
+                          <Question>I would like to confirm your address and phone number.</Question>
+                          <Decisions />
+                        </Decision>
+                      </Decisions>
+                    </Decision>
+                  </Decisions>
+                </Decision>
+              </Decisions>
+            </Decision>
+            <Decision>
+              <If>false</If>
+              <Question>We would like to send the relevant person some information on our services that they could find useful in the future. I do not need to speak to the person. Could you just tell me their name</Question>
+              <Decisions />
+            </Decision>
+          </Decisions>
+        </Decision>
+      </Decisions>
+    </Script>
+  </Scripts>
+</Quadservices>

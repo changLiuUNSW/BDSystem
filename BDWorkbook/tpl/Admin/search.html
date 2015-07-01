@@ -1,0 +1,12 @@
+﻿<div page-init="{
+     asideFolded:true
+}">
+    <div class="bg-light lter b-b wrapper-md">
+        <ul class="nav nav-pills nav-sm">
+            <li ng-class="{active:$stateParams.group==='site'||!$stateParams.group}"><a ui-sref="Admin.search({group:'site'})">Site</a></li>
+            <li ui-sref-active="active"><a ui-sref="Admin.search({group:'person'})">Person</a></li>
+        </ul>
+    </div>
+
+    <div data-ng-include=" 'tpl/Admin/search.table.html'"></div>
+</div>

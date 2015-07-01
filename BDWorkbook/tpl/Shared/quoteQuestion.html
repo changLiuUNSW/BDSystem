@@ -1,0 +1,32 @@
+﻿<div data-ng-repeat="question in quoteQuestion | filter :{'TextOnly':false}">
+    <div class="form-group">
+        <label>{{question.Name}}</label>
+        <select class="form-control" data-ng-options="answer.Name for answer in question.QuoteAnswers" data-ng-model="question.result" required>
+            <option value="">Please choose</option>
+        </select>
+    </div>
+    <ng-switch on="question.result.Type">
+        <div class="form-group" ng-switch-when="1">
+            <label>Date</label>
+            <div class="input-group">
+                <input type="text" class="form-control"
+                       placeholder="date"
+                       datepicker-popup="dd/MM/yyyy" is-open="question.result.open"
+                       data-ng-click="question.result.open=true" close-text="Close" onkeydown="return false;"
+                       data-ng-model="question.result.additional" required>
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+        </div>
+        <div class="form-group" ng-switch-when="2">
+            <label>Detail</label>
+            <textarea class="form-control" rows="6" placeholder="Type the detail" data-ng-model="question.result.additional" required></textarea>
+        </div>
+    </ng-switch>
+</div>
+
+<div data-ng-repeat="question in quoteQuestion | filter :{'TextOnly':true}">
+    <div class="form-group">
+        <label>{{question.Name}}</label>
+        <textarea class="form-control" rows="4" placeholder="Type the detail" data-ng-model="question.result.additional" required></textarea>
+    </div>
+</div>

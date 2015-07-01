@@ -1,0 +1,32 @@
+﻿<div class="panel-heading b-b b-light">
+    <button class="btn btn-xs btn-danger pull-right" data-ng-click="vm.adjustModal()" data-ng-if="vm.quote.Status.Id===vm.quoteStatusType.Current"><i class="fa fa-fw fa-edit"></i>Edit</button>
+    <span class="text-muted">Adjustment</span>
+    <label class="label bg-danger m-l-xs" data-ng-if="vm.quote.AjustCheckOverDue">Overdue</label>
+</div>
+<ul class="list-group list-group-lg no-bg auto">
+    <li class="list-group-item clearfix">
+        <strong class="block">Is there anything we can adjust to meet client requirements</strong>
+        <ng-switch on="vm.getAdjustStatus()">
+            <span ng-switch-when="true" class="text-danger">Yes</span>
+            <span ng-switch-when="false" class="text-success">No</span>
+            <span ng-switch-default>N/A</span>
+        </ng-switch>
+    </li>
+    <li class="list-group-item clearfix" data-ng-if="vm.getAdjustStatus()!==null">
+        <ng-switch on="vm.getAdjustStatus()">
+            <div ng-switch-when="true">
+                <span class="text-muted h5 clear">Detail</span>
+                <div class="m-t-sm">
+                    <p class="text-danger">{{(vm.quote.QuoteIssues|filter:{'Resolved':false}|orderBy:'-CreatedDate'|first).IssueDetail}}</p>
+                </div>
+                <div class="text-muted">
+                    <span class="m-r-xs"><i class="fa fa-user text-muted"></i> by {{(vm.quote.QuoteIssues|filter:{'Resolved':false}|orderBy:'-CreatedDate'|first).CreatedBy}}</span>
+                    <span class="m-r-xs"><i class="fa fa-clock-o text-muted"></i> {{(vm.quote.QuoteIssues|filter:{'Resolved':false}|orderBy:'-CreatedDate'|first).CreatedDate|date: 'dd/MM/yyyy'}}</span>
+                    <span class="m-r-xs">Next Status: {{(vm.quote.QuoteIssues|filter:{'Resolved':false}|orderBy:'-CreatedDate'|first).NextStatus.Name}}</span>
+                </div>
+            </div>
+            <div ng-switch-when="false" quote-qa="vm.quote.QuestionResults" qa-type="vm.questionType.noAdjust"></div>
+            <span ng-switch-default>N/A</span>
+        </ng-switch>
+    </li>
+</ul>

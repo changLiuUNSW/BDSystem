@@ -1,0 +1,55 @@
+﻿<div class="wrapper-md">
+    <div class="vbox">
+        <div class="wrapper-md m-b">
+            <button type="button" class="btn btn-default btn-addon pull-left m-t-n-xs" ng-click="edit.hideAside()" ng-class="{'active' : edit.aside}">
+                <i class="fa fa-bars"></i> Hide Sidebar
+            </button>
+        </div>
+        <div class="wrapper-md">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="clearfix">
+                        <div class="input-group pull-right">
+                            <input class="form-control w-sm" placeholder="Search" ng-model="query.zone" />
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Zone</th>
+                                <th ng-repeat="size in data.sizes">{{size}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="zoneAllocation in data.zones | filter: query.zone | offset: paging.startIdx | limitTo: paging.itemsPerPage">
+                                <td>
+                                    {{zoneAllocation.Zone}}
+                                </td>
+                                <td ng-repeat="size in data.sizes" ng-style="edit.style" ng-click="edit.save(zoneAllocation, size)">
+                                    <div class="bg-white-only r r-2x m-b-xs wrapper-sm b-l b-2x b-info">
+                                        <a class="pull-right text-xs text-muted" ng-click="edit.remove(zoneAllocation, size, $event)"><i class="fa fa-trash-o"></i></a>
+                                        <div class="text-xs">{{edit.getAllocation(zoneAllocation, size).Initial}}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan={{1+data.sizes.length}} class="text-right">
+                                    <pagination class="pagination-sm"
+                                                total-items="paging.totalItems"
+                                                ng-model="paging.currentPage"
+                                                items-per-page="paging.itemsPerPage"
+                                                boundary-links="true">
+                                    </pagination>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+﻿<div class="modal-body wrapper-lg">
+    <loading data-ng-show="vm.loading"></loading>
+    <form name="form" class="form-validation" data-ng-show="!vm.loading">
+        <div>
+            <h3 class="m-t-none m-b font-thin">Price Confirmation</h3>
+            <p>Is the price right?</p>
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='yes'}"
+               data-ng-click="vm.action='yes'">
+                <i class="glyphicon glyphicon-ok pull-left"></i>Yes
+            </a>
+
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='no'}"
+               data-ng-click="vm.action='no'">
+                <i class="glyphicon glyphicon-remove pull-left"></i>No
+            </a>
+        </div>
+
+        <div class="m-t" data-ng-if="vm.action==='yes'" quote-question="vm.questions">
+        </div>
+        <div class="m-t" data-ng-if="vm.action==='no'">
+            <div class="form-group">
+                <label>New PA<em class="text-muted"> (Current PA: {{vm.quote.TotalPA}})</em></label>
+                <input type="number" class="form-control" placeholder="enter new amount" ng-model="vm.newPa" required>
+            </div>
+            <div class="panel b-a">
+                <div class="text-base padder m-t-sm m-b-sm">Options of content</div>
+                <div class="panel-body b-t">
+                    <div class="form-group">
+                        <div class=" col-md-6">
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="option" data-ng-model="vm.print.pricePageOnly" data-ng-value="false" required>
+                                    <i></i>
+                                    Full quote
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="option" data-ng-model="vm.print.pricePageOnly" data-ng-value="true" required>
+                                    <i></i>
+                                    Price page only
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel  b-a" data-ng-if="vm.print.pricePageOnly!=null">
+                <div class="text-base padder m-t-sm m-b-sm">Options of format</div>
+                <div class="panel-body b-t">
+                    <div class="form-group">
+                        <div class=" col-md-6">
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="pdfOrPrint" data-ng-model="vm.print.isPdf" data-ng-value="true" required>
+                                    <i></i>
+                                    Email
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="pdfOrPrint" data-ng-model="vm.print.isPdf" data-ng-value="false" required>
+                                    <i></i>
+                                    Print
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Detail</label>
+                <textarea class="form-control" rows="4" placeholder="enter description" data-ng-model="vm.description" required></textarea>
+            </div>
+
+        </div>
+    </form>
+    <div class="text-right m-t-lg">
+        
+        <button class="btn btn-sm btn-success" data-ng-disabled="form.$invalid||vm.action===undefined" ng-click="vm.ok(vm.action)">OK</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</div>

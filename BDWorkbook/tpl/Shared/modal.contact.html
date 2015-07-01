@@ -1,0 +1,71 @@
+﻿<div class="modal-header bg-info">
+    <span class="pull-right" data-ng-if="!personUpdated">
+        <a href="" ng-click="cancel()"><i class="fa fa-times fa-fw"></i></a>
+    </span>
+        <div class="modal-title text-lt">
+            <h4>{{site.Name}}</h4>
+            <p>
+                <span>Zone: {{site.GmZone}}</span>
+                <span>Region: {{site.Region}}</span><br>
+                <span>{{site.Unit}}</span>
+                <span>{{site.Number}}</span>
+                <span>{{site.Street}}</span>
+                <span>{{site.Suburb}}</span>
+                <span>{{site.State}}</span>
+                <span>{{site.Postcode}}</span>
+            </p>
+        </div>
+</div>
+<script type="text/ng-template" id="ModalContent.html">
+    <div ng-include="'tpl/Shared/modal.contactPerson.html'"></div>
+</script>
+<form class="modal-body form-validation" name="modalForm">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="pull-left" data-ng-click="add()"><i class="fa fa-plus text-muted fa m-r-sm"></i> </a>
+            <div class="clear">
+                List of Contact person
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th data-ng-repeat="contact in site.Contacts">
+                            {{contact.BusinessType.Type+'('+contact.Code+')'}}
+                        </th>
+                        <th style="width:20px">Select Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="contactPerson in site.ContactPersons">
+                        <td>{{contactPerson.Firstname}} {{contactPerson.Lastname}}</td>
+                        <td data-ng-repeat="contact in site.Contacts">
+                            <label class="i-checks m-b-none">
+                                <input type="checkbox"
+                                       data-ng-checked="checked(contactPerson,contact)"
+                                       data-ng-disabled="disableCheckbox(contactPerson,contact)"
+                                       data-ng-click="toggleSelection(contactPerson,contact)"><i></i>
+                            </label> 
+                        </td>
+                        <td>
+                            <select class="input-sm form-control w-sm inline v-middle"
+                                    data-ng-model="actions.selected"
+                                    data-ng-options="action.text as action.text for action in actions"
+                                    data-ng-change="actionSelect(contactPerson)">
+                                <option value="">Action</option>
+                                <option value="1">Edit</option>
+                                <option value="2">Delete</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <div class="checkbox m-t-lg text-right">
+        <button type="submit" class="btn btn-sm btn-success m-t-n-xs" ng-click="save()"><strong>Save</strong></button>
+    </div>
+</form>

@@ -1,0 +1,118 @@
+﻿<div class="modal-header bg-info">
+    <span class="pull-right">
+        <a href="" ng-click="cancel()" data-ng-if="!isEdited"><i class="fa fa-times fa-fw"></i></a>
+    </span>
+    <div class="modal-title text-lt">
+        <h4 class="text-uppercase">{{title}}</h4>
+      
+    </div>
+</div>
+<div class="modal-body wrapper-lg">
+    <loading data-ng-if="loading"></loading>
+    <script type="text/ng-template" id="siteGroupDetail.html">
+        <div ng-include="'tpl/Shared/modal.siteGroup.detail.html'"></div>
+    </script>
+    <form class="form-validation" data-ng-if="!loading" name="form" novalidate>
+        <div class="form-group">
+                <div class="input-group">
+                    <ui-select ng-model="group.selected" on-select="groupSelect($model)" data-ng-disabled="editable">
+                        <ui-select-match placeholder="Select a group or search group name..." allow-clear>{{$select.selected.Name}}</ui-select-match>
+                        <ui-select-choices repeat="item in group.list | filter: $select.search">
+                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            <small ng-bind-html="item.Description | highlight: $select.search"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div class="input-group-btn" data-ng-if="!group.selected">
+                        <button type="button" class="btn btn-default" data-ng-click="addGroup()">
+                            Add
+                        </button>
+                    </div><!-- /btn-group -->
+                    <div class="input-group-btn dropdown" dropdown data-ng-if="group.selected">
+                        <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                            Action <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li data-ng-repeat="action in groupActions">
+                                <a href data-ng-click="selectAction(action)">{{action}}</a>
+                            </li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                </div>
+        </div>
+        <div data-ng-if="group.selected">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="font-bold">{{group.selected.Name}}</span><br>
+                    Type: {{group.selected.Type||'N/A'}}<br>
+                    Description: {{group.selected.Description||'N/A'}}<br>
+                    Code: <span class="text-uppercase">{{group.selected.Code||'N/A'}}</span>
+                </div>
+                <div class="row wrapper-sm" data-ng-if="editable">
+                    <div class="col-sm-5 m-b-xs">
+                        <select ng-model="siteActions.selected" name="bulkAction" ng-options="action for action in siteActions" class="input-sm form-control w-sm inline v-middle" required>
+                            <option value="">Bulk action</option>
+                        </select>
+                        <button class="btn btn-sm btn-default" data-ng-click="applyAction(siteActions.selected)" data-ng-disabled="form.bulkAction.$invalid">Apply</button>
+                    </div>
+                    <div class="col-sm-3">
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input type="text"
+                                   data-ng-model="inputfields.siteToAdd"
+                                   name="siteKey"
+                                   typeahead="site as site.Key for site in searchSiteByKey($viewValue)"
+                                   class="input-sm form-control"
+                                   typeahead-editable="false"
+                                   placeholder="Site Key"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-sm btn-default" data-ng-click="addSite()" type="button" data-ng-disabled="form.siteKey.$invalid">Add</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <loading data-ng-if="form.siteKey.$invalid"></loading>
+                <div class="bg-light lt b wrapper-sm" data-ng-if="form.siteKey.$valid&& inputfields.siteToAdd">
+                    <p class="h4 text-primary m-b-sm m-t-sm block">{{inputfields.siteToAdd.Name}}</p>
+                    <p>
+                        <span>Key:{{inputfields.siteToAdd.Key}}</span>
+                        <span>Location: </span>
+                        <span>{{inputfields.siteToAdd.Unit}}</span>
+                        <span>{{inputfields.siteToAdd.Number}}</span>
+                        <span>{{inputfields.siteToAdd.Street}}</span>
+                        <span>{{inputfields.siteToAdd.Suburb}}</span>
+                        <span>{{inputfields.siteToAdd.State}}</span>
+                        <span>{{inputfields.siteToAdd.Postcode}}</span>
+                    </p>
+                </div>
+                <div class="table-responsive">
+                    <table ng-table="tableParams" show-filter="true" class="table table-striped b-t b-light ng-table-resizable-columns table-condensed">
+                        <tr ng-repeat="site in $data">
+                            <td width="30" style="text-align: left">
+                                <input type="checkbox" ng-model="checkboxes.items[site.Id]" data-ng-if="editable" />
+                            </td>
+                            <td data-title="'Key'" sortable="'Key'" filter="{ 'Key': 'text' }">
+                                {{site.Key}}
+                            </td>
+                            <td data-title="'Company Name'" sortable="'Name'" filter="{ 'Name': 'text' }">
+                                {{site.Name}}
+                            </td>
+                            <td data-title="'Street'" sortable="'Street'" filter="{ 'Street': 'text' }">
+                                {{site.Street}}
+                            </td>
+                            <td data-title="'Suburb'" sortable="'Suburb'" filter="{ 'Suburb': 'text' }">
+                                {{site.Suburb}}
+                            </td>
+                            <td data-title="'State'" sortable="'State'" filter="{ 'State': 'text' }">
+                                {{site.State}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="checkbox m-t-lg">
+            <button type="submit" class="btn btn-sm btn-success pull-right m-t-n-xs" ng-click="save()"><strong>Save</strong></button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,94 @@
+﻿<form name="form" class="form-horizontal form-validation">
+    <div class="wrapper-sm b-b">
+        <div class="m-t-n-xxs m-b-n-xxs m-l-xs">
+            <button class="btn btn-xs btn-default pull-right" ng-show="!leadPriority.editable && leadPriority.selected" ng-click=""><i class="fa fa-times"></i></button>
+            <button class="btn btn-xs btn-default" ng-click="leadPriority.edit(true)" ng-disabled="!leadPriority.selected" ng-hide="leadPriority.editable">Edit</button>
+            <button class="btn btn-xs btn-default" ng-show="leadPriority.editable" ng-click="leadPriority.save(form)">Done</button>
+            <button class="btn btn-xs btn-default" ng-show="leadPriority.editable" ng-click="leadPriority.cancel()">Cancel</button>
+        </div>
+    </div>
+    <div class="row-row">
+        <div class="wrapper-lg">
+            <div class="hbox h-auto m-b-lg">
+                <div class="col v-middle h1 font-thin">
+                    <div ng-bind="leadPriority.selected.Name" ng-hide="leadPriority.editable"></div>
+                    <div ng-bind="leadPriority.selected.Initial" ng-hide="leadPriority.editable"></div>
+                    <div>
+                        <input type="text" placeholder="Name" name="name" class="form-control w-auto input-lg m-b-n-xxs font-bold" ng-show="leadPriority.editable" ng-model="leadPriority.selected.Name" required>
+                        <input type="text" placeholder="Initial" name="initial" class="form-control w-auto input-lg font-bold" ng-show="leadPriority.editable" ng-model="leadPriority.selected.Initial" required>
+                    </div>
+                </div>
+            </div>
+            <!-- fields -->
+            <div class="hbox" ng-show="leadPriority.selected">
+                <div class="form-group m-b-md">
+                    <label class="col-md-3 control-label">Group: </label>
+                    <div class="col-md-9">
+                        <p class="form-control-static" 
+                           ng-hide="leadPriority.editable">{{leadPriority.getGroup(leadPriority.selected.GroupId).Group}}</p>
+                        <select class="form-control w-sm" 
+                                ng-show="leadPriority.editable" 
+                                ng-options="group.Id as group.Group for group in leadPriority.groups" 
+                                ng-model="leadPriority.selected.GroupId" required>
+                            <option value="">Please choose</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group m-b-md">
+                    <label class="col-md-3 control-label">Lead stop: </label>
+                    <div class="col-md-9">
+                        <p class="form-control-static" ng-hide="leadPriority.editable" ng-bind="leadPriority.selected.LeadStop"></p>
+                        <input type="number" min="0" max="99" class="form-control w-sm" ng-show="leadPriority.editable" ng-model="leadPriority.selected.LeadStop">
+                    </div>
+                </div>
+                <div class="form-group m-b-md">
+                    <label class="col-md-3 control-label">Lead target: </label>
+                    <div class="col-md-9">
+                        <p class="form-control-static" ng-hide="leadPriority.editable" ng-bind="leadPriority.selected.LeadTarget"></p>
+                        <input type="number" min="0" max="99" class="form-control w-sm" ng-show="leadPriority.editable" ng-model="leadPriority.selected.LeadTarget">
+                    </div>
+                </div>
+                <div class="form-group m-b-md">
+                    <label class="col-md-3 control-label">Lead on hold date (this week only): </label>
+                    <div class="col-md-9">
+                        <p class="form-control-static" ng-hide="leadPriority.editable" ng-bind="leadPriority.selected.LeadsOnHoldDate | date : 'yyyy-MM-dd'"></p>
+                        <div class="input-group w-md" ng-show="leadPriority.editable">
+                            <input type="text" class="form-control"
+                                   placeholder="YYYY-MM-DD"
+                                   ng-model="leadPriority.selected.LeadsOnHoldDate"
+                                   min-date="leadPriority.dtOptions.minDate"
+                                   datepicker-popup
+                                   is-open="leadPriority.dtOptions.dtOpened"
+                                   datepicker-options="leadPriority.dtOptions.dateOptions">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="leadPriority.dtOptions.dtOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group m-b-md">
+                    <label class="col-md-3 control-label">Lead on hold reason</label>
+                    <div class="col-md-9">
+                        <p class="form-control-static" ng-hide="leadPriority.editable" ng-bind="leadPriority.selected.LeadsOnHoldReason"></p>
+                        <textarea class="form-control w-lg" rows="10" ng-show="leadPriority.editable" ng-model="leadPriority.selected.LeadsOnHoldReason"></textarea>
+                    </div>
+                </div>
+                <div class="form-group m-b-md">
+                    <label class="col-md-3 control-label">Priority to call</label>
+                    <div class="col-md-9">
+                        <p class="form-control-static" ng-hide="leadPriority.editable" ng-if="leadPriority.selected.PriorityToCall">
+                            <span><i class="fa fa-check"></i></span>
+                        </p>
+                        <label class="i-switch bg-info m-t-xs m-r" ng-show="leadPriority.editable">
+                            <input type="checkbox" ng-model="leadPriority.selected.PriorityToCall">
+                            <i></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!leadPriority.selected">
+                <div class="alert alert-info">Select a name from the list</div>
+            </div>
+        </div>
+    </div>
+</form>

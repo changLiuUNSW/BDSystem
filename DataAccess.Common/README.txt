@@ -1,0 +1,1 @@
+﻿dependency configuration, this project references to all projects except ResourceMetadata.API to get neccessary model for dependency injection

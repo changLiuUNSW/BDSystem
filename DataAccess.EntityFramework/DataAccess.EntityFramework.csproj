@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{68A2FD1A-0BC5-4CA7-A1F6-CF1B8220BD3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess.EntityFramework</RootNamespace>
+    <AssemblyName>DataAccess.EntityFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dependency.cs" />
+    <Compile Include="Expressions\DynamicQuery.cs" />
+    <Compile Include="Expressions\ExpressionHelper.cs" />
+    <Compile Include="Extensions\BusinessTypeExtensions.cs" />
+    <Compile Include="Extensions\Utilities\DateExtension.cs" />
+    <Compile Include="Extensions\Utilities\EnumExtensions.cs" />
+    <Compile Include="Extensions\SalesBoxExtension.cs" />
+    <Compile Include="Migrations\201506160042261_initial.cs" />
+    <Compile Include="Migrations\201506160042261_initial.Designer.cs">
+      <DependentUpon>201506160042261_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506160044000_initial1.cs" />
+    <Compile Include="Migrations\201506160044000_initial1.Designer.cs">
+      <DependentUpon>201506160044000_initial1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\LeadInitializer.cs" />
+    <Compile Include="Migrations\QuoteInitializer.cs" />
+    <Compile Include="Models\BD\Address.cs" />
+    <Compile Include="Models\BD\Contact\FullReport.cs" />
+    <Compile Include="Models\BD\Contact\WeeklyReport.cs" />
+    <Compile Include="Models\BD\Lead\LeadHistory.cs" />
+    <Compile Include="Models\BD\Lead\LeadStatus.cs" />
+    <Compile Include="Models\BD\Lead\OccupiedContact.cs" />
+    <Compile Include="Models\BD\Site\BuildingType.cs" />
+    <Compile Include="Models\Quad\QuadPhoneBook.cs" />
+    <Compile Include="Models\Quote\QuoteQuestionResult.cs" />
+    <Compile Include="Models\Quote\QuoteAnswer.cs" />
+    <Compile Include="Models\Quote\QuoteHistory.cs" />
+    <Compile Include="Models\Quote\QuoteIssue.cs" />
+    <Compile Include="Models\Quote\Cost\Labour\AllowanceRate.cs" />
+    <Compile Include="Models\Quote\Cost\Labour\Labour.cs" />
+    <Compile Include="Models\Quote\QuoteQuestion.cs" />
+    <Compile Include="Models\Quote\QuoteStatus.cs" />
+    <Compile Include="Models\Quote\WPRequiredInfo.cs" />
+    <Compile Include="Repositories\LeadPersonRepository.cs" />
+    <Compile Include="Repositories\LeadRepository.cs" />
+    <Compile Include="Repositories\QuoteCostRepository.cs" />
+    <Compile Include="Repositories\QuoteRepository.cs" />
+    <Compile Include="Repositories\SiteGroupRepository.cs" />
+    <Compile Include="TypeLibrary\TypeLibrary.cs" />
+    <Compile Include="Infrastructure\IDbContext.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Models\BD\Allocation\Allocation.cs" />
+    <Compile Include="Models\BD\Allocation\SalesBox.cs" />
+    <Compile Include="Models\BD\Contact\BusinessType.cs" />
+    <Compile Include="Models\BD\Contact\Contact.cs" />
+    <Compile Include="Models\BD\Contact\ContactPerson.cs" />
+    <Compile Include="Models\BD\Contact\ContactPersonHistory.cs" />
+    <Compile Include="Models\BD\Lead\Lead.cs" />
+    <Compile Include="Models\BD\Lead\LeadGroup.cs" />
+    <Compile Include="Models\BD\Lead\LeadPriority.cs" />
+    <Compile Include="Models\BD\Lead\LeadPersonal.cs" />
+    <Compile Include="Models\BD\Lead\LeadShiftInfo.cs" />
+    <Compile Include="Models\BD\Site\CallLine.cs" />
+    <Compile Include="Models\BD\Site\CleaningContract.cs" />
+    <Compile Include="Models\BD\Site\SecurityContract.cs" />
+    <Compile Include="Models\BD\Site\Site.cs" />
+    <Compile Include="Models\BD\Site\SiteGroup.cs" />
+    <Compile Include="Models\BD\Telesale\Assignment.cs" />
+    <Compile Include="Models\BD\Telesale\Telesale.cs" />
+    <Compile Include="Models\Quote\Cost\Area\CleaningArea.cs" />
+    <Compile Include="Models\Quote\Cost\Equipment\EquipmentSupply.cs" />
+    <Compile Include="Models\Quote\Cost\Labour\LabourPeriodical.cs" />
+    <Compile Include="Models\Quote\Cost\Periodical\Periodical.cs" />
+    <Compile Include="Models\Quote\Cost\Supply\ToiletrySupply.cs" />
+    <Compile Include="Models\Quote\Cost\Periodical\ExtraPeriodical.cs" />
+    <Compile Include="Models\Quote\Cost\Supply\ExtraToiletrySupply.cs" />
+    <Compile Include="Models\Quote\Cost\Labour\LabourEstimation.cs" />
+    <Compile Include="Models\Quote\Cost\Vacation\VacationCleaning.cs" />
+    <Compile Include="Models\Quote\Cost\Equipment\Equipment.cs" />
+    <Compile Include="Models\Quote\Cost\Equipment\Machine.cs" />
+    <Compile Include="Models\Quote\Cost\Supply\ToiletRequisite.cs" />
+    <Compile Include="Models\Quote\Cost\PublicLiability.cs" />
+    <Compile Include="Models\Quote\Cost\Labour\OnCostRate.cs" />
+    <Compile Include="Models\Quote\Cost\Labour\LabourRate.cs" />
+    <Compile Include="Models\Quote\Quote.cs" />
+    <Compile Include="Models\Quote\Cost\Cost.cs" />
+    <Compile Include="Models\Quote\Cost\Margin.cs" />
+    <Compile Include="Models\Quote\Specification\CleaningSpec.cs" />
+    <Compile Include="Repositories\ContactPersonRepository.cs" />
+    <Compile Include="Repositories\ContactRepository.cs" />
+    <Compile Include="Extensions\ContactExtensions.cs" />
+    <Compile Include="Extensions\SiteExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Infrastructure\Repository.cs" />
+    <Compile Include="DbContexts\SiteResourceEntities.cs" />
+    <Compile Include="Repositories\SiteRepository.cs" />
+    <Compile Include="Repositories\SalesBoxRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess.Common\DataAccess.Common.csproj">
+      <Project>{a3b36dfa-6708-4139-a94a-bcfd85d0d656}</Project>
+      <Name>DataAccess.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506160042261_initial.resx">
+      <DependentUpon>201506160042261_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506160044000_initial1.resx">
+      <DependentUpon>201506160044000_initial1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

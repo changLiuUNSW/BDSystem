@@ -1,0 +1,271 @@
+<div page-init="{
+         asideFolded:true,
+         asideFixed:true,
+         hideSetting:true
+         }" class="bg-light lter b-b wrapper-sm hidden-print">
+    <a ui-sref="Admin.search({group:'person'})" tooltip="Back" class="btn btn-sm btn-default w-xxs w-auto-xs">
+        <i class="fa fa-long-arrow-left"></i>
+    </a>
+    <button class="btn btn-sm btn-default w-xxs w-auto-xs" tooltip="Delete" data-ng-click="deletePerson(contactPerson)"><i class="fa fa-trash-o"></i></button>
+</div>
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <div class="col w-xxl bg-light dk b-r bg-auto bg-auto-left">
+        <div class="wrapper-xs">
+            <tabset class="tab-container">
+                <tab class="text-md font-thin" heading="Profile">
+                    <div class="wrapper-md">
+                        <div class="text-center">
+                            <h4>
+                                <span data-ng-bind="contactPerson.Title"></span>.
+                                <span data-ng-bind="contactPerson.Firstname"></span>
+                                <span data-ng-bind="contactPerson.Lastname"></span>
+                            </h4>
+                            <a class="h4 text-info" ui-sref="Admin.site.detail({ id: contactPerson.SiteId})" data-ng-bind="contactPerson.SiteName"></a>
+                        </div>
+                        <div class="line line-lg b-b b-light"></div>
+                        <div class="text-uppercase font-bold m-t-lg"><span>Contact Information</span></div>
+                        <div class="row m-t-sm">
+                            <div class="col-sm-4">
+                                <label>Email:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                {{contactPerson.Email}}
+                            </div>
+                        </div>
+                        <div class="row m-t-sm">
+                            <div class="col-sm-4">
+                                <label>Moblie:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <span data-ng-bind="contactPerson.Moblie">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row m-t-sm">
+                            <div class="col-sm-4">
+                                <label>Direct line:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <span data-ng-bind="contactPerson.DirectLine">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row m-t-sm">
+                            <div class="col-sm-4">
+                                <label>Fax:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <span data-ng-bind="contactPerson.Fax">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-uppercase font-bold m-t-lg">General information</div>
+                        <div class="row m-t-sm">
+                            <div class="col-sm-4">
+                                <label>Position:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <span data-ng-bind="contactPerson.Position">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Address:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <span data-ng-bind="contactPerson.PoUnit"></span>
+                                <span data-ng-bind="contactPerson.PoStreet"></span>
+                                <span data-ng-bind="contactPerson.PoSuburb"></span>
+                                <span data-ng-bind="contactPerson.PoState"></span>&nbsp;&nbsp;<span data-ng-bind="contactPerson.PoPostcode"></span>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab class="text-md font-thin" heading="Edit Account">
+                    <form name="form">
+                        <div class="wrapper-sm m-t-xxs">
+                            <div><span class="text-uppercase font-bold m-b-sm">Contact Information</span></div>
+                            <div class="line line-lg b-b b-light"></div>
+                            <div class="form-group pull-in  m-b-none clearfix">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <div class="input-group m-b-none">
+                                    <span class="input-group-addon"><i class="icon-envelope"></i></span>
+                                    <input type="email" class="form-control" name="email" ng-model="contactPerson.Email">
+                                    <small class="text-danger" ng-show="profileForm.email.$invalid">Email Address is invalid</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                
+                                <label>Mobile</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="icon-screen-smartphone"></i></span>
+                                    <input type="text" class="form-control " ng-model="contactPerson.Mobile">
+                                </div>
+                             
+                            </div>
+                            <div class="form-group pull-in m-b-none clearfix">
+                                <div class="col-sm-6">
+                                    <label>Direct Line</label>
+                                    <div class="input-group m-b-none">
+                                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                        <input type="text" class="form-control" ng-model="contactPerson.DirectLine">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Fax</label>
+                                    <div class="input-group m-b-none">
+                                        <span class="input-group-addon"><i class="fa fa-fax"></i></span>
+                                        <input type="text" class="form-control" ng-model="contactPerson.Fax">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wrapper">
+                            <div class="text-uppercase font-bold m-b-sm">General information</div>
+                            <div class="line line-lg b-b b-light"></div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control " ng-model="contactPerson.Firstname">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control m-l-xs" ng-model="contactPerson.Lastname">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-3">
+                                    <label>Unit</label>
+                                    <input type="text" class="form-control" ng-model="contactPerson.PoUnit">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>PO Number</label>
+                                    <input type="text" class="form-control" ng-model="contactPerson.PoNumber">
+                                </div>
+                                <div class="col-sm-5">
+                                    <label>Post code</label>
+                                    <input type="text" class="form-control" ng-model="contactPerson.PoPostcode">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                               
+                                <label>Street</label>
+                                <input type="text" class="form-control" ng-model="contactPerson.PoStreet">
+                          
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label>Suburb</label>
+                                    <input type="text" class="form-control" ng-model="contactPerson.PoSuburb">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>State</label>
+                                    <input type="text" class="form-control" ng-model="contactPerson.PoState">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="m-b-xs text-right">
+                        <a class="btn btn-sm btn-success" data-ng-disabled="profileForm.$invalid || contactPersonHelper.nameCheck(contactPerson.Firstname,contactPerson.Lastname)" ng-click="updateProfile(contactPerson)">Update</a>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+    <div class="col">
+        <div class="wrapper">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <span class="h4 font-thin pull-left m-l-md m-r-sm l-h">Profiles activities</span>
+                        <span class="pull-right m-r-md">
+                            <a class="btn btn-sm btn-default w-xs" data-ng-class="{'active':filters.reason===null}" data-ng-click="selectReason(null)">
+                                All
+                            </a>
+                            <a class="btn btn-sm btn-default" data-ng-class="{'active':filters.reason==='Name Correction'}" data-ng-click="selectReason('Name Correction')">
+                                Name Correction
+                            </a>
+                            <a class="btn btn-sm btn-default" data-ng-class="{'active':filters.reason==='New Manager'}" data-ng-click="selectReason('New Manager')">
+                                New Manager
+                            </a>
+                        </span>
+                        <div class="input-group-btn dropdown m-l-md" dropdown>
+                            <button class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle>
+                                <span>Order</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href ng-click="order=''"><span class="glyphicon glyphicon-ok m-r-sm" data-ng-show="order===''"></span>Unsorted</a></li>
+                                <li><a href ng-click="order = 'Time';reverse=!reverse"><span class="glyphicon glyphicon-ok m-r-sm" data-ng-show="order==='Time'"></span>Edit Time</a></li>
+                                <li><a href ng-click="order = 'EditName';reverse=!reverse"><span class="glyphicon glyphicon-ok m-r-sm" data-ng-show="order==='EditName'"></span>Edit by</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapper-xs m-t lter b-b">
+                        <div class="btn-toolbar">
+                            <div class="btn-group">
+                                <div class="input-group m-b-xxs bg-white-only">
+                                    <span class="input-group-addon input-sm no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+                                    <input type="text" class="form-control input-sm text-sm" placeholder="Search All" ng-model="search">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <loading data-ng--if="loadingHistory"></loading>
+                    <div class="panel-body">
+                        <div data-ng--if="!loadingHistory">
+                            <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+                                <li ng-repeat="history in historyList |filter:search | startFrom:currentPage*pageSize | limitTo:pageSize |orderBy:order:reverse" data-ng-class="labelClass(history.ReasonForChange)" class="list-group-item clearfix b-l-3x">
+                                    <div class="pull-right text-sm text-muted">
+                                        <span class="hidden-xs">{{ history.Time |fromNow}}</span>
+                                    </div>
+                                    <div class="clear">
+                                        <div class="text-md text-uppercase">{{history.ReasonForChange}}</div>
+                                        <div class="m-t-xs">
+                                            <p>
+                                                <span>Title: {{history.Title||'N/A'}}</span>
+                                                <span>FirstName: {{history.Firstname||'N/A'}}</span>
+                                                <span>LastName: {{history.Lastname||'N/A'}}</span>
+                                                <span>Position: {{history.Position||'N/A'}}</span>
+                                            </p>
+                                            <p>
+                                                <span>Email: {{history.Email||'N/A'}}</span>
+                                                <span>Mobile: {{history.Mobile||'N/A'}}</span>
+                                                <span>Direct Line: {{history.DirectLine||'N/A'}}</span>
+                                                <span>Fax: {{history.Fax||'N/A'}}</span>
+                                                <span>Unit: {{history.PoUnit||'N/A'}}</span>
+                                                <span>Street: {{history.PoStreet||'N/A'}}</span>
+                                                <span>Suburb: {{history.PoSuburb||'N/A'}}</span>
+                                                <span>State: {{history.PoState||'N/A'}}</span>
+                                                <span>Postcode: {{history.PoPostcode||'N/A'}}</span>
+                                                <span>PO Number: {{history.PoNumber||'N/A'}}</span>
+                                            </p>
+                                            <div class="text-muted">
+                                                <i class="fa fa-user text-muted"></i> by <span class="m-r-sm">{{history.EditName}}</span>
+                                                <i class="fa fa-clock-o text-muted"></i>{{history.Time|date:'dd/MM/yyyy'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-black-lter" data-ng-show="historyList.length">{{currentPage+1}}/{{numberOfPages((historyList |filter:search).length)+'(Total:'+(historyList |filter:search).length+')'}}</span>
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-sm btn-bg btn-default" ng-click="currentPage=currentPage-1" ng-disabled="currentPage == 0"><i class="fa fa-chevron-left"></i></button>
+                                <button type="button" class="btn btn-sm btn-bg btn-default" ng-click="currentPage=currentPage+1" ng-disabled="currentPage >= (historyList |filter:search).length/pageSize - 1"><i class="fa fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

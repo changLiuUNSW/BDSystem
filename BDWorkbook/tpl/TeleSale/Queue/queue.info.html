@@ -1,0 +1,97 @@
+﻿<div class="row-row">
+    <div class="wrapper">
+        <tabset>
+            <tab ng-repeat="zone in queue.summaries" ng-init="info.initTab($index)">
+                <tab-heading ng-bind="zone.Group">
+                </tab-heading>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="input-group pull-left">
+                            <input class="form-control w-sm" placeholder="Search" ng-model="info.query">
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-responsive table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Area</th>
+                                    <th>Size</th>
+                                    <th>Inhouse</th>
+                                    <th>Non-Inhouse</th>
+                                    <th>Total</th>
+                                    <th>Assigned to</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in zone.filtered = ( zone.Rows | filter : info.query ) | orderBy : ['Area', 'Size'] | offset: info.tabs[$index].startIdx | limitTo : info.tabs[$index].itemsPerPage"
+                                    ng-class="{ 'bg-light' : info.isAssignTo(zone.Group, row, queue.selected) }">
+                                    <td ng-bind="row.Area"></td>
+                                    <td ng-bind="row.Size"></td>
+                                    <td ng-bind="row.Inhouse"></td>
+                                    <td ng-bind="row.NonInhouse"></td>
+                                    <td ng-bind="row.Total"></td>
+                                    <td>
+                                        <span ng-bind="info.isAssigned(zone.Group, row, queue.telesales)"></span>
+                                        <button class="btn btn-info btn-sm"
+                                                ng-show="queue.selected && !info.isAssigned(zone.Group, row, queue.telesales)"
+                                                ng-click="info.assign(zone.Group, row, queue.selected)">
+                                            Assign
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan=6 class="text-right">
+                                        <pagination class="pagination-sm"
+                                                    total-items="zone.filtered.length"
+                                                    ng-model="info.tabs[$index].currentPage"
+                                                    items-per-page="info.tabs[$index].itemsPerPage"
+                                                    boundary-links="true">
+                                        </pagination>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="wrapper">
+        <div class="panel panel-default" ng-show="queue.selected">
+            <div class="panel-heading">
+                <p class="h3 font-thin">
+                    <span ng-bind="queue.selected.Name"></span>
+                </p>
+                <p class="h4 font-thin text-muted">
+                    <span ng-bind ="queue.selected.Initial"></span>
+                </p>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive table-condensed">
+                    <thead>
+                        <tr>
+                            <th>QpCode</th>
+                            <th>Area</th>
+                            <th>Size</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="assignment in queue.selected.Assignments">
+                            <td ng-bind="assignment.QpCode"></td>
+                            <td ng-bind="assignment.Area"></td>
+                            <td ng-bind="assignment.Size"></td>
+                            <td><button class="btn m-b-xs btn-sm btn-info btn-addon"
+                                        ng-click="info.deAssign(queue.selected.Id, assignment.QpCode, assignment)">
+                                    <i class="fa fa-trash-o pull-right"></i>Remove
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

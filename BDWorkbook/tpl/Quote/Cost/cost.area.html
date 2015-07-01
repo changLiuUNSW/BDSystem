@@ -1,0 +1,102 @@
+﻿<loading data-ng-show="loading"></loading>
+<div data-ng-hide="loading">
+    <div class="wrapper bg-light lter b-b">
+        <span class="font-bold">3. Areas to clean and exclude</span>
+    </div>
+    <div class="wrapper">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <tabset class="tab-container">
+                    <tab heading="Area to clean">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover table-condensed bg-white-only">
+                                <tr style="font-weight: bold">
+                                    <td style="width:80%">Name</td>
+                                    <td style="width:20%">Edit</td>
+                                </tr>
+                                <tr ng-repeat="area in costArea.areaToClean">
+                                    <td class="v-middle">
+                                        <!-- editable username (text with validation) -->
+                                        <span editable-text="area.name" e-form="areaToCleanform" onbeforesave="costArea.checkName($data)" e-required>
+                                            {{ area.name || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <!-- form -->
+                                        <form editable-form name="areaToCleanform" ng-show="areaToCleanform.$visible" class="form-inline">
+                                            <button type="submit" ng-disabled="areaToCleanform.$waiting" class="btn btn-sm btn-info">
+                                                save
+                                            </button>
+                                            <button type="button" ng-disabled="areaToCleanform.$waiting" ng-click="areaToCleanform.$cancel()" class="btn btn-sm btn-default">
+                                                cancel
+                                            </button>
+                                        </form>
+                                        <div ng-show="!areaToCleanform.$visible">
+                                            <button class="btn btn-sm btn-info" ng-click="areaToCleanform.$show()">Edit</button>
+                                            <button class="btn btn-sm btn-danger" ng-click="costArea.removeArea($index,costArea.areaToClean)">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <form role="form" class="form-validation" name="addToCleanAreaForm">
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-12">
+                                    <label>Area Name</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" data-ng-model="costArea.toCleanAreaInserted" required>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="button" data-ng-disabled="addToCleanAreaForm.$invalid"
+                                                    data-ng-click="costArea.addArea(costArea.toCleanAreaInserted,costArea.areaToClean)">
+                                                Add
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </tab>
+                    <tab heading="Area to exclude">
+                        <div class="table-responsive">
+                            <table class="table table-striped bg-white b-a table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Area to exclude
+
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href>Floor1</a>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href>Floor2</a>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href>Floor3</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </tab>
+                </tabset>
+                <div class="clearfix">
+                    <a ui-sref="quote.cost.addition" class="pull-right btn btn-sm  btn-info m-t-n-xs">Next >></a>
+                    <a class="pull-right btn btn-sm  btn-primary m-t-n-xs m-r">Save for later</a>
+                </div>   
+            </div>
+        </div>
+    </div>
+</div>

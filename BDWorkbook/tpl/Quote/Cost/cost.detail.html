@@ -1,0 +1,141 @@
+﻿<loading data-ng-show="loading"></loading>
+<div data-ng-hide="loading">
+    <div class="wrapper bg-light lter b-b">
+        <span class="font-bold">1. Basic Details</span>
+    </div>
+    <div class="wrapper">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-4">
+                            <label>Quad Area OM <em class="text-muted">(initials)</em></label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped bg-white b-a">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Initial</th>
+                                    <th>Full Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>OM</td>
+                                    <td>SKIS</td>
+                                    <td>Siegi Kiselitza</td>
+                                    <td>0433848205</td>
+                                    <td>omestell@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <td>GM</td>
+                                    <td>JFUR</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <td>GGM</td>
+                                    <td>DTOL</td>
+                                    <td>Dee Tolson</td>
+                                    <td>0425336884</td>
+                                    <td>dtolson@quadservices.com.au</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Source of Quotation</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Spec <em class="text-muted">client OR customise industry spec</em></label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Industry Type</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Color Code</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-8">
+                            <label>Days cleaned per week</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                                <div class="input-group-btn dropdown" dropdown>
+                                    <button type="button" class="btn btn-default" dropdown-toggle>
+                                        Regular <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="">Regular</a></li>
+                                        <li><a href="">Monthly (Freq &lt; 1)</a></li>
+                                        <li><a href="">Fortnight (Freq &lt; 1)</a></li>
+                                    </ul>
+                                </div><!-- /btn-group -->
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Cleaning on public holidays?</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Is this an additional separate contract at an exisintg site?</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Group/Job</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Is this an additional site, and part of a group we already clean?</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Group/Job</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Is a quote required from WP Or is this for quote costing only?</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Is this quote for a TE contract only?</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Additional Information</label>
+                            <textarea class="form-control" rows="4" placeholder="Additional Information" ></textarea>
+                        </div>
+                    
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <a ui-sref="quote.cost.loaction" class="pull-right btn btn-sm  btn-info m-t-n-xs">Next >></a>
+                            <a class="pull-right btn btn-sm  btn-primary m-t-n-xs m-r">Save for later</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

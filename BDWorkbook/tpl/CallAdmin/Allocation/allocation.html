@@ -1,0 +1,9 @@
+﻿<div page-init="{
+         application:true,
+         hidefooter:true,
+         hideSetting:true
+         }" class="hbox hbox-auto-xs hbox-auto-sm">
+    <div ng-if="data.loading" spinner-loading></div>
+    <div class="col w-md w-auto-xs bg-light dk bg-auto b-l" ng-hide="edit.aside || data.loading" ui-view="aside"></div>
+    <div class="col" ng-hide="data.loading" ui-view="table"></div>
+</div>

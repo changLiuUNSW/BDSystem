@@ -1,0 +1,48 @@
+﻿<table class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <th ng-repeat="sColumn in statistic.type.staticColumns" ng-bind="sColumn.header"></th>
+            <th ng-repeat-start="column in statistic.type.columns track by $index" ng-bind="column.header"></th>
+            <th ng-repeat-end>From last week</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="row in statistic.filtered = ( statistic.data  | filter: statistic.query ) | offset: statistic.idx | limitTo: statistic.itemsPerPage"
+            ng-init="row.lastweek = statistic.fromLastWeek(row)" ng-style="row.style = statistic.style(row)">
+            <td ng-repeat="sColumn in statistic.type.staticColumns" ng-bind="row[sColumn.property]"></td>
+            <td ng-repeat-start="column in statistic.type.columns track by $index" ng-bind="row[column.property]"></td>
+            <td ng-repeat-end>
+                <span class="fa fa-arrow-up"
+                      ng-show="row.lastweek[column.property].bool && statistic.showArrowSign(row.lastweek[column.property])"
+                      style="color:green"></span>
+                <span class="fa fa-arrow-down"
+                      ng-show="!row.lastweek[column.property].bool && statistic.showArrowSign(row.lastweek[column.property])"
+                      style="color:red"></span>
+                {{row.lastweek[column.property].value}}
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <div class="row" ng-repeat="group in statistic.type.groups">
+                    <div class="col-md-4 m-b-xs wrapper-sm" ng-style="group.style"></div>
+                    <div class="col-md-8" ng-bind="group.name"></div>
+                </div>
+                <div class="row" ng-if="statistic.type.style">
+                    <div class="col-md-4 m-b-xs wrapper-sm" ng-style="statistic.type.style"></div>
+                    <div class="col-md-8" ng-bind="statistic.type.style.name"></div>
+                </div>
+            </td>
+            <td colspan= '{{ statistic.type.columns.length * 2 + statistic.type.staticColumns.length }}' 
+                class="text-right">
+                <pagination class="pagination-sm"
+                            total-items="statistic.filtered.length"
+                            ng-model="statistic.page"
+                            items-per-page="statistic.itemsPerPage"
+                            boundary-links="true">
+                </pagination>
+            </td>
+        </tr>
+    </tfoot>
+</table>

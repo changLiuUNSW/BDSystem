@@ -1,0 +1,132 @@
+﻿<div page-init="{
+     asideFixed:true,
+     hideSetting:true,
+     asideFolded:true
+     }">
+    <div class="bg-light lter b-b wrapper-md hidden-print">
+        <div class="btn-group m-r-sm">
+            <a ui-sref="lead.list.group({'status':vm.lead.LeadStatus.Name.toLowerCase()})" tooltip="Back" class="btn btn-sm btn-default w-xxs w-auto-xs">
+                <i class="fa fa-long-arrow-left"></i>
+            </a>
+            <button class="btn btn-sm btn-default w-xxs w-auto-xs" tooltip="Delete" data-ng-click=""><i class="fa fa-trash-o"></i></button>
+        </div>
+    </div>
+    <div class="loading" ng-show="vm.loading">
+        <div class="double-bounce1"></div><div class="double-bounce2"></div>
+    </div>
+    <div data-ng-hide="vm.loading" class="wrapper-sm">
+        <div class="panel b-light clearfix">
+            <div class="panel-body">
+                <div class="text-muted">
+                    Last update: {{vm.lead.LastUpdateDate|date:"dd/MM/yyyy 'at' h:mma"}}
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="text-uppercase font-bold m-t-sm">Status</p>
+                        <h4 class="text-uppercase m-t-xs"
+                            data-ng-class="{'text-success':vm.lead.LeadStatus.Name!=='cancel','text-danger':vm.lead.LeadStatus.Name==='cancel'}">
+                            {{vm.lead.LeadStatus.Name}}
+                        </h4>
+                        <div data-ng-if="vm.lead.LeadStatus.Name==='appointment'">
+                            <p class="text-uppercase font-bold m-t-sm">Appointment Date</p>
+                            <h4 class="text-uppercase text-primary m-t-xs">{{(vm.lead.AppointmentDate|date:'dd/MM/yyyy')||'N/A'}}</h4>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <p class="text-uppercase font-bold m-t-sm">Contact</p>
+                        <ul class="list-unstyled text-muted">
+                            <li>
+                                <strong class="thumb-lg">Name:</strong>
+                                <span>{{vm.lead.Contact.ContactPerson.Title}}</span>
+                                <span>{{vm.lead.Contact.ContactPerson.Firstname}}</span>
+                                <span>{{vm.lead.Contact.ContactPerson.Lastname}}</span>
+                            </li>
+                            <li>
+                                <strong class="thumb-lg">Position:</strong>
+                                {{vm.lead.Contact.ContactPerson.Position}}
+                            </li>
+                            <li>
+                                <strong class="thumb-lg">Phone:</strong>
+                                <a data-ng-href="tel:{{vm.lead.Phone}}" class="text-info">
+                                    {{vm.lead.Phone}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <script type="text/ng-template" id="modal.lead.BDcontact.html">
+                        <div ng-include="'tpl/Lead/Modals/modal.lead.BDcontact.html'"></div>
+                    </script>
+                    <script type="text/ng-template" id="modal.lead.changeQp.html">
+                        <div ng-include="'tpl/Lead/Modals/modal.lead.changeQp.html'"></div>
+                    </script>
+                    <script type="text/ng-template" id="modal.lead.sitevisit.html">
+                        <div ng-include="'tpl/Lead/Modals/modal.lead.sitevisit.html'"></div>
+                    </script>
+
+                    <div class="col-md-6">
+                        <div class="alert alert-success" data-ng-if="vm.lead.LeadStatus.Name==='quoted'||vm.lead.LeadStatus.Name==='estimation'">
+                            <div class="font-bold h4 m-b-sm">
+                                <strong>{{vm.lead.LeadStatus.Name|ucfirst}}</strong>
+                            </div>
+                            <div class="m-b-sm" data-ng-repeat="quote in vm.lead.Quotes">
+                                If you want to view the detail, please <a ui-sref="quote.detail.progress.overview({id:quote.Id})" class="text-u-l">click here</a>
+                            </div>
+                        </div>
+
+                        <div class="alert" data-ng-if="vm.lead.LeadStatus.Name!=='quoted'&&vm.lead.LeadStatus.Name!=='estimation'"
+                             data-ng-class="{'alert-info':vm.lead.LeadStatus.Name!=='cancel','alert-danger':vm.lead.LeadStatus.Name==='cancel'}">
+                            <div class="font-bold h4 m-b-sm">
+                                <strong data-ng-if="vm.lead.LeadStatus.Name!=='cancel'">Next Step</strong>
+                                <strong data-ng-if="vm.lead.LeadStatus.Name==='cancel'">Cancelled</strong>
+                            </div>
+                            <div class="m-b-sm">{{vm.lead.LeadStatus.Description}}</div>
+                            <h5 class="font-bold" data-ng-if="vm.lead.CallBackDate && vm.lead.LeadStatus.Name==='callback'">
+                                <i class="fa fa-clock-o"></i>
+                                <span>{{vm.lead.CallBackDate|date:'dd/MM/yyyy'}}</span>
+                            </h5>
+                            <div class="m-b-sm" data-ng-if="vm.lead.LeadStatus.Name==='appointment'">
+                                <span data-ng-hide="vm.appointmentEditing">
+                                    <i class="fa fa fa-calendar"></i>
+                                    {{(vm.lead.AppointmentDate|date:'dd/MM/yyyy')||'N/A'}}
+                                </span>
+                                <a class="btn btn-xs btn-info" data-ng-hide="vm.appointmentEditing" ng-click="vm.appointmentEditing=true">Edit</a>
+                                <a class="btn btn-xs btn-success" data-ng-show="vm.appointmentEditing" data-ng-disabled="appointmentForm.$invalid" ng-click="vm.appointmentSave()">Update</a>
+                                <a class="btn btn-xs btn-danger" data-ng-show="vm.appointmentEditing" ng-click="vm.appointmentEditing=false">Cancel</a>
+                            </div>
+
+                            <form class="form-validation" name="appointmentForm">
+                                <div class="form-group m-b-sm" data-ng-if="vm.appointmentEditing" data-ng-init="vm.appointmentDate=vm.lead.AppointmentDate">
+                                    <label class="sr-only" for="appointmentDate">Appointment Date</label>
+                                    <input type="text" class="form-control" name="appointmentDate"
+                                           placeholder="date"
+                                           id="appointmentDate"
+                                           datepicker-popup="dd/MM/yyyy" is-open="pickerOpen"
+                                           data-ng-click="pickerOpen=true" close-text="Close" onkeydown=" return false; "
+                                           data-ng-model="vm.appointmentDate" required>
+                                </div>
+                            </form>
+
+                            <button type="button" data-ng-if="vm.lead.LeadStatus.Name!=='cancel'&& !vm.appointmentEditing" class="btn btn-primary btn-sm" data-ng-click="vm.action(vm.lead.LeadStatus.Name)">Take this action</button>
+                            <button type="button" data-ng-if="!vm.appointmentEditing" class="btn btn-danger btn-sm" data-ng-click="vm.changeQp()">Change QP</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-b-sm">
+                    <ul class="nav nav-pills nav-sm">
+                        <li data-ng-repeat="tab in vm.tabs" data-ng-class="{'active':vm.tabs.selected===tab}">
+                            <a href data-ng-click="vm.tabs.selected=tab">{{tab}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row b-t wrapper-sm"
+                     data-ng-if="vm.tabs.selected==='Overview'"
+                     data-ng-include="'tpl/Lead/lead.detail.overview.html'"></div>
+                <div class="b-t"
+                     data-ng-if="vm.tabs.selected==='History'"
+                     data-ng-include="'tpl/Lead/lead.detail.history.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>

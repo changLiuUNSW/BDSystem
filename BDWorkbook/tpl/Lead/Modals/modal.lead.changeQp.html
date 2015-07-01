@@ -1,0 +1,19 @@
+﻿<loading data-ng-show="vm.loading"></loading>
+<div class="modal-body wrapper-lg" data-ng-if="!vm.loading">
+    <h4>Please select</h4>
+    <form name="form" class="form-validation">
+        <div class="form-group">
+            <label><em class="text-muted">If you cannot decide, please select 'DHUD - David H'</em></label>
+            <ui-select ng-model="vm.selectedQp" required>
+                <ui-select-match placeholder="Select or search a QP in the list...">{{$select.selected.Initial+' - '+$select.selected.Name}}</ui-select-match>
+                <ui-select-choices repeat="item in vm.qpList | filter: $select.search">
+                    <div ng-bind-html="item.Initial+' - '+item.Name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </form>
+    <div class="text-right m-t-lg">
+        <button class="btn btn-sm btn-success" data-ng-disabled="form.$invalid||vm.isSame()" ng-click="vm.ok()">OK</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>New Lead</title>
+    <style type="text/css">
+        body {
+            font-family: Calibri, Verdana, Arial;
+        }
+
+        a:visited {
+            color: Blue;
+        }
+
+        a:active {
+            color: Blue;
+        }
+
+        a:hover {
+            color: Red;
+        }
+
+        .footer {
+            font-size: x-small;
+            color: Gray;
+        }
+    </style>
+</head>
+<body>
+    Hello <b>@name</b>
+    <br />
+    <br />
+    <p>This is to advise that a new lead has been assigned to you.</p>
+    Lead Details:
+    <br />
+    <br />
+    <table width="850" style="font-size:14px">
+        <tbody>
+            <tr>
+                <td width="150">
+                    <b>Lead ID:</b>
+                </td>
+                <td width="700">
+                    @leadId
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Lead Type:</b>
+                </td>
+                <td>
+                    @leadType
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Company:</b>
+                </td>
+                <td>
+                    @company
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Phone:</b>
+                </td>
+                <td>
+                    <a href="tel:@phone">
+                        @phone
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Location:</b>
+                </td>
+                <td>
+                    @address
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @suburb,&nbsp;@state,&nbsp;
+                    @postcode
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>To view the detail, click the link below: <p>
+    <a href="@url" target="_blank">@url</a>
+    <br />
+    <br />
+    <p style="color: red;">*This is a system generated email, please do not reply.*</p>
+    <br />Regards,
+    <br />
+    <br />
+    System Administrator<br />Quad Services Pty Ltd
+    <br />
+    <div class="footer">Mail sent on @sentOn from @server.</div>
+</body>
+</html>

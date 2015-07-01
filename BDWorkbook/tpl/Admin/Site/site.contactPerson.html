@@ -1,0 +1,35 @@
+﻿<div class="panel b-a">
+    <div class="panel-heading wrapper b-b b-light">
+        <script type="text/ng-template" id="contactModalContent.html">
+            <div ng-include="'tpl/Shared/modal.contact.html'"></div>
+        </script>
+        <span class="pull-right">
+            <a href tooltip="Edit" data-ng-click="contactPersonModal('lg')">
+                <i class="fa fa-gear"></i>
+            </a>
+        </span>
+        <div class="clear">
+            Contact Person
+        </div>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item" data-ng-repeat="contactPerson in model.site.ContactPersons">
+            <div data-ng-repeat="contact in model.site.Contacts"
+                 data-ng-if="contact.ContactPersonId===contactPerson.Id" class="label bg-light m-b-sm">
+                {{contact.BusinessType.Type}}
+            </div>
+            <p>
+                <a ui-sref="Admin.contactPerson.detail({id: contactPerson.Id})" class="text-info">
+                    <span>{{contactPerson.Title}}</span>
+                    <span>{{contactPerson.Firstname}}</span>
+                    <span>{{contactPerson.Lastname}}</span>
+                    <span data-ng-hide="contactPerson.Title||contactPerson.Firstname||contactPerson.Lastname">N/A</span>
+                </a><br>
+                {{contactPerson.Position}}<br>
+                <span class="text-ellipsis" data-ng-show="contactPerson.Email">{{contactPerson.Email}}</span><br>
+                <span data-ng-show="contactPerson.Mobile">M: {{contactPerson.Mobile}}</span>
+                <span data-ng-show="contactPerson.DirectLine">Direct Line: {{contactPerson.DirectLine}}</span>
+            </p>
+        </li>
+    </ul>
+</div>

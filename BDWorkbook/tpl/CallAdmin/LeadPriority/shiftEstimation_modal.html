@@ -1,0 +1,41 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading font-bold">Shift Estimation</div>
+    <div class="panel-body">
+        <form name="form" class="form-horizontal form-validation">
+            <div class="form-group">
+                <label class="col-md-4 control-label">Estimated record per shift</label>
+                <div class="col-md-4">
+                    <input type="number" min="1" name="zone" class="form-control" ng-model="shift.RecordPerShift" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Estimated lead per shift</label>
+                <div class="col-md-4">
+                    <input type="number" min="0" step="0.1" name="zone" class="form-control" ng-model="shift.LeadPerShift" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Est. contact rate per 3hr shift</label>
+                <div class="col-md-4">
+                    <input type="number" min="0" name="zone" class="form-control" ng-model="shift.ContactRatePer3HrShift" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Cycle of calls in week</label>
+                <div class="col-md-4">
+                    <input type="number" min="1" name="zone" class="form-control" ng-model="shift.CallCycleWeeks" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">No. weeks PA called</label>
+                <div class="col-md-4">
+                    <input type="number" min="1" name="zone" class="form-control" ng-model="shift.PaCalledWks" required>
+                </div>
+            </div>
+            <footer class="panel-footer text-right ">
+                <button type="submit" class="btn btn-default m-r-sm" ng-click="actions.cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary m-r-sm" ng-click="actions.confirm(form)">Confirm</button>
+            </footer>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,2869 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScriptXmlTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Scripts>
+    <Script Tag="OPR">
+      <Root>
+        <Value>
+          <Branch>true</Branch>
+          <BranchType>ContctPerson</BranchType>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Could you please tell me the name of the person who is responsible for the cleaning of your premises?</Question>
+            <End>false</End>
+            <Actions>
+              <UpdateContactName>
+                <Description>Update contact name</Description>
+                <Action>UpdateContactName</Action>
+              </UpdateContactName>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>We would like to send the relevant person some information on our services that they could find useful in the future. I do not need to speak to the person. Could you just tell me their name</Question>
+              <End>false</End>
+              <Actions>
+                <UpdateContactName>
+                  <Description>Update contact name</Description>
+                  <Action>UpdateContactName</Action>
+                </UpdateContactName>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Can I speak to @ContactName please?</Question>
+              <End>false</End>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>We would like to offer a free quotation for cleaning services.</Question>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Thank you for your time</Question>
+                  <End>true</End>
+                  <Actions>
+                    <UpdateNextCall>
+                      <Description>Next call in 3 three weeks.</Description>
+                      <Action>UpdateNextCallDate</Action>
+                      <UpdateInMonth>false</UpdateInMonth>
+                    </UpdateNextCall>
+                  </Actions>
+                </Value>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>@AskOprQuestion</Question>
+                  <End>false</End>
+                </Value>
+              </Right>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>@AskOprQuestion</Question>
+                <End>false</End>
+              </Value>
+            </Right>
+          </Right>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Can I speak to @ContactName please?</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>We would like to offer a free quotation for cleaning services.</Question>
+              <End>false</End>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>@AskOprQuestion</Question>
+                <End>false</End>
+              </Value>
+            </Right>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>@AskOprQuestion</Question>
+              <End>false</End>
+            </Value>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="GRP">
+      <Root>
+        <Value>
+          <Branch>true</Branch>
+          <BranchType>ContctPerson</BranchType>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Could you please tell me the name of the person who is responsible for the cleaning of your premises.</Question>
+            <End>false</End>
+            <Actions>
+              <UpdateContactName>
+                <Description>Update contact name</Description>
+                <Action>UpdateContactName</Action>
+              </UpdateContactName>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>We would like to send the relevant person some information on our services that they chould find useful in the future. I do not need to speak to the person. Could you just tell me their name</Question>
+              <End>false</End>
+              <Actions>
+                <UpdateContactName>
+                  <Description>Update contact name</Description>
+                  <Action>UpdateContactName</Action>
+                </UpdateContactName>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Can I speak to @ContactName please?</Question>
+              <End>false</End>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>We would like to offer a free quotation for cleaning services.</Question>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Thank you for your time</Question>
+                  <End>true</End>
+                  <Actions>
+                    <UpdateNextCall>
+                      <Description>Next call in 3 three weeks.</Description>
+                      <Action>UpdateNextCallDate</Action>
+                      <UpdateInMonth>false</UpdateInMonth>
+                    </UpdateNextCall>
+                  </Actions>
+                </Value>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Hello @ContactTitle @ContactName, My name is @TelesaleName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>@AskQualification</Question>
+                        <End>false</End>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>I would like to confirm your address and phone number.</Question>
+                        <End>false</End>
+                        <Actions>
+                          <CreateLead>
+                            <Description>CreateLeadAction cleaning lead</Description>
+                            <Action>CreateCleaningLead</Action>
+                          </CreateLead>
+                        </Actions>
+                      </Value>
+                      <Left>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in @UpdateInterval month.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>true</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Left>
+                      <Right>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>@QpName will be contacting you shortly to arrange to call in.</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in @UpdateInterval month.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>true</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Right>
+                    </Right>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <End>false</End>
+                      <Actions>
+                        <CreateLead>
+                          <Description>CreateLeadAction cleaning lead</Description>
+                          <Action>CreateCleaningLead</Action>
+                        </CreateLead>
+                      </Actions>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>@QpName will be contacting you shortly to arrange to call in.</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>true</Branch>
+                    <BranchType>PropertyMananger</BranchType>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                      <End>false</End>
+                      <Actions>
+                        <UpdateContactName>
+                          <Description>Update contact name</Description>
+                          <Action>UpdateContactName</Action>
+                        </UpdateContactName>
+                      </Actions>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Can you transfer me to someone who can tell me?</Question>
+                        <End>false</End>
+                      </Value>
+                      <Left>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in 3 three weeks.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>false</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Left>
+                      <Right>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                          <End>false</End>
+                          <Actions>
+                            <UpdateContactName>
+                              <Description>Update contact name</Description>
+                              <Action>UpdateContactName</Action>
+                            </UpdateContactName>
+                          </Actions>
+                        </Value>
+                        <Left>
+                          <Value>
+                            <Branch>false</Branch>
+                            <Question>Thank you for your time</Question>
+                            <End>true</End>
+                            <Actions>
+                              <UpdateNextCall>
+                                <Description>Next call in 3 three weeks.</Description>
+                                <Action>UpdateNextCallDate</Action>
+                                <UpdateInMonth>false</UpdateInMonth>
+                              </UpdateNextCall>
+                            </Actions>
+                          </Value>
+                        </Left>
+                        <Right>
+                          <Value>
+                            <Branch>false</Branch>
+                            <Question>Thank you for your time</Question>
+                            <End>true</End>
+                            <Actions>
+                              <UpdateNextCall>
+                                <Description>Next call in @UpdateInterval month.</Description>
+                                <Action>UpdateNextCallDate</Action>
+                                <UpdateInMonth>true</UpdateInMonth>
+                              </UpdateNextCall>
+                            </Actions>
+                          </Value>
+                        </Right>
+                      </Right>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Can you transfer me to someone who can tell me?</Question>
+                        <End>false</End>
+                      </Value>
+                      <Left>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in 3 three weeks.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>false</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Left>
+                      <Right>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                          <End>false</End>
+                        </Value>
+                        <Left>
+                          <Value>
+                            <Branch>false</Branch>
+                            <Question>Thank you for your time</Question>
+                            <End>true</End>
+                            <Actions>
+                              <UpdateNextCall>
+                                <Description>Next call in 3 three weeks.</Description>
+                                <Action>UpdateNextCallDate</Action>
+                                <UpdateInMonth>false</UpdateInMonth>
+                              </UpdateNextCall>
+                            </Actions>
+                          </Value>
+                        </Left>
+                        <Right>
+                          <Value>
+                            <Branch>false</Branch>
+                            <Question>Thank you for your time</Question>
+                            <End>true</End>
+                            <Actions>
+                              <UpdateNextCall>
+                                <Description>Next call in @UpdateInterval month.</Description>
+                                <Action>UpdateNextCallDate</Action>
+                                <UpdateInMonth>true</UpdateInMonth>
+                              </UpdateNextCall>
+                            </Actions>
+                          </Value>
+                        </Right>
+                      </Right>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Right>
+                </Right>
+              </Right>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Hello @ContactTitle @ContactName, My name is @TelesaleName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>@AskQualification</Question>
+                      <End>false</End>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <End>false</End>
+                      <Actions>
+                        <CreateLead>
+                          <Description>CreateLeadAction cleaning lead</Description>
+                          <Action>CreateCleaningLead</Action>
+                        </CreateLead>
+                      </Actions>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>@QpName will be contacting you shortly to arrange to call in.</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>I would like to confirm your address and phone number.</Question>
+                    <End>false</End>
+                    <Actions>
+                      <CreateLead>
+                        <Description>CreateLeadAction cleaning lead</Description>
+                        <Action>CreateCleaningLead</Action>
+                      </CreateLead>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>@QpName will be contacting you shortly to arrange to call in.</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>true</Branch>
+                  <BranchType>PropertyMananger</BranchType>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                    <End>false</End>
+                    <Actions>
+                      <UpdateContactName>
+                        <Description>Update contact name</Description>
+                        <Action>UpdateContactName</Action>
+                      </UpdateContactName>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Can you transfer me to someone who can tell me?</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in 3 three weeks.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>false</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                        <End>false</End>
+                        <Actions>
+                          <UpdateContactName>
+                            <Description>Update contact name</Description>
+                            <Action>UpdateContactName</Action>
+                          </UpdateContactName>
+                        </Actions>
+                      </Value>
+                      <Left>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in 3 three weeks.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>false</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Left>
+                      <Right>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in @UpdateInterval month.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>true</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Right>
+                    </Right>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Can you transfer me to someone who can tell me?</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in 3 three weeks.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>false</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                        <End>false</End>
+                      </Value>
+                      <Left>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in 3 three weeks.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>false</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Left>
+                      <Right>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in @UpdateInterval month.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>true</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Right>
+                    </Right>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Right>
+            </Right>
+          </Right>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Can I speak to @ContactName please?</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>We would like to offer a free quotation for cleaning services.</Question>
+              <End>false</End>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Hello @ContactTitle @ContactName, My name is @TelesaleName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>@AskQualification</Question>
+                      <End>false</End>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>I would like to confirm your address and phone number.</Question>
+                      <End>false</End>
+                      <Actions>
+                        <CreateLead>
+                          <Description>CreateLeadAction cleaning lead</Description>
+                          <Action>CreateCleaningLead</Action>
+                        </CreateLead>
+                      </Actions>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>@QpName will be contacting you shortly to arrange to call in.</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>I would like to confirm your address and phone number.</Question>
+                    <End>false</End>
+                    <Actions>
+                      <CreateLead>
+                        <Description>CreateLeadAction cleaning lead</Description>
+                        <Action>CreateCleaningLead</Action>
+                      </CreateLead>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>@QpName will be contacting you shortly to arrange to call in.</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>true</Branch>
+                  <BranchType>PropertyMananger</BranchType>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                    <End>false</End>
+                    <Actions>
+                      <UpdateContactName>
+                        <Description>Update contact name</Description>
+                        <Action>UpdateContactName</Action>
+                      </UpdateContactName>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Can you transfer me to someone who can tell me?</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in 3 three weeks.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>false</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                        <End>false</End>
+                        <Actions>
+                          <UpdateContactName>
+                            <Description>Update contact name</Description>
+                            <Action>UpdateContactName</Action>
+                          </UpdateContactName>
+                        </Actions>
+                      </Value>
+                      <Left>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in 3 three weeks.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>false</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Left>
+                      <Right>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in @UpdateInterval month.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>true</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Right>
+                    </Right>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Can you transfer me to someone who can tell me?</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in 3 three weeks.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>false</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                        <End>false</End>
+                      </Value>
+                      <Left>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in 3 three weeks.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>false</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Left>
+                      <Right>
+                        <Value>
+                          <Branch>false</Branch>
+                          <Question>Thank you for your time</Question>
+                          <End>true</End>
+                          <Actions>
+                            <UpdateNextCall>
+                              <Description>Next call in @UpdateInterval month.</Description>
+                              <Action>UpdateNextCallDate</Action>
+                              <UpdateInMonth>true</UpdateInMonth>
+                            </UpdateNextCall>
+                          </Actions>
+                        </Value>
+                      </Right>
+                    </Right>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Right>
+            </Right>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Hello @ContactTitle @ContactName, My name is @TelesaleName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
+              <End>false</End>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>@AskQualification</Question>
+                    <End>false</End>
+                  </Value>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>I would like to confirm your address and phone number.</Question>
+                    <End>false</End>
+                    <Actions>
+                      <CreateLead>
+                        <Description>CreateLeadAction cleaning lead</Description>
+                        <Action>CreateCleaningLead</Action>
+                      </CreateLead>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>@QpName will be contacting you shortly to arrange to call in.</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>I would like to confirm your address and phone number.</Question>
+                  <End>false</End>
+                  <Actions>
+                    <CreateLead>
+                      <Description>CreateLeadAction cleaning lead</Description>
+                      <Action>CreateCleaningLead</Action>
+                    </CreateLead>
+                  </Actions>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>@QpName will be contacting you shortly to arrange to call in.</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Right>
+              </Right>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>true</Branch>
+                <BranchType>PropertyMananger</BranchType>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                  <End>false</End>
+                  <Actions>
+                    <UpdateContactName>
+                      <Description>Update contact name</Description>
+                      <Action>UpdateContactName</Action>
+                    </UpdateContactName>
+                  </Actions>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Can you transfer me to someone who can tell me?</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in 3 three weeks.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>false</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                      <End>false</End>
+                      <Actions>
+                        <UpdateContactName>
+                          <Description>Update contact name</Description>
+                          <Action>UpdateContactName</Action>
+                        </UpdateContactName>
+                      </Actions>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in 3 three weeks.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>false</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Right>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Can you transfer me to someone who can tell me?</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in 3 three weeks.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>false</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in 3 three weeks.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>false</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Right>
+              </Right>
+            </Right>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="LPM">
+      <Root>
+        <Value>
+          <Branch>true</Branch>
+          <BranchType>ContctPerson</BranchType>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Can I speak to Mr/Ms @ContactName please?</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in 3 three weeks.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>false</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Hello @ContactName, this is @TelesaleName from Quad, we are a National Provider of cleaning services and are just calling to keep in touch. Is there anything we can help you with at the moment</Question>
+              <End>false</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+                <CreateTaskForDh>
+                  <Description>Create task for DH.</Description>
+                  <Action>TaskForDH</Action>
+                </CreateTaskForDh>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>I will arrange for @QpName to contact you shortly.</Question>
+                <End>false</End>
+              </Value>
+            </Right>
+          </Right>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Hello @ContactName, this is @TelesaleName from Quad, we are a National Provider of cleaning services and are just calling to keep in touch. Is there anything we can help you with at the moment</Question>
+            <End>false</End>
+            <Actions>
+              <UpdateNextCall>
+                <Description>Next call in @UpdateInterval month.</Description>
+                <Action>UpdateNextCallDate</Action>
+                <UpdateInMonth>true</UpdateInMonth>
+              </UpdateNextCall>
+              <CreateTaskForDh>
+                <Description>Create task for DH.</Description>
+                <Action>TaskForDH</Action>
+              </CreateTaskForDh>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>I will arrange for @QpName to contact you shortly.</Question>
+              <End>false</End>
+            </Value>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="BMS">
+      <Root>
+        <Value>
+          <Branch>true</Branch>
+          <BranchType>ContctPerson</BranchType>
+          <End>false</End>
+        </Value>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning, maintenance and security company. I am calling to introduce our company to see if I can arrange for our maintenance manager to come and see you and talk about our maintenance services. (building repairs, fit outs, plumbing, light replacement, painting</Question>
+            <End>false</End>
+          </Value>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Confirm address, phone and location in building.</Question>
+              <End>false</End>
+              <Actions>
+                <CreateLead>
+                  <Description>Generate a new maintenance lead</Description>
+                  <Action>CreateMaintenanceLead</Action>
+                </CreateLead>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>true</Branch>
+                <BranchType>PropertyMananger</BranchType>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>For my records could you tell me who is the property manager for your building.</Question>
+                  <End>false</End>
+                  <Actions>
+                    <UpdateContactName>
+                      <Description>Update contact name</Description>
+                      <Action>UpdateContactName</Action>
+                    </UpdateContactName>
+                  </Actions>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                        <CreateTaskForDh>
+                          <Description>Create task for DH.</Description>
+                          <Action>TaskForDH</Action>
+                        </CreateTaskForDh>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                        <CreateTaskForDh>
+                          <Description>Create task for DH.</Description>
+                          <Action>TaskForDH</Action>
+                        </CreateTaskForDh>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Is @PropertyManageName still the property manager for your building?</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>For my records could you tell me who is the property manager for your building.</Question>
+                    <End>false</End>
+                    <Actions>
+                      <UpdateContactName>
+                        <Description>Update contact name</Description>
+                        <Action>UpdateContactName</Action>
+                      </UpdateContactName>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                          <CreateTaskForDh>
+                            <Description>Create task for DH.</Description>
+                            <Action>TaskForDH</Action>
+                          </CreateTaskForDh>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
+                      <End>false</End>
+                    </Value>
+                    <Left>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                          <CreateTaskForDh>
+                            <Description>Create task for DH.</Description>
+                            <Action>TaskForDH</Action>
+                          </CreateTaskForDh>
+                        </Actions>
+                      </Value>
+                    </Left>
+                    <Right>
+                      <Value>
+                        <Branch>false</Branch>
+                        <Question>Thank you for your time</Question>
+                        <End>true</End>
+                        <Actions>
+                          <UpdateNextCall>
+                            <Description>Next call in @UpdateInterval month.</Description>
+                            <Action>UpdateNextCallDate</Action>
+                            <UpdateInMonth>true</UpdateInMonth>
+                          </UpdateNextCall>
+                        </Actions>
+                      </Value>
+                    </Right>
+                  </Right>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
+                    <End>false</End>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                        <CreateTaskForDh>
+                          <Description>Create task for DH.</Description>
+                          <Action>TaskForDH</Action>
+                        </CreateTaskForDh>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Right>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="PMS">
+      <Root>
+        <Value>
+          <Branch>true</Branch>
+          <BranchType>PropertyMananger</BranchType>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Good morning, this is @TelesaleName from Quad Services. Could you please tell me if your company engages the cleaners or whether the cleaning is part of your rental.</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Could you please tell me the name of the property manager who organises the cleaning of your premises? (also company / phone</Question>
+              <Text>External</Text>
+              <End>false</End>
+              <Actions>
+                <UpdatePropertyManager>
+                  <Description>Update property manager</Description>
+                  <Action>UpdatePmName</Action>
+                </UpdatePropertyManager>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Can you transfer me to someone who could assist me?</Question>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Thank you for your time</Question>
+                  <End>true</End>
+                  <Actions>
+                    <UpdateNextCall>
+                      <Description>Next call in 3 three weeks.</Description>
+                      <Action>UpdateNextCallDate</Action>
+                      <UpdateInMonth>false</UpdateInMonth>
+                    </UpdateNextCall>
+                  </Actions>
+                </Value>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Could you please tell me the name of the property manager who organises the cleaning of your premises? (also company / phone</Question>
+                  <End>false</End>
+                  <Actions>
+                    <UpdatePropertyManager>
+                      <Description>Update property manager</Description>
+                      <Action>UpdatePmName</Action>
+                    </UpdatePropertyManager>
+                  </Actions>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in 3 three weeks.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>false</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Confirm detail</Question>
+                    <End>false</End>
+                    <Actions>
+                      <UpdatePropertyManager>
+                        <Description>Update property manager</Description>
+                        <Action>UpdatePmName</Action>
+                      </UpdatePropertyManager>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Right>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Could you please tell me the name of the person who is responsible for organising the cleaning of your premises?</Question>
+              <Text>Internal</Text>
+              <End>false</End>
+              <Actions>
+                <UpdateTenant>
+                  <Description>Update tenant as OPR</Description>
+                  <Action>UpdateTenant</Action>
+                  <TenantId>0</TenantId>
+                </UpdateTenant>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Can I speak to Mr/Ms @NameCapture please?</Question>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Thank you for your time</Question>
+                  <End>true</End>
+                  <Actions>
+                    <UpdateNextCall>
+                      <Description>Next call in 3 three weeks.</Description>
+                      <Action>UpdateNextCallDate</Action>
+                      <UpdateInMonth>false</UpdateInMonth>
+                    </UpdateNextCall>
+                  </Actions>
+                </Value>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Hello, My name is @TelesaleName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Confirm detail</Question>
+                    <End>false</End>
+                    <Actions>
+                      <CreateLead>
+                        <Description>New cleaning lead</Description>
+                        <Action>CreateCleaningLead</Action>
+                      </CreateLead>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Right>
+            </Right>
+          </Right>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Good morning, this is @TelesaleName from Quad Services. I would like to confirm that @PropertyManageCompany is the company that manages this property</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Would you give me the name and phone number of the new property manager?</Question>
+              <End>false</End>
+              <Actions>
+                <UpdatePropertyManager>
+                  <Description>Update property manager</Description>
+                  <Action>UpdatePmName</Action>
+                </UpdatePropertyManager>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Can you put me through to someone in your office - office manager / accountant who would know?</Question>
+                <End>false</End>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Thank you for your time</Question>
+                  <End>true</End>
+                  <Actions>
+                    <UpdateNextCall>
+                      <Description>Next call in @UpdateInterval month.</Description>
+                      <Action>UpdateNextCallDate</Action>
+                      <UpdateInMonth>true</UpdateInMonth>
+                    </UpdateNextCall>
+                  </Actions>
+                </Value>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Can you give me the name and phone number of the property manager of this building?</Question>
+                  <End>false</End>
+                  <Actions>
+                    <UpdatePropertyManager>
+                      <Description>Update property manager</Description>
+                      <Action>UpdatePmName</Action>
+                    </UpdatePropertyManager>
+                  </Actions>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in 3 three weeks.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>false</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Right>
+              </Right>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Is @PropertyManageName the property manager?</Question>
+              <End>false</End>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Would you give me the name and phone number of the new property manager?</Question>
+                <End>false</End>
+                <Actions>
+                  <UpdatePropertyManager>
+                    <Description>Update property manager</Description>
+                    <Action>UpdatePmName</Action>
+                  </UpdatePropertyManager>
+                </Actions>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Can you put me through to someone in your office - office manager / accountant who would know?</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Action>UpdateNextCallDate</Action>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Can you give me the name and phone number of the property manager of this building?</Question>
+                    <End>false</End>
+                    <Actions>
+                      <UpdatePropertyManager>
+                        <Description>Update property manager</Description>
+                        <Action>UpdatePmName</Action>
+                      </UpdatePropertyManager>
+                    </Actions>
+                  </Value>
+                  <Left>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in 3 three weeks.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>false</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Left>
+                  <Right>
+                    <Value>
+                      <Branch>false</Branch>
+                      <Question>Thank you for your time</Question>
+                      <End>true</End>
+                      <Actions>
+                        <UpdateNextCall>
+                          <Description>Next call in @UpdateInterval month.</Description>
+                          <Action>UpdateNextCallDate</Action>
+                          <UpdateInMonth>true</UpdateInMonth>
+                        </UpdateNextCall>
+                      </Actions>
+                    </Value>
+                  </Right>
+                </Right>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Thank you for your time</Question>
+                  <End>true</End>
+                  <Actions>
+                    <UpdateNextCall>
+                      <Description>Next call in @UpdateInterval month.</Description>
+                      <Action>UpdateNextCallDate</Action>
+                      <UpdateInMonth>true</UpdateInMonth>
+                    </UpdateNextCall>
+                  </Actions>
+                </Value>
+              </Right>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="Quali_Question">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>Ask for @Quali_Question</Question>
+          <End>false</End>
+          <Actions>
+            <UpdateQualification>
+              <Description>Update qualification number</Description>
+              <Action>UpdateQualification</Action>
+              <Number>0</Number>
+            </UpdateQualification>
+          </Actions>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Thank you for your time</Question>
+            <End>true</End>
+            <Actions>
+              <UpdateNextCall>
+                <Description>Next call in @UpdateInterval month.</Description>
+                <Action>UpdateNextCallDate</Action>
+                <UpdateInMonth>true</UpdateInMonth>
+              </UpdateNextCall>
+            </Actions>
+          </Value>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Thank you for your time</Question>
+            <End>true</End>
+            <Actions>
+              <UpdateNextCall>
+                <Description>Next call in @UpdateInterval month.</Description>
+                <Action>UpdateNextCallDate</Action>
+                <UpdateInMonth>true</UpdateInMonth>
+              </UpdateNextCall>
+            </Actions>
+          </Value>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="Quali_Email">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>Is it okay if we can send you our company profile by email?</Question>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Thank you for your time</Question>
+            <End>true</End>
+            <Actions>
+              <UpdateNextCall>
+                <Description>Next call in @UpdateInterval month.</Description>
+                <Action>UpdateNextCallDate</Action>
+                <UpdateInMonth>true</UpdateInMonth>
+              </UpdateNextCall>
+            </Actions>
+          </Value>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Could I get your email address?</Question>
+            <End>false</End>
+            <Actions>
+              <UpdateEmail>
+                <Description>Update email address.</Description>
+                <Action>UpdateEmail</Action>
+              </UpdateEmail>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="Quali_Security">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>Our organisation also provide security services. Could you please tell me the name of the person who is reponsible for the security of your premises?</Question>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Thank you for your time</Question>
+            <End>true</End>
+            <Actions>
+              <UpdateNextCall>
+                <Description>Next call in @UpdateInterval month.</Description>
+                <Action>UpdateNextCallDate</Action>
+                <UpdateInMonth>true</UpdateInMonth>
+              </UpdateNextCall>
+            </Actions>
+          </Value>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Thank you for your time</Question>
+            <End>true</End>
+            <Actions>
+              <UpdateNextCall>
+                <Description>Next call in @UpdateInterval month.</Description>
+                <Action>UpdateNextCallDate</Action>
+                <UpdateInMonth>true</UpdateInMonth>
+              </UpdateNextCall>
+            </Actions>
+          </Value>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="Quali_Maintenance">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>We also have a maintenance division that can provide painting, plumbing, office alterations, handyman and other maintenance servics. Would you be interested in speaking to our maintenance manager further regarding any of these services?</Question>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Thank you for your time</Question>
+            <End>true</End>
+            <Actions>
+              <UpdateNextCall>
+                <Description>Next call in @UpdateInterval month.</Description>
+                <Action>UpdateNextCallDate</Action>
+                <UpdateInMonth>true</UpdateInMonth>
+              </UpdateNextCall>
+            </Actions>
+          </Value>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>I would like to confirm your address and phone number.</Question>
+            <End>false</End>
+            <Actions>
+              <CreateLead>
+                <Description>Generate a new maintenance lead.</Description>
+                <Action>CreateMaintenanceLead</Action>
+              </CreateLead>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Tony Jeffs will contact you shortly</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval months.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="Cln_QaQt">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. Currently we provide cleaning service to @SiteGroup. I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>@AskQualification</Question>
+              <End>false</End>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>I would like to confirm your address and phone number.</Question>
+              <End>false</End>
+              <Actions>
+                <CreateLead>
+                  <Description>Generate a new lead.</Description>
+                  <Action>CreateCleaningLead</Action>
+                </CreateLead>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Right>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>I would like to confirm your address and phone number.</Question>
+            <End>false</End>
+            <Actions>
+              <CreateLead>
+                <Description>Generate a new lead.</Description>
+                <Action>CreateCleaningLead</Action>
+              </CreateLead>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in 3 three weeks.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>false</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="Cln_Inhouse">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. I am calling to see if our manager can be of assistance with your cleaning requirements</Question>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>Can I just confirm that you still employ your own cleaning staff directly, or do you now use outside.</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>@AskQualification</Question>
+              <End>false</End>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>I would like to confirm your address and phone number.</Question>
+              <End>false</End>
+              <Actions>
+                <CreateLead>
+                  <Description>Generate a new lead.</Description>
+                  <Action>CreateCleaningLead</Action>
+                </CreateLead>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Right>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>I would like to confirm your address and phone number.</Question>
+            <End>false</End>
+            <Actions>
+              <CreateLead>
+                <Description>Generate a new lead.</Description>
+                <Action>CreateCleaningLead</Action>
+              </CreateLead>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in 3 three weeks.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>false</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="Cln_Security">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning &amp; security company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning and security services</Question>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>@AskQualification</Question>
+              <End>false</End>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>I would like to confirm your address and phone number.</Question>
+              <End>false</End>
+              <Actions>
+                <CreateLead>
+                  <Description>Generate a new lead.</Description>
+                  <Action>CreateCleaningLead</Action>
+                </CreateLead>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Right>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>I would like to confirm your address and phone number.</Question>
+            <End>false</End>
+            <Actions>
+              <CreateLead>
+                <Description>Generate a new lead.</Description>
+                <Action>CreateCleaningLead</Action>
+              </CreateLead>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in 3 three weeks.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>false</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+    <Script Tag="Cln_Only">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services</Question>
+          <End>false</End>
+        </Value>
+        <Left>
+          <Value>
+            <Branch>false</Branch>
+            <Question>This would be an obligation free quotation and we would endeavour to not take up much of your time.</Question>
+            <End>false</End>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>@AskQualification</Question>
+              <End>false</End>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>I would like to confirm your address and phone number.</Question>
+              <End>false</End>
+              <Actions>
+                <CreateLead>
+                  <Description>Generate a new lead.</Description>
+                  <Action>CreateCleaningLead</Action>
+                </CreateLead>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Action>UpdateNextCallDate</Action>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
+            </Right>
+          </Right>
+        </Left>
+        <Right>
+          <Value>
+            <Branch>false</Branch>
+            <Question>I would like to confirm your address and phone number.</Question>
+            <End>false</End>
+            <Actions>
+              <CreateLead>
+                <Description>Generate a new lead.</Description>
+                <Action>CreateCleaningLead</Action>
+              </CreateLead>
+            </Actions>
+          </Value>
+          <Left>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in 3 three weeks.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>false</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Thank you for your time</Question>
+              <End>true</End>
+              <Actions>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Action>UpdateNextCallDate</Action>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
+            </Value>
+          </Right>
+        </Right>
+      </Root>
+    </Script>
+  </Scripts>
+</ScriptXmlTemplate>

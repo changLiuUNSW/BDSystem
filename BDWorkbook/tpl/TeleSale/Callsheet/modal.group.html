@@ -1,0 +1,56 @@
+﻿<div class="modal-body">
+    <div class="hbox">
+        <div class="col col-md-3">
+            <address class="padder-v text-lg">
+                <strong ng-bind="modal.group.GroupName"></strong><br />
+                <span>Manager: <span ng-bind="modal.group.Firstname"></span> <span ng-bind="modal.group.Lastname"></span></span><br />
+                <span>Phone: <span ng-bind="modal.group.Phone || 'N/A'"></span></span><br />
+                <span>Code: <span ng-bind="modal.group.Code || 'N/A'"></span></span><br />
+                <span>Type: <span ng-bind="modal.group.Type"></span></span><br />
+            </address>
+            <span class="label label-primary">Cleaning</span>
+            <span class="label label-success">Security</span>
+            <span class="label label-warning">Maintenance</span>
+        </div>
+        <div class="col">
+            <table class="table table-hover no-border"
+                   ng-table="modal.params"
+                   template-pagination="custom/pager">
+                <tr ng-repeat="data in $data">
+                    <td data-title="'Key'" ng-bind="data.Key" class="v-middle"></td>
+                    <td data-title="'Code'" class="v-middle">
+                        <span ng-repeat="contact in data.Contacts | orderBy: 'BusinessTypeId'"
+                              class="label m-r-xxs"
+                              ng-class="modal.getStyle(contact)"
+                              ng-bind="contact.Code"></span>
+                    </td>
+                    <td data-title="'Site name'" ng-bind="data.Name" class="v-middle"></td>
+                    <td data-title="'Address'" class="v-middle">
+                        <span ng-bind="data.Unit"></span>
+                        <span ng-bind="data.Number"></span>
+                        <span ng-bind="data.Street"></span>
+                        <span ng-bind="data.Suburb"></span>
+                        <span ng-bind="dat.State"></span>
+                    </td>
+                    <td data-title="'Phone'" ng-bind="data.Phone" class="v-middle"></td>
+                    <td class="v-middle">
+                        <button class="btn btn-sm btn-rounded btn-primary"
+                                ng-click="modal.makeCall(data.Id)">
+                            <i class="fa fa-phone"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <script type="text/ng-template" id="custom/pager">
+                <ul class="pager ng-cloak">
+                    <li ng-repeat="page in pages"
+                        ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+                        ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+                        <a ng-switch-when="prev" ng-click="params.page(page.number)">Previous</a>
+                        <a ng-switch-when="next" ng-click="params.page(page.number)">Next</a>
+                    </li>
+                </ul>
+            </script>
+        </div>
+    </div>
+</div>

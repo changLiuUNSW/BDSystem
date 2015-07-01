@@ -1,0 +1,30 @@
+﻿<form name="form">
+    <ul class="nav nav-pills nav-sm">
+        <li ng-show="callsheet.hasLeadPerson">
+            <label class="form-control" ng-bind="callsheet.leadPerson.Initial"></label>
+        </li>
+        <li ng-show="callsheet.hasSite">
+            <label class="form-control" ng-bind="callsheet.site.Key"></label>
+        </li>
+        <li ng-show="callsheet.hasContact">
+            <label class="form-control" ng-bind="callsheet.contact.Code"></label>
+        </li>
+        <li ng-if="callsheet.hasTelesale">
+            <input ng-model="callsheet.telesale.initial" class="form-control w-xs" placeholder="Initial" required />
+        </li>
+        <li>
+            <button class="btn btn-primary"
+                    ng-click="callsheet.next()"
+                    ng-disabled="!form.$valid">
+                <i class="fa fa-phone"></i>
+                <span class="text font-bold">Next</span>
+            </button>
+            <button class="btn btn-primary" type="button"
+                    ng-disabled="!form.$valid || !callsheet.site"
+                    ng-click="callsheet.end()">
+                <span>End</span>
+                <i ng-if="callsheet.ended" class="fa fa-check"></i>
+            </button>
+        </li>
+    </ul>
+</form>

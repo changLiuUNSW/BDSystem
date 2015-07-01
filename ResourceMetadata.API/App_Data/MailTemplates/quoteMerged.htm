@@ -1,0 +1,108 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>Quote Review</title>
+    <style type="text/css">
+        body {
+            font-family: Calibri, Verdana, Arial;
+        }
+
+        a:visited {
+            color: Blue;
+        }
+
+        a:active {
+            color: Blue;
+        }
+
+        a:hover {
+            color: Red;
+        }
+
+        .footer {
+            font-size: x-small;
+            color: Gray;
+        }
+    </style>
+</head>
+<body>
+    Hello 
+    <br />
+    <br />
+    <p>This is to advise that the document for following quote has been generated and required review. Please see the attachment for the detail. </p>
+    Quote Details:
+    <br />
+    <br />
+    <table width="850" style="font-size:14px">
+        <tbody>
+            <tr>
+                <td width="150">
+                    <b>Quote ID:</b>
+                </td>
+                <td width="700">
+                    @quoteId
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Quote Type:</b>
+                </td>
+                <td>
+                    @quoteType
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Company:</b>
+                </td>
+                <td>
+                    @company
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Location:</b>
+                </td>
+                <td>
+                    @address
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @suburb,&nbsp;@state,&nbsp;
+                    @postcode
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Total PA:</b>
+                </td>
+                <td>
+                    @pa
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Total PW:</b>
+                </td>
+                <td>
+                    @pw
+                </td>
+            </tr>
+           
+        </tbody>
+    </table>
+    <p>Please click the link below to process further actions: <p>
+    <a href="@url" target="_blank">@url</a>
+    <br />
+    <br />
+    <p style="color: red;">*This is a system generated email, please do not reply.*</p>
+    <br />Regards,
+    <br />
+    <br />
+    System Administrator<br />Quad Services Pty Ltd
+    <br />
+    <div class="footer">Mail sent on @sentOn from @server.</div>
+</body>
+</html>

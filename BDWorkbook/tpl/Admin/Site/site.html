@@ -1,0 +1,49 @@
+﻿<loading data-ng-show="loading"></loading>
+<form page-init="
+      {
+      asideFolded :true,
+      application:true,
+      hideSetting:true
+      }"
+      class="hbox hbox-auto-xs hbox-auto-sm bg-light form-validation" data-ng-show="!loading" name="siteForm" autocomplete="off">
+    <div class="col w-lg b-r lter">
+        <div class="wrapper">
+            <a href="" class="pull-right btn btn-sm btn-danger m-t-n-xs" ng-disabled="siteForm.$invalid" ng-click="updateSite()">Update</a>
+            <div class="h4">{{model.site.Key}}</div>
+        </div>
+
+        <div class="wrapper b-t m-t-xxs">
+            <div class="clearfix m-b">
+                <div class="pull-left">
+                    <a data-ng-repeat="type in bizTypes" class="btn btn-sm btn-default"
+                       data-ng-click="setBizType(type)"
+                       data-ng-class="{'active':type.toUpperCase()===bizTypes.selected.toUpperCase()}">
+                        {{type}}
+                    </a>
+                </div>
+            </div>
+            <!-- Site information-->
+            <div ui-view="siteInfo"></div>
+            <!-- /Site information-->
+        </div>
+    </div>
+    <div ui-view="detail" class="col"></div>
+    <div class="col w-lg lter b-l">
+        <div class="vbox">
+            <div class="wrapper b-b b-light">
+                <div class="font-thin h4">Contact Person</div>
+            </div>
+            <div class="row-row">
+                <div class="cell">
+                    <div class="cell-inner">
+                        <div class="wrapper">
+                            <!--Site Contact person-->
+                            <div ui-view="contactPerson"></div>
+                            <!-- /Site Contact person-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

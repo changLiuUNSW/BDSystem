@@ -1,0 +1,38 @@
+﻿<div class="wrapper-sm b-b">
+    <div class="input-group m-b-xxs b-a">
+        <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+        <input type="text" class="form-control input-sm no-border text-sm" placeholder="Search" id="filter">
+    </div>
+</div>
+<div>
+        <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="5">
+            <thead>
+                <tr>
+                    <th data-toggle="true">
+                        Action
+                    </th>
+                    <th data-hide="phone">
+                        User
+                    </th>
+                    <th data-type="numeric" data-sort-initial="descending">
+                        Date
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="history in vm.lead.Histories">
+                    <td>{{history.Description}}</td>
+                    <td>{{history.User}}</td>
+                    <td data-value="{{history.Time|timestamp}}">{{history.Time|date:'dd/MM/yyyy'}}</td>
+                </tr>
+            </tbody>
+            <tfoot class="hide-if-no-paging">
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <ul class="pagination"></ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+</div>

@@ -1,0 +1,36 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading bg-white">
+        <div class="clearfix">
+            <div class="clear">
+                <div class="h4 m-t-xs m-b-xs">
+                    Shift Estimation
+                    <a href="" ng-click="leadPriority.editShift()">
+                        <i tooltip="Edit" class="fa fa-gear pull-right text-md m-t-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list-group no-radius">
+        <div class="list-group-item">
+            <span class="badge bg-light">{{leadPriority.shift.RecordPerShift}}</span>
+            Estimated record per shift
+        </div>
+        <div class="list-group-item">
+            <span class="badge bg-light">{{leadPriority.shift.LeadPerShift}}</span>
+            Estimated lead per shift
+        </div>
+        <div class="list-group-item">
+            <span class="badge bg-light">{{leadPriority.shift.ContactRatePer3HrShift}}</span>
+            Est. contact rate per 3hr shift
+        </div>
+        <div class="list-group-item">
+            <span class="badge bg-light">{{leadPriority.shift.CallCycleWeeks}}</span>
+            Cycle of calls in week
+        </div>
+        <div class="list-group-item">
+            <span class="badge bg-light">{{leadPriority.shift.PaCalledWks}}</span>
+            No. weeks PA called
+        </div>
+    </div>
+</div>

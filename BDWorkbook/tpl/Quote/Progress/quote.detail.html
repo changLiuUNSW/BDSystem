@@ -1,0 +1,109 @@
+﻿<div page-init="{
+         asideFolded:true,
+         asideFixed:true,
+         hideSetting:true,
+         }">
+    <div class="bg-light lter b-b wrapper-sm hidden-print">
+        <div class="btn-group">
+            <a ui-sref="quote.progress.group({'status':vm.quote.Status.Name.toLowerCase()})" tooltip="Back" class="btn btn-sm btn-default w-xxs w-auto-xs">
+                <i class="fa fa-long-arrow-left"></i>
+            </a>
+            <button class="btn btn-sm btn-default w-xxs w-auto-xs" tooltip="Delete"><i class="fa fa-trash-o"></i></button>
+        </div>
+
+        <button class="btn btn-sm btn-default pull-right visible-sm visible-xs" ui-toggle-class="show" target="#quote-detail"><i class="fa fa-bars"></i></button>
+    </div>
+    <loading ng-if="vm.loading"></loading>
+
+    <div class="hbox hbox-auto-xs hbox-auto-sm" ng-if="!vm.loading">
+        <div class="col w-lg bg-light lter b-r bg-auto">
+            <div class="wrapper">
+                <div class="alert alert-info" data-ng-if="vm.quote.Status.Name.toLowerCase()!=='bdreview'&& vm.quote.Status.Name.toLowerCase()!=='cancel'&&vm.quote.Status.Name.toLowerCase()!=='current'">
+                    <strong>Next Step</strong>
+                    <small class="block">{{vm.quote.Status.Description}}</small>
+                    <button type="button" class="btn btn-xs btn-primary m-t-xs" data-ng-click="vm.nextStep(vm.quote,vm)">Take this action</button>
+                    <button type="button" class="btn btn-xs btn-danger m-t-xs" data-ng-if="vm.quote.Status.Name.toLowerCase()==='new'||vm.quote.Status.Name.toLowerCase()==='estimation'" data-ng-click="vm.cancelQuote(vm.quote)">Cancel this quote</button>
+                </div>
+                <div class="alert alert-success" data-ng-if="vm.quote.Status.Name.toLowerCase()==='current'">
+                    <strong>{{vm.quote.Status.Name|ucfirst}}</strong>
+                    <p>
+                        To view the detail, please <a ui-sref="quote.detail.current({id:vm.quote.Id})" class="text-u-l">click here</a>
+                    </p>
+                </div>
+
+                <div class="alert alert-danger" data-ng-if="vm.quote.Status.Name.toLowerCase()==='cancel'">
+                    <strong>Cancelled</strong>
+                    <small class="block">{{vm.quote.Status.Description}}</small>
+                </div>
+                <div class="alert alert-info" data-ng-if="vm.quote.Status.Name.toLowerCase()==='bdreview'&&!vm.quote.BDReview">
+                    <strong>BD Review</strong>
+                    <small class="block">{{vm.quote.Status.Description}}</small>
+                    <button type="button" class="btn btn-xs btn-primary m-t-xs" data-ng-click="vm.bdReview(vm.quote,vm)">Take this action</button>
+                </div>
+                <div class="alert alert-info" data-ng-if="vm.quote.Status.Name.toLowerCase()==='bdreview'&&!vm.quote.BDGMReview">
+                    <strong>BDGM Review</strong>
+                    <small class="block">{{vm.quote.Status.Description}}</small>
+                    <button type="button" class="btn btn-xs btn-primary m-t-xs" data-ng-click="vm.bdgmReview(vm.quote,vm)">Take this action</button>
+                </div>
+                <div class="panel b-a hidden-sm hidden-xs" id="quote-detail">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <small class="block text-muted">ID:</small>
+                            <span>{{vm.quote.Id}}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <small class="block text-muted">Company:</small>
+                            <span>{{vm.quote.Company}}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <small class="block text-muted">Address:</small>
+                            {{vm.quote.Address.Unit}}
+                            {{vm.quote.Address.Number}}
+                            {{vm.quote.Address.Street}}
+                            {{vm.quote.Address.Suburb}}
+                            {{vm.quote.State}}
+                            {{vm.quote.Postcode}}
+
+                        </li>
+                        <li class="list-group-item">
+                            <small class="block text-muted">Type:</small>
+                            <span>{{vm.quote.BusinessType.Type}}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <small class="block text-muted">Status:</small>
+                            <span class="font-bold" data-ng-class="{'text-success':vm.quote.Status.Name.toLowerCase()!=='cancel','text-danger':vm.quote.Status.Name.toLowerCase()==='cancel'}">{{vm.quote.Status.Name}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="wrapper-sm b-b">
+                <ul class="nav nav-pills nav-sm">
+                    <li ui-sref-active="active">
+                        <a ui-sref="quote.detail.progress.overview({id:vm.quote.Id})">
+                            Overview
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="quote.detail.progress.estimation({id:vm.quote.Id})">
+                            Estimation
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="quote.detail.progress.issues({id:vm.quote.Id})">
+                            Issues
+                            <span class="badge bg-danger badge-sm m-l-xs" data-ng-show="(vm.quote.QuoteIssues |filter:{'Resolved':false}).length">{{(vm.quote.QuoteIssues |filter:{'Resolved':false}).length}}</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="quote.detail.progress.history({id:vm.quote.Id})">
+                            History
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div ui-view></div>
+        </div>
+    </div>
+</div>

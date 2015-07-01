@@ -1,0 +1,21 @@
+﻿<div page-init="{
+         application:true,
+         hidefooter:true,
+         hideSetting:true
+         }" class="hbox hbox-auto-sm hbox-auto-xs">
+    <div ng-if="data.loading" spinner-loading></div>
+    <div class="col w-lg lter b-r" ng-hide="data.loading" ui-view="aside"></div>
+    <div class="col bg-white-only" ng-hide="data.loading">
+        <div class="vbox">
+            <div ui-view="stats"></div>
+            <div ui-view="content"></div>
+        </div>
+    </div>
+    <div class="col w-xl b-l bg-white-only" ng-hide="data.loading">
+        <div class="vbox">
+            <div class="wrapper">
+                <div ui-view="shift"></div>
+            </div>
+        </div>
+    </div>
+</div>

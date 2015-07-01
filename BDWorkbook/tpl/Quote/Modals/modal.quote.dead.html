@@ -1,0 +1,25 @@
+﻿<div class="modal-body wrapper-lg">
+    <loading data-ng-show="vm.loading"></loading>
+    <form name="form" class="form-validation" data-ng-show="!vm.loading">
+        <div>
+            <h3 class="m-t-none m-b font-thin">Dead</h3>
+            <p>Is this quote already dead?</p>
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='yes'}"
+               data-ng-click="vm.action='yes'">
+                <i class="glyphicon glyphicon-ok pull-left"></i>Yes
+            </a>
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='no'}"
+               data-ng-click="vm.action='no'">
+                <i class="glyphicon glyphicon-remove pull-left"></i>No
+            </a>
+        </div>
+        <div class="m-t" data-ng-if="vm.action==='yes'" quote-question="vm.deadQuestions"></div>
+        <div class="m-t" data-ng-if="vm.action==='no'" quote-question="vm.notDeadQuestions"></div>
+    </form>
+    <div class="text-right m-t-lg">
+        <button class="btn btn-sm btn-success" data-ng-disabled="form.$invalid||vm.action===undefined" ng-click="vm.ok(vm.action)">OK</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</div>

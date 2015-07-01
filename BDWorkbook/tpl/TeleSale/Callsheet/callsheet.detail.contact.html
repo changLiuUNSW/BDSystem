@@ -1,0 +1,113 @@
+﻿<div class="col-md-12">
+    <form name="cpForm" class="form-validation">
+        <div class="font-bold h4 m-b-lg row">
+            Contact Detail
+            <span class="pull-right">
+                <button class="btn btn-sm btn-primary font-bold" ng-click="contact.edit(contact.selected())" ng-if="!contact.editable">
+                    Edit
+                </button>
+                <button class="btn btn-sm btn-primary font-bold" ng-click="contact.save(cpForm)" ng-if="contact.editable" ng-disabled="!cpForm.$valid">
+                    Save
+                </button>
+                <button class="btn btn-sm btn-primary font-bold" ng-click="contact.cancel()" ng-if="contact.editable">
+                    Cancel
+                </button>
+            </span>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Title </label>
+                <input type="text" class="form-control" ng-model="contact.selected().Title" ng-disabled="!contact.editable">
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Firstname </label>
+                <input type="text" class="form-control" ng-model="contact.selected().Firstname" ng-disabled="!contact.editable">
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Lastname </label>
+                <input type="text" class="form-control" ng-model="contact.selected().Lastname" ng-disabled="!contact.editable">
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Position </label>
+                <input type="text" class="form-control" ng-model="contact.selected().Position" ng-disabled="!contact.editable">
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Mobile </label>
+                <input type="text" class="form-control" ng-model="contact.selected().Mobile" ng-disabled="!contact.editable" ng-pattern="/^(\d+\s*)+/">
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Fax </label>
+                <input type="text" class="form-control" ng-model="contact.selected().Fax" ng-disabled="!contact.editable" ng-pattern="/^(\d+\s*)+/">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Direct line </label>
+                <input type="text" class="form-control" ng-model="contact.selected().DirectLine" ng-disabled="!contact.editable" ng-pattern="/^(\d+\s*)+/">
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label font-bold">Email </label>
+                <input type="email" class="form-control" ng-model="contact.selected().Email" ng-disabled="!contact.editable">
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">New manager date </label>
+                <input type="text" class="form-control" ng-model="contact.data.NewManagerDate" app-date disabled>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Last call</label>
+                <input type="text" class="form-control" ng-model="contact.data.LastCall" app-date disabled />
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label font-bold">Next call</label>
+                <input type="text" class="form-control" ng-model="contact.data.NextCall" app-date disabled />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <tabset class="tab-container">
+                    <tab heading="Note Pad">
+                        <form>
+                            <textarea class="form-control m-b-md" style="resize: none" rows="10" ng-model="contact.data.Note"></textarea>
+                            <div class="text-right">
+                                <button type="submit" ng-click="contact.updateNote(contact.data.Id, contact.data.Note)" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </tab>
+                    <tab heading="Call Line" ng-if="!callsheet.isTelesale">
+                        <table ng-table="contact.callLineParams" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Initial</th>
+                                    <th>Attempted</th>
+                                    <th>Contacted</th>
+                                    <th>Not answered</th>
+                                    <th>Last contacted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="callLine in $data" ng-click="contact.callLine.select(callLine)" ng-class="{'active': callLine.selected}">
+                                    <td class="v-middle text-center" ng-bind="callLine.Initial"></td>
+                                    <td class="v-middle text-center">
+                                        <i class="fa fa-check" ng-if="contact.callLine.isInStatus(callLine, 'attempted')"></i>
+                                    </td>
+                                    <td class="v-middle text-center">
+                                        <i class="fa fa-check" ng-if="contact.callLine.isInStatus(callLine, 'contacted')"></i>
+                                    </td>
+                                    <td class="v-middle text-center">
+                                        <i class="fa fa-check" ng-if="contact.callLine.isInStatus(callLine, 'notAnswered')"></i>
+                                    </td>
+                                    <td class="v-middle text-center" ng-bind="callline.LastContact | date : 'yyyy-MM-dd'"></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-default" ng-click="contact.callLine.remove()">Remove</button>
+                            <button type="submit" class="btn btn-primary" ng-click="contact.callLine.add(contact.data, callsheet.leadPerson)">Add</button>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,59 @@
+﻿<div class="modal-body wrapper-lg">
+    <form name="form" class="form-validation">
+        <div>
+            <h4>Please select</h4>
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='appointment'}"
+               data-ng-click="vm.action='appointment'">
+                <i class="fa fa-calendar pull-left"></i>Make an appointment
+            </a>
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='callback'}"
+               data-ng-click="vm.action='callback'">
+                <i class="fa fa-phone pull-left"></i>Request a callback
+            </a>
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='contacted'}"
+               data-ng-click="vm.action='contacted'">
+                <i class="fa fa-minus-circle pull-left"></i>Contact not successfully
+            </a>
+         
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='cancel'}"
+               data-ng-click="vm.action='cancel'">
+                <i class="glyphicon glyphicon-remove pull-left"></i>Cancel Lead
+            </a>
+        </div>
+        <div class="m-t" >
+            <div class="form-group" data-ng-if="vm.action==='appointment'">
+                <label>Appointment Date</label>
+                
+                <div class="input-group">
+                    <input type="text" class="form-control" name="appointmentDate"
+                           placeholder="date"
+                           datepicker-popup="dd/MM/yyyy" is-open="pickerOpen"
+                           data-ng-click="pickerOpen=true" close-text="Close" onkeydown="return false;"
+                           data-ng-model="vm.appointmentDate" required>
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+            
+            
+            <div class="form-group" data-ng-if="vm.action==='callback'">
+                <label>Callback Time</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="callBackDate"
+                           placeholder="date"
+                           datepicker-popup="dd/MM/yyyy" is-open="callBackpickerOpen"
+                           data-ng-click="callBackpickerOpen=true" close-text="Close" onkeydown="return false;"
+                           data-ng-model="vm.callbackDate" required>
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="text-right m-t-lg">
+        <button class="btn btn-sm btn-success" data-ng-disabled="form.$invalid||vm.action===undefined" ng-click="vm.ok(vm.action)">OK</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</div>

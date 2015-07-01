@@ -1,0 +1,22 @@
+﻿<div class="modal-body wrapper-lg">
+    <form name="form" class="form-validation">
+            <h3 class="m-t-none m-b font-thin">Print Confirmation</h3>
+          
+        <div class="form-group">
+            <label>Complete Date</label>
+
+            <div class="input-group">
+                <input type="text" class="form-control" name="completeDate"
+                       placeholder="date"
+                       datepicker-popup="dd/MM/yyyy" is-open="pickerOpen"
+                       data-ng-click="pickerOpen=true" close-text="Close" onkeydown="return false;"
+                       data-ng-model="vm.completeDate" required>
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+        </div>
+    </form>
+    <div class="text-right m-t-lg">
+        <button class="btn btn-sm btn-success" data-ng-disabled="form.$invalid" ng-click="vm.ok()">OK</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</div>

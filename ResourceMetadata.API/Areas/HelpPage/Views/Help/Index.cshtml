@@ -1,0 +1,33 @@
+@using System.Web.Http
+@using System.Web.Http.Controllers
+@using System.Web.Http.Description
+@using System.Collections.ObjectModel
+@using ResourceMetadata.API.Areas.HelpPage.Models
+@model Collection<ApiDescription>
+
+@{
+    ViewBag.Title = "ASP.NET Web API Help Page";
+
+    // Group APIs by controller
+    ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
+}
+
+<link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<header class="help-page">
+    <div class="text-center">
+        <h1>Quad Web API Help Page</h1>
+    </div>
+</header>
+    <div id="body" class="container">
+        <section class="">
+            <div class="page-header">
+                <h2>List of APIs</h2>
+            </div>
+        </section>
+        <section>
+            @foreach (var group in apiGroups)
+            {
+                @Html.DisplayFor(m => group, "ApiGroup")
+            }
+        </section>
+    </div>

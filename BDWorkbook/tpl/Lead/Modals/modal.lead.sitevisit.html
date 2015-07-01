@@ -1,0 +1,31 @@
+﻿<div class="modal-body wrapper-lg">
+    <form name="form" class="form-validation">
+        <div>
+            <h4>Please select</h4>
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='quote'}"
+               data-ng-click="vm.action='quote'">
+                <i class="fa fa-check-square-o pull-left"></i>Make a quote
+            </a>
+            
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='visited'}"
+               data-ng-click="vm.action='visited'" data-ng-if="!vm.hideVisited">
+                <i class="fa fa-minus-square pull-left"></i>Visited but cannot make a quote
+            </a>
+
+            <a href class="btn btn-default btn-block m-b-sm"
+               data-ng-class="{'active':vm.action==='cancel'}"
+               data-ng-click="vm.action='cancel'">
+                <i class="glyphicon glyphicon-remove pull-left"></i>Cancel Lead
+            </a>
+        </div>
+        <div class="m-t">
+            
+        </div>
+    </form>
+    <div class="text-right m-t-lg">
+        <button class="btn btn-sm btn-success" data-ng-disabled="form.$invalid||vm.action===undefined" ng-click="vm.ok(vm.action)">OK</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</div>

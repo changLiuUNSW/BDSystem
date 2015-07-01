@@ -1,0 +1,103 @@
+﻿<div class="panel panel-info">
+    <div class="panel-heading font-bold">Call Line Form</div>
+    <div class="panel-body">
+        <form name="form" class="form-horizontal form-validation">
+            <div class="form-group">
+                <label class="col-md-2 control-label">Initial</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-model="callLine.Initial" required>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Select Detail</label>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        <label class="i-checks">
+                            <input type="checkbox" ng-model="callLine.Visit">
+                            <i></i>
+                            BD Visit
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="i-checks">
+                            <input type="checkbox" ng-model="callLine.Call">
+                            <i></i>
+                            Call
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="i-checks">
+                            <input type="checkbox" ng-model="callLine.Lunch">
+                            <i></i>
+                            Lunch
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="i-checks">
+                            <input type="checkbox" ng-model="callLine.Profile">
+                            <i></i>
+                            Profile
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="i-checks">
+                            <input type="checkbox" ng-model="callLine.DirectMail">
+                            <i></i>
+                            Direct Mail
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="i-checks">
+                            <input type="checkbox" ng-model="callLine.EmailInfo">
+                            <i></i>
+                            Email Info
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Entertainment</label>
+                <div class="col-md-1">
+                    <div class="checkbox">
+                        <label class="i-checks">
+                            <input type="checkbox" ng-model="callLine.Entertainment" ng-change="actions.changeEntertainment()">
+                            <i></i>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" ng-if="callLine.Entertainment" placeholder="Entertainment Event" ng-model="callLine.EntertainmentEvent">
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Call status</label>
+                <div class="col-md-10">
+                    <div class="radio">
+                        <label class="i-checks">
+                            <input type="radio" name="status" ng-model="callLine.Status" ng-value="statusValue.attempted">
+                            <i></i>
+                            Attempted
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="status" ng-model="callLine.Status" ng-value="statusValue.contacted">
+                            <i></i>
+                            Contacted
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="status" ng-model="callLine.Status" ng-value="statusValue.notAnswered">
+                            <i></i>
+                            Not answered
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <footer class="panel-footer text-right bg-light lter">
+                <button type="submit" class="btn btn-default m-r-sm" ng-click="actions.cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary m-r-sm" ng-click="actions.submit(form)">Submit</button>
+            </footer>
+        </form>
+    </div>
+</div>

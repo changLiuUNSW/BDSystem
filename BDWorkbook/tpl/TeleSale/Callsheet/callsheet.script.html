@@ -1,0 +1,59 @@
+﻿<div class="vbox">
+    <div class="wrapper-lg h4">
+        <div ng-repeat="action in script.defaultActions | filter: { 'active' : true }" class="m-b-xs">
+            <i class="fa fa-pencil m-r-xs"></i>
+            <span ng-bind="action.Description"></span> <span ng-bind="script.formatter.Date(action.CallbackDate)"></span>
+        </div>
+        <div ng-repeat="history in script.histories | filter : {'isTrue' : true }">
+            <div ng-repeat="action in history.script.Value.Actions" class="m-b-xs">
+                <i class="fa fa-pencil m-r-xs"></i>
+                <span ng-bind="action.Description"></span>
+            </div>
+        </div>
+        <div ng-if="script.current.Value.End" ng-repeat="action in script.current.Value.Actions">
+            <i class="fa fa-pencil m-r-xs"></i>
+            <span ng-bind="action.Description"></span>
+        </div>
+    </div>
+    <div class="row-row">
+        <div class="cell scrollable">
+            <div class="cell-inner">
+                <div class="wrapper">
+                    <div class="panel">
+                        <div class="panel-body m-b-lg">
+                            <span class="h3" ng-bind="script.current.Value.Question"></span>
+                        </div>
+                        <div class="wrapper">
+                            <form class="form-validation">
+                                <div class="form-group">
+                                    <div ng-repeat="input in script.inputs">
+                                        <label ng-repeat-start="prop in input.props" ng-bind="prop"></label>
+                                        <input type="text" class="form-control" ng-repeat-end ng-model="input.action[prop]" />    
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="panel-footer text-right no-border">
+                            <button class="btn btn-primary" ng-click="script.selectActions()">
+                                <i class="fa fa-keyboard-o"></i>
+                            </button>
+                            <button class="btn btn-primary font-bold" ng-click="script.next(false)" ng-if="!script.current.Value.End">
+                                <i class="fa fa-times m-r-sm"></i>
+                                <span ng-bind="script.current.Left.Value.Text"></span>
+                            </button>
+                            <button class="btn btn-primary font-bold" ng-click="script.next(true)" ng-if="!script.current.Value.End">
+                                <i class="fa fa-check m-r-sm"></i>
+                                <span ng-bind="script.current.Right.Value.Text"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="wrapper m-b" ng-repeat="history in script.histories | orderBy : 'time' : true">
+                        <i class="fa fa-check pull-right" style="color:green" ng-if="history.isTrue"></i>
+                        <i class="fa fa-times pull-right" style="color:red" ng-if="!history.isTrue"></i>
+                        <a><span class="text-muted font-thin h4" ng-bind="history.script.Value.Question" ng-click="script.selectHistory(history)"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

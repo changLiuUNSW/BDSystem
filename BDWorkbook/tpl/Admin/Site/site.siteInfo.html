@@ -1,0 +1,112 @@
+﻿<div data-ng-form="siteInfoForm">
+    <span ng-show ="siteInfoForm.postCode.$invalid"><i class="fa fa-refresh"></i> Loading...</span>
+    <div ng-show="!siteInfoForm.postCode.$invalid">
+        <div class="inline m-r">
+            <div class="m-b-xs">
+                Zone: <span class="text-muted">{{model.site.GmZone}}</span>
+            </div>
+        </div>
+        <div class="inline m-r">
+            <div class="m-b-xs">
+                Region: <span class="text-muted">{{model.site.Region}}</span>
+            </div>
+        </div>
+        <div class="inline">
+            <div class="m-b-xs">
+                State: <span class="text-muted">{{model.site.State}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="line line-lg b-b b-light"></div>
+    <div class="form-group pull-in clearfix">
+        <div class="col-sm-6">
+            <label>Building Type</label>
+            <input type="text" class="form-control" name="buildType" ng-model="model.site.BuildingType.Code" required />
+            <small class="text-danger" ng-show="siteInfoForm.buildType.$invalid">Building Type is required</small>
+        </div>
+        <div class="col-sm-6">
+            <label>Post code</label>
+            <input type="text"
+                   ng-model="model.site.Postcode"
+                   name="Postcode"
+                   typeahead="postCode.Postcode as postCode.Postcode+','+postCode.State for postCode in getPostCodeAndState(null,$viewValue)"
+                   typeahead-loading="loadingPostCode" class="form-control"
+                   typeahead-on-select="postCodeAndState($item)"
+                   typeahead-editable="false"
+                   required>
+            <i ng-show="loadingPostCode" class="fa fa-refresh text-muted"></i>
+            <small class="text-danger" ng-show="siteInfoForm.Postcode.$invalid">Postcode incorrect</small>
+        </div>
+
+    </div>
+  
+    <div class="form-group">
+        <label>Company</label>
+        <input type="text" class="form-control" name="companyName" ng-model="model.site.Name" required />
+        <small class="text-danger" ng-show="siteInfoForm.companyName.$invalid">Company name is required</small>
+    </div>
+    <div class="form-group pull-in clearfix">
+        <div class="col-sm-6">
+            <label>Unit</label>
+            <input type="text" name="unit" class="form-control" ng-model="model.site.Unit" />
+        </div>
+        <div class="col-sm-6">
+            <label>Number</label>
+            <input type="text" name="number" class="form-control" ng-model="model.site.Number" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Street</label>
+        <input type="text" name="street" class="form-control" ng-model="model.site.Street" />
+    </div>
+    <div class="form-group pull-in clearfix">
+        <div class="col-sm-6">
+            <label>Suburb</label>
+            <input type="text" name="suburb" class="form-control" ng-model="model.site.Suburb" />
+        </div>
+        <div class="col-sm-6">
+            <label>Phone</label>
+            <input type="text" class="form-control" ng-model="model.site.Phone" required />
+        </div>
+       
+    </div>
+</div>
+
+<script type="text/ng-template" id="ModalSiteGroup.html">
+    <div ng-include="'tpl/Shared/modal.siteGroup.html'"></div>
+</script>
+    <div class="panel b-light clearfix">
+        <div class="panel-body">
+            <div class="clear">
+                <span class="pull-right">
+                    <a href class="btn btn-xs btn-success m-t-xs" data-ng-click="editBuilding('lg')">Edit</a>
+                </span>
+                <div class="text-uppercase"><i class="fa fa-building"></i> Building</div>
+                <div data-ng-class="{
+                   'text-primary': model.building.Name,
+                   'text-danger':!model.building
+                   }">{{model.building.Name ||'No building information'}}
+                    <label class="label bg-light m-l-xs text-uppercase">{{model.building.Code}}</label>
+                </div>
+                <small>{{model.building.Description}}</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel b-light clearfix">
+        <div class="panel-body">
+            <div class="clear">
+                <span class="pull-right">
+                    <a href class="btn btn-xs btn-success m-t-xs" data-ng-click="editGroup('lg')">Edit</a>
+                </span>
+                <div class="text-uppercase"><i class="fa fa-group"></i> Group</div>
+                <div data-ng-class="{
+                   'text-primary': model.group.Name,
+                   'text-danger':!model.group
+                   }">{{model.group.Name ||'No group information'}}
+                    <label class="label bg-light m-l-xs text-uppercase">{{model.group.Code}}</label>
+                </div>
+                <small>{{model.group.Description}}</small>
+            </div>
+        </div>
+    </div>
