@@ -27,7 +27,7 @@ namespace DataAccess.Services.UnitTests.ServiceTest
         [TestMethod]
         public void IfQuoteNotFoundThrowArgumentException()
         {
-            _quoteService.Setup(l => l.GetByKey(It.Is<int>(k => k == 1), false)).Returns((Quote) null);
+            _quoteService.Setup(l => l.GetByKey(It.Is<int>(k => k == 1))).Returns((Quote) null);
             _quoteService.Object.CancelQuote(1, "chang");
         }
 
@@ -40,25 +40,25 @@ namespace DataAccess.Services.UnitTests.ServiceTest
                 StatusId = 1,
                 Id = 1
             };
-            QuoteHistory history = null;
-            _quoteService.Setup(l => l.GetByKey(It.Is<int>(k => k == 1), false)).Returns(quote);
+            QuoteHistory[] history = null;
+            _quoteService.Setup(l => l.GetByKey(It.Is<int>(k => k == 1))).Returns(quote);
             _unitOfWork.Setup(l => l.Save()).Returns(1);
             _unitOfWork.Setup(l => l.GetRepository<QuoteHistory>().
-                Add(It.IsAny<QuoteHistory>())).Callback<QuoteHistory>(p => history = p);
+                Add(It.IsAny<QuoteHistory>())).Callback<QuoteHistory[]>(p => history = p);
             _quoteService.Object.CancelQuote(1, "chang");
+            var h=history[0];
 
-
-            Assert.AreEqual(history.QuoteId, quote.Id);
-            Assert.AreEqual(history.ToStatusId, (int) QuoteStatusTypes.Cancel);
-            Assert.AreEqual(history.User, "chang");
-            Assert.AreEqual(history.FromStatusId, 1);
-            Assert.AreEqual(history.Description, "Quote cancelled");
+            Assert.AreEqual(h.QuoteId, quote.Id);
+            Assert.AreEqual(h.ToStatusId, (int)QuoteStatusTypes.Cancel);
+            Assert.AreEqual(h.User, "chang");
+            Assert.AreEqual(h.FromStatusId, 1);
+            Assert.AreEqual(h.Description, "Quote cancelled");
         }
 
         [TestMethod]
-        public void WhenQuoteContactMade_AllQuestionsResultForNotCalledWillRemoved()
+        public void WhenQuoteContactMade_ContactCheckOverDueWillResetToFalse()
         {
-            var quoteQuestionResults = new List<QuoteQuestionResult>();
+          
             var model = new QuotePostModel
             {
                 QuoteId = 1,
@@ -69,18 +69,16 @@ namespace DataAccess.Services.UnitTests.ServiceTest
                 StatusId = 1,
                 Id = 1
             };
-            _quoteService.Setup(l => l.GetByKey(It.Is<int>(k => k == 1), false)).Returns(quote);
+            _quoteService.Setup(l => l.GetByKey(It.Is<int>(k => k == 1))).Returns(quote);
             _unitOfWork.Setup(l => l.Save()).Returns(1);
             var repo = new Mock<IRepository<QuoteQuestionResult>>();
 
-            repo.Setup(l => l.Get(It.IsAny<Expression<Func<QuoteQuestionResult, bool>>>()))
-                .Returns(quoteQuestionResults);
-            repo.Setup(l => l.RemoveRange(It.IsAny<IList<QuoteQuestionResult>>()));
+           
             _unitOfWork.Setup(
                 l => l.GetRepository<QuoteQuestionResult>())
                 .Returns(repo.Object);
             _quoteService.Object.Contact(model);
-            repo.Verify(l => l.RemoveRange(quoteQuestionResults), Times.Once);
+
             Assert.AreEqual(quote.ContactCheckOverDue, false);
         }
 

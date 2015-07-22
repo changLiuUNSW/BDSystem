@@ -28,7 +28,7 @@ namespace DataAccess.EntityFramework.Repositories
 
     internal class LeadRepository : Repository<Lead>, ILeadRepository
     {
-        public LeadRepository(IDbContext dbContext) : base(dbContext){}
+        public LeadRepository(DbContext dbContext) : base(dbContext){}
 
         public async Task<SearchResult<LeadSearch>> SearchLead(LeadSearchModel leadSearchModel)
         {
@@ -56,22 +56,26 @@ namespace DataAccess.EntityFramework.Repositories
 
         private IQueryable<LeadSearch> Filter(IQueryable<LeadSearch> query,string keyword)
         {
-            return query.Where(l => l.Id.ToString().StartsWith(keyword) ||
-                                          l.LeadType.StartsWith(keyword) ||
-                                          l.Phone.Contains(keyword)||
-                                          l.Status.StartsWith(keyword) ||
-                                          l.SiteName.Contains(keyword) ||
-                                          l.SiteUnit.StartsWith(keyword) ||
-                                          l.SiteNumber.StartsWith(keyword) ||
-                                          l.SiteStreet.Contains(keyword) ||
-                                          l.SiteSuburb.StartsWith(keyword) ||
-                                          l.SiteState.StartsWith(keyword) ||
-                                          l.SitePostcode.Contains(keyword) ||
-                                          l.FirstName.StartsWith(keyword) ||
-                                          l.LastName.StartsWith(keyword) ||
-                                          l.QpInitial.StartsWith(keyword) ||
-                                          l.QpName.StartsWith(keyword)
-                );
+            return query.
+                Select(l => new
+                {
+                    entity = l,
+                    address = l.SiteUnit + " " +
+                              l.SiteNumber + " " +
+                              l.SiteStreet + " " +
+                              l.SiteSuburb + " " +
+                              l.SiteState + " " +
+                              l.SitePostcode
+                }).Where(l => l.entity.Id.ToString().StartsWith(keyword) ||
+                                          l.entity.LeadType.StartsWith(keyword) ||
+                                          l.entity.Phone.Contains(keyword) ||
+                                          l.entity.Status.StartsWith(keyword) ||
+                                          l.entity.FirstName.StartsWith(keyword) ||
+                                          l.entity.LastName.StartsWith(keyword) ||
+                                          l.entity.QpInitial.StartsWith(keyword) ||
+                                          l.address.Contains(keyword)||
+                                          l.entity.QpName.StartsWith(keyword)
+                ).Select(l=>l.entity);
         }
 
 

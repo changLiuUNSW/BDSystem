@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Common.Contact;
 using DataAccess.EntityFramework;
-using DataAccess.EntityFramework.Extensions.Utilities;
+using DataAccess.EntityFramework.Extensions;
 
 namespace DateAccess.Services.ContactService.Reports.Types
 {

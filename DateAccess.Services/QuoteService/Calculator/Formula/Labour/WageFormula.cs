@@ -21,7 +21,7 @@ namespace DateAccess.Services.QuoteService.Calculator.Formula.Labour
         //TODO incorrect formula on the excel
         public virtual decimal Holiday(decimal mins, decimal rate, decimal holidayFactor, decimal weeksToInvoice)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }

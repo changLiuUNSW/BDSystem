@@ -18,7 +18,7 @@
                     <ui-select ng-model="group.selected" on-select="groupSelect($model)" data-ng-disabled="editable">
                         <ui-select-match placeholder="Select a group or search group name..." allow-clear>{{$select.selected.Name}}</ui-select-match>
                         <ui-select-choices repeat="item in group.list | filter: $select.search">
-                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            <div ng-bind-html="item.GroupName | highlight: $select.search"></div>
                             <small ng-bind-html="item.Description | highlight: $select.search"></small>
                         </ui-select-choices>
                     </ui-select>

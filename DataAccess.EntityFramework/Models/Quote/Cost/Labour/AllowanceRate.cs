@@ -14,6 +14,6 @@ namespace DataAccess.EntityFramework.Models.Quote.Cost.Labour
         public decimal ToiletAllowPerShift { get; set; }
         public decimal LeadingHandSmallGroup { get; set; }
         public decimal LeadingHandLargeGroup { get; set; }
-        public decimal NumberOfHolidays { get; set; }
+        public int NumberOfHolidays { get; set; }
     }
 }

@@ -1,0 +1,23 @@
+﻿<div class="panel-heading bg-info wrapper-sm">
+    <span class="h3">Optional - Supplies</span>
+</div>
+<div class="wrapper">
+    <tabset class="tab-container">
+        <tab class="text-md font-thin" disabled="vm.editSupplies" active="vm.addSupplies" select="vm.optionalSuppliesTab='list'">
+            <tab-heading>
+                <i class="icon icon-list"></i> List
+            </tab-heading>
+            <div data-ng-if="vm.optionalSuppliesTab==='list'"
+                 data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.toiletries.list.html'">
+            </div>
+        </tab>
+        <tab class="text-md font-thin" disabled="vm.addSupplies" active="vm.editSupplies" select="vm.optionalSuppliesTab='editor'">
+            <tab-heading>
+                <i class="icon icon-note"></i> Editor
+            </tab-heading>
+            <div data-ng-if="vm.optionalSuppliesTab==='editor'"
+                 data-ng-include="'tpl/Quote/Estimation/OptionalTabs/estimation.optional.supplies.editor.html'">
+            </div>
+        </tab>
+    </tabset>
+</div>

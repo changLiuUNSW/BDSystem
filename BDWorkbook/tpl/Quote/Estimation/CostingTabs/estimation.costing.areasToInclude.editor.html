@@ -1,0 +1,21 @@
+﻿<form name="form" class="form-horizontal form-validation">
+    <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+        <li class="list-group-item clearfix b-l-3x" data-ng-repeat="each in vm.editingIncludeAreas track by $index" ng-class="{'b-l-info ': vm.editingIncludeAreas.indexOf(each)%2==0, 'b-l-success ': vm.editingIncludeAreas.indexOf(each)%2==1}">
+            <div class="clear">
+                <span class="pull-right">
+                    <a class="text-danger-lter" data-ng-click="vm.delCheckedPed(vm.editingIncludeAreas.indexOf(each))"><i class="fa fa-times" tooltip="Delete"></i></a>
+                </span>
+                <span class="h4 font-thin text-dark-lter pull-left">Area.{{vm.editingIncludeAreas.indexOf(each)+1}}</span>
+            </div>
+            <div>
+                <div class="line line-lg b-b b-light"></div>
+                <label>Description</label>
+                <input type="text" class="form-control" data-ng-model="each.Description" required>
+            </div>
+        </li>
+    </ul>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-success" type="submit" data-ng-click="vm.confirm()" ng-disabled="form.$invalid">Confirm</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</form>

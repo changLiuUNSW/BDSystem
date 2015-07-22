@@ -1,0 +1,94 @@
+﻿<form name="form" class="form-validation">
+    <div class="form-group padder pull-in clearfix text-right m-t-sm">
+        <div class="col-md-12">
+            <select class="form-control" data-ng-options="item.prefix as item.name for item in vm.toiTypes"
+                    data-ng-model="vm.selectToi" data-ng-change="vm.toiTypeChoosed()">
+                <option value="">Please choose...</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="input-group">
+            <span class="input-group-addon input-sm no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+            <input type="text" class="form-control" ng-model="vm.toiKeyword" id="filter" placeholder="Enter keywords of toiletries...">
+        </div>
+    </div>
+    <div class="loading" ng-show="vm.loading">
+        <div class="double-bounce1"></div><div class="double-bounce2"></div>
+    </div>
+
+    <table data-ng-if="!vm.loading" class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="5">
+        <thead>
+            <tr>
+                <th>
+                    Tick
+                </th>
+                <th data-toggle="true">
+                    Rep Code
+                </th>
+                <th data-hide="phone">
+                    Rarely Used
+                </th>
+                <th data-hide="phone">
+                    Ply
+                </th>
+                <th data-hide="phone">
+                    Size
+                </th>
+                <th data-hide="phone">
+                    Quality
+                </th>
+                <th data-hide="phone">
+                    Units/Carton
+                </th>
+                <th data-hide="phone">
+                    Quad Prices $ (incl GST)
+                </th>
+                <th data-hide="phone">
+                    Cost to Quad (excl GST)
+                </th>
+                <th data-hide="phone,tablet">
+                    Product Description
+                </th>
+                <th data-hide="phone,tablet">
+                    Hayes Code
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="item in vm.toiletries">
+                <td>
+                    <label class="i-checks">
+                        <input type="checkbox"
+                               ng-checked="vm.checkedTois.indexOf(item) > -1"
+                               ng-click="vm.addToils(item)"
+                               value="{{item.ToiletRequisite.ItemCode}}">
+                        <i></i>
+                    </label>
+                </td>
+                <td data-ng-bind="item.ToiletRequisite.ItemCode"></td>
+                <td data-ng-bind="item.ToiletRequisite.RarelyUsed"></td>
+                <td data-ng-bind="item.ToiletRequisite.Ply"></td>
+                <td data-ng-bind="item.ToiletRequisite.Size"></td>
+                <td data-ng-bind="item.ToiletRequisite.Quality"></td>
+                <td data-ng-bind="item.ToiletRequisite.UnitsPerCarton"></td>
+                <td data-ng-bind="item.ToiletRequisite.PriceIncludeGst|currency"></td>
+                <td data-ng-bind="item.ToiletRequisite.Price|currency"></td>
+                <td data-ng-bind="item.ToiletRequisite.Description"></td>
+                <td data-ng-bind="item.ToiletRequisite.HayesCode"></td>
+            </tr>
+        </tbody>
+        <tfoot class="hide-if-no-paging" data-ng-if="vm.toiletries.length>0">
+            <tr>
+                <td colspan="8">
+                    <ul class="pagination"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="text-right m-t-md">
+        <button class="btn btn-sm btn-danger" type="button" ng-click="vm.cancel()">Cancel</button>
+        <button class="btn btn-sm btn-success" type="submit" data-ng-click="vm.addToEditor()">Add to editor</button>
+        <button data-ng-click="vm.costToiEditTab='editor'" class="btn btn-sm  btn-info">Next >></button>
+    </div>
+</form>

@@ -62,8 +62,9 @@
     <Compile Include="Expressions\DynamicQuery.cs" />
     <Compile Include="Expressions\ExpressionHelper.cs" />
     <Compile Include="Extensions\BusinessTypeExtensions.cs" />
-    <Compile Include="Extensions\Utilities\DateExtension.cs" />
-    <Compile Include="Extensions\Utilities\EnumExtensions.cs" />
+    <Compile Include="Extensions\DateExtension.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\QueryExtension.cs" />
     <Compile Include="Extensions\SalesBoxExtension.cs" />
     <Compile Include="Migrations\201506160042261_initial.cs" />
     <Compile Include="Migrations\201506160042261_initial.Designer.cs">
@@ -83,7 +84,13 @@
     <Compile Include="Models\BD\Lead\LeadStatus.cs" />
     <Compile Include="Models\BD\Lead\OccupiedContact.cs" />
     <Compile Include="Models\BD\Site\BuildingType.cs" />
+    <Compile Include="Models\BD\Site\ExternalManager.cs" />
+    <Compile Include="Models\BD\Site\TempSite.cs" />
     <Compile Include="Models\Quad\QuadPhoneBook.cs" />
+    <Compile Include="Models\Quote\Cost\DayOfClean.cs" />
+    <Compile Include="Models\Quote\Cost\QuoteSource.cs" />
+    <Compile Include="Models\Quote\Cost\StandardRegion.cs" />
+    <Compile Include="Models\Quote\QuoteBase.cs" />
     <Compile Include="Models\Quote\QuoteQuestionResult.cs" />
     <Compile Include="Models\Quote\QuoteAnswer.cs" />
     <Compile Include="Models\Quote\QuoteHistory.cs" />
@@ -98,6 +105,7 @@
     <Compile Include="Repositories\QuoteCostRepository.cs" />
     <Compile Include="Repositories\QuoteRepository.cs" />
     <Compile Include="Repositories\SiteGroupRepository.cs" />
+    <Compile Include="Repositories\TempSiteRepository.cs" />
     <Compile Include="TypeLibrary\TypeLibrary.cs" />
     <Compile Include="Infrastructure\IDbContext.cs" />
     <Compile Include="Infrastructure\IRepository.cs" />
@@ -128,7 +136,6 @@
     <Compile Include="Models\Quote\Cost\Periodical\ExtraPeriodical.cs" />
     <Compile Include="Models\Quote\Cost\Supply\ExtraToiletrySupply.cs" />
     <Compile Include="Models\Quote\Cost\Labour\LabourEstimation.cs" />
-    <Compile Include="Models\Quote\Cost\Vacation\VacationCleaning.cs" />
     <Compile Include="Models\Quote\Cost\Equipment\Equipment.cs" />
     <Compile Include="Models\Quote\Cost\Equipment\Machine.cs" />
     <Compile Include="Models\Quote\Cost\Supply\ToiletRequisite.cs" />

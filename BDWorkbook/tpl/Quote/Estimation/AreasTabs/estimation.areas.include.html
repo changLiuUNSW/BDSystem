@@ -1,0 +1,35 @@
+﻿<div class="row">
+    <div class="col-sm-1  col-xs-2  text-center">
+        <a class="text-info-dk" data-ng-click="vm.addClearArea()">
+            <i class="fa fa-2x fa-plus-circle"></i><br />
+            <span class="font-bold">Add</span>
+        </a>
+    </div>
+    <div class="col-sm-1  col-xs-2 text-center">
+        <a class="text-primary-dk" data-ng-click="vm.editClearArea()">
+            <i class="fa fa-2x fa-edit"></i><br />
+            <span class="font-bold">Edit</span>
+        </a>
+    </div>
+    <div class="col-sm-1  col-xs-2 text-center">
+        <a class="text-danger-dk" data-ng-click="vm.delCleanArea()">
+            <i class="fa fa-2x fa-times-circle"></i><br />
+            <span class="font-bold">Delete</span>
+        </a>
+    </div>
+</div>
+<div class="line line-lg b-b b-light"></div>
+<ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+    <li class="list-group-item clearfix b-l-3x" data-ng-repeat="item in vm.cleanAreas track by $index" ng-class="{'b-l-info ': vm.cleanAreas.indexOf(item)%2==0, 'b-l-success ': vm.cleanAreas.indexOf(item)%2==1}">
+        <div class="text-center pull-right">
+            <label class="i-checks">
+                <input type="checkbox"
+                        ng-checked="vm.selCleanAreas.indexOf(item) > -1"
+                        ng-click="vm.checkCleanAreas(item)" />
+                <i></i>Tick
+            </label>
+        </div>
+        <span class="h4 font-thin text-dark-lter pull-left">Incl. Area{{vm.cleanAreas.indexOf(item)+1}}</span>
+        <span class="font-bold m-l-lg">Description: </span><span class="font-thin" data-ng-bind="item.Description"></span>
+    </li>
+</ul>

@@ -6,7 +6,7 @@ namespace DateAccess.Services.ContactService.Call
 {
     public interface ICallService
     {
-        CallProvider GetProvider(CallTypes type);
-        CallDetail GetNextCall(CallTypes type, string initial, int? lastCallId, int? siteId);
+        CallDetail GetNextCall(CallType type, string initial, int? lastCallId, int? siteId);
+        CallProvider GetProvider(CallType type);
     }
 }

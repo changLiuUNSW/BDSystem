@@ -63,6 +63,7 @@
                             {{quote.Id+' '+quote.Company}}
                         </a>
                         <span class="label bg-light">{{quote.QuoteType}}</span>
+                        <span class="label bg-light" data-ng-if="quote.SuccessRate">{{quote.SuccessRate}} %</span>
                         <span class="label bg-danger" data-ng-if="quote.StatusId===vm.quoteStatusType.WPIssues">Adjusting</span>
                     </div>
                     <div class="clear text-ellipsis">

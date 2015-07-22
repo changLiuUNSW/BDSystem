@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.EntityFramework.Models.Quote.Cost.Supply
@@ -16,7 +17,26 @@ namespace DataAccess.EntityFramework.Models.Quote.Cost.Supply
         public string Ply { get; set; }
         public string UnitsPerCarton { get; set; }
         public decimal Cost { get; set; }
-        public decimal Price { get; set; }
+
         public string HayesCode { get; set; }
+
+       
+        public decimal Price { get; set; }
+
+        [NotMapped]
+        public decimal Gst
+        {
+            get { return
+                Math.Round(Price * (decimal)0.1, 4);
+                }
+        }
+
+        [NotMapped]
+        public decimal PriceIncludeGst
+        {
+            get { return Math.Round(Price + Gst, 4);}
+        }
+
+
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Text;
 using DataAccess.Console.Migration.Excel;
 using DataAccess.Console.Report;
@@ -11,9 +10,6 @@ using DataAccess.Console.Scripts.Types;
 using DataAccess.EntityFramework;
 using DataAccess.EntityFramework.DbContexts;
 using DateAccess.Services.ContactService.Call.Models;
-using DateAccess.Services.ContactService.Call.Scripts.Serializers;
-using DateAccess.Services.ContactService.Call.Scripts.Visitors;
-using DateAccess.Services.ContactService.Call.Scripts.Visitors.TravelPattern;
 using DateAccess.Services.Excel;
 using Copier = DataAccess.Console.Migration.DB.Copier;
 
@@ -57,9 +53,9 @@ namespace DataAccess.Console
                     case (int)Options.EXCEL:
                         var excels = new List<ExcelCopier>
                         {
-                            new WorkbookCopier(@"K:\SQL_DATA\BD\Estimation Pipeline 2014 06 25.xlsm"),
+                            //new WorkbookCopier(@"K:\SQL_DATA\BD\Estimation Pipeline 2014 06 25.xlsm"),
                             //new QualificationCopier(@"C:\Users\jing\Desktop\Doc\BD database verticals 2015 02 24.rock.xlsx"),
-                            //new SmallQuoteCopier(@"K:\SQL_DATA\BD\estimation\Small-Medium quote costing workbook_v8.30.test.xlsm"),
+                            new SmallQuoteCopier(@"C:\dev\BDWorkbook\Small-Medium quote costing workbook_v8.37.xlsm"),
                             //new SpecCopier(@"K:\SQL_DATA\BD\estimation\Small-Medium quote costing workbook_v8.30.test.xlsm")
                         };
 

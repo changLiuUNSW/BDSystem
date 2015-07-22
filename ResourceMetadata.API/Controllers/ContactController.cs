@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using DataAccess.EntityFramework.Models.BD.Site;
 using DataAccess.EntityFramework.TypeLibrary;
@@ -7,10 +8,12 @@ using DateAccess.Services.ContactService.Call;
 using DateAccess.Services.ContactService.Call.Exceptions;
 using DateAccess.Services.ContactService.Call.Models;
 using DateAccess.Services.ContactService.Call.Scripts.Actions;
+using DateAccess.Services.ContactService.Call.Scripts.Info;
+using DateAccess.Services.ContactService.Call.Scripts.Providers;
 using DateAccess.Services.ContactService.Reports.Config;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ResourceMetadata.API.Json;
+using ResourceMetadata.API.ViewModels;
 
 namespace ResourceMetadata.API.Controllers
 {
@@ -34,7 +37,7 @@ namespace ResourceMetadata.API.Controllers
         {
             _contactService = contactService;
             _callService = callService;
-            _customJsonConverter = new TelesaleContactJsonConverter();
+            _customJsonConverter = new CustomJsonConverter();
         }
 
         /// <summary>
@@ -57,47 +60,45 @@ namespace ResourceMetadata.API.Controllers
         /// <summary>
         /// return next avaiable contact base on the underlying provider configuration
         /// </summary>
-        /// <param name="type">type of provider to use</param>
-        /// <param name="initial">if initial is supplied and siteId is not, provider will use initial to find next call</param>
-        /// <param name="siteId">if siteId is supplied, provider will use siteId to find next call and ignoring the value in initial</param>
-        /// <param name="lastCallId">if lastCallId is supplied, it will be removed from the occupied call list prior to finding the next call</param>
+        /// <param name="model"></param>
         /// <returns></returns>
         [Route("call/next")]
-        public IHttpActionResult GetNext(CallTypes type, string initial = null, int? siteId = null, int? lastCallId = null)
+        [HttpPost]
+        public IHttpActionResult NextCall(NextCallViewModel model)
         {
+            if (model == null)
+            {
+                ModelState.AddModelError("", new ArgumentNullException("model"));
+                return BadRequest(ModelState);
+            }
 
             try
             {
-                CallDetail data;
-                switch (type)
-                {
-                    case CallTypes.BD:
-                        if (!User.Identity.IsAuthenticated)
-                            return BadRequest("Undefined user");
-                        var name = User.Identity.Name;
-                        data = _callService.GetNextCall(type, name, siteId, lastCallId);
-                        break;
-                    case CallTypes.Telesale:
-                        data = _callService.GetNextCall(type, initial, siteId, lastCallId);
-                        break;
-                    default:
-                        data = null;
-                        break;
-                }
+                CallDetail callDetail;
+                _customJsonConverter.JsonSerializerSettings = Configuration.Formatters.JsonFormatter.SerializerSettings;
+
+                if (!User.Identity.IsAuthenticated)
+                    return Unauthorized();
+
+                if (User.IsInRole("BD"))
+                    callDetail = _callService.GetNextCall(CallType.BD, User.Identity.Name, model.SiteId,
+                        model.LastCallId);
+                else
+                    callDetail = _callService.GetNextCall(CallType.Telesale, model.Initial, model.SiteId,
+                        model.LastCallId);
 
                 return Ok(new
                 {
-                    data = _customJsonConverter.Resolve(data)
+                    data = _customJsonConverter.ResolveObject(callDetail, new TelesaleContactJsonResolver())
 
                 });
-
             }
             catch (UnfinishedCallException ex)
             {
                 return Ok(new
                 {
                     unfinished = true,
-                    data = _customJsonConverter.Resolve(ex.CallDetail)
+                    data = _customJsonConverter.ResolveObject(ex.CallDetail, new TelesaleContactJsonResolver())
                 });
             }
         }
@@ -147,7 +148,7 @@ namespace ResourceMetadata.API.Controllers
         }
 
         /// <summary>
-        ///  update single field of the contact
+        /// update contact nodes
         /// </summary>
         /// <returns></returns>
         [Route("{contactId}/note")]
@@ -227,28 +228,52 @@ namespace ResourceMetadata.API.Controllers
         /// end a call by updating next call date and relavent information
         /// </summary>
         /// <returns></returns>
-        [Route("call/{contactId}/end/")]
-        public IHttpActionResult PutEndCall(int contactId, JObject jsons)
+        [Route("call/end")]
+        [HttpPost]
+        public IHttpActionResult EndCall(EndCallViewModel model)
         {
-            var leadPersonId = jsons["managerId"];
-            var occupiedId = jsons["occupiedId"];
-            var initial = jsons["initial"];
-            var url = jsons["url"];
+            if (model == null)
+            {
+                ModelState.AddModelError("", new ArgumentNullException("model"));
+                return BadRequest(ModelState);
+            }
+
             var actions =
-                jsons["actions"].Select(
+                model.Actions["actions"].Select(
                     x => JsonConvert.DeserializeObject<ScriptAction>(x.ToString(), new JsonSerializerSettings
                     {
                         TypeNameHandling = TypeNameHandling.Auto
                     })).ToList();
 
-            _callService.GetProvider(CallTypes.Telesale).EndCall(contactId,
-                leadPersonId != null ? leadPersonId.ToObject<int>() : 0,
-                occupiedId != null ? occupiedId.ToObject<int>() : 0,
-                initial != null ? initial.ToObject<string>() : null,
-                url != null ? url.ToObject<string>() : null,
+            var callProvider = User.IsInRole("BD")
+                ? _callService.GetProvider(CallType.BD)
+                : _callService.GetProvider(CallType.Telesale);
+
+            callProvider.EndCall(
+                model.SiteId,
+                model.ContactId, 
+                model.LeadPersonId,
+                model.OccupiedId,
+                model.Initial,
+                model.RedirectUrl, 
                 actions);
 
             return Ok();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        [Route("call/script/")]
+        public IHttpActionResult GetScripts(ScriptType type)
+        {
+            var script = ScriptProvider.GetScript(type);
+            return Ok(new
+            {
+                data = script
+            });
         }
     }
 }

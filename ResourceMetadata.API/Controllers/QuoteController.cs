@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using DataAccess.Common;
 using DataAccess.Common.Util;
+using DataAccess.EntityFramework.TypeLibrary;
 using DateAccess.Services.QuoteService;
 using Microsoft.AspNet.Identity;
 
@@ -131,7 +132,7 @@ namespace ResourceMetadata.API.Controllers
         [HttpPost]
         public IHttpActionResult UpdateRate(int id,[FromBody] int rate)
         {
-           if(!_quoteService.Any(l => l.Id == id))
+           if(!_quoteService.Repository.Any(l => l.Id == id))
             return NotFound();
             var quote = _quoteService.GetByKey(id);
             quote.SuccessRate = rate;
@@ -409,6 +410,32 @@ namespace ResourceMetadata.API.Controllers
             });
         }
 
+        [Route("notsendemail/{id}")]
+        [HttpPost]
+        public IHttpActionResult NotSendEmail(int id, List<QuestionResultModel> models)
+        {
+            string user = User.Identity.GetUserName();
+            var quote = _quoteService.NotSendEmail(user, id, models);
+            return Ok(new
+            {
+                data = quote
+            });
+        }
+
+        [Route("sendemail/{id}")]
+        [HttpPost]
+        public IHttpActionResult SendEmail(int id)
+        {
+            var quote = _quoteService.GetByKey(id);
+            if (quote == null) return NotFound();
+            quote.ClientEmailSendReminderDisabled = true;
+            _quoteService.Update(quote);
+            return Ok(new
+            {
+                data = quote
+            });
+        }
+
 
         [Route("notadjust/{id}")]
         [HttpPost]
@@ -431,6 +458,18 @@ namespace ResourceMetadata.API.Controllers
             return Ok(new
             {
                 data = quote
+            });
+        }
+
+        [Route("result/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetQuestionResultsByType(int id, int? type)
+        {
+            var questionType = type == null ? (QuoteQuestionType?) null : (QuoteQuestionType) type;
+            var result = _quoteService.GetQuoteResultListByType(id, questionType);
+            return Ok(new
+            {
+                data = result
             });
         }
     }

@@ -1,10 +1,10 @@
 ﻿<div class="panel panel-default" ng-if="site.queryGroup.Id">
     <div class="panel-body">
-        <span class="font-bold">{{site.queryGroup.GroupName}}</span><br>
-        <span>Company: {{site.queryGroup.AgentComp}}</span><br>
-        <span>Type: {{site.queryGroup.Type || 'N/A'}}</span><br />
-        <span>Description: {{site.queryGroup.Description || 'N/A'}}</span><br />
-        <span>Code: {{site.queryGroup.Code || 'N/A'}}</span><br />
+        <span class="font-bold">{{site.queryGroup.Group.GroupName}}</span><br>
+        <span>Company: {{site.queryGroup.Group.AgentComp}}</span><br>
+        <span>Type: {{site.queryGroup.Group.Type || 'N/A'}}</span><br />
+        <span>Description: {{site.queryGroup.Group.Description || 'N/A'}}</span><br />
+        <span>Code: {{site.queryGroup.Group.Code || 'N/A'}}</span><br />
         <span>Manager: {{site.queryGroup.Firstname}} {{site.queryGroup.Lastname}}</span><br/>
         <span>Phone: {{site.queryGroup.Phone}}</span>
     </div>

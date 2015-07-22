@@ -16,7 +16,7 @@ namespace DataAccess.Console.Scripts.Types
                     Question = "I would like to confirm your address and phone number.",
                     Actions = new Collection<ScriptAction>
                     {
-                        new CreateLead("Generate a new lead.", ScriptActionType.CreateCleaningLead)
+                        new NewLead("New cleaning lead.", ScriptActionType.CreateCleaningLead)
                     }
                 },
 

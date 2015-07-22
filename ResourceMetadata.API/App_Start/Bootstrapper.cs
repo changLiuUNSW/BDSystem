@@ -2,6 +2,8 @@
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using DateAccess.Services;
+using DateAccess.Services.Infrastructure;
 
 namespace ResourceMetadata.API
 {
@@ -24,6 +26,7 @@ namespace ResourceMetadata.API
             DependencyConfigure.Init(containerBuilder);
             containerBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             IContainer container = containerBuilder.Build();
+            DomainEvents.SetEventBrokerStrategy(new AutofacEventBroker(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }

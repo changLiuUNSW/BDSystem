@@ -14,18 +14,8 @@
         Cln_QaQt,
         Cln_Inhouse,
         Cln_Security,
-        Cln_Only
-    }
-
-    public enum ActionType
-    {
-        UpdateNextCallDate,
-        NewCleaningLead,
-        NewSecurityLead,
-        NewMaintenanceLead,
-        ReceptionNotPutThrough,
-        TaskForDH,
-        UpdateContactInfo
+        Cln_Only,
+        BD
     }
 
     public enum BranchTypes

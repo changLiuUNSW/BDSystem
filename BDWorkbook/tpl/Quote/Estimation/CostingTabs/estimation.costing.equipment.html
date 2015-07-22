@@ -1,0 +1,50 @@
+﻿<div class="row">
+    <div class="col-sm-1  col-xs-2  text-center">
+        <a class="text-info-dk" data-ng-click="vm.equiHandle('new')">
+            <i class="fa fa-2x fa-plus-circle"></i><br />
+            <span class="font-bold">Add</span>
+        </a>
+    </div>
+    <div class="col-sm-1  col-xs-2 text-center">
+        <a class="text-primary-dk" data-ng-click="vm.equiHandle('edit')">
+            <i class="fa fa-2x fa-edit"></i><br />
+            <span class="font-bold">Edit</span>
+        </a>
+    </div>
+    <div class="col-sm-1  col-xs-2 text-center">
+        <a class="text-danger-dk" data-ng-click="vm.equiHandle('del')">
+            <i class="fa fa-2x fa-times-circle"></i><br />
+            <span class="font-bold">Delete</span>
+        </a>
+    </div>
+</div>
+<div class="line line-lg b-b b-light"></div>
+
+<ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+    <li class="list-group-item clearfix b-l-3x" data-ng-repeat="item in vm.addedEquipments track by $index" ng-class="{'b-l-info ': vm.addedEquipments.indexOf(item)%2==0, 'b-l-success ': vm.addedEquipments.indexOf(item)%2==1}">
+        <div class="text-center pull-right">
+            <label class="i-checks">
+                <input type="checkbox"
+                        ng-checked="vm.checkedEquipments.indexOf(item) > -1"
+                        ng-click="vm.checkMachine(item)"
+                        value="{{item.EquipmentCode}}" />
+                <i></i>Tick
+            </label>
+        </div>
+        <span class="h4 font-thin text-dark-lter" data-ng-bind="item.EquipmentCode"></span>
+        <div class="row">
+            <div class="line line-lg b-b b-light"></div>
+            <div class="col-md-6"><span class="font-bold">No. units subby to provide:</span><b class="badge bg-primary" data-ng-bind="item.UnitsFromSubby"></b></div>
+            <div class="col-md-6"><span class="font-bold">No. units QUAD to provide:</span><b class="badge bg-info " data-ng-bind="item.UnitsFromQuad"></b></div>
+            <div class="col-md-6">
+                <span class="font-bold">Ok for QUAD to supply with Subby only labour:</span>
+                <b class="badge bg-success" data-ng-if="item.Equipment.Cost>2000">Y</b>
+                <b class="badge bg-danger" data-ng-if="item.Equipment.Cost<=2000">N</b>
+            </div>
+            <div class="col-md-6"><span class="font-bold">Equ alloc for job (Depr+Rep+Fuel):</span><span class="font-thin" data-ng-bind="item.Total|currency"></span></div>
+            <div class="col-md-6"><span class="font-bold">Purchase Price:</span><span class="font-thin" data-ng-bind="item.Equipment.Cost|currency"></span></div>
+            <div class="col-md-6"><span class="font-bold">Description:</span><span class="font-thin" data-ng-bind="item.Equipment.Description"></span></div>
+
+        </div>
+    </li>
+</ul>

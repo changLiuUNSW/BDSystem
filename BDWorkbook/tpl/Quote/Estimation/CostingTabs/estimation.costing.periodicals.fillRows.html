@@ -1,0 +1,18 @@
+﻿<form name="step1" class="form-validation">
+    <div class="font-bold h4 m-b-md">Please fill the specific number of periodicals you want to add</div>
+    <div class="m-t">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>No. Periodicals</label>
+                    <input type="number" min="0" ui-validate=" '$value >0' " class="form-control" name="periodicals" data-ng-model="vm.rowsCount" required>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-t text-right">
+        <button class="btn btn-info" type="submit" data-ng-click="vm.addRows()" ng-disabled="step1.$invalid">
+            Next >>
+        </button>
+    </div>
+</form>

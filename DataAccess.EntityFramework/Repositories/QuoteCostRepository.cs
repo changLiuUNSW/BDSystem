@@ -1,4 +1,5 @@
-﻿using DataAccess.EntityFramework.Infrastructure;
+﻿using System.Data.Entity;
+using DataAccess.EntityFramework.Infrastructure;
 using DataAccess.EntityFramework.Models.Quote.Cost;
 
 namespace DataAccess.EntityFramework.Repositories
@@ -9,7 +10,7 @@ namespace DataAccess.EntityFramework.Repositories
 
     internal class QuoteCostRepository : Repository<Cost>, IQuoteCostRepository
     {
-        public QuoteCostRepository(IDbContext dbContext) : base(dbContext){}
+        public QuoteCostRepository(DbContext dbContext) : base(dbContext){}
     }
 
 }

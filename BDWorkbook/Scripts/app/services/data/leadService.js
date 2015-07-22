@@ -8,6 +8,7 @@
         var currentDomain = config.clientAddress;
         var baseUrl = config.ServerAddress + config.apiprefix + "lead";
         var services = {
+            newLead : newLead,
             getLeadDetailUrl: getLeadDetailUrl,
             getAllStatus: getAllStatus,
             getLead: getLead,
@@ -79,6 +80,10 @@
 
         function getLead(params) {
             return $resource(baseUrl + '/:id').get(params).$promise;
+        }
+
+        function newLead(params) {
+            return $resource(baseUrl + '/new').save(params).$promise;
         }
     }
 })();

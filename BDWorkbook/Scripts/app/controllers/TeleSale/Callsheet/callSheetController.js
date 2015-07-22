@@ -16,7 +16,8 @@
         '$filter',
         'typeLibrary',
         'callParams',
-        'leadService'];
+        'leadService',
+        'utility'];
 
     function controller(
         $scope,
@@ -31,41 +32,51 @@
         $filter,
         typeLibrary,
         callParams,
-        leadService) {
+        leadService,
+        utility) {
 
         var self = this;
 
         //page variables
         self.userInfo = angular.copy(userInfo);
-        self.hasSite = false;
-        self.hasLeadPerson = false;
-        self.hasContact = false;
-        self.showDetail = false;
+        self.isTelesale = !isInRole('bd');
         self.loading = false;
-        self.hasTelesale = !isInRole('bd');
         self.site = null;
         self.contact = null;
+        self.leadPerson = null;
         self.calls = [];
-        self.currentCall = null;
 
         //functions
         self.next = next;
         self.end = end;
+        self.closeTabe = closeCall;
+        self.activateCall = activateCall;
 
-        if (self.hasTelesale) {
+        if (self.isTelesale) {
             self.telesale = {};
         };
 
-        $scope.$on('event:callFromGroup', function (e, data) {
+        $scope.$on('event:callFromGroup', function (e, siteId) {
             e.preventDefault();
             e.stopPropagation();
-            addToCalls(data);
+            var existingCall = $filter('find')(self.calls, function(call) {
+                return call.Site.Id === siteId;
+            });
+
+            if (existingCall) {
+                initPageVariables(existingCall);
+            }
+            else {
+                callParams.SiteId = siteId;
+                telesaleService.makeCall(callParams, function (success) {
+                    initPageVariables(success.data);
+                }, function(fail) {
+                });
+            }
         });
 
         $scope.$on('event:auth-loginConfirmed', function () {
-            if (self.userInfo.userName.toLowerCase() !== userInfo.userName.toLowerCase()) {
-                $state.reload();
-            }
+            $state.go('telesale.callSheet', {}, { reload : true });
         });
 
         function isInRole(role) {
@@ -74,20 +85,20 @@
                 return false;
             }
 
-            return telesaleService.isInRole(role);
+            return utility.isInRole(role);
         }
 
         function next() {
             self.loading = true;
-
+            self.calls = [];
+            self.site = null;
+            self.contact = null;
+            self.leadPerson = null;
             var callbackHandler;
-            if (self.hasTelesale) {
-                callParams.type = 'Telesale';
-                callParams.initial = self.telesale.initial;
+            if (self.isTelesale) {
+                callParams.Initial = self.telesale.initial;
                 callbackHandler = telesaleCallHandler;
             } else {
-                callParams.type = 'BD';
-                callParams.initial = null;
                 callbackHandler = bdCallHandler;
             }
 
@@ -112,20 +123,27 @@
                 }, function(isConfirm) {
                     if (!isConfirm) {
                         swal("Success", "Loading new contact now!", "success");
-                        callParams.lastCallId = success.data.OccupiedId;
+                        callParams.LastCallId = success.data.OccupiedId;
                         next();
                     };
                 });
             };
 
-            initialisePageVariables(success.data);
+            init(success.data);
         }
 
         function bdCallHandler(success) {
             if (!success)
                 return;
 
-            initialisePageVariables(success.data);
+            init(success.data);
+        }
+
+        function init(data) {
+            data.canDelete = false;
+            initPageVariables(data);
+
+            activateCall(self.calls[0]);
         }
 
         function errorHandler(error) {
@@ -147,91 +165,126 @@
             });
         }
 
-        function initialisePageVariables(data) {
+        function initPageVariables(data) {
             if (!data)
                 return;
 
-            if (data.Contact) {
-                self.hasContact = true;
-                self.contact = data.Contact;
-            }
-
-            if (data.Site) {
-                self.hasSite = true;
-                self.showDetail = true;
-                self.site = data.Site;
-            }
-
-            if (data.LeadPerson) {
-                self.hasLeadPerson = true;
-                self.leadPerson = data.LeadPerson;
-            }
-
-            //selectCleaningContact();
+            //self.contact = data.Contact;
+            //self.site = data.Site;
+            //self.leadPerson = data.LeadPerson;
             self.loading = false;
+
             addToCalls(data);
-            self.currentCall = data;
-            $state.go('telesale.callSheet.detail', data);
+            if (data.Contact && data.Contact.Code == "PMS") {
+                var groups = data.Site.Groups;
+                groups.forEach(function(group) {
+                    group.Sites.forEach(function (site) {
+                        if (site.Key.substring(0, 2) === 'MT') {
+                            addToCalls({
+                                Site: site,
+                                Contact: null,
+                                LeadPerson: data.LeadPerson,
+                                Script: data.Script,
+                                ScriptActions: angular.copy(data.ScriptActions),
+                                canDelete: false,
+                            });
+                        };
+                    });
+                });
+            }
+
+            data.active = true;
         }
 
         function addToCalls(data) {
             if (!data || !data.Site)
                 return;
 
-            var id = data.Site.Id;
-            var exist = false;
+            var isInvalid = false;
             for (var i = 0; i < self.calls.length; i++) {
-                if (self.calls[i].Site.Id === id) {
-                    exist = true;
+                if (self.calls[i].Site.Id === data.Site.Id) {
+                    isInvalid = true;
                     self.calls[i] = data;
                     break;
                 }
             }
 
-            if (!exist) {
-                //strip the key for url param
+            if (!isInvalid) {
                 self.calls.push(data);
             }
         }
 
-        function end() {
-            if (!self.site || !self.contact) {
-                displayError("Nothing to end");
+        function activateCall(call) {
+            if (!call)
+                return;
+
+            $state.go('telesale.callSheet.detail', call);
+        }
+
+        function closeCall(index) {
+            if (self.calls.length == 1) {
+                displayError("Can not close the last one");
                 return;
             }
+
+            self.calls.splice(index, 1);
+        }
+
+        function end() {
+            var call = getActivedCall();
+            if (!call)
+                displayError("Invalid call to end");
 
             var actions;
             var scriptListener = $scope.$on('event:endingScript', function (e, d) {
                 scriptListener();
                 actions = d;
 
-                if (!self.currentCall) {
-                    displayError("Invalid call");
-                    return;
-                }
-
-                if (actions.length <= 0) {
+                var defaultActions = getActivedDefaultActions(call);
+                if (actions.length <= 0 && defaultActions.length <= 0) {
                     displayError("No actions to confirm");
                     return;
                 }
 
-                var param = { paramId: self.currentCall.Contact.Id };
-
                 var data = {
-                    managerId: self.currentCall.LeadPerson.Id,
-                    occupiedId: self.currentCall.OccupiedId,
-                    initial: self.telesale.initial,
-                    actions: actions,
-                    url: leadService.getLeadDetailUrl(0)
+                    SiteId: call.Site.Id,
+                    ContactId: call.Contact ? call.Contact.Id : null,
+                    LeadPersonId: call.LeadPerson ? call.LeadPerson.Id : null,
+                    OccupiedId: call.OccupiedId,
+                    Initial: self.isTelesale ? self.telesale.initial : null,
+                    Actions: {
+                        actions : actions.concat(defaultActions)
+                    },
+                    RedirectUrl: leadService.getLeadDetailUrl(0)
                 };
 
-                processEndCall(param, data);
+                processEndCall(data);
             });
 
             $scope.$broadcast('event:endingCall');
         }
 
-        function processEndCall(param, data) {
+        function getActivedDefaultActions(call) {
+            var actions = [];
+
+            if (!call || !call.ScriptActions)
+                return actions;
+
+            call.ScriptActions.forEach(function(action) {
+                if (action.active)
+                    actions.push(action);
+            });
+
+            return actions;
+        };
+
+        function getActivedCall() {
+            return $filter('find')(self.calls, function(call) {
+                return call.active;
+            });
+        }
+
+        function processEndCall(data) {
             swal({
                 title: "Confirm?",
                 type: "warning",
@@ -241,7 +294,7 @@
                 text: "The call is completed.",
                 confirmButtonColor: "#7266ba"
             }, function () {
-                apiService.contact.endCall(param, data, function (success) {
+                apiService.contact.endCall(data, function (success) {
                     swal("Success!", "Call completed", "success");
                 }, function (error) {
                     var errorMsg = error.data.ExceptionMessage ? error.data.ExceptionMessage : 'Error';

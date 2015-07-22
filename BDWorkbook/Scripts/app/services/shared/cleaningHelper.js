@@ -14,7 +14,7 @@
                 callCycle: [
                     { value: 0, text: "0" },
                     { value: 3, text: "3 months" },
-                    { value: 3, text: "6 months" }
+                    { value: 12, text: "12 months" }
                 ]
             }
         }

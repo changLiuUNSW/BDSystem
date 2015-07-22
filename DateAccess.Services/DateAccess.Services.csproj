@@ -50,6 +50,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -72,7 +76,6 @@
   <ItemGroup>
     <Compile Include="ContactService\AllocationService.cs" />
     <Compile Include="ContactService\AreaService.cs" />
-    <Compile Include="ContactService\Call\Exceptions\InvalidContactIdException.cs" />
     <Compile Include="ContactService\Call\Exceptions\UnfinishedCallException.cs" />
     <Compile Include="ContactService\Call\ICallService.cs" />
     <Compile Include="ContactService\Call\Models\PriorityConfig.cs" />
@@ -81,16 +84,15 @@
     <Compile Include="ContactService\Call\Providers\TelesaleCallProvider.cs" />
     <Compile Include="ContactService\Call\Providers\BdCallProvider.cs" />
     <Compile Include="ContactService\Call\Queues\CleaningQueue.cs" />
-    <Compile Include="ContactService\Call\Scripts\Actions\CreateTaskForDh.cs" />
+    <Compile Include="ContactService\Call\Scripts\Actions\NewTaskForDh.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\UpdateCallBack.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\UpdateExtManager.cs" />
-    <Compile Include="ContactService\Call\Scripts\Actions\UpdateContactName.cs" />
+    <Compile Include="ContactService\Call\Scripts\Actions\NewContactPersoncs.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\UpdateDaCheck.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\UpdateEmail.cs" />
-    <Compile Include="ContactService\Call\Scripts\Actions\UpdateGroup.cs" />
-    <Compile Include="ContactService\Call\Scripts\Actions\UpdatePropertyManager.cs" />
+    <Compile Include="ContactService\Call\Scripts\Actions\NewPropertyManager.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\UpdateQualification.cs" />
-    <Compile Include="ContactService\Call\Scripts\Actions\CreateLead.cs" />
+    <Compile Include="ContactService\Call\Scripts\Actions\NewLead.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\UpdateNextCall.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\UpdateSendInfo.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\UpdateTenant.cs" />
@@ -103,9 +105,10 @@
     <Compile Include="ContactService\Call\Models\ScriptXmlTemplate.cs" />
     <Compile Include="ContactService\Call\Providers\CallProvider.cs" />
     <Compile Include="ContactService\Call\Queues\IQueue.cs" />
+    <Compile Include="ContactService\Call\Scripts\Providers\BdScriptProvider.cs" />
     <Compile Include="ContactService\Call\Scripts\Providers\ScriptProvider.cs" />
+    <Compile Include="ContactService\Call\Scripts\Providers\TelesaleScriptProvider.cs" />
     <Compile Include="ContactService\Call\Scripts\Visitors\IVisitor.cs" />
-    <Compile Include="ContactService\Call\Scripts\Providers\IScriptProvider.cs" />
     <Compile Include="ContactService\Call\Scripts\Actions\ScriptAction.cs" />
     <Compile Include="ContactService\Call\Scripts\Info\Constants.cs" />
     <Compile Include="ContactService\Call\Scripts\Data\BinaryTree.cs" />
@@ -134,10 +137,15 @@
     <Compile Include="ContactService\Reports\ReportProvider.cs" />
     <Compile Include="ContactService\Reports\Types\AssignableReport.cs" />
     <Compile Include="ContactService\Reports\Types\WeeklyReport.cs" />
+    <Compile Include="DomainEvents.cs" />
+    <Compile Include="EventHandlers\SendLeadAppointmentEmail.cs" />
+    <Compile Include="EventHandlers\SendNewLeadEmail.cs" />
+    <Compile Include="Events\LeadAppointment.cs" />
+    <Compile Include="Events\NewLead.cs" />
     <Compile Include="Excel\ExcelCopier.cs" />
     <Compile Include="Excel\ExcelReader.cs" />
+    <Compile Include="Infrastructure\AutofacEventBroker.cs" />
     <Compile Include="MailService\EmailHelper.cs" />
-    <Compile Include="MailService\LeadEmailService.cs" />
     <Compile Include="MailService\QuoteEmailService.cs" />
     <Compile Include="QuoteService\Calculator\SmallQuoteEstimator.cs" />
     <Compile Include="QuoteService\Calculator\Estimator\PriceEstimator.cs" />
@@ -151,9 +159,17 @@
     <Compile Include="QuoteService\Calculator\Formula\Labour\WageFormula.cs" />
     <Compile Include="QuoteService\Calculator\Estimator\ILabourCostEstimator.cs" />
     <Compile Include="QuoteService\Calculator\Estimator\LabourCostEstimator.cs" />
+    <Compile Include="QuoteService\Helper\SiteAddressHelper.cs" />
     <Compile Include="QuoteService\QuoteCostService.cs" />
     <Compile Include="QuoteService\QuoteService.cs" />
     <Compile Include="RepositoryService.cs" />
+    <Compile Include="SearchService\Projector\AdminContactProjector.cs" />
+    <Compile Include="SearchService\Projector\AdminSiteProjector.cs" />
+    <Compile Include="SearchService\Projector\IQueryProjector.cs" />
+    <Compile Include="SearchService\Role\BDSearchAdapter.cs" />
+    <Compile Include="SearchService\Role\ISearchAdapter.cs" />
+    <Compile Include="SearchService\SearchConfiguration.cs" />
+    <Compile Include="SearchService\SearchExpressionFactory.cs" />
     <Compile Include="StatisticService\SummaryService.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="ViewModels\ContactPersonHistoryDTO.cs" />
@@ -199,9 +215,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Lead\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

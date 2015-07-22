@@ -4,11 +4,17 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using DataAccess.EntityFramework;
+using DataAccess.EntityFramework.Models.BD.Contact;
 using DataAccess.EntityFramework.Models.BD.Lead;
-using DateAccess.Services.ContactService.Call.Exceptions;
+using DataAccess.EntityFramework.Models.BD.Site;
+using DataAccess.EntityFramework.Models.BD.Telesale;
+using DataAccess.EntityFramework.TypeLibrary;
+using DateAccess.Services.ContactService.Call.Models;
 using DateAccess.Services.ContactService.Call.Scripts.Actions;
 using DateAccess.Services.MailService;
+using NewLead = DateAccess.Services.Events.NewLead;
 
 namespace DateAccess.Services.ContactService.Call.Providers
 {
@@ -18,13 +24,13 @@ namespace DateAccess.Services.ContactService.Call.Providers
     public abstract class CallProvider
     {
         protected readonly IUnitOfWork UnitOfWork;
-        public ILeadEmailService EmailService { get; set; }
+        protected readonly IEmailHelper EmailHelper;
 
-        protected CallProvider(IUnitOfWork unitOfWork,
-                        ILeadEmailService emailService)
+
+        protected CallProvider(IUnitOfWork unitOfWork,IEmailHelper emailHelper)
         {
             UnitOfWork = unitOfWork;
-            EmailService = emailService;
+            EmailHelper = emailHelper;
         }
 
         protected virtual int SaveOccupied(int contactId, int telesaleId, int? personId = null)
@@ -41,6 +47,19 @@ namespace DateAccess.Services.ContactService.Call.Providers
             UnitOfWork.Save();
 
             return occupied.Id;
+        }
+
+        public static CallProvider Create(CallType type, IUnitOfWork unitOfWork, IEmailHelper emailHelper)
+        {
+            switch (type)
+            {
+                case CallType.Telesale:
+                    return new TelesaleCallProvider(unitOfWork, emailHelper);
+                case CallType.BD:
+                    return new BdCallProvider(unitOfWork, emailHelper);
+                default:
+                    throw new Exception("Incorrect call type");
+            }
         }
 
         public IStandardCall StandardCall
@@ -69,26 +88,34 @@ namespace DateAccess.Services.ContactService.Call.Providers
             }
         }
 
-        public virtual void EndCall(int contactId, int leadPersonId, int occupiedId, string initial, string url, IList<ScriptAction> actions)
+        public virtual void EndCall(
+            int siteId, int? contactId, int? leadPersonId, int? occupiedId, string initial, string url, IList<ScriptAction> actions)
         {
-            var contact = UnitOfWork.ContactRepository.Get(contactId);
-            if (contact == null)
-                throw new InvalidContactIdException(contactId);
+            var site = UnitOfWork.SiteRepository.Get(siteId);
 
-            var leadPerson = UnitOfWork.LeadPersonalRepository.Get(leadPersonId);
+            if (site == null)
+                throw new Exception("Invalid site");
 
-            //in the case there is no lead person, set the lead person to DHUD
-            if (leadPerson == null)
-                leadPerson = UnitOfWork.LeadPersonalRepository.SingleOrDefault(x => x.Initial == "DHUD");
+            Contact contact = null;
+            LeadPersonal leadPerson = null;
+
+            if (contactId.HasValue)
+                contact = UnitOfWork.ContactRepository.Get(contactId);
+
+            if (leadPersonId.HasValue)
+                leadPerson = UnitOfWork.LeadPersonalRepository.Get(leadPersonId);
 
             var telesale = UnitOfWork.TelesaleRepository.SingleOrDefault(x => x.Initial == initial);
-            var leadsBefore = contact.Leads.Count;
-            foreach (var action in actions)
+            var actionResult = ScriptActionResult.Completed;
+            for (int i = 0; i < actions.Count; i++)
             {
-                if (action == null)
-                    continue;
+                var action = actions[i];
+                var result = action.Update(site, contact, leadPerson, telesale);
 
-                action.Update(contact, leadPerson, telesale);
+                if (i != 0)
+                    actionResult = actionResult | result;
+                else
+                    actionResult = result;
             }
 
             UnitOfWork.OccupiedContactRepository.Delete(occupiedId);
@@ -98,7 +125,7 @@ namespace DateAccess.Services.ContactService.Call.Providers
 
             //if there is a new lead, send a emails
             //spawn a new thread to handle email so errors will not block the main threads
-            if (leadsBefore < contact.Leads.Count)
+            if (actionResult.HasFlag(ScriptActionResult.EmailRequired))
             {
                 var task = Task.Run(() =>
                 {
@@ -106,7 +133,10 @@ namespace DateAccess.Services.ContactService.Call.Providers
                     {
                         var lead = contact.Leads.Last();
                         var leadUrl = url == null ? null : url.Replace("0", lead.Id.ToString(CultureInfo.InvariantCulture));
-                        EmailService.SendNewLeadEmail(lead, leadUrl);
+                        var newLead = Mapper.Map<NewLead>(lead);
+                        newLead.Url = leadUrl;
+                        newLead.Email = EmailHelper.GetEmailByInitial(lead.LeadPersonal.Initial);
+                        DomainEvents.Raise(newLead);
                     }
                     catch (Exception)
                     {

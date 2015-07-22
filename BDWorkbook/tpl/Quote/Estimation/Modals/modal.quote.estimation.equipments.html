@@ -1,0 +1,23 @@
+﻿<div class="panel-heading bg-info wrapper-sm">
+    <span class="h3">Costing - Equipments</span>
+</div>
+<div class="wrapper">
+    <tabset class="tab-container">
+        <tab class="text-md font-thin" active="vm.addEqus" select="vm.costEquEditTab='list'">
+            <tab-heading>
+                <i class="icon icon-list"></i> List
+            </tab-heading>
+            <div data-ng-if="vm.costEquEditTab==='list'"
+                 data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.equipment.list.html'">
+            </div>
+        </tab>
+        <tab class="text-md font-thin" active="vm.editEqu" select="vm.costEquEditTab='editor'">
+            <tab-heading>
+                <i class="icon icon-note"></i> Editor
+            </tab-heading>
+            <div data-ng-if="vm.costEquEditTab==='editor'"
+                 data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.equipment.editor.html'">
+            </div>
+        </tab>
+    </tabset>
+</div>

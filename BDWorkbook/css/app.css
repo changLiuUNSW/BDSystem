@@ -1922,6 +1922,7 @@ fieldset[disabled] .btn-black.active {
   -webkit-transition: margin-left 0.3s;
   transition: margin-left 0.3s;
 }
+
 .i-switch-md {
   width: 40px;
   height: 24px;
@@ -3320,6 +3321,12 @@ a.text-black:hover {
 .r-3x {
   border-radius: 6px;
 }
+.r-5x {
+  border-radius: 10px;
+}
+.r-10x {
+  border-radius: 20px;
+}
 .r-l {
   border-radius: 2px 0 0 2px;
 }
@@ -3638,6 +3645,9 @@ a.text-black:hover {
 }
 .w-xxl {
   width: 360px;
+}
+.w-xxxl {
+  width: 450px;
 }
 .w-full {
   width: 100%;
@@ -4022,4 +4032,12 @@ background-color: #7266ba;
 .border-active {
     border-left-color: #23b7e5 !important;
     background-color: #f6f8f8;
+}
+
+/*Leo added*/
+.modal-xxl{
+    width:95%
+}
+.font-ita {
+    font-style: italic;
 }

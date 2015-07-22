@@ -14,7 +14,7 @@ namespace DataAccess.EntityFramework.Models.BD.Lead
         public int Id { get; set; }
 
         [ForeignKey("Telesale")]
-        public int TelesaleId { get; set; }
+        public int? TelesaleId { get; set; }
         public virtual Telesale.Telesale Telesale { get; set; }
 
         public virtual ICollection<Quote.Quote> Quotes { get; set; }

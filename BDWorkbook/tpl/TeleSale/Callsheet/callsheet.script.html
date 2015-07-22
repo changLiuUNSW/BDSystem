@@ -21,7 +21,7 @@
                 <div class="wrapper">
                     <div class="panel">
                         <div class="panel-body m-b-lg">
-                            <span class="h3" ng-bind="script.current.Value.Question"></span>
+                            <span class="h3" ng-bind="script.current.Value.Question" style="white-space: pre-wrap"></span>
                         </div>
                         <div class="wrapper">
                             <form class="form-validation">
@@ -34,14 +34,14 @@
                             </form>
                         </div>
                         <div class="panel-footer text-right no-border">
-                            <button class="btn btn-primary" ng-click="script.selectActions()">
+                            <button class="btn btn-primary" ng-click="script.selectActions()" ng-if="script.current">
                                 <i class="fa fa-keyboard-o"></i>
                             </button>
-                            <button class="btn btn-primary font-bold" ng-click="script.next(false)" ng-if="!script.current.Value.End">
+                            <button class="btn btn-primary font-bold" ng-click="script.next(false)" ng-if="script.current && !script.current.Value.End">
                                 <i class="fa fa-times m-r-sm"></i>
                                 <span ng-bind="script.current.Left.Value.Text"></span>
                             </button>
-                            <button class="btn btn-primary font-bold" ng-click="script.next(true)" ng-if="!script.current.Value.End">
+                            <button class="btn btn-primary font-bold" ng-click="script.next(true)" ng-if="script.current && !script.current.Value.End">
                                 <i class="fa fa-check m-r-sm"></i>
                                 <span ng-bind="script.current.Right.Value.Text"></span>
                             </button>

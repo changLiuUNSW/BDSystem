@@ -1,10 +1,4 @@
-﻿<!--<style>
-    .popover-content {
-        width: 200px;
-    }
-</style>-->
-
-<div class="col-md-12 b-b m-b">
+﻿<div class="col-md-12 b-b m-b">
     <div class="hbox m-t">
         <div class="col col-md-4 bg-light">
             <address class="padder-v text-lg">
@@ -21,48 +15,39 @@
             </address>
         </div>
         <div class="col">
-            <div class="alert alert-info m-l" ng-hide="site.data.Groups && site.data.Groups.length > 0">
-                No associated group found.
-            </div>
-            <div class="panel no-border m-l" ng-hide="!site.data.Groups || site.data.Groups.length <= 0">
-                <div class="list-group bg-white no-border">
-                    <a class="list-group-item no-border"
-                       ng-repeat="group in site.data.Groups"
-                       popover-template="site.popover.group.url"
-                       popover-title="{{group.GroupName}}"
-                       popover-placement="bottom"
-                       popover-trigger="mouseenter"
-                       ng-click="site.expandGroup(group)">
-                        <i class="fa fa-building v-middle"></i>
-                        <span class="v-middle" ng-bind="group.GroupName"></span>
-                        <span class="label bg-primary v-middle" ng-bind="group.Type"></span>
-                        <span class="label bg-info v-middle" ng-bind="group.Code"></span>
-                        <span class="badge bg-primary v-middle" ng-bind="group.Sites.length"></span>
-                        <i ng-hide="!group.Phone" class="fa fa-phone v-middle" ng-bind="group.Phone || 'N/A'"></i>
-                        <span>
-                            <i ng-hide="!group.Firstname && !group.Lastname" class="fa fa-user">
-                                <span ng-bind="group.Firstname"></span> <span ng-bind="group.Lastname"></span>
-                            </i>
-                        </span>
-                    </a>
-                </div>
-            </div>
+
+            <tabset class="m-l">
+                <tab heading="Group">
+                    <h4 ng-if="!site.data.Groups || site.data.Groups.length <= 0" class="text-center">
+                        No group found.
+                    </h4>
+                    <div class="panel no-border" ng-if="site.data.Groups && site.data.Groups.length > 0">
+                        <div class="list-group bg-white no-border">
+                            <a class="list-group-item no-border"
+                               ng-repeat="group in site.data.Groups"
+                               popover-template="site.popover.group.url"
+                               popover-title="{{group.GroupName}}"
+                               popover-placement="bottom"
+                               popover-trigger="mouseenter"
+                               ng-click="site.expandGroup(group)">
+                                <i class="fa fa-building v-middle"></i>
+                                <span class="v-middle" ng-bind="group.GroupName"></span>
+                                <span class="label bg-primary v-middle" ng-bind="group.Type"></span>
+                                <span class="label bg-info v-middle" ng-bind="group.Code"></span>
+                                <span class="badge bg-primary v-middle" ng-bind="group.Sites.length"></span>
+                                <i ng-hide="!group.Phone" class="fa fa-phone v-middle" ng-bind="group.Phone || 'N/A'"></i>
+                                <span>
+                                    <i ng-hide="!group.Firstname && !group.Lastname" class="fa fa-user">
+                                        <span ng-bind="group.Firstname"></span> <span ng-bind="group.Lastname"></span>
+                                    </i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
         </div>
     </div>
-        <!--<div class="form-group col-md-3">
-            <label class="control-label font-bold">Property manager</label>
-            <div class="input-group">
-                <input type="text" class="form-control col-md-6" value="{{site.group.Firstname}} {{site.group.Lastname}}" disabled>
-                <div class="input-group-btn">
-                    <button class="btn btn-primary"
-                            type="button"
-                            popover-placement="bottom"
-                            popover-template="site.popoverUrl">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>-->
     <div class="row m-t">
         <div class="col-md-12">
             <tabset class="tab-container">
@@ -76,7 +61,7 @@
                         <tr ng-repeat="person in $data" ng-class="{'active':person.selected}">
                             <td data-title="'Name'"
                                 class="text-center v-middle"
-                                ng-click="person.selected = !person.selected">
+                                ng-click="site.selectContactPerson(person)">
                                 <a>
                                     <span ng-bind="person.Firstname"></span>
                                     <span ng-bind="person.Lastname"></span>

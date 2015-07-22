@@ -1,0 +1,22 @@
+﻿<div class="panel-default bg-white-only b-dark b-r box-shadow">
+    <div class="panel-body">
+        <tabset class="tab-container">
+            <tab class="text-md font-thin" heading="Areas to clean" data-ng-click="vm.areasTab='include'">
+                <div data-ng-if="vm.areasTab==='include'"
+                     data-ng-include="'tpl/Quote/Estimation/AreasTabs/estimation.areas.include.html'">
+                </div>
+            </tab>
+            <tab class="text-md font-thin" heading="Areas to exclude" data-ng-click="vm.areasTab='exclude'">
+                <div data-ng-if="vm.areasTab==='exclude'"
+                     data-ng-include="'tpl/Quote/Estimation/AreasTabs/estimation.areas.exclude.html'">
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="wrapper-sm form-group pull-down clearfix">
+        <div class="col-sm-12">
+            <a data-ng-click="vm.processSelected(vm.nextStep)" class="pull-right btn btn-sm  btn-info m-t-n-xs">Next >></a>
+            <a class="pull-right btn btn-sm  btn-primary m-t-n-xs m-r">Save for later</a>
+        </div>
+    </div>
+</div>

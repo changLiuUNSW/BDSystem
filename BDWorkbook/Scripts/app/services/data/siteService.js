@@ -9,7 +9,8 @@
         var services ={
             getSite: getSite,
             getSiteBykey: getSiteByKey,
-            updateGroup: updateGroup
+            updateGroup: updateGroup,
+            updateSiteFromAdmin: updateSiteFromAdmin
         };
         return services;
         function getSite (params) {
@@ -24,5 +25,9 @@
         function getSiteByKey (params) {
             return $resource(baseUrl + '/key').get(params).$promise;
         };
+
+        function updateSiteFromAdmin(params) {
+            return $resource(baseUrl + '/admin').save(params).$promise;
+        }
     }
 })();

@@ -1,0 +1,38 @@
+﻿<form name="form" class="form-validation">
+    <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+        <li class="list-group-item clearfix b-l-3x" data-ng-repeat="each in vm.editingEquipments track by $index" ng-class="{'b-l-info ': vm.editingEquipments.indexOf(each)%2==0, 'b-l-success ': vm.editingEquipments.indexOf(each)%2==1}">
+            <div class="clear">
+                <span class="pull-right">
+                    <a class="text-danger-lter" data-ng-click="vm.del(vm.editingEquipments.indexOf(each))"><i class="fa fa-times" tooltip="Delete"></i></a>
+                </span>
+                <span class="h4 font-thin text-dark-lter pull-left" data-ng-bind="each.EquipmentCode"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-sm-8 b-r">
+                    <div class="line line-lg b-b b-light"></div>
+                    <div class="col-md-3"><span class="font-bold">Cost: </span><span class="font-thin" data-ng-bind="each.Cost|currency"></span></div>
+                    <div class="col-md-3"><span class="font-bold">Fuel: </span><span class="font-thin" data-ng-bind="each.Equipment.Machine.Fuels|currency"></span></div>
+                    <div class="col-md-3"><span class="font-bold">Capital: </span><span class="font-thin" data-ng-bind="each.Equipment.CapitalAllocation|currency"></span></div>
+                    <div class="col-md-12"><span class="font-bold">Description: </span><span class="font-thin" data-ng-bind="each.Equipment.Description"></span></div>
+                    <div class="col-md-12"><span class="font-bold">Where to use: </span><span class="font-thin" data-ng-bind="each.Equipment.UserGuide"></span></div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="col-md-6 col-sm-6 ">
+                        <label>No. units subby to provide</label>
+                        <input type="number" class="form-control" data-ng-model="each.UnitsFromSubby" min="0" ng-required="!(each.UnitsFromSubby!=null||each.UnitsFromQuad!=null)" />
+                    </div>
+                    <div class="col-md-6 col-sm-6 ">
+                        <label>No. units QUAD to provide</label>
+                        <input type="number" class="form-control" data-ng-model="each.UnitsFromQuad" min="0" ng-required="!(each.UnitsFromSubby!=null||each.UnitsFromQuad!=null)" />
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="modal-footer">
+
+        <button data-ng-click="vm.costEquEditTab='list'" class="btn btn-sm  btn-info"><< Prev</button>
+        <button class="btn btn-sm btn-success" type="submit" ng-disabled="form.$invalid" data-ng-click="vm.confirm()">Confirm</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</form>

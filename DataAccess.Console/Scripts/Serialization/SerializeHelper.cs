@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace DataAccess.Console.Scripts.Serialization
@@ -12,7 +13,13 @@ namespace DataAccess.Console.Scripts.Serialization
                 throw new Exception("Invalid file");*/
 
             //overwrite instead of append
-            using (var writer = new StreamWriter(file, false))
+            var settings = new XmlWriterSettings
+            {
+                NewLineHandling = NewLineHandling.None,
+                Indent = true
+            };
+
+            using (var writer =XmlWriter.Create(file, settings))
             {
                 var serializer = new XmlSerializer(typeof(T));
 

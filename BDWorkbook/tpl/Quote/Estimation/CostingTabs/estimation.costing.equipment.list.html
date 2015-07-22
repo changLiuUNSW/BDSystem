@@ -1,0 +1,102 @@
+﻿<form role="form" class="form-validation">
+    <div class="form-group padder pull-in clearfix text-right m-t-sm">
+        <div class="col-md-12">
+            <select class="form-control" data-ng-options="item.prefix as item.name for item in vm.machineTypes"
+                    data-ng-model="vm.selectEquipment" data-ng-change="vm.machineTypeChoosed()">
+                <option value="">Please choose...</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="input-group">
+            <span class="input-group-addon input-sm no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+            <input type="text" class="form-control" ng-model="vm.selectedEqu" id="filter" placeholder="Enter keywords of equipments...">
+        </div>
+    </div>
+    <div class="loading" ng-show="vm.loading">
+        <div class="double-bounce1"></div><div class="double-bounce2"></div>
+    </div>
+
+    <table data-ng-if="!vm.loading" class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="5">
+        <thead>
+            <tr>
+                <th>
+                    Tick
+                </th>
+                <th data-toggle="true">
+                    Code
+                </th>
+                <th data-hide="phone">
+                    Cost of New Machine
+                </th>
+                <th data-hide="phone">
+                    Machine Type
+                </th>
+                <th data-hide="phone">
+                    Fuel
+                </th>
+                <th data-hide="phone">
+                    Capital
+                </th>
+                <th data-hide="phone">
+                    Repair
+                </th>
+                <th data-hide="phone">
+                    Prod.rate m/hr
+                </th>
+                <th data-hide="phone">
+                    Large equipment
+                </th>
+                <th data-hide="phone,tablet">
+                    Description
+                </th>
+                <th data-hide="phone,tablet">
+                    Where to use
+                </th>
+                <th data-hide="phone,tablet">
+                    Comments
+                </th>
+                <th data-hide="phone,tablet">
+                    Last updated
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="item in vm.equipments">
+                <td>
+                    <label class="i-checks">
+                        <input type="checkbox"
+                               ng-checked="vm.checkedEquipments.indexOf(item) > -1"
+                               ng-click="vm.addEquipment(item)"
+                               value="{{item.EquipmentCode}}">
+                        <i></i>
+                    </label>
+                </td>
+                <td data-ng-bind="item.EquipmentCode"></td>
+                <td data-ng-bind="item.Cost|currency"></td>
+                <td data-ng-bind="item.Equipment.MachineType"></td>
+                <td data-ng-bind="item.Equipment.Machine.Fuels|currency"></td>
+                <td data-ng-bind="item.Equipment.CapitalAllocation|currency"></td>
+                <td data-ng-bind="item.Equipment.Machine.RepairFactor"></td>
+                <td data-ng-bind="item.Equipment.ProductionRatePerHour"></td>
+                <td data-ng-bind="item.Equipment.IsLargeEquipment"></td>
+                <td data-ng-bind="item.Equipment.Description"></td>
+                <td data-ng-bind="item.Equipment.UserGuide"></td>
+                <td data-ng-bind="item.Equipment.Comment"></td>
+                <td data-ng-bind="item.Equipment.UpdateDate|date:'dd/MM/yyyy'"></td>
+            </tr>
+        </tbody>
+        <tfoot class="hide-if-no-paging" data-ng-if="vm.equipments.length>0">
+            <tr>
+                <td colspan="8">
+                    <ul class="pagination"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="text-right m-t-md">
+        <button class="btn btn-sm btn-danger" type="button" ng-click="vm.cancel()">Cancel</button>
+        <button class="btn btn-sm btn-success" type="submit" data-ng-click="vm.copyToEditing()">Add to editor</button>
+        <button data-ng-click="vm.editEqu=true" class="btn btn-sm  btn-info">Next >></button>
+    </div>
+</form>

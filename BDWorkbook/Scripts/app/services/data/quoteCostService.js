@@ -9,10 +9,21 @@
             uploadCost: uploadCost,
             download: download,
             finalize: finalize,
-            removeCosts: removeCosts
+            removeCosts: removeCosts,
+            createCost: createCost,
+            getCost:getCost
 
         };
         return service;
+
+
+        function getCost(params) {
+            return $resource(baseUrl + '/:id').get(params).$promise;
+        }
+
+        function createCost(params) {
+            return $resource(baseUrl + '/create').save(params).$promise;
+        }
 
         function removeCosts(params) {
             return $resource(baseUrl + '/bulkdelete').save(params).$promise;

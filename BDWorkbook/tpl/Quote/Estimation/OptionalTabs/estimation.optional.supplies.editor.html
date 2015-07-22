@@ -1,0 +1,42 @@
+﻿<form name="form" class="form-horizontal form-validation">
+    <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+        <li class="list-group-item clearfix b-l-3x" data-ng-repeat="each in vm.editingSupplies" ng-class="{'b-l-info ': vm.editingSupplies.indexOf(each)%2==0, 'b-l-success ': vm.editingPeriodicals.indexOf(each)%2==1}">
+            <div class="clear">
+                <span class="pull-right">
+                    <a class="text-danger-lter" data-ng-click="vm.del(vm.editingSupplies.indexOf(each))"><i class="fa fa-times" tooltip="Delete"></i></a>
+                </span>
+            </div>
+            <div class="line b-b b-light"></div>
+            <div class="row" data-ng-if="!vm.loading">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-3 l-h-2x">Extra charge supplies:</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" data-ng-model="each.description" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-4 l-h-2x">Cost / time:</label>
+                        <div class="col-md-8">
+                            <input data-ng-model="each.cost" class="form-control" ng-pattern="/^[0-9]+\.{0,1}[0-9]{0,2}$/" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-4 l-h-2x">Margin /time:</label>
+                        <div class="col-md-8">
+                            <input data-ng-model="each.margin" class="form-control" ng-pattern="/^[0-9]+\.{0,1}[0-9]{0,2}$/" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-success" type="submit" data-ng-click="vm.confirm()" ng-disabled="form.$invalid">Confirm</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</form>

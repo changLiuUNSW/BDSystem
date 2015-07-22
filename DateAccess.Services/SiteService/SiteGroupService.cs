@@ -7,16 +7,7 @@ namespace DateAccess.Services.SiteService
 {
     internal class SiteGroupService : RepositoryService<SiteGroup>,ISiteGroupService
     {
-
         public SiteGroupService(IUnitOfWork unitOfWork) : base(unitOfWork){}
-
-        public SiteGroup GetById(int id)
-        {
-            return UnitOfWork.SiteGroupRepository.GetGroupById(id);
-        }
-
-
-
         public List<SiteGroup> Search(string type, string code)
         {
             return UnitOfWork.SiteGroupRepository.Search(type, code);
@@ -36,7 +27,6 @@ namespace DateAccess.Services.SiteService
 
     public interface ISiteGroupService:IRepositoryService<SiteGroup>
     {
-        SiteGroup GetById(int id);
         List<SiteGroup> Search(string type, string code);
         int RemoveSites(int id,int [] siteIds);
     }

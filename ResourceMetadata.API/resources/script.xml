@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ScriptXmlTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Scripts>
     <Script Tag="OPR">
@@ -15,8 +15,8 @@
             <End>false</End>
             <Actions>
               <UpdateContactName>
-                <Description>Update contact name</Description>
-                <Action>UpdateContactName</Action>
+                <Description>New contact</Description>
+                <Type>UpdateContactName</Type>
               </UpdateContactName>
             </Actions>
           </Value>
@@ -27,8 +27,8 @@
               <End>false</End>
               <Actions>
                 <UpdateContactName>
-                  <Description>Update contact name</Description>
-                  <Action>UpdateContactName</Action>
+                  <Description>New contact</Description>
+                  <Type>UpdateContactName</Type>
                 </UpdateContactName>
               </Actions>
             </Value>
@@ -40,7 +40,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -54,7 +54,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -81,7 +81,7 @@
                   <Actions>
                     <UpdateNextCall>
                       <Description>Next call in 3 three weeks.</Description>
-                      <Action>UpdateNextCallDate</Action>
+                      <Type>UpdateNextCallDate</Type>
                       <UpdateInMonth>false</UpdateInMonth>
                     </UpdateNextCall>
                   </Actions>
@@ -124,7 +124,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -162,8 +162,8 @@
             <End>false</End>
             <Actions>
               <UpdateContactName>
-                <Description>Update contact name</Description>
-                <Action>UpdateContactName</Action>
+                <Description>New contact</Description>
+                <Type>UpdateContactName</Type>
               </UpdateContactName>
             </Actions>
           </Value>
@@ -174,8 +174,8 @@
               <End>false</End>
               <Actions>
                 <UpdateContactName>
-                  <Description>Update contact name</Description>
-                  <Action>UpdateContactName</Action>
+                  <Description>New contact</Description>
+                  <Type>UpdateContactName</Type>
                 </UpdateContactName>
               </Actions>
             </Value>
@@ -187,7 +187,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -201,7 +201,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -228,7 +228,7 @@
                   <Actions>
                     <UpdateNextCall>
                       <Description>Next call in 3 three weeks.</Description>
-                      <Action>UpdateNextCallDate</Action>
+                      <Type>UpdateNextCallDate</Type>
                       <UpdateInMonth>false</UpdateInMonth>
                     </UpdateNextCall>
                   </Actions>
@@ -237,13 +237,14 @@
               <Right>
                 <Value>
                   <Branch>false</Branch>
-                  <Question>Hello @ContactTitle @ContactName, My name is @TelesaleName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
+                  <Question>Hello @ContactTitle @ContactName, My name is @CallerName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
                   <End>false</End>
                 </Value>
                 <Left>
                   <Value>
                     <Branch>false</Branch>
                     <Question>Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                    <Text>Internal</Text>
                     <End>false</End>
                   </Value>
                   <Left>
@@ -265,10 +266,10 @@
                         <Question>I would like to confirm your address and phone number.</Question>
                         <End>false</End>
                         <Actions>
-                          <CreateLead>
-                            <Description>CreateLeadAction cleaning lead</Description>
-                            <Action>CreateCleaningLead</Action>
-                          </CreateLead>
+                          <NewLead>
+                            <Description>New cleaning lead</Description>
+                            <Type>CreateCleaningLead</Type>
+                          </NewLead>
                         </Actions>
                       </Value>
                       <Left>
@@ -279,7 +280,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in @UpdateInterval month.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>true</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -293,7 +294,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in @UpdateInterval month.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>true</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -307,10 +308,10 @@
                       <Question>I would like to confirm your address and phone number.</Question>
                       <End>false</End>
                       <Actions>
-                        <CreateLead>
-                          <Description>CreateLeadAction cleaning lead</Description>
-                          <Action>CreateCleaningLead</Action>
-                        </CreateLead>
+                        <NewLead>
+                          <Description>New cleaning lead</Description>
+                          <Type>CreateCleaningLead</Type>
+                        </NewLead>
                       </Actions>
                     </Value>
                     <Left>
@@ -321,7 +322,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -335,7 +336,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -353,11 +354,12 @@
                     <Value>
                       <Branch>false</Branch>
                       <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                      <Text>External</Text>
                       <End>false</End>
                       <Actions>
                         <UpdateContactName>
                           <Description>Update contact name</Description>
-                          <Action>UpdateContactName</Action>
+                          <Type>UpdateContactName</Type>
                         </UpdateContactName>
                       </Actions>
                     </Value>
@@ -375,7 +377,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in 3 three weeks.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>false</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -389,7 +391,7 @@
                           <Actions>
                             <UpdateContactName>
                               <Description>Update contact name</Description>
-                              <Action>UpdateContactName</Action>
+                              <Type>UpdateContactName</Type>
                             </UpdateContactName>
                           </Actions>
                         </Value>
@@ -401,7 +403,7 @@
                             <Actions>
                               <UpdateNextCall>
                                 <Description>Next call in 3 three weeks.</Description>
-                                <Action>UpdateNextCallDate</Action>
+                                <Type>UpdateNextCallDate</Type>
                                 <UpdateInMonth>false</UpdateInMonth>
                               </UpdateNextCall>
                             </Actions>
@@ -415,7 +417,7 @@
                             <Actions>
                               <UpdateNextCall>
                                 <Description>Next call in @UpdateInterval month.</Description>
-                                <Action>UpdateNextCallDate</Action>
+                                <Type>UpdateNextCallDate</Type>
                                 <UpdateInMonth>true</UpdateInMonth>
                               </UpdateNextCall>
                             </Actions>
@@ -431,7 +433,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -442,6 +444,7 @@
                     <Value>
                       <Branch>false</Branch>
                       <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                      <Text>Internal</Text>
                       <End>false</End>
                     </Value>
                     <Left>
@@ -458,7 +461,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in 3 three weeks.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>false</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -478,7 +481,7 @@
                             <Actions>
                               <UpdateNextCall>
                                 <Description>Next call in 3 three weeks.</Description>
-                                <Action>UpdateNextCallDate</Action>
+                                <Type>UpdateNextCallDate</Type>
                                 <UpdateInMonth>false</UpdateInMonth>
                               </UpdateNextCall>
                             </Actions>
@@ -492,7 +495,7 @@
                             <Actions>
                               <UpdateNextCall>
                                 <Description>Next call in @UpdateInterval month.</Description>
-                                <Action>UpdateNextCallDate</Action>
+                                <Type>UpdateNextCallDate</Type>
                                 <UpdateInMonth>true</UpdateInMonth>
                               </UpdateNextCall>
                             </Actions>
@@ -508,7 +511,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -521,13 +524,14 @@
             <Right>
               <Value>
                 <Branch>false</Branch>
-                <Question>Hello @ContactTitle @ContactName, My name is @TelesaleName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
+                <Question>Hello @ContactTitle @ContactName, My name is @CallerName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
                 <End>false</End>
               </Value>
               <Left>
                 <Value>
                   <Branch>false</Branch>
                   <Question>Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                  <Text>Internal</Text>
                   <End>false</End>
                 </Value>
                 <Left>
@@ -549,10 +553,10 @@
                       <Question>I would like to confirm your address and phone number.</Question>
                       <End>false</End>
                       <Actions>
-                        <CreateLead>
-                          <Description>CreateLeadAction cleaning lead</Description>
-                          <Action>CreateCleaningLead</Action>
-                        </CreateLead>
+                        <NewLead>
+                          <Description>New cleaning lead</Description>
+                          <Type>CreateCleaningLead</Type>
+                        </NewLead>
                       </Actions>
                     </Value>
                     <Left>
@@ -563,7 +567,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -577,7 +581,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -591,10 +595,10 @@
                     <Question>I would like to confirm your address and phone number.</Question>
                     <End>false</End>
                     <Actions>
-                      <CreateLead>
-                        <Description>CreateLeadAction cleaning lead</Description>
-                        <Action>CreateCleaningLead</Action>
-                      </CreateLead>
+                      <NewLead>
+                        <Description>New cleaning lead</Description>
+                        <Type>CreateCleaningLead</Type>
+                      </NewLead>
                     </Actions>
                   </Value>
                   <Left>
@@ -605,7 +609,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -619,7 +623,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -637,11 +641,12 @@
                   <Value>
                     <Branch>false</Branch>
                     <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                    <Text>External</Text>
                     <End>false</End>
                     <Actions>
                       <UpdateContactName>
                         <Description>Update contact name</Description>
-                        <Action>UpdateContactName</Action>
+                        <Type>UpdateContactName</Type>
                       </UpdateContactName>
                     </Actions>
                   </Value>
@@ -659,7 +664,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in 3 three weeks.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>false</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -673,7 +678,7 @@
                         <Actions>
                           <UpdateContactName>
                             <Description>Update contact name</Description>
-                            <Action>UpdateContactName</Action>
+                            <Type>UpdateContactName</Type>
                           </UpdateContactName>
                         </Actions>
                       </Value>
@@ -685,7 +690,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in 3 three weeks.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>false</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -699,7 +704,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in @UpdateInterval month.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>true</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -715,7 +720,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -726,6 +731,7 @@
                   <Value>
                     <Branch>false</Branch>
                     <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                    <Text>Internal</Text>
                     <End>false</End>
                   </Value>
                   <Left>
@@ -742,7 +748,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in 3 three weeks.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>false</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -762,7 +768,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in 3 three weeks.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>false</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -776,7 +782,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in @UpdateInterval month.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>true</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -792,7 +798,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -823,7 +829,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -832,13 +838,14 @@
             <Right>
               <Value>
                 <Branch>false</Branch>
-                <Question>Hello @ContactTitle @ContactName, My name is @TelesaleName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
+                <Question>Hello @ContactTitle @ContactName, My name is @CallerName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
                 <End>false</End>
               </Value>
               <Left>
                 <Value>
                   <Branch>false</Branch>
                   <Question>Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                  <Text>Internal</Text>
                   <End>false</End>
                 </Value>
                 <Left>
@@ -860,10 +867,10 @@
                       <Question>I would like to confirm your address and phone number.</Question>
                       <End>false</End>
                       <Actions>
-                        <CreateLead>
-                          <Description>CreateLeadAction cleaning lead</Description>
-                          <Action>CreateCleaningLead</Action>
-                        </CreateLead>
+                        <NewLead>
+                          <Description>New cleaning lead</Description>
+                          <Type>CreateCleaningLead</Type>
+                        </NewLead>
                       </Actions>
                     </Value>
                     <Left>
@@ -874,7 +881,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -888,7 +895,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -902,10 +909,10 @@
                     <Question>I would like to confirm your address and phone number.</Question>
                     <End>false</End>
                     <Actions>
-                      <CreateLead>
-                        <Description>CreateLeadAction cleaning lead</Description>
-                        <Action>CreateCleaningLead</Action>
-                      </CreateLead>
+                      <NewLead>
+                        <Description>New cleaning lead</Description>
+                        <Type>CreateCleaningLead</Type>
+                      </NewLead>
                     </Actions>
                   </Value>
                   <Left>
@@ -916,7 +923,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -930,7 +937,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -948,11 +955,12 @@
                   <Value>
                     <Branch>false</Branch>
                     <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                    <Text>External</Text>
                     <End>false</End>
                     <Actions>
                       <UpdateContactName>
                         <Description>Update contact name</Description>
-                        <Action>UpdateContactName</Action>
+                        <Type>UpdateContactName</Type>
                       </UpdateContactName>
                     </Actions>
                   </Value>
@@ -970,7 +978,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in 3 three weeks.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>false</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -984,7 +992,7 @@
                         <Actions>
                           <UpdateContactName>
                             <Description>Update contact name</Description>
-                            <Action>UpdateContactName</Action>
+                            <Type>UpdateContactName</Type>
                           </UpdateContactName>
                         </Actions>
                       </Value>
@@ -996,7 +1004,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in 3 three weeks.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>false</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -1010,7 +1018,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in @UpdateInterval month.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>true</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -1026,7 +1034,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1037,6 +1045,7 @@
                   <Value>
                     <Branch>false</Branch>
                     <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                    <Text>Internal</Text>
                     <End>false</End>
                   </Value>
                   <Left>
@@ -1053,7 +1062,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in 3 three weeks.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>false</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -1073,7 +1082,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in 3 three weeks.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>false</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -1087,7 +1096,7 @@
                           <Actions>
                             <UpdateNextCall>
                               <Description>Next call in @UpdateInterval month.</Description>
-                              <Action>UpdateNextCallDate</Action>
+                              <Type>UpdateNextCallDate</Type>
                               <UpdateInMonth>true</UpdateInMonth>
                             </UpdateNextCall>
                           </Actions>
@@ -1103,7 +1112,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1116,13 +1125,14 @@
           <Right>
             <Value>
               <Branch>false</Branch>
-              <Question>Hello @ContactTitle @ContactName, My name is @TelesaleName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
+              <Question>Hello @ContactTitle @ContactName, My name is @CallerName from Quad Services. I am calling to check whether your cleaning procurement is still managed externally - not by someone in your office - or whether you select the contractor yourselves.</Question>
               <End>false</End>
             </Value>
             <Left>
               <Value>
                 <Branch>false</Branch>
                 <Question>Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                <Text>Internal</Text>
                 <End>false</End>
               </Value>
               <Left>
@@ -1144,10 +1154,10 @@
                     <Question>I would like to confirm your address and phone number.</Question>
                     <End>false</End>
                     <Actions>
-                      <CreateLead>
-                        <Description>CreateLeadAction cleaning lead</Description>
-                        <Action>CreateCleaningLead</Action>
-                      </CreateLead>
+                      <NewLead>
+                        <Description>New cleaning lead</Description>
+                        <Type>CreateCleaningLead</Type>
+                      </NewLead>
                     </Actions>
                   </Value>
                   <Left>
@@ -1158,7 +1168,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1172,7 +1182,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1186,10 +1196,10 @@
                   <Question>I would like to confirm your address and phone number.</Question>
                   <End>false</End>
                   <Actions>
-                    <CreateLead>
-                      <Description>CreateLeadAction cleaning lead</Description>
-                      <Action>CreateCleaningLead</Action>
-                    </CreateLead>
+                    <NewLead>
+                      <Description>New cleaning lead</Description>
+                      <Type>CreateCleaningLead</Type>
+                    </NewLead>
                   </Actions>
                 </Value>
                 <Left>
@@ -1200,7 +1210,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in @UpdateInterval month.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>true</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -1214,7 +1224,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in @UpdateInterval month.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>true</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -1232,11 +1242,12 @@
                 <Value>
                   <Branch>false</Branch>
                   <Question>Can you inform me of the contact and phone number of the external person who handles the cleaning?</Question>
+                  <Text>External</Text>
                   <End>false</End>
                   <Actions>
                     <UpdateContactName>
                       <Description>Update contact name</Description>
-                      <Action>UpdateContactName</Action>
+                      <Type>UpdateContactName</Type>
                     </UpdateContactName>
                   </Actions>
                 </Value>
@@ -1254,7 +1265,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in 3 three weeks.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>false</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1268,7 +1279,7 @@
                       <Actions>
                         <UpdateContactName>
                           <Description>Update contact name</Description>
-                          <Action>UpdateContactName</Action>
+                          <Type>UpdateContactName</Type>
                         </UpdateContactName>
                       </Actions>
                     </Value>
@@ -1280,7 +1291,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in 3 three weeks.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>false</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -1294,7 +1305,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -1310,7 +1321,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in @UpdateInterval month.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>true</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -1321,6 +1332,7 @@
                 <Value>
                   <Branch>false</Branch>
                   <Question>Would you confirm that the contact details for the external person who manages the cleaning is @ExtContactName</Question>
+                  <Text>Internal</Text>
                   <End>false</End>
                 </Value>
                 <Left>
@@ -1337,7 +1349,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in 3 three weeks.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>false</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1357,7 +1369,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in 3 three weeks.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>false</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -1371,7 +1383,7 @@
                         <Actions>
                           <UpdateNextCall>
                             <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
+                            <Type>UpdateNextCallDate</Type>
                             <UpdateInMonth>true</UpdateInMonth>
                           </UpdateNextCall>
                         </Actions>
@@ -1387,7 +1399,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in @UpdateInterval month.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>true</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -1420,7 +1432,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in 3 three weeks.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>false</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -1429,19 +1441,8 @@
           <Right>
             <Value>
               <Branch>false</Branch>
-              <Question>Hello @ContactName, this is @TelesaleName from Quad, we are a National Provider of cleaning services and are just calling to keep in touch. Is there anything we can help you with at the moment</Question>
+              <Question>Hello @ContactTitle @ContactName this is @CallerName from Quad on behalf of David Hudson - (if does not know of Quad) we are a National Provider of cleaning services and are just calling to keep in touch. Is there anything we can help you with at the moment?</Question>
               <End>false</End>
-              <Actions>
-                <UpdateNextCall>
-                  <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
-                  <UpdateInMonth>true</UpdateInMonth>
-                </UpdateNextCall>
-                <CreateTaskForDh>
-                  <Description>Create task for DH.</Description>
-                  <Action>TaskForDH</Action>
-                </CreateTaskForDh>
-              </Actions>
             </Value>
             <Left>
               <Value>
@@ -1451,7 +1452,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -1461,7 +1462,18 @@
               <Value>
                 <Branch>false</Branch>
                 <Question>I will arrange for @QpName to contact you shortly.</Question>
-                <End>false</End>
+                <End>true</End>
+                <Actions>
+                  <NewLead>
+                    <Description>New lead</Description>
+                    <Type>CreateCleaningLead</Type>
+                  </NewLead>
+                  <UpdateNextCall>
+                    <Description>Next call in @UpdateInterval month.</Description>
+                    <Type>UpdateNextCallDate</Type>
+                    <UpdateInMonth>true</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
               </Value>
             </Right>
           </Right>
@@ -1469,19 +1481,8 @@
         <Right>
           <Value>
             <Branch>false</Branch>
-            <Question>Hello @ContactName, this is @TelesaleName from Quad, we are a National Provider of cleaning services and are just calling to keep in touch. Is there anything we can help you with at the moment</Question>
+            <Question>Hello @ContactName, this is @CallerName from Quad, we are a National Provider of cleaning services and are just calling to keep in touch. Is there anything we can help you with at the moment</Question>
             <End>false</End>
-            <Actions>
-              <UpdateNextCall>
-                <Description>Next call in @UpdateInterval month.</Description>
-                <Action>UpdateNextCallDate</Action>
-                <UpdateInMonth>true</UpdateInMonth>
-              </UpdateNextCall>
-              <CreateTaskForDh>
-                <Description>Create task for DH.</Description>
-                <Action>TaskForDH</Action>
-              </CreateTaskForDh>
-            </Actions>
           </Value>
           <Left>
             <Value>
@@ -1491,7 +1492,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -1501,7 +1502,18 @@
             <Value>
               <Branch>false</Branch>
               <Question>I will arrange for @QpName to contact you shortly.</Question>
-              <End>false</End>
+              <End>true</End>
+              <Actions>
+                <NewLead>
+                  <Description>New lead</Description>
+                  <Type>CreateCleaningLead</Type>
+                </NewLead>
+                <UpdateNextCall>
+                  <Description>Next call in @UpdateInterval month.</Description>
+                  <Type>UpdateNextCallDate</Type>
+                  <UpdateInMonth>true</UpdateInMonth>
+                </UpdateNextCall>
+              </Actions>
             </Value>
           </Right>
         </Right>
@@ -1517,25 +1529,110 @@
         <Right>
           <Value>
             <Branch>false</Branch>
-            <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning, maintenance and security company. I am calling to introduce our company to see if I can arrange for our maintenance manager to come and see you and talk about our maintenance services. (building repairs, fit outs, plumbing, light replacement, painting</Question>
+            <Question>Hello @ContactTitle @ContactName, my name is @CallerName from Quad Services a locally based commercial cleaning, maintenance and security company. I am calling to introduce our company to see if I can arrange for our maintenance manager to come and see you and talk about our maintenance services. (building repairs, fit outs, plumbing, light replacement, painting</Question>
             <End>false</End>
           </Value>
-          <Right>
+          <Left>
             <Value>
-              <Branch>false</Branch>
-              <Question>Confirm address, phone and location in building.</Question>
+              <Branch>true</Branch>
+              <BranchType>PropertyMananger</BranchType>
               <End>false</End>
-              <Actions>
-                <CreateLead>
-                  <Description>Generate a new maintenance lead</Description>
-                  <Action>CreateMaintenanceLead</Action>
-                </CreateLead>
-              </Actions>
             </Value>
             <Left>
               <Value>
-                <Branch>true</Branch>
-                <BranchType>PropertyMananger</BranchType>
+                <Branch>false</Branch>
+                <Question>For my records could you tell me who is the property manager for your building.</Question>
+                <End>false</End>
+                <Actions>
+                  <UpdateContactName>
+                    <Description>Update contact name</Description>
+                    <Type>UpdateContactName</Type>
+                  </UpdateContactName>
+                </Actions>
+              </Value>
+              <Left>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Type>UpdateNextCallDate</Type>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                      <NewTaskForDh>
+                        <Description>New task for DH.</Description>
+                        <Type>NewTaskForDH</Type>
+                      </NewTaskForDh>
+                    </Actions>
+                  </Value>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Type>UpdateNextCallDate</Type>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Right>
+              </Left>
+              <Right>
+                <Value>
+                  <Branch>false</Branch>
+                  <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
+                  <End>false</End>
+                </Value>
+                <Left>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Type>UpdateNextCallDate</Type>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                      <NewTaskForDh>
+                        <Description>New task for DH.</Description>
+                        <Type>NewTaskForDH</Type>
+                      </NewTaskForDh>
+                    </Actions>
+                  </Value>
+                </Left>
+                <Right>
+                  <Value>
+                    <Branch>false</Branch>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Type>UpdateNextCallDate</Type>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
+                  </Value>
+                </Right>
+              </Right>
+            </Left>
+            <Right>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Is @PropertyManageName still the property manager for your building?</Question>
                 <End>false</End>
               </Value>
               <Left>
@@ -1546,7 +1643,7 @@
                   <Actions>
                     <UpdateContactName>
                       <Description>Update contact name</Description>
-                      <Action>UpdateContactName</Action>
+                      <Type>UpdateContactName</Type>
                     </UpdateContactName>
                   </Actions>
                 </Value>
@@ -1564,13 +1661,13 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
-                        <CreateTaskForDh>
-                          <Description>Create task for DH.</Description>
-                          <Action>TaskForDH</Action>
-                        </CreateTaskForDh>
+                        <NewTaskForDh>
+                          <Description>New task for DH.</Description>
+                          <Type>NewTaskForDH</Type>
+                        </NewTaskForDh>
                       </Actions>
                     </Value>
                   </Left>
@@ -1582,7 +1679,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1603,13 +1700,13 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
-                        <CreateTaskForDh>
-                          <Description>Create task for DH.</Description>
-                          <Action>TaskForDH</Action>
-                        </CreateTaskForDh>
+                        <NewTaskForDh>
+                          <Description>New task for DH.</Description>
+                          <Type>NewTaskForDH</Type>
+                        </NewTaskForDh>
                       </Actions>
                     </Value>
                   </Left>
@@ -1621,7 +1718,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1632,140 +1729,69 @@
               <Right>
                 <Value>
                   <Branch>false</Branch>
-                  <Question>Is @PropertyManageName still the property manager for your building?</Question>
+                  <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
                   <End>false</End>
                 </Value>
                 <Left>
                   <Value>
                     <Branch>false</Branch>
-                    <Question>For my records could you tell me who is the property manager for your building.</Question>
-                    <End>false</End>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
                     <Actions>
-                      <UpdateContactName>
-                        <Description>Update contact name</Description>
-                        <Action>UpdateContactName</Action>
-                      </UpdateContactName>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Type>UpdateNextCallDate</Type>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                      <NewTaskForDh>
+                        <Description>New task for DH.</Description>
+                        <Type>NewTaskForDH</Type>
+                      </NewTaskForDh>
                     </Actions>
                   </Value>
-                  <Left>
-                    <Value>
-                      <Branch>false</Branch>
-                      <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
-                      <End>false</End>
-                    </Value>
-                    <Left>
-                      <Value>
-                        <Branch>false</Branch>
-                        <Question>Thank you for your time</Question>
-                        <End>true</End>
-                        <Actions>
-                          <UpdateNextCall>
-                            <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
-                            <UpdateInMonth>true</UpdateInMonth>
-                          </UpdateNextCall>
-                          <CreateTaskForDh>
-                            <Description>Create task for DH.</Description>
-                            <Action>TaskForDH</Action>
-                          </CreateTaskForDh>
-                        </Actions>
-                      </Value>
-                    </Left>
-                    <Right>
-                      <Value>
-                        <Branch>false</Branch>
-                        <Question>Thank you for your time</Question>
-                        <End>true</End>
-                        <Actions>
-                          <UpdateNextCall>
-                            <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
-                            <UpdateInMonth>true</UpdateInMonth>
-                          </UpdateNextCall>
-                        </Actions>
-                      </Value>
-                    </Right>
-                  </Left>
-                  <Right>
-                    <Value>
-                      <Branch>false</Branch>
-                      <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
-                      <End>false</End>
-                    </Value>
-                    <Left>
-                      <Value>
-                        <Branch>false</Branch>
-                        <Question>Thank you for your time</Question>
-                        <End>true</End>
-                        <Actions>
-                          <UpdateNextCall>
-                            <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
-                            <UpdateInMonth>true</UpdateInMonth>
-                          </UpdateNextCall>
-                          <CreateTaskForDh>
-                            <Description>Create task for DH.</Description>
-                            <Action>TaskForDH</Action>
-                          </CreateTaskForDh>
-                        </Actions>
-                      </Value>
-                    </Left>
-                    <Right>
-                      <Value>
-                        <Branch>false</Branch>
-                        <Question>Thank you for your time</Question>
-                        <End>true</End>
-                        <Actions>
-                          <UpdateNextCall>
-                            <Description>Next call in @UpdateInterval month.</Description>
-                            <Action>UpdateNextCallDate</Action>
-                            <UpdateInMonth>true</UpdateInMonth>
-                          </UpdateNextCall>
-                        </Actions>
-                      </Value>
-                    </Right>
-                  </Right>
                 </Left>
                 <Right>
                   <Value>
                     <Branch>false</Branch>
-                    <Question>Thanks, by the way are you currently happy with your cleaning service?</Question>
-                    <End>false</End>
+                    <Question>Thank you for your time</Question>
+                    <End>true</End>
+                    <Actions>
+                      <UpdateNextCall>
+                        <Description>Next call in @UpdateInterval month.</Description>
+                        <Type>UpdateNextCallDate</Type>
+                        <UpdateInMonth>true</UpdateInMonth>
+                      </UpdateNextCall>
+                    </Actions>
                   </Value>
-                  <Left>
-                    <Value>
-                      <Branch>false</Branch>
-                      <Question>Thank you for your time</Question>
-                      <End>true</End>
-                      <Actions>
-                        <UpdateNextCall>
-                          <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
-                          <UpdateInMonth>true</UpdateInMonth>
-                        </UpdateNextCall>
-                        <CreateTaskForDh>
-                          <Description>Create task for DH.</Description>
-                          <Action>TaskForDH</Action>
-                        </CreateTaskForDh>
-                      </Actions>
-                    </Value>
-                  </Left>
-                  <Right>
-                    <Value>
-                      <Branch>false</Branch>
-                      <Question>Thank you for your time</Question>
-                      <End>true</End>
-                      <Actions>
-                        <UpdateNextCall>
-                          <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
-                          <UpdateInMonth>true</UpdateInMonth>
-                        </UpdateNextCall>
-                      </Actions>
-                    </Value>
-                  </Right>
                 </Right>
               </Right>
+            </Right>
+          </Left>
+          <Right>
+            <Value>
+              <Branch>false</Branch>
+              <Question>Confirm address, phone and location in building.</Question>
+              <End>false</End>
+              <Actions>
+                <NewLead>
+                  <Description>New maintenance lead</Description>
+                  <Type>CreateMaintenanceLead</Type>
+                </NewLead>
+              </Actions>
+            </Value>
+            <Left>
+              <Value>
+                <Branch>false</Branch>
+                <Question>Thank you for your time</Question>
+                <End>true</End>
+                <Actions>
+                  <UpdateNextCall>
+                    <Description>Next call in 3 three weeks.</Description>
+                    <Type>UpdateNextCallDate</Type>
+                    <UpdateInMonth>false</UpdateInMonth>
+                  </UpdateNextCall>
+                </Actions>
+              </Value>
             </Left>
             <Right>
               <Value>
@@ -1775,7 +1801,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -1795,7 +1821,7 @@
         <Left>
           <Value>
             <Branch>false</Branch>
-            <Question>Good morning, this is @TelesaleName from Quad Services. Could you please tell me if your company engages the cleaners or whether the cleaning is part of your rental.</Question>
+            <Question>Good morning, this is @CallerName from Quad Services. Could you please tell me if your company engages the cleaners or whether the cleaning is part of your rental.</Question>
             <End>false</End>
           </Value>
           <Left>
@@ -1805,10 +1831,10 @@
               <Text>External</Text>
               <End>false</End>
               <Actions>
-                <UpdatePropertyManager>
-                  <Description>Update property manager</Description>
-                  <Action>UpdatePmName</Action>
-                </UpdatePropertyManager>
+                <NewPropertyManager>
+                  <Description>New property manager</Description>
+                  <Type>NewPropertyManager</Type>
+                </NewPropertyManager>
               </Actions>
             </Value>
             <Left>
@@ -1825,7 +1851,7 @@
                   <Actions>
                     <UpdateNextCall>
                       <Description>Next call in 3 three weeks.</Description>
-                      <Action>UpdateNextCallDate</Action>
+                      <Type>UpdateNextCallDate</Type>
                       <UpdateInMonth>false</UpdateInMonth>
                     </UpdateNextCall>
                   </Actions>
@@ -1837,10 +1863,10 @@
                   <Question>Could you please tell me the name of the property manager who organises the cleaning of your premises? (also company / phone</Question>
                   <End>false</End>
                   <Actions>
-                    <UpdatePropertyManager>
-                      <Description>Update property manager</Description>
-                      <Action>UpdatePmName</Action>
-                    </UpdatePropertyManager>
+                    <NewPropertyManager>
+                      <Description>New property manager</Description>
+                      <Type>NewPropertyManager</Type>
+                    </NewPropertyManager>
                   </Actions>
                 </Value>
                 <Left>
@@ -1851,7 +1877,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in 3 three weeks.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>false</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -1863,10 +1889,10 @@
                     <Question>Confirm detail</Question>
                     <End>false</End>
                     <Actions>
-                      <UpdatePropertyManager>
-                        <Description>Update property manager</Description>
-                        <Action>UpdatePmName</Action>
-                      </UpdatePropertyManager>
+                      <NewPropertyManager>
+                        <Description>New property manager</Description>
+                        <Type>NewPropertyManager</Type>
+                      </NewPropertyManager>
                     </Actions>
                   </Value>
                   <Left>
@@ -1877,7 +1903,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1891,7 +1917,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -1908,7 +1934,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -1924,7 +1950,7 @@
               <Actions>
                 <UpdateTenant>
                   <Description>Update tenant as OPR</Description>
-                  <Action>UpdateTenant</Action>
+                  <Type>UpdateTenant</Type>
                   <TenantId>0</TenantId>
                 </UpdateTenant>
               </Actions>
@@ -1937,7 +1963,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -1957,7 +1983,7 @@
                   <Actions>
                     <UpdateNextCall>
                       <Description>Next call in 3 three weeks.</Description>
-                      <Action>UpdateNextCallDate</Action>
+                      <Type>UpdateNextCallDate</Type>
                       <UpdateInMonth>false</UpdateInMonth>
                     </UpdateNextCall>
                   </Actions>
@@ -1966,7 +1992,7 @@
               <Right>
                 <Value>
                   <Branch>false</Branch>
-                  <Question>Hello, My name is @TelesaleName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+                  <Question>Hello, My name is @CallerName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
                   <End>false</End>
                 </Value>
                 <Left>
@@ -1977,7 +2003,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in @UpdateInterval month.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>true</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -1989,10 +2015,10 @@
                     <Question>Confirm detail</Question>
                     <End>false</End>
                     <Actions>
-                      <CreateLead>
+                      <NewLead>
                         <Description>New cleaning lead</Description>
-                        <Action>CreateCleaningLead</Action>
-                      </CreateLead>
+                        <Type>CreateCleaningLead</Type>
+                      </NewLead>
                     </Actions>
                   </Value>
                   <Left>
@@ -2003,7 +2029,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -2012,15 +2038,8 @@
                   <Right>
                     <Value>
                       <Branch>false</Branch>
-                      <Question>Thank you for your time</Question>
+                      <Question>@QpName will be contacting you shortly to arrange to call in and see you.</Question>
                       <End>true</End>
-                      <Actions>
-                        <UpdateNextCall>
-                          <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
-                          <UpdateInMonth>true</UpdateInMonth>
-                        </UpdateNextCall>
-                      </Actions>
                     </Value>
                   </Right>
                 </Right>
@@ -2031,7 +2050,7 @@
         <Right>
           <Value>
             <Branch>false</Branch>
-            <Question>Good morning, this is @TelesaleName from Quad Services. I would like to confirm that @PropertyManageCompany is the company that manages this property</Question>
+            <Question>Good morning, this is @CallerName from Quad Services. I would like to confirm that @PropertyManageCompany is the company that manages this property</Question>
             <End>false</End>
           </Value>
           <Left>
@@ -2040,10 +2059,10 @@
               <Question>Would you give me the name and phone number of the new property manager?</Question>
               <End>false</End>
               <Actions>
-                <UpdatePropertyManager>
-                  <Description>Update property manager</Description>
-                  <Action>UpdatePmName</Action>
-                </UpdatePropertyManager>
+                <NewPropertyManager>
+                  <Description>New property manager</Description>
+                  <Type>NewPropertyManager</Type>
+                </NewPropertyManager>
               </Actions>
             </Value>
             <Left>
@@ -2060,7 +2079,7 @@
                   <Actions>
                     <UpdateNextCall>
                       <Description>Next call in @UpdateInterval month.</Description>
-                      <Action>UpdateNextCallDate</Action>
+                      <Type>UpdateNextCallDate</Type>
                       <UpdateInMonth>true</UpdateInMonth>
                     </UpdateNextCall>
                   </Actions>
@@ -2072,10 +2091,10 @@
                   <Question>Can you give me the name and phone number of the property manager of this building?</Question>
                   <End>false</End>
                   <Actions>
-                    <UpdatePropertyManager>
-                      <Description>Update property manager</Description>
-                      <Action>UpdatePmName</Action>
-                    </UpdatePropertyManager>
+                    <NewPropertyManager>
+                      <Description>New property manager</Description>
+                      <Type>NewPropertyManager</Type>
+                    </NewPropertyManager>
                   </Actions>
                 </Value>
                 <Left>
@@ -2086,7 +2105,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in 3 three weeks.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>false</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -2100,7 +2119,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in @UpdateInterval month.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>true</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -2116,7 +2135,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2135,10 +2154,10 @@
                 <Question>Would you give me the name and phone number of the new property manager?</Question>
                 <End>false</End>
                 <Actions>
-                  <UpdatePropertyManager>
-                    <Description>Update property manager</Description>
-                    <Action>UpdatePmName</Action>
-                  </UpdatePropertyManager>
+                  <NewPropertyManager>
+                    <Description>New property manager</Description>
+                    <Type>NewPropertyManager</Type>
+                  </NewPropertyManager>
                 </Actions>
               </Value>
               <Left>
@@ -2155,7 +2174,7 @@
                     <Actions>
                       <UpdateNextCall>
                         <Description>Next call in @UpdateInterval month.</Description>
-                        <Action>UpdateNextCallDate</Action>
+                        <Type>UpdateNextCallDate</Type>
                         <UpdateInMonth>true</UpdateInMonth>
                       </UpdateNextCall>
                     </Actions>
@@ -2167,10 +2186,10 @@
                     <Question>Can you give me the name and phone number of the property manager of this building?</Question>
                     <End>false</End>
                     <Actions>
-                      <UpdatePropertyManager>
-                        <Description>Update property manager</Description>
-                        <Action>UpdatePmName</Action>
-                      </UpdatePropertyManager>
+                      <NewPropertyManager>
+                        <Description>New property manager</Description>
+                        <Type>NewPropertyManager</Type>
+                      </NewPropertyManager>
                     </Actions>
                   </Value>
                   <Left>
@@ -2181,7 +2200,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in 3 three weeks.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>false</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -2195,7 +2214,7 @@
                       <Actions>
                         <UpdateNextCall>
                           <Description>Next call in @UpdateInterval month.</Description>
-                          <Action>UpdateNextCallDate</Action>
+                          <Type>UpdateNextCallDate</Type>
                           <UpdateInMonth>true</UpdateInMonth>
                         </UpdateNextCall>
                       </Actions>
@@ -2211,7 +2230,7 @@
                   <Actions>
                     <UpdateNextCall>
                       <Description>Next call in @UpdateInterval month.</Description>
-                      <Action>UpdateNextCallDate</Action>
+                      <Type>UpdateNextCallDate</Type>
                       <UpdateInMonth>true</UpdateInMonth>
                     </UpdateNextCall>
                   </Actions>
@@ -2226,7 +2245,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2234,6 +2253,19 @@
             </Right>
           </Right>
         </Right>
+      </Root>
+    </Script>
+    <Script Tag="BD">
+      <Root>
+        <Value>
+          <Branch>false</Branch>
+          <Question>This is @CallerName calling from Quad - just to keeping in touch. Is there anything I can help you with at the moment ...... OK I will give you a quick all in a few month 
+
+Hello @ContactName, @CallerName from Quad calling - just a quick call to touch base and see how your cleaning is going. 
+
+We want to call each three months. We want to keep it very short so they do not mind the next call. If we hard sell each call we produce the problem that they do not want to take the regular call! We chat and spend time when the client wants to chat (relationship devloping) but otherwise we keep it short as above.</Question>
+          <End>true</End>
+        </Value>
       </Root>
     </Script>
     <Script Tag="Quali_Question">
@@ -2245,7 +2277,7 @@
           <Actions>
             <UpdateQualification>
               <Description>Update qualification number</Description>
-              <Action>UpdateQualification</Action>
+              <Type>UpdateQualification</Type>
               <Number>0</Number>
             </UpdateQualification>
           </Actions>
@@ -2258,7 +2290,7 @@
             <Actions>
               <UpdateNextCall>
                 <Description>Next call in @UpdateInterval month.</Description>
-                <Action>UpdateNextCallDate</Action>
+                <Type>UpdateNextCallDate</Type>
                 <UpdateInMonth>true</UpdateInMonth>
               </UpdateNextCall>
             </Actions>
@@ -2272,7 +2304,7 @@
             <Actions>
               <UpdateNextCall>
                 <Description>Next call in @UpdateInterval month.</Description>
-                <Action>UpdateNextCallDate</Action>
+                <Type>UpdateNextCallDate</Type>
                 <UpdateInMonth>true</UpdateInMonth>
               </UpdateNextCall>
             </Actions>
@@ -2295,7 +2327,7 @@
             <Actions>
               <UpdateNextCall>
                 <Description>Next call in @UpdateInterval month.</Description>
-                <Action>UpdateNextCallDate</Action>
+                <Type>UpdateNextCallDate</Type>
                 <UpdateInMonth>true</UpdateInMonth>
               </UpdateNextCall>
             </Actions>
@@ -2309,7 +2341,7 @@
             <Actions>
               <UpdateEmail>
                 <Description>Update email address.</Description>
-                <Action>UpdateEmail</Action>
+                <Type>UpdateEmail</Type>
               </UpdateEmail>
             </Actions>
           </Value>
@@ -2321,7 +2353,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2335,7 +2367,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2359,7 +2391,7 @@
             <Actions>
               <UpdateNextCall>
                 <Description>Next call in @UpdateInterval month.</Description>
-                <Action>UpdateNextCallDate</Action>
+                <Type>UpdateNextCallDate</Type>
                 <UpdateInMonth>true</UpdateInMonth>
               </UpdateNextCall>
             </Actions>
@@ -2373,7 +2405,7 @@
             <Actions>
               <UpdateNextCall>
                 <Description>Next call in @UpdateInterval month.</Description>
-                <Action>UpdateNextCallDate</Action>
+                <Type>UpdateNextCallDate</Type>
                 <UpdateInMonth>true</UpdateInMonth>
               </UpdateNextCall>
             </Actions>
@@ -2396,7 +2428,7 @@
             <Actions>
               <UpdateNextCall>
                 <Description>Next call in @UpdateInterval month.</Description>
-                <Action>UpdateNextCallDate</Action>
+                <Type>UpdateNextCallDate</Type>
                 <UpdateInMonth>true</UpdateInMonth>
               </UpdateNextCall>
             </Actions>
@@ -2408,10 +2440,10 @@
             <Question>I would like to confirm your address and phone number.</Question>
             <End>false</End>
             <Actions>
-              <CreateLead>
-                <Description>Generate a new maintenance lead.</Description>
-                <Action>CreateMaintenanceLead</Action>
-              </CreateLead>
+              <NewLead>
+                <Description>New maintenance lead.</Description>
+                <Type>CreateMaintenanceLead</Type>
+              </NewLead>
             </Actions>
           </Value>
           <Left>
@@ -2422,7 +2454,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2436,7 +2468,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval months.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2449,7 +2481,7 @@
       <Root>
         <Value>
           <Branch>false</Branch>
-          <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. Currently we provide cleaning service to @SiteGroup. I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
+          <Question>Hello @ContactName, my name is @CallerName from Quad Services a locally based commercial cleaning company. Currently we provide cleaning service to @SiteGroup. I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.</Question>
           <End>false</End>
         </Value>
         <Left>
@@ -2471,10 +2503,10 @@
               <Question>I would like to confirm your address and phone number.</Question>
               <End>false</End>
               <Actions>
-                <CreateLead>
-                  <Description>Generate a new lead.</Description>
-                  <Action>CreateCleaningLead</Action>
-                </CreateLead>
+                <NewLead>
+                  <Description>New cleaning lead.</Description>
+                  <Type>CreateCleaningLead</Type>
+                </NewLead>
               </Actions>
             </Value>
             <Left>
@@ -2485,7 +2517,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2499,7 +2531,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2513,10 +2545,10 @@
             <Question>I would like to confirm your address and phone number.</Question>
             <End>false</End>
             <Actions>
-              <CreateLead>
-                <Description>Generate a new lead.</Description>
-                <Action>CreateCleaningLead</Action>
-              </CreateLead>
+              <NewLead>
+                <Description>New cleaning lead.</Description>
+                <Type>CreateCleaningLead</Type>
+              </NewLead>
             </Actions>
           </Value>
           <Left>
@@ -2527,7 +2559,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in 3 three weeks.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>false</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2541,7 +2573,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2554,7 +2586,7 @@
       <Root>
         <Value>
           <Branch>false</Branch>
-          <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company. I am calling to see if our manager can be of assistance with your cleaning requirements</Question>
+          <Question>Hello @ContactName, my name is @CallerName from Quad Services a locally based commercial cleaning company. I am calling to see if our manager can be of assistance with your cleaning requirements</Question>
           <End>false</End>
         </Value>
         <Left>
@@ -2576,10 +2608,10 @@
               <Question>I would like to confirm your address and phone number.</Question>
               <End>false</End>
               <Actions>
-                <CreateLead>
-                  <Description>Generate a new lead.</Description>
-                  <Action>CreateCleaningLead</Action>
-                </CreateLead>
+                <NewLead>
+                  <Description>New cleaning lead.</Description>
+                  <Type>CreateCleaningLead</Type>
+                </NewLead>
               </Actions>
             </Value>
             <Left>
@@ -2590,7 +2622,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2604,7 +2636,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2618,10 +2650,10 @@
             <Question>I would like to confirm your address and phone number.</Question>
             <End>false</End>
             <Actions>
-              <CreateLead>
-                <Description>Generate a new lead.</Description>
-                <Action>CreateCleaningLead</Action>
-              </CreateLead>
+              <NewLead>
+                <Description>New cleaning lead.</Description>
+                <Type>CreateCleaningLead</Type>
+              </NewLead>
             </Actions>
           </Value>
           <Left>
@@ -2632,7 +2664,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in 3 three weeks.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>false</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2646,7 +2678,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2659,7 +2691,7 @@
       <Root>
         <Value>
           <Branch>false</Branch>
-          <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning &amp; security company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning and security services</Question>
+          <Question>Hello @ContactName, my name is @CallerName from Quad Services a locally based commercial cleaning &amp; security company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning and security services</Question>
           <End>false</End>
         </Value>
         <Left>
@@ -2681,10 +2713,10 @@
               <Question>I would like to confirm your address and phone number.</Question>
               <End>false</End>
               <Actions>
-                <CreateLead>
-                  <Description>Generate a new lead.</Description>
-                  <Action>CreateCleaningLead</Action>
-                </CreateLead>
+                <NewLead>
+                  <Description>New cleaning lead.</Description>
+                  <Type>CreateCleaningLead</Type>
+                </NewLead>
               </Actions>
             </Value>
             <Left>
@@ -2695,7 +2727,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2709,7 +2741,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2723,10 +2755,10 @@
             <Question>I would like to confirm your address and phone number.</Question>
             <End>false</End>
             <Actions>
-              <CreateLead>
-                <Description>Generate a new lead.</Description>
-                <Action>CreateCleaningLead</Action>
-              </CreateLead>
+              <NewLead>
+                <Description>New cleaning lead.</Description>
+                <Type>CreateCleaningLead</Type>
+              </NewLead>
             </Actions>
           </Value>
           <Left>
@@ -2737,7 +2769,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in 3 three weeks.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>false</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2751,7 +2783,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2764,7 +2796,7 @@
       <Root>
         <Value>
           <Branch>false</Branch>
-          <Question>Hello @ContactName, my name is @TelesaleName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services</Question>
+          <Question>Hello @ContactName, my name is @CallerName from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services</Question>
           <End>false</End>
         </Value>
         <Left>
@@ -2786,10 +2818,10 @@
               <Question>I would like to confirm your address and phone number.</Question>
               <End>false</End>
               <Actions>
-                <CreateLead>
-                  <Description>Generate a new lead.</Description>
-                  <Action>CreateCleaningLead</Action>
-                </CreateLead>
+                <NewLead>
+                  <Description>New cleaning lead.</Description>
+                  <Type>CreateCleaningLead</Type>
+                </NewLead>
               </Actions>
             </Value>
             <Left>
@@ -2800,7 +2832,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in 3 three weeks.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>false</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2814,7 +2846,7 @@
                 <Actions>
                   <UpdateNextCall>
                     <Description>Next call in @UpdateInterval month.</Description>
-                    <Action>UpdateNextCallDate</Action>
+                    <Type>UpdateNextCallDate</Type>
                     <UpdateInMonth>true</UpdateInMonth>
                   </UpdateNextCall>
                 </Actions>
@@ -2828,10 +2860,10 @@
             <Question>I would like to confirm your address and phone number.</Question>
             <End>false</End>
             <Actions>
-              <CreateLead>
-                <Description>Generate a new lead.</Description>
-                <Action>CreateCleaningLead</Action>
-              </CreateLead>
+              <NewLead>
+                <Description>New cleaning lead.</Description>
+                <Type>CreateCleaningLead</Type>
+              </NewLead>
             </Actions>
           </Value>
           <Left>
@@ -2842,7 +2874,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in 3 three weeks.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>false</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>
@@ -2856,7 +2888,7 @@
               <Actions>
                 <UpdateNextCall>
                   <Description>Next call in @UpdateInterval month.</Description>
-                  <Action>UpdateNextCallDate</Action>
+                  <Type>UpdateNextCallDate</Type>
                   <UpdateInMonth>true</UpdateInMonth>
                 </UpdateNextCall>
               </Actions>

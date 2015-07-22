@@ -1,5 +1,5 @@
 ﻿<div class="panel-heading b-b b-light">
-    <button class="btn btn-xs btn-danger pull-right" data-ng-click="vm.contactModal()" data-ng-if="vm.quote.Status.Id===vm.quoteStatusType.Current"><i class="fa fa-fw fa-edit"></i>Edit</button>
+    <button class="btn btn-xs btn-danger pull-right" data-ng-click="vm.contactModal()" data-ng-if="vm.quote.Status.Id===vm.quoteStatusType.Current"><i class="fa fa-fw fa-edit"></i>Action</button>
     <span class="text-muted">Contact</span>
     <label class="label bg-danger m-l-xs" data-ng-if="vm.quote.ContactCheckOverDue">Overdue</label>
 </div>
@@ -8,7 +8,12 @@
         <strong class="block">Last Contact Date</strong>
         <span>{{(vm.quote.LastContactDate | date:'dd/MM/yyyy')||'N/A'}}</span>
     </li>
-
-    <li class="list-group-item clearfix" data-quote-qa="vm.quote.QuestionResults" data-qa-type="vm.questionType.notCalled"></li>
-
+    <li class="list-group-item clearfix no-padder">
+        <div class="bg-info b wrapper-sm">
+            Not Contact Reason History
+        </div>
+            <div class="wrapper">
+                <div data-quote-qa="vm.quote.Id" data-qa-type="vm.questionType.notCalled"></div>
+            </div>
+    </li>
 </ul>

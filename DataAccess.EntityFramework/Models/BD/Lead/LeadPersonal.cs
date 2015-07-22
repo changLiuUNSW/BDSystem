@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using DataAccess.EntityFramework.Extensions.Utilities;
+using DataAccess.EntityFramework.Extensions;
 using Newtonsoft.Json;
 
 namespace DataAccess.EntityFramework.Models.BD.Lead
@@ -32,8 +32,6 @@ namespace DataAccess.EntityFramework.Models.BD.Lead
         public virtual ICollection<Lead> Leads { get; set; }
         public int? LeadStop { get; set; }
         public int? LeadTarget { get; set; }
-        public int? TempLeadStop { get; set; }
-        public int? TempLeadTarget { get; set; }
 
         [DefaultValue(false)]
         public bool PriorityToCall { get; set; }
@@ -80,9 +78,6 @@ namespace DataAccess.EntityFramework.Models.BD.Lead
         /// <returns></returns>
         public int GetLeadStop()
         {
-            if (TempLeadStop != null)
-                return (int) TempLeadStop;
-
             if (LeadStop != null)
                 return (int) LeadStop;
 
@@ -95,9 +90,6 @@ namespace DataAccess.EntityFramework.Models.BD.Lead
         /// <returns></returns>
         public int GetLeadTarget()
         {
-            if (TempLeadTarget != null)
-                return (int) TempLeadTarget;
-
             if (LeadTarget != null)
                 return (int) LeadTarget;
 

@@ -132,7 +132,7 @@ namespace DataAccess.EntityFramework.Migrations
                 QuoteAnswers = answerList3
             };
 
-            context.QuoteQuestions.AddOrUpdate(l => l.Name, question1, question2, question3);
+            context.QuoteQuestions.AddOrUpdate(l => new { l.Name, l.Type }, question1, question2, question3);
             //Not called
             var answerList4 = new List<QuoteAnswer>
             {
@@ -159,7 +159,7 @@ namespace DataAccess.EntityFramework.Migrations
                 QuoteAnswers = answerList4
             };
 
-            context.QuoteQuestions.AddOrUpdate(l=>l.Name,question4);
+            context.QuoteQuestions.AddOrUpdate(l => new { l.Name, l.Type }, question4);
 
             //No Dead
             var answerList5 = new List<QuoteAnswer>
@@ -192,7 +192,7 @@ namespace DataAccess.EntityFramework.Migrations
                 QuoteAnswers = answerList5
             };
 
-            context.QuoteQuestions.AddOrUpdate(l => l.Name, question5);
+            context.QuoteQuestions.AddOrUpdate(l => new { l.Name, l.Type }, question5);
 
             //Dead
             var answerList6 = new List<QuoteAnswer>
@@ -279,9 +279,9 @@ namespace DataAccess.EntityFramework.Migrations
                 Type = QuoteQuestionType.Dead,
                 TextOnly = true
             };
-           context.QuoteQuestions.AddOrUpdate(l => l.Name, question6, question7, question8, question9, question10);
+            context.QuoteQuestions.AddOrUpdate(l => new { l.Name, l.Type }, question6, question7, question8, question9, question10);
            //Not Adjustment
-           var answerList10 = new List<QuoteAnswer>
+           var answerList11 = new List<QuoteAnswer>
             {
                 new QuoteAnswer
                 {
@@ -308,9 +308,36 @@ namespace DataAccess.EntityFramework.Migrations
             {
                 Name = "Reason why not adjust the quote ?",
                 Type = QuoteQuestionType.NoAdjust,
-                QuoteAnswers = answerList10
+                QuoteAnswers = answerList11
             };
-            context.QuoteQuestions.AddOrUpdate(l => l.Name, question11);
+            context.QuoteQuestions.AddOrUpdate(l => new { l.Name, l.Type }, question11);
+
+            //Client Email
+            var answerList12 = new List<QuoteAnswer>
+            {
+                new QuoteAnswer
+                {
+                    Name = "Currently negotiating",
+                    Type = QuoteAnswerType.None
+                },
+                new QuoteAnswer
+                {
+                    Name = "Spoke recently",
+                    Type = QuoteAnswerType.None
+                },
+                new QuoteAnswer
+                {
+                    Name = "Inappropriate for tihs quote",
+                    Type = QuoteAnswerType.Text
+                }
+            };
+            var question12 = new QuoteQuestion
+            {
+                Name = "Reason why not send Email ?",
+                Type = QuoteQuestionType.NoEmail,
+                QuoteAnswers = answerList12
+            };
+            context.QuoteQuestions.AddOrUpdate(l=>new {l.Name,l.Type},question12);
         }
 
 

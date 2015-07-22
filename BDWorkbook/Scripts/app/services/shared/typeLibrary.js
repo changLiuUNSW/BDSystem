@@ -16,7 +16,8 @@
             notCalled: 2,
             dead: 3,
             noDead: 4,
-            noAdjust: 5
+            noAdjust: 5,
+            noEmail:6
         };
 
         this.businessType = {

@@ -2,7 +2,7 @@
 using System.Linq;
 using DataAccess.Common.Contact;
 using DataAccess.EntityFramework;
-using DataAccess.EntityFramework.Extensions.Utilities;
+using DataAccess.EntityFramework.Extensions;
 using DataAccess.EntityFramework.Models.BD.Lead;
 using DateAccess.Services.ContactService.Call.Models;
 

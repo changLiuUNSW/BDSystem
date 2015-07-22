@@ -19,7 +19,7 @@ namespace DataAccess.EntityFramework
 {
     internal class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly IDbContext _context;
+        private readonly DbContext _context;
         private bool _disposed;
         private IRepository<Allocation> _allocationRepository;
         private IRepository<CallLine> _callLineRepository;
@@ -38,6 +38,7 @@ namespace DataAccess.EntityFramework
         private IQuoteRepository _quoteRepository;
         private ISalesBoxRepository _salesBoxRepository;
         private ISiteRepository _siteRepository;
+        private ITempSiteRepository _tempSiteRepository;
         private ISiteGroupRepository _siteGroupRepository;
         private IRepository<CleaningSpec> _cleaningSpecRepository; 
         private IRepository<SpecItem> _specItemRepository;
@@ -47,9 +48,10 @@ namespace DataAccess.EntityFramework
         private IRepository<OccupiedContact> _occupiedContactRepository;
         private IRepository<WeeklyReport> _weeklyReportRepository;
         private IRepository<FullReport> _fullReportRepository;
-        private IRepository<QuadPhoneBook> _phoneBookRepository; 
+        private IRepository<QuadPhoneBook> _phoneBookRepository;
+        private IRepository<ExternalManager> _extManagerRepository; 
 
-        public UnitOfWork(IDbContext context)
+        public UnitOfWork(DbContext context)
         {
             _context = context;
         }
@@ -154,6 +156,8 @@ namespace DataAccess.EntityFramework
             }
         }
 
+        public ITempSiteRepository TempSiteRepository { get { return _tempSiteRepository ?? (_tempSiteRepository = new TempSiteRepository(_context)); } }
+
         public ISiteGroupRepository SiteGroupRepository
         {
             get { return _siteGroupRepository ?? (_siteGroupRepository = new SiteGroupRepository(_context)); }
@@ -243,6 +247,11 @@ namespace DataAccess.EntityFramework
             get { return _phoneBookRepository ?? (_phoneBookRepository = new Repository<QuadPhoneBook>(_context)); }
         }
 
+        public IRepository<ExternalManager> ExtManagerRepository
+        {
+            get { return _extManagerRepository ?? (_extManagerRepository = new Repository<ExternalManager>(_context)); }
+        }
+
         //lazy loading repository entities
         //----------END----------
 
@@ -252,17 +261,17 @@ namespace DataAccess.EntityFramework
         /// <returns></returns>
         public virtual int Save()
         {
-            return _context.Save();
+            return _context.SaveChanges();
         }
 
         public virtual Task<int> SaveAsync()
         {
-            return _context.SaveAsync();
+            return _context.SaveChangesAsync();
         }
 
         public virtual void EnableProxyCreation(bool set)
         {
-            _context.EnableProxyCreation(set);
+            _context.Configuration.ProxyCreationEnabled = set;
         }
 
         public virtual IRepository<T> GetRepository<T>() where T : class
@@ -272,7 +281,7 @@ namespace DataAccess.EntityFramework
 
         public DbContextTransaction BeginTransaction(IsolationLevel isolation)
         {
-            return _context.BeginTransaction(isolation);
+            return _context.Database.BeginTransaction(isolation);
         }
 
         /// <summary>

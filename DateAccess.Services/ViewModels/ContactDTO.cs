@@ -14,11 +14,12 @@ namespace DateAccess.Services.ViewModels
         public DateTime? NewManagerDate { get; set; }
         public bool DaToCheck { get; set; }
         public string DaToCheckInfo { get; set; }
-        public bool Recall { get; set; }
+        public bool ExtManagement { get; set; }
         public bool ReceptionName { get; set; }
         public string Code { get; set; }
         public string Note { get; set; }
         public short? CallFrequency { get; set; }
+        public DateTime? CallBackDate { get; set; }
         public ContactPersonDTO ContactPerson { get; set; }
         public BusinessType BusinessType { get; set; }
     }

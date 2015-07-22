@@ -1,0 +1,179 @@
+﻿<div class="modal-body wrapper-md">
+    <h3 class="modal-title">Pre-Steps of estimation</h3>
+    <div class="line line-lg b-b b-light"></div>
+    <div si-wizard="preStepWizzard" class="tab-container">
+        <ul>
+            <li class="active">
+                <a href="#step1" data-toggle="tab">
+                    <span>1. Address</span>
+                </a>
+            </li>
+            <li>
+                <a href="#step2" data-toggle="tab">
+                    <span>2. Type</span>
+                </a>
+            </li>
+            <li>
+                <a href="#step3" data-toggle="tab">
+                    <span>3. Confirmation</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <!-- step 1-->
+            <form name="step1" id="step1" novalidate class="form-validation tab-pane active" si-step>
+                <progressbar value="33" class="progress-xs progress-striped active m-b-sm" type=" info"></progressbar>
+                <div class="h4 m-b-md">Is the same address with quote ?</div>
+                <input type="hidden" data-ng-model="vm.cost.IsSameAddress" required />
+                <a href class="btn btn-default btn-block m-b-sm"
+                   data-ng-class="{'active':vm.cost.IsSameAddress===true}"
+                   data-ng-click="vm.cost.IsSameAddress=true">
+                    <i class="glyphicon glyphicon-ok pull-left"></i>Yes
+                </a>
+                <a href class="btn btn-default btn-block m-b-sm"
+                   data-ng-class="{'active':vm.cost.IsSameAddress===false}"
+                   data-ng-click="vm.cost.IsSameAddress=false">
+                    <i class="glyphicon glyphicon-remove pull-left"></i>No
+                </a>
+                <div class="m-t" data-ng-if="vm.cost.IsSameAddress===false">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-uppercase font-bold m-b-sm">
+                            Company information
+                        </div>
+                        <div class="panel-body">
+                            <address-search select-event="vm.addrSelect"></address-search>
+                            <div class="form-group">
+                                <label>Comany Name</label>
+                                <input type="text" class="form-control" ng-model="vm.cost.Company" required>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-3">
+                                    <label>Unit</label>
+                                    <input type="text" class="form-control" data-ng-model="vm.cost.Address.Unit" />
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Number</label>
+                                    <input type="text" class="form-control" data-ng-model="vm.cost.Address.Number" />
+                                </div>
+                                <div class="col-sm-7">
+                                    <label>Street Name</label>
+                                    <input type="text" class="form-control" data-ng-model="vm.cost.Address.Street" />
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-4">
+                                    <label>Suburb</label>
+                                    <input type="text" class="form-control" data-ng-model="vm.cost.Address.Suburb" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Post Code</label>
+                                    <input type="text"
+                                           ng-model="vm.cost.Postcode"
+                                           typeahead="postCode.Postcode as postCode.Postcode+','+postCode.State for postCode in vm.getPostCodeAndState(null,$viewValue)"
+                                           typeahead-loading="loadingPostCode" class="form-control"
+                                           typeahead-on-select="vm.postCodeAndState($item)"
+                                           autocomplete="off" required>
+                                    <i ng-show="loadingPostCode" class="fa fa-refresh text-muted"></i>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>State</label>
+                                    <input type="hidden" data-ng-model="vm.cost.State" required />
+                                    <p class="form-control-static">{{vm.cost.State||'N/A'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- /step 1-->
+            
+            
+            <!-- step 2-->
+            <form name="step2" id="step2" novalidate class="form-validation tab-pane" si-step>
+                <progressbar value="66" class="progress-xs progress-striped active m-b-sm" type="info"></progressbar>
+                <div class="form-group">
+                    <input type="hidden" data-ng-model="vm.cost.IsAdminClean" required />
+                    <label>Is this a school: </label>
+                    <select ng-model="vm.cost.IsAdminClean" class="form-control"
+                            ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]" data-ng-change="vm.resetWeeks()" required>
+                        <option value="">Please choose...</option>
+                    </select>
+                </div>
+                <div class="form-group clearfix" data-ng-if="vm.cost.IsAdminClean===true">
+                        <label>Number of weeks for regular cleaning</label>
+                        <input type="number" class="form-control" data-ng-model="vm.cost.RegCleanWeeks" placeholder="required field" ui-validate=" '$value >=0' " required>
+                        <label>Number of weeks for admin cleaning</label>
+                        <input type="number" class="form-control" data-ng-model="vm.cost.AdminCleanWeeks" placeholder="required field" ui-validate=" '$value >=0' " required>
+                </div>
+                <div class="form-group clearfix" data-ng-if="vm.cost.IsAdminClean===false">
+                    <label>Number of weeks for cleaning</label>
+                    <input type="number" class="form-control" data-ng-model="vm.cost.RegCleanWeeks" placeholder="required field" ui-validate=" '$value >=0' " required>
+                </div>
+
+            </form>
+            <!-- /step 2-->
+            <form name="step3" id="step3" novalidate class="form-horizontal tab-pane" si-step>
+                <progressbar value="100" class="progress-xs progress-striped active m-b-sm" type="info"></progressbar>
+                <p class="m-b">Congraduations! You got the last step. Please check the follow infomation</p>
+              
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong class="block">Is the same address with quote ?</strong>
+                        <span>{{vm.cost.IsSameAddress|yesOrNo}}</span>
+                    </li>
+                    <li class="list-group-item" data-ng-if="vm.cost.IsSameAddress===false">
+                        <div>
+                            <strong class="block">Company</strong>
+                            <span>{{vm.cost.Company}}</span>
+                        </div>
+                        <div class="m-t-xs">
+                            <strong class="block">Address</strong>
+                            <span>{{vm.cost.Address.Unit}}</span>
+                            <span>{{vm.cost.Addresse.Number}}</span>
+                            <span>{{vm.cost.Address.Street}}</span>
+                            <span>{{vm.cost.Address.Suburb}}</span>
+                            <span>{{vm.cost.State}}</span>
+                            <span>{{vm.cost.Postcode}}</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <strong class="block">Is this a school</strong>   
+                        <ng-switch on="vm.cost.IsAdminClean">
+                            <div ng-switch-when="true">
+                                Yes
+                                <strong class="block">No. weeks for regular cleaning</strong>
+                                <span>{{vm.cost.RegCleanWeeks}}</span>
+                                <strong class="block">No. weeks for admin cleaning</strong>
+                                <span>{{vm.cost.AdminCleanWeeks}}</span>
+                            </div>
+                            <div ng-switch-when="false">
+                                No
+                                <strong class="block">No. weeks for cleaning</strong>
+                                <span>{{vm.cost.RegCleanWeeks}}</span>
+                            </div>
+                            <div ng-switch-default>N/A</div>
+                        </ng-switch>
+                    </li>
+                       
+                </ul>
+                <p>If the above information is correct , just one click to finish it.</p>
+            </form>
+
+            <div class="m-t m-b clearfix">
+                <button class="btn btn-default btn-rounded pull-left" ng-click="si.preStepWizzard.backward()"
+                        ng-show="si.preStepWizzard.currentIndex > si.preStepWizzard.firstIndex">
+                    Previous
+                </button>
+                <button class="btn btn-default btn-rounded pull-right" data-loading-text="Please Wait..." ng-click="si.preStepWizzard.forward()" data-ng-disabled="si.preStepWizzard.IsValid()"
+                        ng-show="si.preStepWizzard.currentIndex <si.preStepWizzard.navigationLength">
+                    Next
+                </button>
+                <button class="btn btn-primary pull-right" ng-click="vm.createCost(vm.cost)" data-ng-disabled="si.preStepWizzard.IsValid()||vm.saving"
+                        ng-show="si.preStepWizzard.currentIndex == si.preStepWizzard.navigationLength">
+                    Finish
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

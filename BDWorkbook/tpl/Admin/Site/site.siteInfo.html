@@ -1,20 +1,17 @@
-﻿<div data-ng-form="siteInfoForm">
-    <span ng-show ="siteInfoForm.postCode.$invalid"><i class="fa fa-refresh"></i> Loading...</span>
-    <div ng-show="!siteInfoForm.postCode.$invalid">
-        <div class="inline m-r">
-            <div class="m-b-xs">
-                Zone: <span class="text-muted">{{model.site.GmZone}}</span>
-            </div>
+﻿<div>
+    <div class="inline m-r">
+        <div class="m-b-xs">
+            Zone: <span class="text-muted">{{model.site.GmZone}}</span>
         </div>
-        <div class="inline m-r">
-            <div class="m-b-xs">
-                Region: <span class="text-muted">{{model.site.Region}}</span>
-            </div>
+    </div>
+    <div class="inline m-r">
+        <div class="m-b-xs">
+            Region: <span class="text-muted">{{model.site.Region}}</span>
         </div>
-        <div class="inline">
-            <div class="m-b-xs">
-                State: <span class="text-muted">{{model.site.State}}</span>
-            </div>
+    </div>
+    <div class="inline">
+        <div class="m-b-xs">
+            State: <span class="text-muted">{{model.site.State}}</span>
         </div>
     </div>
     <div class="line line-lg b-b b-light"></div>
@@ -22,28 +19,24 @@
         <div class="col-sm-6">
             <label>Building Type</label>
             <input type="text" class="form-control" name="buildType" ng-model="model.site.BuildingType.Code" required />
-            <small class="text-danger" ng-show="siteInfoForm.buildType.$invalid">Building Type is required</small>
         </div>
         <div class="col-sm-6">
             <label>Post code</label>
             <input type="text"
+                   class="form-control"
                    ng-model="model.site.Postcode"
                    name="Postcode"
                    typeahead="postCode.Postcode as postCode.Postcode+','+postCode.State for postCode in getPostCodeAndState(null,$viewValue)"
-                   typeahead-loading="loadingPostCode" class="form-control"
-                   typeahead-on-select="postCodeAndState($item)"
+                   typeahead-loading="loadingPostCode"
+                   typeahead-on-select="postCodeAndState($item, $model, $label, siteForm.Postcode)"
                    typeahead-editable="false"
                    required>
             <i ng-show="loadingPostCode" class="fa fa-refresh text-muted"></i>
-            <small class="text-danger" ng-show="siteInfoForm.Postcode.$invalid">Postcode incorrect</small>
         </div>
-
     </div>
-  
     <div class="form-group">
         <label>Company</label>
         <input type="text" class="form-control" name="companyName" ng-model="model.site.Name" required />
-        <small class="text-danger" ng-show="siteInfoForm.companyName.$invalid">Company name is required</small>
     </div>
     <div class="form-group pull-in clearfix">
         <div class="col-sm-6">
@@ -68,7 +61,6 @@
             <label>Phone</label>
             <input type="text" class="form-control" ng-model="model.site.Phone" required />
         </div>
-       
     </div>
 </div>
 

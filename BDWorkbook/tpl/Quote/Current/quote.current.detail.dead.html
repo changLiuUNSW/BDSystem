@@ -1,5 +1,5 @@
 ﻿<div class="panel-heading b-b b-light">
-    <button class="btn btn-xs btn-danger pull-right" data-ng-click="vm.deadModal()" data-ng-if="vm.quote.Status.Id===vm.quoteStatusType.Current"><i class="fa fa-fw fa-edit"></i>Edit</button>
+    <button class="btn btn-xs btn-danger pull-right" data-ng-click="vm.deadModal()" data-ng-if="vm.quote.Status.Id===vm.quoteStatusType.Current"><i class="fa fa-fw fa-edit"></i>Action</button>
     <span class="text-muted">Dead</span>
     <label class="label bg-danger m-l-xs" data-ng-if="vm.quote.DeadCheckOverDue">Overdue</label>
 </div>
@@ -12,10 +12,24 @@
             <span ng-switch-default>N/A</span>
         </ng-switch>
     </li>
-    <li class="list-group-item clearfix" data-ng-if="vm.getDeadStatus()!==null">
+    <li class="list-group-item clearfix no-padder" data-ng-if="vm.getDeadStatus()!==null">
         <ng-switch on="vm.getDeadStatus()">
-            <div ng-switch-when="true" quote-qa="vm.quote.QuestionResults" qa-type="vm.questionType.dead"></div>
-            <div ng-switch-when="false" quote-qa="vm.quote.QuestionResults" qa-type="vm.questionType.noDead"></div>
+            <div ng-switch-when="true">
+                <div class="bg-info b wrapper-sm">
+                    Dead Reason History
+                </div>
+                <div class="wrapper">
+                    <div data-quote-qa="vm.quote.Id" data-qa-type="vm.questionType.dead"></div>
+                </div>
+            </div>
+            <div  ng-switch-when="false">
+                <div class="bg-info b wrapper-sm">
+                    Not Dead Reason History
+                </div>
+                <div class="wrapper">
+                    <div data-quote-qa="vm.quote.Id" data-qa-type="vm.questionType.noDead"></div>
+                </div>
+            </div>
             <span ng-switch-default>N/A</span>
         </ng-switch>
     </li>

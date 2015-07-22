@@ -1,12 +1,28 @@
 ﻿(function () {
     'use strict';
     angular.module('app.resource.helper')
-        .factory('utility', utility);
+        .factory('utility', ['userInfo', '$filter', utility]);
 
-    function utility() {
+    function utility(userInfo, $filter) {
+
+        var user = userInfo;
 
         return {
-            diff: findDiff
+            diff: findDiff,
+            isInRole: isInRole
+            }
+
+        function isInRole(role) {
+            if (!user.group || !user.userName)
+                return false;
+
+            var groups = user.group.split(',');
+
+            var found = $filter('find')(groups, function(obj) {
+                return obj.toLowerCase() == role.toLowerCase();
+            });
+
+            return found != undefined;
         }
 
         //find changed value from the model
@@ -42,20 +58,28 @@
                 for (var name in original) {
                     if (name in edited) {
                         var property = original[name];
-
                         if (!property || property.constructor !== Array) {
                             if (property && typeof property == "object" && Object.keys(property).length > 0) {
+
                                 var objectDiff = findDiff(property, edited[name], keyNames);
-                                if (Object.keys(objectDiff).forEach(function (key) {
-                                    diff[key] = objectDiff[key];
-                                }));
+                                if (Object.keys(objectDiff).length > 0) {
+                                    diff[name] = objectDiff;
+                                    if (keyNames) {
+                                        keyNames.forEach(function (id) {
+                                            if (original.hasOwnProperty(id) && edited.hasOwnProperty(id))
+                                                diff[id] = edited[id];
+                                        });
+                                    }
+                                }
                             } else if (property !== edited[name]) {
                                 diff[name] = edited[name];
 
-                                keyNames.forEach(function (id) {
-                                    if (original.hasOwnProperty(id) && edited.hasOwnProperty(id))
-                                        diff[id] = edited[id];
-                                });
+                                if (keyNames) {
+                                    keyNames.forEach(function (id) {
+                                        if (original.hasOwnProperty(id) && edited.hasOwnProperty(id))
+                                            diff[id] = edited[id];
+                                    });
+                                }
                             }
                         } else {
                             for (var i = 0; i < property.length; i++) {
@@ -64,10 +88,12 @@
                                     if (typeof diff[name] == "undefined")
                                         diff[name] = new Array();
 
-                                    keyNames.forEach(function (id) {
-                                        if (original.hasOwnProperty(id) && edited.hasOwnProperty(id))
-                                            diff[id] = edited[id];
-                                    });
+                                    if (keyNames) {
+                                        keyNames.forEach(function (id) {
+                                            if (original.hasOwnProperty(id) && edited.hasOwnProperty(id))
+                                                diff[id] = edited[id];
+                                        });
+                                    }
 
                                     diff[name].push(difference);
                                 }

@@ -51,11 +51,27 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migration\DB\Mappers\CleaningContactMapper.cs" />
+    <Compile Include="Migration\DB\Mappers\ContactMapper.cs" />
+    <Compile Include="Migration\DB\Mappers\IMigrationMapper.cs" />
+    <Compile Include="Migration\DB\Mappers\ConfigurableMapper.cs" />
+    <Compile Include="Migration\DB\Mappers\SecurityContactMapper.cs" />
+    <Compile Include="Migration\DB\Mappers\SiteGroupMapper.cs" />
+    <Compile Include="Migration\DB\Mappers\SiteMapper.cs" />
+    <Compile Include="Migration\DB\Mappers\TenentMapper.cs" />
+    <Compile Include="Migration\DB\MigrationSizeConverter.cs" />
+    <Compile Include="Migration\DB\StringConverter.cs" />
+    <Compile Include="Migration\DB\MigrationCodeConverter.cs" />
+    <Compile Include="Migration\DB\MigrationConfiguration.cs" />
+    <Compile Include="Migration\DB\MigrationManager.cs" />
+    <Compile Include="Migration\DB\StringConvertionAttribute.cs" />
     <Compile Include="Migration\Excel\PhoneBookCopier.cs" />
     <Compile Include="Migration\Excel\SmallQuoteCopier.cs" />
     <Compile Include="Migration\Excel\SpecCopier.cs" />
@@ -63,12 +79,13 @@
     <Compile Include="Migration\DB\Copier.cs" />
     <Compile Include="Migration\Excel\QualificationCopier.cs" />
     <Compile Include="Migration\Excel\WorkbookCopier.cs" />
-    <Compile Include="Models\COMPTEMP.cs" />
     <Compile Include="Context\CompanyContext.cs" />
+    <Compile Include="Models\COMPTEMP.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\ReportHelper.cs" />
     <Compile Include="Scripts\ScriptFactory.cs" />
+    <Compile Include="Scripts\Types\BdScriptCreator.cs" />
     <Compile Include="Scripts\Types\BmsScriptCreator.cs" />
     <Compile Include="Scripts\Types\CleaningQuestionCreator.cs" />
     <Compile Include="Scripts\Types\CleaningScriptCreator.cs" />

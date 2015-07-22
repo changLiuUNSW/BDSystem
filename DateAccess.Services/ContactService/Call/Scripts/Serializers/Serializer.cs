@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace DateAccess.Services.ContactService.Call.Scripts.Serializers
@@ -11,7 +12,7 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Serializers
             if (!File.Exists(file))
                 throw new Exception("Invalid file");
 
-            using (var reader = new StreamReader(file))
+            using (var reader = new XmlTextReader(file) { WhitespaceHandling = WhitespaceHandling.Significant })
             {
                 var serializer = new XmlSerializer(typeof (T));
                 return (T)serializer.Deserialize(reader);

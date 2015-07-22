@@ -66,6 +66,7 @@
         var service = {
             searchPerson: searchPerson,
             searchSite: searchSite,
+            searchAddress:searchAddress,
             searchKey: searchKey,
             searchLead: searchLead,
             searchQuote: searchQuote,
@@ -111,6 +112,10 @@
                     method: 'POST'
                 },
             }).search(params).$promise;
+        }
+
+        function searchAddress(params) {
+            return $resource(baseUrl + '/address').get(params).$promise;
         }
 
         function searchLead(params) {

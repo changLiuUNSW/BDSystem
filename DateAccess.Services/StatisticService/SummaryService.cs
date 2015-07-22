@@ -1,14 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DataAccess.EntityFramework;
+using DataAccess.EntityFramework.Repositories;
 
 namespace DateAccess.Services.StatisticService
 {
-    public class SummaryCount
+    public interface ISummaryService
     {
-        public string Type { get; set; }
-        public int TotalCount { get; set; }
+        /// <summary>
+        /// return total row count in contact table for each distinct business types
+        /// </summary>
+        /// <returns></returns>
+        List<SummaryCount> SiteCount();
+
+        /// <summary>
+        /// similar to SiteCount() except it takes a bd username and limit the count for those only belongs to the bd
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        List<SummaryCount> SiteCountForBD(string userName);
+
+
+        /// <summary>
+        /// return total row count for contact that has a valid contact person in contact table for each distinct business types
+        /// </summary>
+        /// <returns></returns>
+        List<SummaryCount> ContactPersonCount();
+
+        /// <summary>
+        /// similar to ContactPersonCount() except it takes a bd username and limit the count to those only belongs to the BD
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        List<SummaryCount> ContactPersonCountForBD(string userName);
     }
-    internal class SummaryService : ISummaryService
+
+    public class SummaryService : ISummaryService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -17,67 +44,49 @@ namespace DateAccess.Services.StatisticService
             _unitOfWork = unitOfWork;
         }
 
-        public List<SummaryCount> GetContactPersonCount()
+        public List<SummaryCount> SiteCount()
         {
-            var countMap = new List<SummaryCount>
-            {
-                new SummaryCount
-                {
-                    Type = "cleaning",
-                    TotalCount=_unitOfWork.ContactRepository.Count(l=>l.ContactPersonId!=null&&l.BusinessType.Type=="Cleaning")
-                },
-                new SummaryCount
-                {
-                     Type = "security",
-                    TotalCount=_unitOfWork.ContactRepository.Count(l=>l.ContactPersonId!=null&&l.BusinessType.Type=="Security")
-                },
-                  new SummaryCount
-                {
-                     Type = "maintenance",
-                    TotalCount=_unitOfWork.ContactRepository.Count(l=>l.ContactPersonId!=null&&l.BusinessType.Type=="Maintenance")
-                },
-                new SummaryCount
-                {
-                     Type = "other",
-                     TotalCount=_unitOfWork.ContactPersonRepository.Count(l=>l.Contacts.Count==0)
-                }
-            };
-            return countMap;
+            return _unitOfWork.ContactRepository.BusinessTypeCount();
         }
 
-        public List<SummaryCount> GetSiteCount()
+        /// <summary>
+        /// extract first two letters of the user name when counting
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public List<SummaryCount> SiteCountForBD(string userName)
         {
-            var countMap = new List<SummaryCount>
-            {
-                new SummaryCount
-                {
-                    Type = "cleaning",
-                    TotalCount=_unitOfWork.ContactRepository.Count(l=>l.BusinessType.Type=="Cleaning")
-                },
-                new SummaryCount
-                {
-                     Type = "security",
-                    TotalCount=_unitOfWork.ContactRepository.Count(l=>l.BusinessType.Type=="Security")
-                },
-                new SummaryCount
-                {
-                    Type = "maintenance",
-                    TotalCount=_unitOfWork.ContactRepository.Count(l=>l.BusinessType.Type=="Maintenance")
-                },
-                new SummaryCount
-                {
-                    Type = "group",
-                    TotalCount=_unitOfWork.SiteGroupRepository.Count()
-                }
-            };
-            return countMap;
+            if (string.IsNullOrEmpty(userName))
+                return new List<SummaryCount>();
+
+            return _unitOfWork.ContactRepository.BusinessTypeCount(GetInitial(userName).Substring(0, 2));
         }
-    }
 
+        public List<SummaryCount> ContactPersonCount()
+        {
+            return _unitOfWork.ContactRepository.ContactPersonCount();
+        }
 
-    public interface ISummaryService
-    {
-        List<SummaryCount> GetContactPersonCount();
-        List<SummaryCount> GetSiteCount();
+        /// <summary>
+        /// extract first two letters of the user name when counting
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public List<SummaryCount> ContactPersonCountForBD(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+                return new List<SummaryCount>();
+
+            return _unitOfWork.ContactRepository.ContactPersonCount(GetInitial(userName).Substring(0, 2));
+        }
+
+        private string GetInitial(string userName)
+        {
+            var person = _unitOfWork.LeadPersonalRepository.GetFromPhoneBook(userName);
+            if (person == null)
+                throw new Exception("The current user initial was not found.");
+
+            return person.Initial;
+        }
     }
 }

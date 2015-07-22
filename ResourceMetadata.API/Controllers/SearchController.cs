@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using DataAccess.Common.SearchModels;
+using DataAccess.EntityFramework.Models.BD.Site;
 using DataAccess.EntityFramework.Repositories;
 using DateAccess.Services.SearchService;
 
@@ -34,15 +35,15 @@ namespace ResourceMetadata.API.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> SearchPerson(Search search)
         {
-            var results = await _searchService.SearchPerson(search);
+            var result = await _searchService.AdminContactPersonSearch(User, search);
             return Ok(new
             {
-                data = results
+                data = result
             });
         }
 
         /// <summary>
-        /// SearchSite
+        /// Search Site
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
@@ -50,7 +51,49 @@ namespace ResourceMetadata.API.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> SearchSite(Search search)
         {
-            var results = await _searchService.SearchSite(search);
+            var result = await _searchService.AdminSiteSearch(User, search);
+            return Ok(new
+            {
+                data = result
+            });
+        }
+
+        /// <summary>
+        /// return external manager table base on the search criteria
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [Route("ExternalManager")]
+        [HttpPost] 
+        public async Task<IHttpActionResult> SearchExternalManager(Search search)
+        {
+            var config = new SearchConfiguration<ExternalManager>(search);
+            config.SetSortingOrderIfNotExist("Id", SearchSortingOrder.Ascending);
+            var result = await _searchService.Search(config);
+            return Ok(new
+            {
+                data = result
+            });
+        }
+
+        [Route("BuildingType")]
+        [HttpPost]
+        public async Task<IHttpActionResult> SearchBuildingType(Search search)
+        {
+            var config = new SearchConfiguration<BuildingType>(search);
+            config.SetSortingOrderIfNotExist("Id", SearchSortingOrder.Ascending);
+            var result = await _searchService.Search(config);
+            return Ok(new
+            {
+                data = result
+            });
+        }
+            
+        [Route("address")]
+        [HttpGet]
+        public IHttpActionResult SearchSiteAddr(string keyword = null, int? take = null)
+        {
+            var results = _searchService.SeachSiteAddr(keyword, take);
             return Ok(new
             {
                 data = results

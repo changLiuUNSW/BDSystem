@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                     '<%= paths.app %>/controllers/Home/Home.js',
                     '<%= paths.app %>/controllers/Quote/quote.js',
                     '<%= paths.app %>/controllers/Shared/Shared.js',
-                    '<%= paths.app %>/controllers/TeleSale/Telesale.js',
+                    '<%= paths.app %>/controllers/TeleSale/TeleSale.js',
                     '<%= paths.app %>/controllers/Lead/Lead.js',
                     '<%= paths.app %>/**/*.js',
                     '!<%= paths.app %>/**/*.test.js',
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
                 vendor: [
                     '<%= paths.vendor %>/jquery/dist/jquery.js',
                     '<%= paths.vendor %>/toastr/toastr.js',
-                    '<%= paths.vendor %>/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js',
+                    '<%= paths.vendorOthers %>/jquery.bootstrap.wizard.js',
                     '<%= paths.vendor %>/bootstrap/dist/js/bootstrap.js',
                     '<%= paths.vendor %>/sweetalert/dist/sweetalert-dev.js',
                     '<%= paths.vendor %>/screenfull/dist/screenfull.js',

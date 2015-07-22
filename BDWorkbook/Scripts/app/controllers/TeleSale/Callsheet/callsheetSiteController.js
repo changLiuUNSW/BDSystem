@@ -38,8 +38,6 @@
         self.selectContactPerson = selectContactPerson;
         self.expandGroup = onGroupClicked;
         self.matchContact = matchContact;
-        self.queryGroups = queryGroups;
-
         initCleaningContactPerson();
 
         if (self.data)
@@ -61,46 +59,6 @@
             e.preventDefault();
             $scope.$emit('event:endingSite', self.data.Id);
         });
-
-        function queryGroups (value) {
-            if (!value)
-                return undefined;
-
-            var param,
-                patterns = value.split(' ');
-
-            if (patterns.length <= 1) {
-                param = [
-                    {
-                        field: 'Firstname',
-                        term: patterns[0],
-                        type: 'text'
-                    },
-                    {
-                        field: 'Lastname',
-                        term: patterns[0],
-                        type: 'text'
-                    }
-                ];
-            } else {
-                param = [
-                    {
-                        field: 'Firstname',
-                        term: patterns[0],
-                        type: 'text'
-                    },
-                    {
-                        field: 'Lastname',
-                        term: patterns[1],
-                        type: 'text'
-                    }
-                ];
-            };
-
-            return apiService.site.searchGroupManager(param).$promise.then(function (success) {
-                return success.data;
-            });
-        };
 
         function initCleaningContactPerson() {
             if (!self.contact || !self.data)
@@ -127,7 +85,15 @@
             if (!person)
                 return;
 
-            person.selected = !person.selected;
+            self.data.ContactPersons.forEach(function (p) {
+                console.log(p);
+                console.log(person);
+                if (p.Id === person.Id) {
+                    p.selected = !p.selected;
+                } else {
+                    p.selected = false;
+                }
+            });
         }
 
         function newContactPerson() {
@@ -216,14 +182,9 @@
                 size: 'lg'
             }
 
-            $modal.open(options).result.then(function (result) {
-                callParams.siteId = result;
-                telesaleService.makeCall(callParams, handleSuccess, handleError);
+            $modal.open(options).result.then(function (siteId) {
+                $scope.$emit('event:callFromGroup', siteId);
             });
-
-            function handleSuccess(success) {
-                $scope.$emit('event:callFromGroup', success.data);
-            }
         }
 
         function handleError(error) {

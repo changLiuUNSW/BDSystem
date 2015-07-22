@@ -1,0 +1,64 @@
+﻿<div class="h4 text-info font-bold">Time Estimation Information</div>
+<div class="line line-lg b-b b-light"></div>
+<div class="row">
+    <div class="col-sm-1  col-xs-2  text-center">
+        <a class="text-info-dk" data-ng-click="vm.labourEstInfoAdd()">
+            <i class="fa fa-2x fa-plus-circle"></i><br />
+            <span class="font-bold">Add</span>
+        </a>
+    </div>
+    <div class="col-sm-1  col-xs-2 text-center">
+        <a class="text-primary-dk" data-ng-click="vm.labourEstInfoEdit()">
+            <i class="fa fa-2x fa-edit"></i><br />
+            <span class="font-bold">Edit</span>
+        </a>
+    </div>
+    <div class="col-sm-1  col-xs-2 text-center">
+        <a class="text-danger-dk" data-ng-click="vm.labourEstInfoDel()">
+            <i class="fa fa-2x fa-times-circle"></i><br />
+            <span class="font-bold">Delete</span>
+        </a>
+    </div>
+</div>
+<div class="line line-lg b-b b-light"></div>
+<ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+    <li class="list-group-item clearfix b-l-3x" data-ng-repeat="item in vm.labours track by $index" ng-class="{'b-l-info ': vm.labours.indexOf(item)%2==0, 'b-l-success ': vm.labours.indexOf(item)%2==1}">
+        <div class="text-center pull-right">
+            <label class="i-checks">
+                <input type="checkbox"
+                       ng-checked="vm.checkedLabours.indexOf(item) > -1"
+                       ng-click="vm.checkLabours(item)"/>
+                <i></i>Tick
+            </label>
+        </div>
+        <span class="font-thin text-dark-lter" data-ng-bind="item.Description"></span>
+        <div class="line line-lg b-b b-light"></div>
+        <div class="row" data-ng-if="item.workdays[0].checked">
+            <div class="col-md-2 font-bold">M-F</div>
+            <div class="col-md-3"><span>mins/day: </span><span data-ng-bind="item.mins.weekdays"></span></div>
+            <div class="col-md-3"><span>Days pw: </span><span data-ng-bind="item.dayspw"></span></div>
+            <div class="col-md-4"><span>cost: </span><span data-ng-bind="item.WeekdayTotal|currency"></span></div>
+        </div>
+        <div class="row" data-ng-if="item.workdays[1].checked">
+            <div class="col-md-2 font-bold">Sat</div>
+            <div class="col-md-3"><span>mins/day: </span><span data-ng-bind="item.mins.saturday"></span></div>
+            <div class="col-md-4"><span>cost: </span><span data-ng-bind="item.SaturdayTotal|currency"></span></div>
+        </div>
+        <div class="row" data-ng-if="item.workdays[2].checked">
+            <div class="col-md-2 font-bold">Sun</div>
+            <div class="col-md-3"><span>mins/day: </span><span data-ng-bind="item.mins.sunday"></span></div>
+            <div class="col-md-4"><span>cost: </span><span data-ng-bind="item.SundayTotal|currency"></span></div>
+        </div>
+        <div class="row" data-ng-if="item.workdays[3].checked">
+            <div class="col-md-2 font-bold">P/H</div>
+            <div class="col-md-3"><span>mins/day: </span><span data-ng-bind="item.mins.holiday"></span></div>
+            <div class="col-md-4"><span>cost: </span><span data-ng-bind="item.HolidayTotal|currency"></span></div>
+        </div>
+    </li>
+</ul>
+<div class="wrapper">
+    <span class="font-bold">Total Cost - Weekdays:</span><span data-ng-bind="vm.labourWdaysTotal|currency"></span>
+    <span class="m-l-lg font-bold">Saturday:</span><span data-ng-bind="vm.labourSatTotal|currency"></span>
+    <span class="m-l-lg font-bold">Sunday:</span><span data-ng-bind="vm.labourSunTotal|currency"></span>
+    <span class="m-l-lg font-bold">Public Holiday:</span><span data-ng-bind="vm.labourHoliTotal|currency"></span>
+</div>

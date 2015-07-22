@@ -1,0 +1,53 @@
+﻿<div class="row">
+    <div class="col-sm-1  col-xs-2  text-center">
+        <a class="text-info-dk" data-ng-click="vm.periodicalsHandle('new')">
+            <i class="fa fa-2x fa-plus-circle"></i><br />
+            <span class="font-bold">Add</span>
+        </a>
+    </div>
+    <div class="col-sm-1  col-xs-2 text-center">
+        <a class="text-primary-dk" data-ng-click="vm.periodicalsHandle('edit')">
+            <i class="fa fa-2x fa-edit"></i><br />
+            <span class="font-bold">Edit</span>
+        </a>
+    </div>
+    <div class="col-sm-1  col-xs-2 text-center">
+        <a class="text-danger-dk" data-ng-click="vm.periodicalsHandle('del')">
+            <i class="fa fa-2x fa-times-circle"></i><br />
+            <span class="font-bold">Delete</span>
+        </a>
+    </div>
+</div>
+<div class="line line-lg b-b b-light"></div>
+<ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+    <li class="list-group-item clearfix b-l-3x" data-ng-repeat="item in vm.addedPeriodicals track by $index" ng-class="{'b-l-info ': vm.addedPeriodicals.indexOf(item)%2==0, 'b-l-success ': vm.addedPeriodicals.indexOf(item)%2==1}">
+        <div class="text-center pull-right">
+            <label class="i-checks">
+                <input type="checkbox"
+                       ng-checked="vm.selPeriodicals.indexOf(item) > -1"
+                       ng-click="vm.checkPeriodical(item)" />
+                <i></i>Tick
+            </label>
+        </div>
+        <span class="h4 font-thin text-dark-lter">No.{{vm.addedPeriodicals.indexOf(item)+1}}</span>
+        <div class="row">
+            <div class="line line-lg b-b b-light"></div>
+            <div class="col-md-12"><span class="font-bold">Description: </span><span class="font-thin" data-ng-bind="item.Description"></span></div>
+            <div class="col-md-6"><span class="font-bold">Cost / Time: </span><span class="font-thin" data-ng-bind="item.CostPerTime|currency"></span></div>
+            <div class="col-md-6">
+                <span class="font-bold">Freq Pa:</span>
+                <b class="badge bg-primary" data-ng-bind="item.FreqPa"></b>
+            </div>
+            <div class="col-md-6"><span class="font-bold">Cost Pa: </span><span class="font-thin" data-ng-bind="item.costPa|currency"></span></div>
+            <div class="col-md-6">
+                <span class="font-bold">Itemise on price page? </span>
+                <span class="badge bg-danger" data-ng-if="item.Itemise==='false'">
+                    N
+                </span>
+                <span class="badge bg-success" data-ng-if="item.Itemise==='true'">
+                    Y
+                </span>
+            </div>
+        </div>
+    </li>
+</ul>

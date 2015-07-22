@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DataAccess.EntityFramework.Extensions.Utilities;
+using DataAccess.EntityFramework.Extensions;
 using DataAccess.EntityFramework.Models.BD.Lead;
 using DataAccess.EntityFramework.TypeLibrary;
 using DateAccess.Services.ContactService.Call.Models;

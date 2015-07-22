@@ -1,0 +1,49 @@
+﻿<div page-init="{asideFolded:true,hideSetting:true}">
+    <div class="bg-light lter b-b wrapper-sm hidden-print">
+        <div class="btn-group">
+            <a ui-sref="quote.detail.progress.estimation({id:vm.cost.QuoteId})" tooltip="Back" class="btn btn-sm btn-default w-xxs w-auto-xs">
+                <i class="fa fa-long-arrow-left"></i>
+            </a>
+            <button class="btn btn-sm btn-default w-xxs w-auto-xs" tooltip="Delete"><i class="fa fa-trash-o"></i></button>
+        </div>
+        <button class="btn btn-sm btn-default pull-right visible-sm visible-xs" ui-toggle-class="show" target="#cost-summary"><i class="fa fa-bars"></i></button>
+    </div>
+    <div class="hbox hbox-auto-xs hbox-auto-sm">
+        <div class="col w-lg bg-light dk b-r bg-auto">
+            <!--Load the costing estimation summary on page left-->
+            <div data-ng-include="'tpl/Quote/Estimation/estimation.summary.html'"></div>
+        </div>
+        <div class="col">
+                <!--Load the costing estimation progress bar on page top-->
+            <div class="wrapper-sm b-b">
+                <ul class="nav nav-pills nav-sm">
+                    <li data-ng-class="{'active':vm.currentProcess===item.code}" data-ng-repeat="item in vm.processBtns">
+                        <a data-ng-click="vm.processSelected(item)">
+                            {{item.text}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                <div data-ng-show="vm.currentProcess==='QD'">
+                    <div class="wrapper-xs" data-ng-include="'tpl/Quote/Estimation/estimation.detail.html'"></div>
+                </div>
+            <div data-ng-show="vm.currentProcess==='CA'">
+                <div class="wrapper-xs" data-ng-include="'tpl/Quote/Estimation/estimation.costing.html'"></div>
+            </div>
+            <div data-ng-show="vm.currentProcess==='ACE'">
+                <div class="wrapper-xs" data-ng-include="'tpl/Quote/Estimation/estimation.areas.html'"></div>
+            </div>
+            <div data-ng-show="vm.currentProcess==='QL'">
+                <div class="wrapper-xs" data-ng-include="'tpl/Quote/Estimation/estimation.labour.html'"></div>
+            </div>
+            <div data-ng-show="vm.currentProcess==='OSS'">
+                <div class="wrapper-xs" data-ng-include="'tpl/Quote/Estimation/estimation.optional.html'"></div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+   
+  

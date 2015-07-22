@@ -60,7 +60,7 @@ namespace DataAccess.Console.Scripts.Types
                     "Could you please tell me the name of the person who is responsible for the cleaning of your premises?",
                 Actions = new Collection<ScriptAction>
                 {
-                    new UpdateContactName("Update contact name")
+                    new UpdateContactName()
                 },
             });
 
@@ -72,7 +72,7 @@ namespace DataAccess.Console.Scripts.Types
                     "need to speak to the person. Could you just tell me their name",
                 Actions = new Collection<ScriptAction>
                 {
-                    new UpdateContactName("Update contact name")
+                    new UpdateContactName()
                 }
             });
 

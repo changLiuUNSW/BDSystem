@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
 using Newtonsoft.Json;
+using ResourceMetadata.API.Filters;
 
 namespace ResourceMetadata.API
 {
@@ -18,6 +19,8 @@ namespace ResourceMetadata.API
 //            config.SuppressDefaultHostAuthentication();
 //            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 //            config.Filters.Add(new AuthorizeAttribute());
+            config.Filters.Add(new GlobalExceptionFilter());
+            
             // Web API routes
             config.MapHttpAttributeRoutes();
 

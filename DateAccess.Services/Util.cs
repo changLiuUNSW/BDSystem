@@ -41,6 +41,10 @@ namespace DateAccess.Services
             }
         }
 
+        /// <summary>
+        /// calculate the similarity between two string in probability
+        /// intend to use for fuzzy matching in database migration
+        /// </summary>
         public static class StringSimilarity
         {
             public static double Compare(string str1, string str2)

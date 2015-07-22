@@ -1,5 +1,5 @@
 ﻿using System;
-using DataAccess.EntityFramework.Extensions.Utilities;
+using DataAccess.EntityFramework.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataAccess.Services.UnitTests

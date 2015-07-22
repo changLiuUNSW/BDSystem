@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using DataAccess.EntityFramework;
 using DataAccess.EntityFramework.Models.BD.Contact;
 using DataAccess.EntityFramework.Models.BD.Lead;
 using DataAccess.EntityFramework.Models.BD.Site;
 using DataAccess.EntityFramework.Models.BD.Telesale;
+using DataAccess.EntityFramework.TypeLibrary;
 using DateAccess.Services.ContactService.Call.Exceptions;
 using DateAccess.Services.ContactService.Call.Models;
 using DateAccess.Services.ContactService.Call.Queues;
@@ -15,23 +17,41 @@ using DateAccess.Services.MailService;
 
 namespace DateAccess.Services.ContactService.Call.Providers
 {
-    internal class TelesaleCallProvider : CallProvider, IStandardCall
+    internal class TelesaleCallProvider : CallProvider, IStandardCall, IGroupCall
     {
         internal enum CallingCode
         {
             OPR
         }
 
+        private IList<ScriptAction> DefaultActions { get; set; }
+
         internal TelesaleCallProvider(IUnitOfWork unitOfWork,
-            ILeadEmailService emailService)
-            : base(unitOfWork, emailService) { }
+            IEmailHelper emailHelper)
+            : base(unitOfWork, emailHelper)
+        {
+            DefaultActions = InitDefaultActions();
+        }
 
 
         internal TelesaleCallProvider(IUnitOfWork unitOfWork,
             Telesale telesale,
-            ILeadEmailService emailService) : base(unitOfWork, emailService)
+            IEmailHelper emailHelper)
+            : base(unitOfWork, emailHelper)
         {
             Telesale = telesale;
+            DefaultActions = InitDefaultActions();
+        }
+
+        private IList<ScriptAction> InitDefaultActions()
+        {
+            return new Collection<ScriptAction>
+            {
+                new UpdateDaCheck(),
+                new UpdateExtManager(),
+                new UpdateSendInfo(),
+                new UpdateCallBack()
+            };
         }
 
         private readonly static object Locker = new object();
@@ -59,7 +79,7 @@ namespace DateAccess.Services.ContactService.Call.Providers
         protected bool Prepare(string initial)
         {
             if (Telesale == null && string.IsNullOrEmpty(initial))
-                throw new Exception("Invalid telesale!");
+                throw new Exception("Initial required!");
 
             if (Telesale == null)
             {
@@ -69,7 +89,7 @@ namespace DateAccess.Services.ContactService.Call.Providers
             }
 
             if (Telesale == null)
-                throw new Exception("Invalid telesale!");
+                throw new Exception("Invalid initial!");
 
             var occupiedCall = UnitOfWork.OccupiedContactRepository.SingleOrDefault(x => x.TelesaleId == Telesale.Id);
             if (occupiedCall != null)
@@ -83,7 +103,7 @@ namespace DateAccess.Services.ContactService.Call.Providers
                 };
 
 
-                callDetail.Script = new ScriptProvider(occupiedCall.Contact, occupiedCall.Telesale,
+                callDetail.Script = new TelesaleScriptProvider(occupiedCall.Contact, occupiedCall.Telesale,
                     occupiedCall.LeadPersonal).Get();
 
                 throw new UnfinishedCallException(
@@ -94,8 +114,12 @@ namespace DateAccess.Services.ContactService.Call.Providers
             return true;
         }
 
-        public override void EndCall(int contactId, int leadPersonId, int occupiedId, string initial, string url, IList<ScriptAction> actions)
+        public override void EndCall(
+            int siteId, int? contactId, int? leadPersonId, int? occupiedId, string initial, string url, IList<ScriptAction> actions)
         {
+            if (string.IsNullOrEmpty(initial))
+                throw new Exception("Unable to register a call line due to invalid initial");
+
             var contact = UnitOfWork.ContactRepository.Get(contactId);
             if (contact != null)
             {
@@ -110,7 +134,7 @@ namespace DateAccess.Services.ContactService.Call.Providers
                 contact.CallLines.Add(callLine);
             }
 
-            base.EndCall(contactId, leadPersonId, occupiedId, initial, url, actions);
+            base.EndCall(siteId, contactId, leadPersonId, occupiedId, initial, url, actions);
         }
 
         private CallDetail FetchAssignment()
@@ -124,10 +148,11 @@ namespace DateAccess.Services.ContactService.Call.Providers
                 {
                     OccupiedId = SaveOccupied(contact.Id, Telesale.Id),
                     Contact = contact,
-                    Site = contact.Site
+                    Site = contact.Site,
+                    ScriptActions = DefaultActions
                 };
 
-                detail.Script = new ScriptProvider(contact, Telesale, null).Get();
+                detail.Script = new TelesaleScriptProvider(contact, Telesale, null).Get();
             }
 
             return detail;
@@ -155,10 +180,11 @@ namespace DateAccess.Services.ContactService.Call.Providers
                         OccupiedId = SaveOccupied(contact.Id, Telesale.Id, person.Id),
                         Contact = contact,
                         LeadPerson = person,
-                        Site = contact.Site
+                        Site = contact.Site,
+                        ScriptActions = DefaultActions
                     };
 
-                    callDetail.Script = new ScriptProvider(contact, Telesale, person).Get();
+                    callDetail.Script = new TelesaleScriptProvider(contact, Telesale, person).Get();
                     return callDetail;
                 }
 
@@ -191,6 +217,22 @@ namespace DateAccess.Services.ContactService.Call.Providers
         public CallDetail Next(string initial)
         {
             return Prepare(initial) ? Fetch() : null;
+        }
+
+        public CallDetail Next(string name, int siteId)
+        {
+            var site = UnitOfWork.SiteRepository.Get(siteId);
+            if (site == null)
+                return null;
+
+            var contact = site.Contacts.SingleOrDefault(x => x.BusinessTypeId == (int) BusinessTypes.Cleaning);
+            return new CallDetail
+            {
+                Contact = contact,
+                Site = site,
+                Script = new TelesaleScriptProvider(contact, Telesale, null).Get(),
+                ScriptActions = DefaultActions
+            };
         }
     }
 }

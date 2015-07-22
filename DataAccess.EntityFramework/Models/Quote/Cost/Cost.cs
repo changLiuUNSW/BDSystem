@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DataAccess.EntityFramework.Models.BD;
-using DataAccess.EntityFramework.Models.BD.Allocation;
 using DataAccess.EntityFramework.Models.Quote.Cost.Equipment;
 using DataAccess.EntityFramework.Models.Quote.Cost.Periodical;
 using DataAccess.EntityFramework.Models.Quote.Cost.Supply;
+using DataAccess.EntityFramework.Models.Quote.Specification;
 using DataAccess.EntityFramework.TypeLibrary;
 
 namespace DataAccess.EntityFramework.Models.Quote.Cost
 {
     [Table("Cost", Schema = "Quote")]
-    public class Cost
+    public class Cost : QuoteBase
     {
+
+        public Cost()
+        {
+            DayOfClean=new DayOfClean();
+            Address=new Address();
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -23,7 +29,7 @@ namespace DataAccess.EntityFramework.Models.Quote.Cost
         public virtual Quote Quote { get; set; }
 
         [ForeignKey("Labour")]
-        public int LabourId { get; set; }
+        public int? LabourId { get; set; }
         public virtual Labour.Labour Labour { get; set; }
 
         //equipments
@@ -39,22 +45,6 @@ namespace DataAccess.EntityFramework.Models.Quote.Cost
 
         [Required]
         public bool IsSameAddress { get; set; }
-
-        [MaxLength(25)]
-        [ForeignKey("SalesBox")]
-        [Column(Order = 1)]
-        public string State { get; set; }
-
-        [MaxLength(9)]
-        [ForeignKey("SalesBox")]
-        [Column(Order = 0)]
-        public string Postcode { get; set; }
-
-        public string Company { get; set; }
-
-        public Address Address { get; set; }
-
-        public virtual SalesBox SalesBox { get; set; }
 
         public decimal? PricePa { get; set; }
 
@@ -74,11 +64,25 @@ namespace DataAccess.EntityFramework.Models.Quote.Cost
 
         //costing
         public int? RegCleanWeeks { get; set; }
+        public int? AdminCleanWeeks { get; set; }
+
+        public decimal? AdminSubcontractorCostPw { get; set; }
         public decimal? RegSubcontractorCostPw { get; set; }
+
+
+        public decimal? AdminPeriodicalCostPw { get; set; }
         public decimal? RegPeriodicalCostPw { get; set; }
+
+        public decimal? AdminSupplyCostPw { get; set; }
         public decimal? RegSupplyCostPw { get; set; }
-        public decimal? RegEquipmentCostPw { get; set; }
+
+        public decimal? AdminLabourCostPw { get; set; }
         public decimal? RegLabourCostPw { get; set; }
+
+
+        //Equipment total price should always multiply 52 weeks
+        public decimal? RegEquipmentCostPw { get; set; }
+        
         public decimal? RegLabourMiscCostPw { get; set; }
         public decimal? SubTotal { get; set; }
         public decimal? Total { get; set; }
@@ -87,5 +91,38 @@ namespace DataAccess.EntityFramework.Models.Quote.Cost
         public decimal? Liability { get; set; }
         public decimal? Margin { get; set; }
 
+        //Basic Information
+        public bool? IsAdminClean { get; set; }
+
+        [ForeignKey("PublicLiability")]
+        public int? PublicLiabilityId { get; set; }
+        public PublicLiability PublicLiability { get; set; }
+        //Source of Quotation
+        [ForeignKey("QuoteSource")]
+        public int? QuoteSourceId { get; set; }
+        public QuoteSource QuoteSource { get; set; }
+        public string Spec { get; set; }
+        [ForeignKey("IndustryType")]
+        public int? IndustryTypeId { get; set; }
+        public CleaningSpec IndustryType { get; set; }
+
+        public bool? ColorCode { get; set; }
+        public bool? CleanOnHoliday { get; set; }
+        public int? NoOfHoliday { get; set; }
+
+        [ForeignKey("StandardRegion")]
+        public int? StandardRegionId { get; set; }
+        public StandardRegion StandardRegion { get; set; }
+
+        public bool? CheckedWithClient { get; set; }
+        public bool? IsPriceChanged { get; set; }
+        public bool? DiscussWithClient { get; set; }
+        public string WorkDoneWithin { get; set; }
+        public string AreaDescription { get; set; }
+        public string WorkDescription { get; set; }
+        public int DaysCleanPerWeek { get; set; }
+        public DayOfClean DayOfClean { get; set; }
+        public bool? Fortnightly { get; set; }
+        public bool? Monthly { get; set; }
     }
 }

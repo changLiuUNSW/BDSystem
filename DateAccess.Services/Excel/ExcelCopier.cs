@@ -104,5 +104,33 @@ namespace DateAccess.Services.Excel
 
             save(entity);
         }
+
+        protected void ReadHorizontally<T>(string sheet, string start, string end, Copy<T> copy, Save<T> save) where T: new()
+        {
+            var list = Read(sheet, start, end);
+
+            for (var i = 1; i <= list.GetLength(1); i++)
+            {
+                var entity = new T();
+                var doSave = true;
+
+                for (var j = 1; j <= list.GetLength(0); j++)
+                {
+                    if (list[j, i] == null)
+                        continue;
+
+                    var text = list[j, i].ToString();
+                    doSave = copy(ref entity, i, j, text, sheet);
+
+                    if (!doSave)
+                        break;
+                }
+
+                if (!doSave)
+                    continue;
+
+                save(entity);
+            }
+        }
     }
 }

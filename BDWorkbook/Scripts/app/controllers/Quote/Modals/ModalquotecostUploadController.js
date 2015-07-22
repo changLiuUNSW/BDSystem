@@ -5,7 +5,7 @@
     modalQuoteCostUploadCtrl.$inject =
         ['$scope', '$modalInstance', 'logger', 'quoteCostService', 'quoteId', 'cost', 'saleBoxService'];
 
-    function modalQuoteCostUploadCtrl($scope, $modalInstance, logger, quoteCostService, quoteId,cost, saleBoxService) {
+    function modalQuoteCostUploadCtrl($scope, $modalInstance, logger, quoteCostService, quoteId, cost, saleBoxService) {
         var extensions = {
             'xls': true,
             'xlsx': true,
@@ -14,6 +14,7 @@
         /* jshint validthis: true */
         var vm = this;
         vm.files = undefined;
+        vm.addrSelect = addrSelect;
         vm.cancel = cancel;
         vm.uploadFile = uploadFile;
         vm.validate = validate;
@@ -22,9 +23,29 @@
         vm.postCodeAndState = postCodeAndState;
 
         vm.cost =cost || {
-            QuoteId: quoteId
+            QuoteId: quoteId,
+            Address:{}
         };
 
+        function addrSelect(item) {
+            if (item) {
+                vm.cost.Company = item.Name;
+                vm.cost.Address.Unit = item.Unit;
+                vm.cost.Address.Number = item.Number;
+                vm.cost.Address.Street = item.Street;
+                vm.cost.Address.Suburb = item.Suburb;
+                vm.cost.State = item.State;
+                vm.cost.Postcode = item.Postcode;
+            } else {
+                vm.cost.Company = null;
+                vm.cost.Address.Unit = null;
+                vm.cost.Address.Number = null;
+                vm.cost.Address.Street = null;
+                vm.cost.Address.Suburb = null;
+                vm.cost.State = null;
+                vm.cost.Postcode = null;
+            }
+        }
 
         function fileChanged($files, $event, $rejectedFiles) {
             if ($rejectedFiles && $rejectedFiles.length)
@@ -62,20 +83,16 @@
 
 
         function uploadFile(files) {
-            console.log(vm.cost);
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 quoteCostService.uploadCost(vm.cost, file)
                     .success(function (result) {
                         logger.success('cost estimations has been saved successfully.','Success');
                         $modalInstance.close(result.data);
-
                 }).error(function(error) {
                     logger.serverError(error);
                 });
             }
-
-
         }
 
         function cancel() {

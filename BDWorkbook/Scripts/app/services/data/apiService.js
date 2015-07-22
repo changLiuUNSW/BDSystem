@@ -12,13 +12,13 @@
             {},
             {
                 'nextCall': {
-                    method: 'GET',
+                    method: 'POST',
                     params: { param: 'call/next' }
                 },
 
                 'endCall': {
-                    method: 'PUT',
-                    params: { param: 'call', param2: 'end' }
+                    method: 'POST',
+                    params: { param: 'call/end' }
                 },
 
                 'assignContactPerson': {
@@ -55,12 +55,11 @@
             }),
 
             //site
-            site: $resource(url + 'site/:param/:paramId/:param2/:param2Id', {}, {
-                'searchGroupManager': {
+            search: $resource(url + 'search/:table', {}, {
+                'externalManager': {
                     method: 'POST',
                     params: {
-                        param: 'group',
-                        param2: 'manager'
+                        table: 'externalManager',
                     }
                 }
             }),

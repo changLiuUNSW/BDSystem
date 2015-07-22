@@ -8,7 +8,7 @@
       class="hbox hbox-auto-xs hbox-auto-sm bg-light form-validation" data-ng-show="!loading" name="siteForm" autocomplete="off">
     <div class="col w-lg b-r lter">
         <div class="wrapper">
-            <a href="" class="pull-right btn btn-sm btn-danger m-t-n-xs" ng-disabled="siteForm.$invalid" ng-click="updateSite()">Update</a>
+            <button type="submit" class="pull-right btn btn-sm btn-danger m-t-n-xs" ng-click="updateSite(siteForm)">Update</button>
             <div class="h4">{{model.site.Key}}</div>
         </div>
 

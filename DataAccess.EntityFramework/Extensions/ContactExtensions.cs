@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using DataAccess.EntityFramework.Expressions;
 using DataAccess.EntityFramework.Models.BD.Allocation;
 using DataAccess.EntityFramework.Models.BD.Contact;
+using DataAccess.EntityFramework.Repositories;
 using DataAccess.EntityFramework.TypeLibrary;
 
 namespace DataAccess.EntityFramework.Extensions
@@ -96,6 +97,15 @@ namespace DataAccess.EntityFramework.Extensions
             }
 
             return source;
+        }
+
+        public static IQueryable<SummaryCount> CountByBusinessType(this IQueryable<Contact> source)
+        {
+            return source.GroupBy(x => x.BusinessTypeId).Select(x => new SummaryCount
+            {
+                Type = x.Key.ToString(),
+                TotalCount = x.Count()
+            });
         }
     }
 }

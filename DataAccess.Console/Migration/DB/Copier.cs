@@ -9,7 +9,7 @@ using DataAccess.Console.Context;
 using DataAccess.Console.Migration.Excel;
 using DataAccess.Console.Models;
 using DataAccess.EntityFramework.DbContexts;
-using DataAccess.EntityFramework.Extensions.Utilities;
+using DataAccess.EntityFramework.Extensions;
 using DataAccess.EntityFramework.Models.BD.Contact;
 using DataAccess.EntityFramework.Models.BD.Site;
 using DataAccess.EntityFramework.TypeLibrary;
@@ -18,7 +18,7 @@ using DateAccess.Services;
 namespace DataAccess.Console.Migration.DB
 {
     /// <summary>
-    /// internal translation e.g. qp code, size
+    /// this class is deprecated use migration manager instead
     /// </summary>
     internal static class Migration
     {
@@ -217,6 +217,7 @@ namespace DataAccess.Console.Migration.DB
                     destination.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.bd.Contact"));
                     destination.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.bd.ContactPerson"));
                     destination.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.bd.SiteToGroupMapping"));
+                    destination.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.bd.ExternalManager"));
                     destination.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.bd.SiteGroup"));
                     destination.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.bd.site"));
                     destination.Database.ExecuteSqlCommand(SqlCmd.Reseed("ims_test.bd.contact", 0));

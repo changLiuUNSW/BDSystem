@@ -1,9 +1,7 @@
 ﻿using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Threading.Tasks;
-using DataAccess.EntityFramework.Infrastructure;
 using DataAccess.EntityFramework.Models.BD.Allocation;
 using DataAccess.EntityFramework.Models.BD.Contact;
 using DataAccess.EntityFramework.Models.BD.Lead;
@@ -17,12 +15,11 @@ using DataAccess.EntityFramework.Models.Quote.Cost.Equipment;
 using DataAccess.EntityFramework.Models.Quote.Cost.Labour;
 using DataAccess.EntityFramework.Models.Quote.Cost.Periodical;
 using DataAccess.EntityFramework.Models.Quote.Cost.Supply;
-using DataAccess.EntityFramework.Models.Quote.Cost.Vacation;
 using DataAccess.EntityFramework.Models.Quote.Specification;
 
 namespace DataAccess.EntityFramework.DbContexts
 {
-    internal class SiteResourceEntities : DbContext, IDbContext
+    internal class SiteResourceEntities : DbContext
     {
         public SiteResourceEntities()
             : base("Default")
@@ -31,112 +28,85 @@ namespace DataAccess.EntityFramework.DbContexts
         }
 
         //site tables
-        //merge address table into sites
-        public virtual IDbSet<Site> Sites { get; set; }
-        public virtual IDbSet<SiteGroup> SiteGroups { get; set; } 
-        public virtual IDbSet<CleaningContract> CleaningDetails { get; set; }
-        public virtual IDbSet<SecurityContract> SecurityDetails { get; set; }
-        public virtual IDbSet<BuildingType> BuildingTypes { get; set; }
-        public virtual IDbSet<BuildingQualifyCriteria> BuildingQualifyCriterias { get; set; } 
+        public virtual DbSet<Site> Sites { get; set; }
+        public virtual DbSet<TempSite> TempSites { get; set; } 
+        public virtual DbSet<SiteGroup> SiteGroups { get; set; }
+        public virtual DbSet<ExternalManager> ExternalManagers { get; set; } 
+        public virtual DbSet<CleaningContract> CleaningDetails { get; set; }
+        public virtual DbSet<SecurityContract> SecurityDetails { get; set; }
+        public virtual DbSet<BuildingType> BuildingTypes { get; set; }
+        public virtual DbSet<BuildingQualifyCriteria> BuildingQualifyCriterias { get; set; } 
 
         //contact tables
-        public virtual IDbSet<Contact> Contacts { get; set; }
-        public virtual IDbSet<ContactPerson> ContactPersons { get; set; }
-        public virtual IDbSet<ContactPersonHistory> ContactPersonHistories { get; set; }
-        public virtual IDbSet<BusinessType> BusinessTypes { get; set; }
-        public virtual IDbSet<WeeklyReport> WeeklyReports { get; set; }
-        public virtual IDbSet<FullReport> FullReports { get; set; } 
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<ContactPerson> ContactPersons { get; set; }
+        public virtual DbSet<ContactPersonHistory> ContactPersonHistories { get; set; }
+        public virtual DbSet<BusinessType> BusinessTypes { get; set; }
+        public virtual DbSet<WeeklyReport> WeeklyReports { get; set; }
+        public virtual DbSet<FullReport> FullReports { get; set; } 
 
         //lead tables
-        public virtual IDbSet<Lead> Leads { get; set; }
-        public virtual IDbSet<LeadStatus> LeadStatus { get; set; }
-        public virtual IDbSet<LeadPriority> LeadPriorities { get; set; }
-        public virtual IDbSet<LeadPersonal> LeadPersonals { get; set; }
-        public virtual IDbSet<LeadGroup> LeadGroups { get; set; }
-        public virtual IDbSet<LeadShiftInfo> LeadShiftInfos { get; set; }
-        public virtual IDbSet<OccupiedContact> OccupiedContacts { get; set; }
-        public virtual IDbSet<LeadHistory> LeadHistories { get; set; } 
-
+        public virtual DbSet<Lead> Leads { get; set; }
+        public virtual DbSet<LeadStatus> LeadStatus { get; set; }
+        public virtual DbSet<LeadPriority> LeadPriorities { get; set; }
+        public virtual DbSet<LeadPersonal> LeadPersonals { get; set; }
+        public virtual DbSet<LeadGroup> LeadGroups { get; set; }
+        public virtual DbSet<LeadShiftInfo> LeadShiftInfos { get; set; }
+        public virtual DbSet<OccupiedContact> OccupiedContacts { get; set; }
+        public virtual DbSet<LeadHistory> LeadHistories { get; set; } 
         //Sales box tables
-        public virtual IDbSet<SalesBox> SalesBoxs { get; set; }
-        public virtual IDbSet<Allocation> Allocations { get; set; }
-
+        public virtual DbSet<SalesBox> SalesBoxs { get; set; }
+        public virtual DbSet<Allocation> Allocations { get; set; }
         //telesale table
-        public virtual IDbSet<Telesale> Telesales { get; set; }
+        public virtual DbSet<Telesale> Telesales { get; set; }
 
 
         //Quote tables
-        public virtual IDbSet<Quote> Quotes { get; set; }
-        public virtual IDbSet<QuoteStatus> QuoteStatus { get; set; }
-        public virtual IDbSet<WpRequiredInfo> WpRequiredInfos { get; set; }
-        public virtual IDbSet<QuoteIssue> QuoteIssues { get; set; }
-        public virtual IDbSet<QuoteHistory> QuoteHistories { get; set; }
-        public virtual IDbSet<QuoteQuestion> QuoteQuestions { get; set; }
-        public virtual IDbSet<QuoteAnswer> QuoteAnswers { get; set; }
-        public virtual IDbSet<QuoteQuestionResult> QuoteQuestionResults { get; set; }
+        public virtual DbSet<Quote> Quotes { get; set; }
+        public virtual DbSet<QuoteStatus> QuoteStatus { get; set; }
+        public virtual DbSet<WpRequiredInfo> WpRequiredInfos { get; set; }
+        public virtual DbSet<QuoteIssue> QuoteIssues { get; set; }
+        public virtual DbSet<QuoteHistory> QuoteHistories { get; set; }
+        public virtual DbSet<QuoteQuestion> QuoteQuestions { get; set; }
+        public virtual DbSet<QuoteAnswer> QuoteAnswers { get; set; }
+        public virtual DbSet<QuoteQuestionResult> QuoteQuestionResults { get; set; }
 
         //Cost tables
         //area
-        public virtual IDbSet<CleaningArea> CleaningAreas { get; set; } 
+        public virtual DbSet<CleaningArea> CleaningAreas { get; set; } 
         //equipment 
-        public virtual IDbSet<Equipment> Equipments { get; set; } 
-        public virtual IDbSet<EquipmentSupply> EquipmentSupplies { get; set; }
-        public virtual IDbSet<Machine> Machines { get; set; } 
+        public virtual DbSet<Equipment> Equipments { get; set; } 
+        public virtual DbSet<EquipmentSupply> EquipmentSupplies { get; set; }
+        public virtual DbSet<Machine> Machines { get; set; } 
         //Periodical
-        public virtual IDbSet<Periodical> Periodicals { get; set; }
-        public virtual IDbSet<ExtraPeriodical> ExtraPeriodicals { get; set; }
+        public virtual DbSet<Periodical> Periodicals { get; set; }
+        public virtual DbSet<ExtraPeriodical> ExtraPeriodicals { get; set; }
         //Supply
-        public virtual IDbSet<ToiletrySupply> ToiletrySupplies { get; set; }
-        public virtual IDbSet<ExtraToiletrySupply> ExtraToiletrySupplies { get; set; }
-        public virtual IDbSet<ToiletRequisite> ToiletRequisites { get; set; }
-        //Vacation
-        public virtual IDbSet<VacationCleaning> VacationCleanings { get; set; }
+        public virtual DbSet<ToiletrySupply> ToiletrySupplies { get; set; }
+        public virtual DbSet<ExtraToiletrySupply> ExtraToiletrySupplies { get; set; }
+        public virtual DbSet<ToiletRequisite> ToiletRequisites { get; set; }
+        //StandardRegions
+        public virtual DbSet<StandardRegion> StandardRegions { get; set; }
+        //QuoteSource
+        public virtual DbSet<QuoteSource> QuoteSources { get; set; } 
         //labour
-        public virtual IDbSet<Labour> Labours { get; set; }
-        public virtual IDbSet<LabourEstimation> LabourEstimations { get; set; } 
-        public virtual IDbSet<LabourPeriodical> LabourPeriodicals { get; set; }
-        public virtual IDbSet<AllowanceRate> AllowanceRates { get; set; }
-        public virtual IDbSet<LabourRate> LabourRates { get; set; }
-        public virtual IDbSet<OnCostRate> OnCostRates { get; set; } 
+        public virtual DbSet<Labour> Labours { get; set; }
+        public virtual DbSet<LabourEstimation> LabourEstimations { get; set; } 
+        public virtual DbSet<LabourPeriodical> LabourPeriodicals { get; set; }
+        public virtual DbSet<AllowanceRate> AllowanceRates { get; set; }
+        public virtual DbSet<LabourRate> LabourRates { get; set; }
+        public virtual DbSet<OnCostRate> OnCostRates { get; set; } 
         //liability
-        public virtual IDbSet<PublicLiability> PublicLiabilities { get; set; } 
+        public virtual DbSet<PublicLiability> PublicLiabilities { get; set; } 
 
         //specs
-        public virtual IDbSet<CleaningSpec> CleaningSpecs { get; set; }
-        public virtual IDbSet<SpecItem> SpecItems { get; set; }
-        public virtual IDbSet<SpecTitle> SpecTitles { get; set; }
+        public virtual DbSet<CleaningSpec> CleaningSpecs { get; set; }
+        public virtual DbSet<SpecItem> SpecItems { get; set; }
+        public virtual DbSet<SpecTitle> SpecTitles { get; set; }
 
         //Quad person
 
-        public virtual IDbSet<QuadPhoneBook> QuadPhoneBook { get; set; } 
-        
-       
-       
-
-        public virtual IDbSet<T> DbSet<T>() where T:class
-        {
-            return Set<T>();
-        }
-
-        public int Save()
-        {
-            return SaveChanges();
-        }
-
-        public Task<int> SaveAsync()
-        {
-            return SaveChangesAsync();
-        }
-
-        public DbEntityEntry DbEntry<T>(T entity) where T:class
-        {
-            return Entry(entity);
-        }
-
-        public void DbDispose()
-        {
-            Dispose();
-        }
+        public virtual DbSet<QuadPhoneBook> QuadPhoneBook { get; set; } 
 
         public bool ValidConnection()
         {

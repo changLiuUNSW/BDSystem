@@ -70,5 +70,6 @@ namespace DataAccess.EntityFramework.Models.BD.Site
 
         public bool InHouse { get; set; }
         public bool TsToCall { get; set; }
+
     }
 }

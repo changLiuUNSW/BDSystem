@@ -31,7 +31,7 @@ namespace DateAccess.Services.QuoteService.Calculator.Estimator
                 supply.Equipment.Cost,
                 supply.Equipment.Machine.YearsAllocated,
                 (decimal) supply.Equipment.Machine.RepairFactor,
-                supply.Equipment.Machine.Fuels);
+                supply.Equipment.Machine.Fuels) * supply.UnitsFromQuad;
 
             return supply.Total.GetValueOrDefault();
         }
@@ -56,7 +56,7 @@ namespace DateAccess.Services.QuoteService.Calculator.Estimator
         /// <returns></returns> 
         public decimal SupplyPrice(ToiletrySupply supply)
         {
-            supply.Total = SupplyFormula.PricePw(supply.ToiletRequisite.Price, supply.UnitsPw.GetValueOrDefault());
+            supply.Total = SupplyFormula.PricePw(supply.ToiletRequisite.Cost, supply.UnitsPw.GetValueOrDefault());
             return supply.Total.GetValueOrDefault();
         }
 

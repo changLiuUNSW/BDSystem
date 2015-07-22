@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using DataAccess.Common.SearchModels;
-using DataAccess.EntityFramework;
 using DateAccess.Services.SiteService;
 using DateAccess.Services.ViewModels;
+using Newtonsoft.Json.Linq;
 
 namespace ResourceMetadata.API.Controllers
 {
@@ -20,17 +16,14 @@ namespace ResourceMetadata.API.Controllers
     public class SiteController : ApiController
     {
         private readonly ISiteService _siteService;
-        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// default constructor
         /// </summary>
         /// <param name="siteService"></param>
-        /// <param name="unitOfWork"></param>
-        public SiteController(ISiteService siteService, IUnitOfWork unitOfWork)
+        public SiteController(ISiteService siteService)
         {
             _siteService = siteService;
-            _unitOfWork = unitOfWork;
         }
 
         
@@ -45,8 +38,7 @@ namespace ResourceMetadata.API.Controllers
             if (site == null) return NotFound();
             var siteDto = Mapper.Map<SiteDTO>(site);
 
-            return Ok(
-                new
+            return Ok(new
                 {
                     data = siteDto
                 }
@@ -62,20 +54,6 @@ namespace ResourceMetadata.API.Controllers
                 return BadRequest("The group has already included this site");
             _siteService.UpdateGroup(siteGroupModel);
             return Ok();
-        }
-
-        /// <summary>
-        /// query gorup manager
-        /// </summary>
-        /// <returns></returns>
-        [Route("group/manager")]
-        [HttpPost]
-        public IHttpActionResult QueryGroupManager(IList<SearchField> fields)
-        {
-            return Ok(new
-            {
-                data = _unitOfWork.SiteRepository.SearchGroupManager(fields)
-            });
         }
 
         /// <summary>
@@ -95,6 +73,14 @@ namespace ResourceMetadata.API.Controllers
                     data = siteDto
                 }
                 );
+        }
+
+        [Route("Admin")]
+        [HttpPost]
+        public IHttpActionResult UpdateFromAdmin(JObject json)
+        {
+            _siteService.UpdateSiteFromJson(json);
+            return Ok();
         }
     }
 }

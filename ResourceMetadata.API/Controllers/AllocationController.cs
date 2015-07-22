@@ -78,7 +78,7 @@ namespace ResourceMetadata.API.Controllers
         {
             return Ok(new
             {
-                data = _allocationService.Get(true)
+                data = _allocationService.Get()
             });
         }
 

@@ -1,0 +1,22 @@
+﻿<div class="panel-default bg-white-only b-dark b-r box-shadow">
+    <div class="panel-body">
+        <tabset class="tab-container">
+            <tab class="text-md font-thin" heading="Periodicals" data-ng-click="vm.optionalTab='period'">
+                <div data-ng-if="vm.optionalTab==='period'"
+                     data-ng-include="'tpl/Quote/Estimation/OptionalTabs/estimation.optional.periodicals.html'">
+                </div>
+            </tab>
+            <tab class="text-md font-thin" heading="Supplies" data-ng-click="vm.optionalTab='supply'">
+                <div data-ng-if="vm.optionalTab==='supply'"
+                     data-ng-include="'tpl/Quote/Estimation/OptionalTabs/estimation.optional.supplies.html'">
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="wrapper-sm form-group pull-down clearfix">
+        <div class="col-sm-12">
+            <a data-ng-click="vm.processSelected(vm.nextStep)" class="pull-right btn btn-sm  btn-info m-t-n-xs">Next >></a>
+            <a class="pull-right btn btn-sm  btn-primary m-t-n-xs m-r">Save for later</a>
+        </div>
+    </div>
+</div>

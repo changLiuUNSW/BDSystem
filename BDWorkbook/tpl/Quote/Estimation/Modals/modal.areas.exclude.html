@@ -1,0 +1,22 @@
+﻿<div class="panel-heading bg-info wrapper-sm">
+    <span class="h3">Areas to exculde</span>
+</div>
+<div class="wrapper">
+    <tabset class="tab-container">
+        <tab class="text-md font-thin" disabled="vm.editAreaExcl" active="vm.addAreaExcl" select="vm.areaExclTab='new'">
+            <tab-heading>
+                <i class="icon icon-list"></i> Fill Rows
+            </tab-heading>
+            <div data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.areasToExcl.fillRow.html'">
+            </div>
+        </tab>
+        <tab class="text-md font-thin" disabled="vm.addAreaExcl" active="vm.editAreaExcl" select="vm.areaExclTab='editor'">
+            <tab-heading>
+                <i class="icon icon-note"></i> Editor
+            </tab-heading>
+            <div data-ng-if="vm.areaExclTab==='editor'"
+                 data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.areasToExcl.editor.html'">
+            </div>
+        </tab>
+    </tabset>
+</div>

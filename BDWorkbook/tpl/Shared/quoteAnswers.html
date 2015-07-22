@@ -1,12 +1,15 @@
-﻿<div data-ng-repeat="result in quoteQa|filterBy: ['Question.Type']: qaType">
-    <div>
-        <strong class="block">{{result.Question.Name}}</strong>
-        <small class="text-muted text-xs block m-t-xs">{{result.Time|date:'dd/MM/yyyy'}}</small>
-    </div>
-    <div class="m-t-xs">
-        <span>{{result.Answer.Name}}</span>
-        <p ng-if="result.Answer.Type===vm.answerType.Date">{{result.Additional|date:'dd/MM/yyyy'}}</p>
-        <p ng-if="result.Answer.Type===vm.answerType.Text" style="white-space: pre;">Detail: {{result.Additional}}</p>
-        <p data-ng-if="result.Question.TextOnly===true" style="white-space: pre;">{{result.Additional}}</p>
-    </div>
-</div>
+﻿<pageable page-size-changed="vm.setListPageSize" current-page-changed="vm.listPageChanges" total-items="vm.paging.totalItems" page-size="vm.paging.pageSize"></pageable>
+<ul class="list-group list-group-sm no-radius m-b-none pull-in m-t-n-xxs">
+    <li ng-repeat="item in vm.resultList|startFrom:(vm.paging.currentPage-1) *vm.paging.pageSize|limitTo:vm.paging.pageSize" class="list-group-item">
+        <small class="text-muted text-xs block">{{item.Time|date:"dd/MM/yyyy 'at' h:mm:ss a"}}</small>
+        <div data-ng-repeat="result in item.Results">
+            <strong class="block">{{result.Question.Name}}</strong>
+            <div class="m-t-xs">
+                <span>{{result.Answer.Name}}</span>
+                <p ng-if="result.Answer.Type===vm.answerType.Date">{{result.Additional|date:'dd/MM/yyyy'}}</p>
+                <p ng-if="result.Answer.Type===vm.answerType.Text" style="white-space: pre;">Detail: {{result.Additional}}</p>
+                <p data-ng-if="result.Question.TextOnly===true" style="white-space: pre;">{{result.Additional}}</p>
+            </div>
+        </div>
+    </li>
+</ul>

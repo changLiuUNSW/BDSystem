@@ -2,9 +2,27 @@
     'use strict';
     angular.module('app.Admin.site.controllers')
         .controller('AdminSiteCtrl', adminSiteCtrl);
-    adminSiteCtrl.$inject = ['$scope', '$stateParams', 'siteService', 'saleBoxService', 'logger', '$filter'];
+    adminSiteCtrl.$inject = [
+        '$scope',
+        '$stateParams',
+        'siteService',
+        'saleBoxService',
+        'logger',
+        '$filter',
+        'utility',
+        'leadService',
+        '$modal'];
 
-    function adminSiteCtrl($scope, $stateParams, siteService, saleBoxService, logger, $filter) {
+    function adminSiteCtrl(
+        $scope,
+        $stateParams,
+        siteService,
+        saleBoxService,
+        logger,
+        $filter,
+        utility,
+        leadService,
+        $modal) {
         $scope.siteId = $stateParams.id;
         $scope.loading = true;
         $scope.bizTypes = ['Cleaning', 'Security', 'Maintenance'];
@@ -22,28 +40,17 @@
                 iconCss: 'fa fa-fw  fa-bar-chart-o'
             }
         ];
+
         //default 'cleaning'
         $scope.bizTypes.selected = $stateParams.bizType ? $stateParams.bizType.toLowerCase() : 'cleaning';
         //default 'Call'
         $scope.groups.selected = $stateParams.group ? $stateParams.group.toLowerCase() : 'call';
         $scope.model = {
             'site': undefined,
-            'cleaningDetail': {
-                calls: undefined,
-                contract: undefined,
-                quote: undefined
-            },
-            'securityDetail': {
-                calls: undefined,
-                contract: undefined,
-                quote: undefined
-            },
-            'maintenanceDetail': {
-                calls: undefined,
-                contract: undefined,
-                quote: undefined
-            }
-        }
+            'contacts': undefined,
+            'cleaningContract': undefined,
+            'securityContract': undefined
+    }
 
         $scope.getSite = getSite;
         $scope.initSiteDetail = initSiteDetail;
@@ -51,11 +58,15 @@
         $scope.setGroup = setGroup;
         $scope.init = init;
         $scope.updateSite = updateSite;
+        $scope.newLead = newLead;
+        $scope.isBd = isBd;
+        $scope.siteBeforeChange = undefined;
         $scope.init();
 
         function getSite(id) {
             $scope.loading = true;
             siteService.getSite({ id: id }).then(function (result) {
+                saveSiteBeforeChange(result.data);
                 $scope.model.site = result.data;
                 $scope.initSiteDetail();
                 $scope.loading = false;
@@ -64,47 +75,92 @@
             });
         };
 
+        function saveSiteBeforeChange(site) {
+            if (!site)
+                return;
+
+            $scope.siteBeforeChange = angular.copy(site);
+        }
+
        function initSiteDetail() {
            var site = $scope.model.site;
-           console.log(site);
             //Building
             $scope.model.building = $filter('filter')(site.Groups, { Type: 'building' })[0];
             //Group
             $scope.model.group = $filter('filter')(site.Groups, { Type: 'group' })[0];
+            $scope.$watch(function () {
+                return $scope.bizTypes.selected;
+            }, function (newValue) {
+                if (!newValue)
+                    return;
 
-            //Cleaning Detail
-            $scope.model.cleaningDetail.contract = site.CleaningContract;
-            $scope.model.cleaningDetail.calls = $filter('filter')(site.Contacts, { BusinessType: { Type: "cleaning" } });
-            $scope.model.cleaningDetail.quote = null;
-            
-            //Security Detail
-            $scope.model.securityDetail.contract = site.SecurityContract;
-            $scope.model.securityDetail.calls = $filter('filter')(site.Contacts, { BusinessType: { Type: "security" } });
-            $scope.model.securityDetail.quote = null;
-            //Maintenance Detail
-            $scope.model.maintenanceDetail.contract = null;
-            $scope.model.maintenanceDetail.calls = $filter('filter')(site.Contacts, { BusinessType: { Type: "maintenance" } });
-            $scope.model.maintenanceDetail.quote = null;
-        };
-        //TODO: Not implement for security and maintenance
-       function setBizType(type) {
-            if (type.toLowerCase() === 'security' || type.toLowerCase() === 'maintenance') {
-                logger.error('Not Implement', 'Error');
-                return;
-            }
+                getSiteDetail(newValue);
+            });
+       };
+
+        function setBizType(type) {
             $scope.bizTypes.selected = type.toLowerCase();
         };
-       function setGroup(group) {
+
+        function setGroup(group) {
             $scope.groups.selected = group.toLowerCase();
         };
+
+        function getSiteDetail(type) {
+            var site = $scope.model.site;
+            $scope.model.contacts = $filter('filter')(site.Contacts, { BusinessType: { Type: type.toLowerCase() } });
+        }
 
         function init () {
             $scope.getSite($scope.siteId);
         };
 
+        function updateSite(form) {
+            if (form.$invalid)
+                return;
 
-        function updateSite () {
-            console.log($scope.model.site);
+            var diffs = utility.diff($scope.siteBeforeChange, $scope.model.site, ['Id', 'SiteId']);
+            if (Object.getOwnPropertyNames(diffs).length <= 0) {
+                logger.error("No changes detected");
+                return;
+            }
+
+            siteService.updateSiteFromAdmin(diffs).then(function (response) {
+                logger.success("Information saved");
+                $scope.siteBeforeChange = angular.copy($scope.model.site);
+            }, function(error) {
+                logger.serverError(error);
+            });
+        }
+
+        function isBd() {
+            return utility.isInRole("BD");
+        }
+
+        function newLead(contactId) {
+            var param = { ContactId: contactId };
+
+            if (utility.isInRole("BD")) {
+                var modalOption = {
+                    templateUrl: 'tpl/admin/modal/modal.leadPersonList.html',
+                    controller: 'adminLeadPersonListController',
+                }
+
+                $modal.open(modalOption).result.then(function (id) {
+                    param.LeadPersonId = id;
+                    saveLead(param);
+                });
+            } else {
+                saveLead(param);
+            };
+        };
+
+        function saveLead(param) {
+            leadService.newLead(param).then(function () {
+                logger.success("Lead created");
+            }, function (errorResponse) {
+                logger.serverError(errorResponse);
+            });
         }
     }
 })();

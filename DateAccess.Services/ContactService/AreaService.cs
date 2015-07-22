@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Common.Paging;
 using DataAccess.EntityFramework;
-using DataAccess.EntityFramework.Extensions.Utilities;
 using DataAccess.EntityFramework.Models.BD.Allocation;
-using DataAccess.EntityFramework.TypeLibrary;
 using DateAccess.Services.ViewModels;
 
 namespace DateAccess.Services.ContactService
@@ -28,22 +25,20 @@ namespace DateAccess.Services.ContactService
 
         public IList<string> States
         {
-            get { return Distinct(x => x.State).Where(x=>!string.IsNullOrEmpty(x)).ToList(); }
+            get { return Repository.Distinct(x => x.State).Where(x=>!string.IsNullOrEmpty(x)).ToList(); }
         }
 
         public IList<string> Zones
         {
-            get { return Distinct(x => x.Zone); }
+            get { return Repository.Distinct(x => x.Zone); }
         }
 
         public IList<ZoneAllocation> ZoneAllocations
         {
             get
             {
-                UnitOfWork.EnableProxyCreation(false);
                 var zones = UnitOfWork.SalesBoxRepository.Distinct(x => x.Zone);
                 var allocations = UnitOfWork.AllocationRepository.Get();
-                UnitOfWork.EnableProxyCreation(true);
                 return zones.Select(x => new ZoneAllocation
                 {
                     Zone = x,

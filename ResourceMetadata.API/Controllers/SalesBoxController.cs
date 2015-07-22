@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Http;
+﻿using System.Web.Http;
 using DataAccess.EntityFramework.Models.BD.Allocation;
-using DataAccess.EntityFramework.TypeLibrary;
 using DateAccess.Services.ContactService;
+using ResourceMetadata.API.Json;
 
 namespace ResourceMetadata.API.Controllers
 {
@@ -57,12 +55,15 @@ namespace ResourceMetadata.API.Controllers
         [Route("zoneAllocation")]
         public IHttpActionResult GetZoneAllocation()
         {
+            var convertor = new CustomJsonConverter(new AllocationJsonResolver(),
+                Configuration.Formatters.JsonFormatter.SerializerSettings);
+
             return Ok(new
             {
                 data = new
                 {
                     sizes = new [] {"008", "025", "050", "120"},
-                    zones = _areaService.ZoneAllocations
+                    zones = convertor.ResolveArray(_areaService.ZoneAllocations)
                 }
             });
         }

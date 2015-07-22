@@ -1,0 +1,32 @@
+﻿<div class="panel-default bg-white-only b-dark b-r box-shadow">
+    <div class="panel-body">
+        <tabset class="tab-container">
+            <tab class="text-md font-thin" heading="Estimation Info." data-ng-click="vm.quadTab='est'">
+                <div data-ng-if="vm.quadTab==='est'"
+                     data-ng-include="'tpl/Quote/Estimation/LabourTabs/estimation.quadLabour.estimation.html'">
+                </div>
+            </tab>
+            <tab class="text-md font-thin" heading="Periodicals performed" data-ng-click="vm.quadTab='periodicals'">
+                <div data-ng-if="vm.quadTab==='periodicals'"
+                     data-ng-include="'tpl/Quote/Estimation/LabourTabs/estimation.quadLabour.periodicals.html'">
+                </div>
+            </tab>
+            <tab class="text-md font-thin" heading="Quad labour - Cost Sumamry" data-ng-click="vm.quadTab='summary'">
+                <div data-ng-if="vm.quadTab==='summary'"
+                     data-ng-include="'tpl/Quote/Estimation/LabourTabs/estimation.quadLabour.summary.html'">
+                </div>
+            </tab>
+            <tab class="text-md font-thin" heading="Fixed Price" data-ng-click="vm.quadTab='fixed'">
+                <div data-ng-if="vm.quadTab==='fixed'"
+                     data-ng-include="'tpl/Quote/Estimation/LabourTabs/estimation.quadLabour.fixedPrice.html'">
+                </div>
+            </tab>
+        </tabset>
+        <div class="wrapper-sm form-group pull-down clearfix">
+            <div class="col-sm-12">
+                <a data-ng-click="vm.processSelected(vm.nextStep)" class="pull-right btn btn-sm  btn-info m-t-n-xs">Next >></a>
+                <a class="pull-right btn btn-sm  btn-primary m-t-n-xs m-r">Save for later</a>
+            </div>
+        </div>
+    </div>
+</div>

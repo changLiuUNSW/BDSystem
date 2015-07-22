@@ -1,0 +1,22 @@
+﻿<div class="panel-heading bg-info wrapper-sm">
+    <span class="h3">Quad Labour - Periodicals performed by Quad Labour, included in weekly price</span>
+</div>
+<div class="wrapper">
+    <tabset class="tab-container">
+        <tab class="text-md font-thin" disabled="vm.editPeriodsicals" active="vm.addPeriodicals" select="vm.periodicalsTab='new'">
+            <tab-heading>
+                <i class="icon icon-list"></i> Fill Rows
+            </tab-heading>
+            <div quote-costingfillrows="vm">
+            </div>
+        </tab>
+        <tab class="text-md font-thin" disabled="vm.addPeriodicals" active="vm.editPeriodsicals" select="vm.periodicalsTab='editor'">
+            <tab-heading>
+                <i class="icon icon-note"></i> Editor
+            </tab-heading>
+            <div data-ng-if="vm.periodicalsTab==='editor'"
+                 data-ng-include="'tpl/Quote/Estimation/LabourTabs/estimation.labour.periodicals.editor.html'">
+            </div>
+        </tab>
+    </tabset>
+</div>

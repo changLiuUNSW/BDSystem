@@ -4,6 +4,7 @@ namespace DateAccess.Services.ViewModels
 {
     public class CleaningContractDTO
     {
+        public int SiteId { get; set; }
         public string Contractor { get; set; }
         public string ContactDuringQuote { get; set; }
         public decimal PricePa { get; set; }

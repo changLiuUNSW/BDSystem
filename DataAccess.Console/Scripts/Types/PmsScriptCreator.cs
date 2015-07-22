@@ -38,7 +38,10 @@ namespace DataAccess.Console.Scripts.Types
                 {
                     Value = new Script("Would you give me the name and phone number of the new property manager?")
                     {
-                        Actions = new Collection<ScriptAction> {new UpdatePropertyManager()}
+                        Actions = new Collection<ScriptAction>
+                        {
+                            new NewPropertyManager()
+                        }
                     },
                     Left = new BinaryTreeNode<Script>
                     {
@@ -54,7 +57,7 @@ namespace DataAccess.Console.Scripts.Types
                                 {
                                     Actions = new Collection<ScriptAction>()
                                     {
-                                        new UpdatePropertyManager()
+                                        new NewPropertyManager()
                                     }
                                 },
                             Right = End(true),
@@ -71,7 +74,7 @@ namespace DataAccess.Console.Scripts.Types
                     new Script(
                         string.Format(
                             "Good morning, this is {0} from Quad Services. I would like to confirm that {1} " +
-                            "is the company that manages this property", Replaceable.String[ReplaceType.TelesaleName],
+                            "is the company that manages this property", Replaceable.String[ReplaceType.CallerName],
                             Replaceable.String[ReplaceType.PropertyManageCompany])),
                 Left = left,
                 Right = new BinaryTreeNode<Script>
@@ -90,14 +93,17 @@ namespace DataAccess.Console.Scripts.Types
             {
                 Value = new Script(string.Format("Good morning, this is {0} from Quad Services. " +
                                                  "Could you please tell me if your company engages the cleaners or whether the cleaning is part of your rental.",
-                    Replaceable.String[ReplaceType.TelesaleName])),
+                    Replaceable.String[ReplaceType.CallerName])),
                 Right = new BinaryTreeNode<Script>
                 {
                     Value = new Script
                     {
                         Question =
                             "Could you please tell me the name of the person who is responsible for organising the cleaning of your premises?",
-                        Actions = new Collection<ScriptAction> {new UpdateTenant()},
+                        Actions = new Collection<ScriptAction>
+                        {
+                            new UpdateTenant()
+                        },
                         Text = "Internal"
                     },
                     Right = new BinaryTreeNode<Script>
@@ -112,7 +118,7 @@ namespace DataAccess.Console.Scripts.Types
                                     string.Format(
                                         "Hello, My name is {0} from Quad Services a locally based commercial cleaning company, I am calling to see if I can arrange for" +
                                         " our manager to provide you with a quotation for your cleaning services.",
-                                        Replaceable.String[ReplaceType.TelesaleName])),
+                                        Replaceable.String[ReplaceType.CallerName])),
                             Left = End(true),
                             Right = new BinaryTreeNode<Script>
                             {
@@ -120,10 +126,16 @@ namespace DataAccess.Console.Scripts.Types
                                 {
                                     Actions = new Collection<ScriptAction>
                                     {
-                                        new CreateLead("New cleaning lead", ScriptActionType.CreateCleaningLead)
+                                        new NewLead("New cleaning lead", ScriptActionType.CreateCleaningLead)
                                     },
                                 },
-                                Right = End(true),
+                                Right = new BinaryTreeNode<Script>
+                                {
+                                    Value = new Script(string.Format("{0} will be contacting you shortly to arrange to call in and see you.", Replaceable.String[ReplaceType.QpName]))
+                                    {
+                                        End = true,
+                                    }
+                                },
                                 Left = End(true)
                             }
                         },
@@ -138,7 +150,7 @@ namespace DataAccess.Console.Scripts.Types
                         new Script(
                             "Could you please tell me the name of the property manager who organises the cleaning of your premises? (also company / phone")
                         {
-                            Actions = new Collection<ScriptAction> {new UpdatePropertyManager()},
+                            Actions = new Collection<ScriptAction> {new NewPropertyManager()},
                             Text = "External"
                         },
                     Right = End(true),
@@ -152,7 +164,7 @@ namespace DataAccess.Console.Scripts.Types
                                 new Script(
                                     "Could you please tell me the name of the property manager who organises the cleaning of your premises? (also company / phone")
                                 {
-                                    Actions = new Collection<ScriptAction> {new UpdatePropertyManager()}
+                                    Actions = new Collection<ScriptAction> {new NewPropertyManager()}
                                 },
                             Left = End(false),
                             Right = new BinaryTreeNode<Script>
@@ -161,7 +173,7 @@ namespace DataAccess.Console.Scripts.Types
                                 {
                                     Actions = new Collection<ScriptAction>
                                     {
-                                        new UpdatePropertyManager()
+                                        new NewPropertyManager()
                                     }
                                 },
                                 Left = End(true),

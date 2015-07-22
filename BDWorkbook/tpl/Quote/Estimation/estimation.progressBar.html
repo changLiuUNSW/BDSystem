@@ -1,0 +1,8 @@
+﻿<div class="wrapper-sm b-b">
+    <ul class="nav nav-pills nav-sm">
+        <li data-ng-class="{'active':item.active}" data-ng-repeat="item in vm.processBtns">
+            <a data-ng-click="vm.processSelected(item)" data-ng-bind="item.text">
+            </a>
+        </li>
+    </ul>
+</div>

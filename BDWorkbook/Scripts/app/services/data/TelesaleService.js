@@ -3,10 +3,10 @@
 
     angular.module('app.resource.helper').factory('telesaleService', factory)
         .value('callParams', {
-            type: null,
-            initial: null,
-            siteId: null,
-            lastCallId: null
+            //Type: null,
+            Initial: null,
+            SiteId: null,
+            LastCallId: null
         });
 
     factory.$inject = ['apiService', '$q', 'ngTableParams', 'userInfo', '$filter'];
@@ -14,7 +14,7 @@
         return {
             makeCall: makeCall,
             initNgParams: initNgParams,
-            isInRole : isInRole
+            initNgParamsAsync: initNgParamsAsync,
         }
 
         function initNgParams(data) {
@@ -24,7 +24,49 @@
             }, {
                 total: data.length, // length of data
                 getData: function ($defer, params) {
-                    $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            });
+
+            return tableParams;
+        }
+
+        //initialize a async table params for ng-table
+        //defalut to 5 rows per page
+        function initNgParamsAsync(asyncFunc) {
+            if (!asyncFunc)
+                return null;
+
+            var tableParams = new ngTableParams({
+                page: 1,
+                count: 5
+            }, {
+                total: 0,
+                getData: function ($defer, params) {
+                    var filter = params.filter();
+                    var searchFields = [];
+                    Object.getOwnPropertyNames(filter).forEach(function (name) {
+                        searchFields.push({
+                            field: name,
+                            term: filter[name],
+                            type: 'text'
+                        });
+                    });
+
+                    if (searchFields.length <= 0)
+                        return;
+
+                    var searchParam = {
+                        PageSize: 5,
+                        SearchFields: searchFields,
+                        LogicOperator: false,
+                    };
+
+                    asyncFunc(searchParam).$promise.then(function (success) {
+                        //params.total(success.data.length);
+                        $defer.resolve(success.data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    });
                 }
             });
 
@@ -47,16 +89,6 @@
                 defer.reject(error);
             });
             return defer;
-        }
-
-        function isInRole(role) {
-            var groups = userInfo.group.split(',');
-
-            var found = $filter('find')(groups, function(obj) {
-                return obj.toLowerCase() == role.toLowerCase();
-            });
-
-            return found != undefined;
         }
     }
 })()

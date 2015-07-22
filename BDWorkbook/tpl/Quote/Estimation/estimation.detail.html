@@ -1,0 +1,294 @@
+﻿
+<div class="loading" ng-show="vm.loading">
+    <div class="double-bounce1"></div><div class="double-bounce2"></div>
+</div>
+<div class="panel panel-default" data-ng-if="!vm.loading">
+    <div class="panel-body">
+        <form role="form">
+            <div class="form-group pull-in clearfix">
+                <div class="col-lg-3 col-md-4 col-xs-6">
+                    <label>No. weeks regular cleaning</label>
+                    <input type="number" class="form-control" min="0" placeholder="" data-ng-model="vm.cost.RegCleanWeeks">
+                </div>
+                <div class="col-lg-3 col-md-4 col-xs-6" data-ng-if="vm.cost.IsAdminClean">
+                    <label>No. weeks admin cleaning</label>
+                    <input type="number" class="form-control" min="0" placeholder="" data-ng-model="vm.cost.AdminCleanWeeks">
+                </div>
+                <div class="col-lg-3 col-md-4 col-xs-6">
+                    <label>Subcontractor price/week</label>
+                    <input type="number" class="form-control" placeholder="" min="0" data-ng-model="vm.cost.RegSubcontractorCostPw" />
+                </div>
+                <div class="col-lg-3 col-md-4 col-xs-6" data-ng-if="vm.cost.IsAdminClean">
+                    <label>Subcontractor price/week<span class="label bg-primary m-l-sm">Admin</span></label>
+                    <input type="number" class="form-control" placeholder="" min="0"  data-ng-model="vm.cost.AdminSubcontractorCostPw" />
+                </div>
+            </div>
+            <div class="form-group pull-in clearfix">
+                <div class="col-md-12" ng-class="{'col-md-4':vm.selectedOM}">
+                    <label>Quad Area OM<em class="text-muted">(initials)</em></label>
+                    <ui-select ng-model="vm.selectedOM" on-select="vm.chooseOM($model)" required>
+                        <ui-select-match placeholder="Enter code...">
+                            {{$select.selected.om}}
+                            <span class="m-l-md text-muted">Area:{{$select.selected.area}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="eachOm in vm.quadAreaOM">
+                            <div class="font-bold text-info" ng-bind-html="eachOm.text | highlight: $select.search"></div>
+                            <div class="text-xs">
+                                <span class="font-bold">initial:</span>
+                                <span class="font-thin">{{eachOm.om}}</span>
+                                <span class="font-bold m-l-sm">area:</span>
+                                <span class="font-thin" ng-bind-html="''+eachOm.area | highlight: $select.search"></span>
+                            </div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-6" data-ng-if="vm.selectedOM.om">
+                    <label>Quad Area GM </label>
+                    <p class="form-control-static text-muted">{{vm.cost.GmCode}}<span class="m-l-md">{{vm.cost.GmText}}</span></p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-6" data-ng-if="vm.selectedOM.om">
+                    <label>Quad Area GGM </label>
+                    <p class="form-control-static  text-muted">{{vm.cost.GGmCode}}<span class="m-l-md">{{vm.cost.GGmText}}</span></p>
+                </div>
+            </div>
+            <div class="form-group pull-in clearfix">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                    <label>Source of Quotation</label>
+                    <div class="form-group">
+                        <ui-select ng-model="vm.cost.QuoteSource" on-select="vm.selectQs($item)">
+                            <ui-select-match placeholder="Enter code..." allow-clear>{{$select.selected.Description}}</ui-select-match>
+                            <ui-select-choices repeat="item in vm.quoteSourceList track by $index" refresh="vm.searchQuoteSource($select.search)" refresh-delay="0">
+                                <div ng-bind-html="item.Description | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                    <label>Spec</label>
+                    <select class="form-control" data-ng-options="spec for spec in vm.specList"
+                            data-ng-model="vm.cost.Spec" required>
+                        <option value="">Please choose...</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                    <label>Industry type</label>
+                    <div class="form-group">
+                        <ui-select ng-model="vm.cost.IndustryType" on-select="vm.selectIndustryType($item)">
+                            <ui-select-match placeholder="Enter code..." allow-clear>{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="item in vm.industryList track by $index" refresh="vm.searchIndustryType($select.search)" refresh-delay="0">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                    <div class="checkbox m-t-lg">
+                        <label class="i-checks">
+                            <input type="checkbox" data-ng-model="vm.cost.ColorCode">
+                            <i></i>
+                            Color Code ( Optional )
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group pull-in clearfix">
+                <div class="col-md-6">
+                    <label>Cleaning Freq less then one week?</label>
+                    <select class="form-control" data-ng-model="vm.freqLessThanOneWeek" data-ng-options="c.v as c.n for c in [{ n: 'Yes', v: true }, { n: 'No', v: false }] " required>
+                        <option value="">Please choose</option>
+                    </select>
+                    <div class="row m-t" data-ng-if="vm.freqLessThanOneWeek===false">
+                        <div class="col-sm-6">Days cleaned per week</div>
+                        <div class="col-sm-6 text-muted">{{vm.cost.DaysCleanPerWeek}} Days</div>
+                        <div class="col-sm-3 col-xs-4 m-t-sm">
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox"
+                                       ng-change="vm.selectDays()" data-ng-model="vm.cost.DayOfClean.Monday"><i></i>Mon
+                            </label>
+                        </div>
+                        <div class="col-sm-3 col-xs-4 m-t-sm">
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox"
+                                       ng-change="vm.selectDays()" data-ng-model="vm.cost.DayOfClean.Tuesday"><i></i>Tues
+                            </label>
+                        </div>
+                        <div class="col-sm-3 col-xs-4 m-t-sm">
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox"
+                                       data-ng-change="vm.selectDays()"
+                                       data-ng-model="vm.cost.DayOfClean.Wednesday"><i></i>Wed
+                            </label>
+                        </div>
+                        <div class="col-sm-3 col-xs-4 m-t-sm">
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox"
+                                       data-ng-change="vm.selectDays()"
+                                       data-ng-model="vm.cost.DayOfClean.Thursday"><i></i>Thurs
+                            </label>
+                        </div>
+                        <div class="col-sm-3 col-xs-4 m-t-sm">
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox"
+                                       data-ng-change="vm.selectDays()"
+                                       data-ng-model="vm.cost.DayOfClean.Friday"><i></i>Fri
+                            </label>
+                        </div>
+                        <div class="col-sm-3 col-xs-4 m-t-sm">
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox"
+                                       data-ng-change="vm.selectDays()"
+                                       data-ng-model="vm.cost.DayOfClean.Saturday"><i></i>Sat
+                            </label>
+                        </div>
+                        <div class="col-sm-3 col-xs-4 m-t-sm">
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox"
+                                       data-ng-change="vm.selectDays()"
+                                       data-ng-model="vm.cost.DayOfClean.Sunday"><i></i>Sun
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row m-t" data-ng-if="vm.freqLessThanOneWeek">
+                        <label class="col-sm-2 m-t-sm">Freq: </label>
+                        <div class="col-sm-5 ">
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="freqLessOneWeek" data-ng-model="vm.cost.Fortnightly" ng-value="true" data-ng-change="vm.checkedFreq('fortnightly')">
+                                    <i></i>
+                                    Fortnightly
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 ">
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="freqLessOneWeek" data-ng-model="vm.cost.Monthly" ng-value="true" data-ng-change="vm.checkedFreq('monthly')">
+                                    <i></i>
+                                    Monthly
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Public Liability</label>
+                        <select class="form-control" required data-ng-model="vm.cost.PublicLiability" data-ng-change="vm.selectLiability(vm.cost.PublicLiability)" data-ng-options="liability as liability.Description for liability in vm.liabilityList">
+                            <option value="">Please choose</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Clean on public holiday?</label>
+                        <select class="form-control" data-ng-options="c.v as c.n for c in [{ n: 'Yes', v: true }, { n: 'No', v: false }] " data-ng-model="vm.cost.CleanOnHoliday" required>
+                            <option value="">Please choose</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" data-ng-if="vm.cost.CleanOnHoliday">
+                        <label>No. Public holiday</label>
+                        <input type="number" min="0" class="form-control" placeholder="" data-ng-model="vm.cost.NoOfHoliday" required />
+                    </div>
+                  
+                    <div class="form-group">
+                        <label>Standard Regions</label>
+                        <select class="form-control" data-ng-model="vm.cost.StandardRegion" data-ng-change="vm.selectRegion(vm.cost.StandardRegion)" data-ng-options="region as region.Name for region in vm.regionList" required>
+                            <option value="">Please choose</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 b-r">
+                    <h4 class="modal-title">Company Info.</h4>
+                    <div class="line line-lg b-b b-light"></div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-control" data-ng-model="vm.cost.Company" required />
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label>Unit</label>
+                            <input type="text" class="form-control" data-ng-model="vm.cost.Address.Unit" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label>Number</label>
+                            <input type="text" class="form-control" data-ng-model="vm.cost.Address.Number" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Street Name</label>
+                        <input type="text" class="form-control" data-ng-model="vm.cost.Address.Street" />
+                    </div>
+                    <div class="form-group">
+                        <label>Suburb</label>
+                        <input type="text" class="form-control" data-ng-model="vm.cost.Address.Suburb" />
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label>Post Code</label>
+                            <input type="hidden" class="form-control"
+                                   ng-model="vm.cost.Postcode" required>
+                            <p class="form-control-static">{{vm.cost.Postcode||'N/A'}}</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label>State</label>
+                            <input type="hidden" data-ng-model="vm.cost.State" required />
+                            <p class="form-control-static">{{vm.cost.State||'N/A'}}</p>
+                        </div>
+                    </div>
+                    <h4 class="modal-title  m-t-md">Price Check</h4>
+                    <div class="line line-lg b-b b-light"></div>
+                    <div class="form-group">
+                        <label>Have you checked the price with the client?</label>
+                        <select class="form-control" data-ng-options="c.v as c.n for c in [{ n: 'Yes', v: true }, { n: 'No', v: false }] " data-ng-model="vm.cost.PriceForClient" required>
+                            <option value="">Please choose</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Did you change the price after the discussion above?</label>
+                        <select class="form-control" data-ng-options="c.v as c.n for c in [{ n: 'Yes', v: true }, { n: 'No', v: false }] " data-ng-model="vm.cost.IsPriceChanged" required>
+                            <option value="">Please choose</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6 col-sm-6">
+                    <h4 class="modal-title">Start up additional work at no cost</h4>
+                    <div class="line line-lg b-b b-light"></div>
+                    <div class="form-group">
+                        <label>Did you discuss with client?</label>
+                        <select class="form-control" data-ng-options="c.v as c.n for c in [{ n: 'Yes', v: true }, { n: 'No', v: false }] " data-ng-model="vm.cost.DiscussWithClient" required>
+                            <option value="">Please choose</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>When will the work be done?</label>
+                        <select class="form-control" data-ng-model="vm.cost.WorkDoneWithin" data-ng-options="w as w for w in vm.workWithInList" required>
+                            <option value="">Please choose</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description of Area/Surface</label>
+                        <em class="text-muted">(eg Canteen floor; carpets in administration area; foyer glass; detailing & dusting)</em>
+                        <textarea class="form-control" rows="3" data-ng-model="vm.cost.AreaDescription"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Description of work to be undertaken</label>
+                        <em class="text-muted"> (eg strip & seal the canteen floor; shampoo carpets; wash this glass; bring in a special team to upgrade this)</em>
+                        <textarea class="form-control" rows="3" data-ng-model="vm.cost.WorkDescription"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Paragraph will look as follows</label>
+                        <p class="form-control-static">{{vm.cost.paragraph||'N/A'}}</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="wrapper-sm form-group pull-down clearfix">
+        <div>
+            <a href class="pull-right btn btn-sm  btn-danger m-t-n-xs">Finalize</a>
+            <a class="pull-right btn btn-sm  btn-primary m-t-n-xs m-r" data-ng-click="vm.saveDraft()">Save for later</a>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using DateAccess.Services.ContactService.Call.Scripts.Visitors;
 using DateAccess.Services.ContactService.Call.Scripts.Visitors.TravelPattern;

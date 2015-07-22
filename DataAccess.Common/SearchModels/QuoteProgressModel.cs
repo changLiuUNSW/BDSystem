@@ -35,6 +35,7 @@ namespace DataAccess.Common.SearchModels
 
     public class QuoteCurrentModel : QuoteModelBase
     {
+        public int? SuccessRate { get; set; }
         public bool ContactCheckOverDue { get; set; }
         public bool DeadCheckOverDue { get; set; }
         public bool AjustCheckOverDue { get; set; }

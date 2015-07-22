@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using DataAccess.Common.SearchModels;
+using DataAccess.EntityFramework.Expressions;
+using DataAccess.EntityFramework.Extensions;
 
 namespace DataAccess.EntityFramework.Infrastructure
 {
@@ -15,9 +16,9 @@ namespace DataAccess.EntityFramework.Infrastructure
     /// <typeparam name="T"></typeparam>
     internal class Repository<T> : IRepository<T> where T : class
     {
-        private readonly IDbContext _dataContext;
+        private readonly DbContext _dataContext;
 
-        public Repository(IDbContext dbContext)
+        public Repository(DbContext dbContext)
         {
             if (dbContext == null)
                 throw new ArgumentNullException("dbContext");
@@ -25,25 +26,25 @@ namespace DataAccess.EntityFramework.Infrastructure
             _dataContext = dbContext;
         }
 
-        protected IDbContext DataContext
+        protected DbContext DataContext
         {
             get { return _dataContext; }
         }
 
-        protected IDbSet<T> DbSet
+        protected DbSet<T> DbSet
         {
             get
             {
                 if (DataContext == null)
                     throw new NullReferenceException("No database context found");
 
-                return DataContext.DbSet<T>();
+                return DataContext.Set<T>();
             }
         }
 
         public virtual void DeAttach(T entity)
         {
-            DataContext.DbEntry(entity).State = EntityState.Detached;       
+            DataContext.Entry(entity).State = EntityState.Detached;       
         }
 
         public virtual void Attach(T entity)
@@ -55,24 +56,17 @@ namespace DataAccess.EntityFramework.Infrastructure
         /// Insert a single entity
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
+        /// <param name="entities"></param>
         /// <returns></returns>
-        public virtual T Add(T entity)
+        public virtual void Add(params T[] entities)
         {
-            if (entity == null)
-                throw new ArgumentNullException("entity");
-
-            DbSet.Add(entity);
-
-            return entity;
-        }
-
-        public virtual IList<T> Add(IList<T> entities)
-        {
-            if (entities == null || !entities.Any())
+            if (entities == null)
                 throw new ArgumentNullException("entities");
 
-            return entities.Select(entity => DbSet.Add(entity)).ToList();
+            foreach (var entity in entities)
+            {
+                DbSet.Add(entity);
+            }
         }
 
         /// <summary>
@@ -89,28 +83,8 @@ namespace DataAccess.EntityFramework.Infrastructure
             foreach (var entity in entities)
             {
                 DbSet.Attach(entity);
-                DataContext.DbEntry(entity).State = EntityState.Modified;
+                DataContext.Entry(entity).State = EntityState.Modified;
             }
-        }
-
-        public virtual T SingleOrDefault(Expression<Func<T, bool>> predicate)
-        {
-            return DbSet.SingleOrDefault(predicate);
-        }
-
-        public bool Any(Expression<Func<T, bool>> predicate)
-        {
-            return DbSet.Any(predicate);
-        }
-
-        public Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
-        {
-            return DbSet.AnyAsync(predicate);
-        }
-
-        public virtual Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
-        {
-            return DbSet.SingleOrDefaultAsync(predicate);
         }
 
         /// <summary>
@@ -149,45 +123,77 @@ namespace DataAccess.EntityFramework.Infrastructure
                 DbSet.Remove(delObj);
         }
 
-
         /// <summary>
         /// Batch Remove entities
         /// </summary>
-        /// <returns></returns>
-        public virtual void RemoveRange(IList<T> entities)
+        /// <param name="entities"></param>
+        public virtual void RemoveRange(params T[] entities)
         {
-            foreach (var entity in entities)
-            {
-                DbSet.Remove(entity);
-            }
+            DbSet.RemoveRange(entities);
         }
-
 
         /// <summary>
-        /// Get total count by predicate
+        /// 
         /// </summary>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual int Count(Expression<Func<T, bool>> predicate)
+        public virtual int Count(params Expression<Func<T, bool>>[] predicates)
         {
-            return DbSet.Where(predicate).Count();
+            var query = DbSet.AsQueryable();
+
+            if (predicates.Length > 0)
+                query = query.AggregatePredicates(predicates);
+
+            return query.Count();
         }
 
-        public virtual Task<int> CountAsync(Expression<Func<T, bool>> predicate)
+        public virtual Task<int> CountAsync(params Expression<Func<T, bool>>[] predicates)
         {
-            return DbSet.Where(predicate).CountAsync();
+            var query = DbSet.AsQueryable();
+
+            if (predicates.Length > 0)
+                query = query.AggregatePredicates(predicates);
+
+            return query.CountAsync();
         }
 
-        public virtual Task<int> CountAsync()
+        public virtual T SingleOrDefault(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
         {
-            return DbSet.CountAsync();
+            var query = DbSet.AsQueryable();
+
+            if (paths.Length > 0)
+            {
+                query = paths.Aggregate(DbSet.AsQueryable(), (queryable, path) => queryable.Include(path));
+            }
+
+            return query.SingleOrDefault(predicate);
         }
 
-        public virtual int Count()
+        public virtual T FirstOrDefault(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
         {
-            return DbSet.Count();
+            var query = DbSet.AsQueryable();
+
+            if (paths.Length > 0)
+            {
+                query = paths.Aggregate(DbSet.AsQueryable(), (queryable, path) => queryable.Include(path));
+            }
+            return query.FirstOrDefault(predicate);
         }
 
+        public virtual Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet.SingleOrDefaultAsync(predicate);
+        }
 
+        public bool Any(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet.Any(predicate);
+        }
+
+        public Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet.AnyAsync(predicate);
+        }
 
         /// <summary>
         /// select entity using primary key
@@ -206,33 +212,53 @@ namespace DataAccess.EntityFramework.Infrastructure
         /// get evertything from the table
         /// </summary>
         /// <returns></returns>
-        public virtual IList<T> Get()
+        public virtual IList<T> Get(params Expression<Func<T, bool>>[] predicates)
         {
-            return DbSet.ToList();
-        }
+            var query = DbSet.AsQueryable();
 
-        public virtual Task<List<T>> GetAsync()
-        {
-            return DbSet.ToListAsync();
-        }
+            if (predicates.Length > 0)
+                query = query.AggregatePredicates(predicates);
 
-        public virtual ObservableCollection<T> Local()
-        {
-            return DbSet.Local;
+            return query.ToList();
         }
 
         /// <summary>
-        /// get evertything from the table
+        /// 
         /// </summary>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual IList<T> GetTop(int take)
+        public virtual Task<List<T>> GetAsync(params Expression<Func<T, bool>>[] predicates)
         {
-            return DbSet.Take(take).ToList();
+            var query = DbSet.AsQueryable();
+
+            if (predicates.Length > 0)
+                query = DbSet.AggregatePredicates(predicates);
+
+            return query.ToListAsync();
         }
 
-        public virtual Task<List<T>> GetTopAsync(int take)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual IList<T> GetTop(int? take, params Expression<Func<T, bool>>[] predicates)
         {
-            return DbSet.Take(take).ToListAsync();
+            var query = DbSet.AsQueryable();
+
+            if (predicates.Length > 0)
+                query = DbSet.AggregatePredicates(predicates);
+            if(take!=null)return query.Take(take.Value).ToList();
+            return query.ToList();
+        }
+
+        public virtual Task<List<T>> GetTopAsync(int? take, params Expression<Func<T, bool>>[] predicates)
+        {
+            var query = DbSet.AsQueryable();
+
+            if (predicates.Length > 0)
+                query = DbSet.AggregatePredicates(predicates);
+            if(take!=null)return query.Take(take.Value).ToListAsync();
+            return query.ToListAsync();
         }
 
         public virtual IList<TResult> Distinct<TResult>(Expression<Func<T, TResult>> predicate)
@@ -271,42 +297,6 @@ namespace DataAccess.EntityFramework.Infrastructure
             return DbSet.Select(predicate).Take(take).ToList();
         }
 
-      
-
-        /// <summary>
-        ///  select entity base on where condition
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public virtual IList<T> Get(Expression<Func<T, bool>> predicate)
-        {
-            return DbSet.Where(predicate).ToList();
-        }
-
-
-        public virtual Task<List<T>> GetAsync(Expression<Func<T, bool>> predicate)
-        {
-            return DbSet.Where(predicate).ToListAsync();
-        }
-
-        /// <summary>
-        ///  select entity base on where condition and take top
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <param name="top"></param>
-        /// <returns></returns>
-        public virtual IList<T> Get(Expression<Func<T, bool>> predicate,int top)
-        {
-            return DbSet.Where(predicate).Take(top).ToList();
-        }
-
-        public virtual Task<List<T>> GetAsync(Expression<Func<T, bool>> predicate, int top)
-        {
-            return DbSet.Where(predicate).Take(top).ToListAsync();
-        }
-
-
-
         /// <summary>
         /// save method for individual repository
         /// use only when the repository is used outside of the unit of work
@@ -314,12 +304,12 @@ namespace DataAccess.EntityFramework.Infrastructure
         /// <returns></returns>
         public virtual int Save()
         {
-            return _dataContext.Save();
+            return _dataContext.SaveChanges();
         }
 
         public virtual Task<int> SaveAsync()
         {
-            return _dataContext.SaveAsync();
+            return _dataContext.SaveChangesAsync();
         }
 
         /// <summary>
@@ -328,7 +318,7 @@ namespace DataAccess.EntityFramework.Infrastructure
         /// <param name="set"></param>
         public virtual void EnableProxyCreation(bool set)
         {
-            _dataContext.EnableProxyCreation(set);
+            _dataContext.Configuration.ProxyCreationEnabled = set;
         }
 
         /// <summary>
@@ -337,7 +327,7 @@ namespace DataAccess.EntityFramework.Infrastructure
         /// <param name="set"></param>
         public virtual void EnableLazyLoading(bool set)
         {
-            _dataContext.EnableLazyLoading(set);
+            _dataContext.Configuration.LazyLoadingEnabled = set;
         }
 
         /// <summary>
@@ -403,12 +393,63 @@ namespace DataAccess.EntityFramework.Infrastructure
 
         public virtual void Reload(T entity)
         {
-            DataContext.DbEntry(entity).Reload();
+            DataContext.Entry(entity).Reload();
         }
 
         public virtual Task ReloadAsync(T entity)
         {
-            return DataContext.DbEntry(entity).ReloadAsync();
+            return DataContext.Entry(entity).ReloadAsync();
+        }
+
+        /// <summary>
+        /// search with where predicates
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="predicates"></param>
+        /// <returns></returns>
+        public virtual Task<SearchResult<T>> SearchAsync(Search search, params Expression<Func<T, bool>>[] predicates)
+        {
+            return DbSet.AggregatePredicates(predicates)
+                .SearchByFields(search)
+                .CompileSearchReslt(search);
+        }
+
+        /// <summary>
+        /// search and return projected type
+        /// </summary>
+        /// <typeparam name="TResult">typeof TResult</typeparam>
+        /// <param name="search"></param>
+        /// <param name="select"></param>
+        /// <param name="predicates"></param>
+        /// <returns></returns>
+        public virtual Task<SearchResult<TResult>> SearchAsync<TResult>(Search search,
+            Expression<Func<T, TResult>> select,
+            params Expression<Func<T, bool>>[] predicates) where TResult: class
+        {
+            return
+                DbSet.AggregatePredicates(predicates)
+                    .Select(select)
+                    .SearchByFields(search)
+                    .CompileSearchReslt(search);
+        }
+
+        /// <summary>
+        /// This method offers an alternative way of projecting the query into destination. 
+        /// It compiles a new object expression from the given type
+        /// only use for simple 1-1 mapping, deep recursive query is not suppported
+        /// destination property name must match source property name        /// 
+        /// </summary>
+        /// <typeparam name="TResult">projection type</typeparam>
+        /// <param name="search"></param>
+        /// <param name="predicates"></param>
+        /// <returns></returns>
+        public virtual Task<SearchResult<TResult>> SearchAsync<TResult>(Search search, params Expression<Func<T, bool>>[] predicates)
+            where TResult : class
+        {
+            return DbSet.AggregatePredicates(predicates)
+                .Project<T, TResult>()
+                .SearchByFields(search)
+                .CompileSearchReslt(search);
         }
     }
 }

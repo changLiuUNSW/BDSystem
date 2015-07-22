@@ -105,8 +105,8 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Visitors
                     return CompileContactName();
                 case ReplaceType.ContactTitle:
                     return CompileContactTitle();
-                case ReplaceType.TelesaleName:
-                    return CompileTelesaleName();
+                case ReplaceType.CallerName:
+                    return CompileCallerName();
                 case ReplaceType.PropertyManageName:
                     return CompilePropertyManagerName();
                 case ReplaceType.QpName:
@@ -119,6 +119,8 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Visitors
                     return new CleaningQuestionFilter(Contact).GetNode();
                 case ReplaceType.NameCapture:
                     return Replaceable.String[ReplaceType.NameCapture];
+                case ReplaceType.Quali_Question:
+                    return CompileQualiQuestion();
                 default:
                     return null;
             }
@@ -127,7 +129,7 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Visitors
         private string CompileContactName()
         {
             if (Contact == null || Contact.ContactPerson == null)
-                return null;
+                return Replaceable.String[ReplaceType.ContactName];
 
             if (!string.IsNullOrEmpty(Contact.ContactPerson.Firstname) &&
                 !string.IsNullOrEmpty(Contact.ContactPerson.Lastname))
@@ -147,7 +149,7 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Visitors
             return Contact.ContactPerson.Title;
         }
 
-        private string CompileTelesaleName()
+        private string CompileCallerName()
         {
             if (Telesale == null)
                 return null;
@@ -164,7 +166,9 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Visitors
             if (group == null)
                 return null;
 
-            return string.Format("{0}, {1}", group.Firstname, group.Lastname);
+            //todo how to determine the ext-manager 
+            //return string.Format("{0}, {1}", group.Firstname, group.Lastname);
+            throw new NotImplementedException();
         }
 
         private string CompileQpName()
@@ -185,6 +189,14 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Visitors
                 return null;
 
             return Contact.CallFrequency.ToString();
+        }
+
+        private string CompileQualiQuestion()
+        {
+            if (Contact == null)
+                return "no question found";
+
+            return Contact.Site.BuildingType.CriteriaDescription;
         }
     }
 }

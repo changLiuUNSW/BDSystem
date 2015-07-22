@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Data.Entity;
-using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 using DataAccess.EntityFramework.Infrastructure;
 using DataAccess.EntityFramework.Models.BD.Allocation;
@@ -9,7 +8,6 @@ using DataAccess.EntityFramework.Models.BD.Lead;
 using DataAccess.EntityFramework.Models.BD.Site;
 using DataAccess.EntityFramework.Models.BD.Telesale;
 using DataAccess.EntityFramework.Models.Quad;
-using DataAccess.EntityFramework.Models.Quote;
 using DataAccess.EntityFramework.Models.Quote.Cost;
 using DataAccess.EntityFramework.Models.Quote.Cost.Equipment;
 using DataAccess.EntityFramework.Models.Quote.Cost.Supply;
@@ -25,6 +23,7 @@ namespace DataAccess.EntityFramework
         ILeadRepository LeadRepository { get; }
         ISalesBoxRepository SalesBoxRepository { get; }
         ISiteRepository SiteRepository { get; }
+        ITempSiteRepository TempSiteRepository { get; }
         ISiteGroupRepository SiteGroupRepository { get; }
         IContactPersonRepository ContactPersonRepository { get; }
         IRepository<Allocation> AllocationRepository { get;}
@@ -48,6 +47,7 @@ namespace DataAccess.EntityFramework
         IRepository<WeeklyReport> WeeklyReportRepository { get; }
         IRepository<FullReport> FullReportRepository { get; }
         IRepository<QuadPhoneBook> PhoneBookRepository { get; }
+        IRepository<ExternalManager> ExtManagerRepository { get;} 
         IRepository<T> GetRepository<T>() where T : class;
         DbContextTransaction BeginTransaction(IsolationLevel isolation);
         void EnableProxyCreation(bool set);

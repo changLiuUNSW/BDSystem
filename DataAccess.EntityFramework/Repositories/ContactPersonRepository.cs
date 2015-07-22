@@ -18,7 +18,7 @@ namespace DataAccess.EntityFramework.Repositories
 
     internal class ContactPersonRepository : Repository<ContactPerson>, IContactPersonRepository
     {
-        internal ContactPersonRepository(IDbContext dbContext) : base(dbContext)
+        internal ContactPersonRepository(DbContext dbContext) : base(dbContext)
         {
         }
 
@@ -28,6 +28,7 @@ namespace DataAccess.EntityFramework.Repositories
             var query = ProjectFilters(search.SearchFields, DbSet.AsQueryable())
                 .SearchByFields(search.SearchFields)
                 .Distinct();
+
             //order
             query = !string.IsNullOrEmpty(search.SortColumn) ?
                 query.OrderByField(search.SortColumn, search.Order != "desc") :
@@ -47,7 +48,7 @@ namespace DataAccess.EntityFramework.Repositories
         public ContactPerson DeletePerson(ContactPerson person)
         {
             var personHistoryRepo = new Repository<ContactPersonHistory>(DataContext);
-            personHistoryRepo.RemoveRange(personHistoryRepo.Get(l => l.OriginalContactPersonId == person.Id));
+            personHistoryRepo.RemoveRange(personHistoryRepo.Get(l => l.OriginalContactPersonId == person.Id).ToArray());
             Delete(person.Id);
             return person;
         }

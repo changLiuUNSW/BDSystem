@@ -20,7 +20,7 @@ namespace DataAccess.EntityFramework.TypeLibrary
         NotAnswered = Attempted << 2
     }
 
-    public enum CallTypes
+    public enum CallType
     {
         BD,
         Telesale
@@ -89,7 +89,8 @@ namespace DataAccess.EntityFramework.TypeLibrary
         NotCalled=2,
         Dead=3,
         NoDead=4,
-        NoAdjust=5
+        NoAdjust=5,
+        NoEmail=6
     }
 
     public enum QuoteAnswerType
@@ -122,5 +123,40 @@ namespace DataAccess.EntityFramework.TypeLibrary
     {
         Upload=1,
         System=2
+    }
+
+    public enum LabourRateOptions
+    {
+        [Description("Part Time Day")]
+        PartTimeDay = 1,
+        [Description("Part Time Night")]
+        PartTimeNight = 2,
+        [Description("Full Time Day")]
+        FullTimeDay = 3,
+        [Description("Full Time Night")]
+        FullTimeNight = 4,
+        [Description("Casual Night")]
+        CasualNight = 5,
+        [Description("F/T Day Cleanstart")]
+        FullTimeDayCleanStart = 6,
+        [Description("F/T Day Cleanstart")]
+        PartTimeDayCleanStart = 7,
+        [Description("F/T Night Cleanstart")]
+        PartTimeNightCleanStart = 8,
+        [Description("Supervisor")]
+        Supervisor = 9
+    }
+    
+    //for most cost tables that needs to access price per state
+    public enum States
+    {
+        NSW = 1,
+        QLD = 2,
+        ACT = 3,
+        VIC = 4,
+        SA = 5,
+        NT = 6,
+        WA = 7,
+        TAS = 8
     }
 }

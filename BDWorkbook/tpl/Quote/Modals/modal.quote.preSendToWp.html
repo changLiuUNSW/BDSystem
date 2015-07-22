@@ -1,0 +1,106 @@
+﻿<div class="modal-body">
+    <div class="bg-light b-r bg-auto">
+        <div class="wrapper-md dker b-b">
+            <h3 class="m-n font-thin">Info required to complete before sending to WP</h3>
+        </div>
+        <div class="wrapper-md">
+            <form name="form" class="form-validation">
+                <div class="form-group pull-in clearfix">
+                    <div class="col-md-6">
+                        <label>Is this an additional separate contract at an exisintg site?</label>
+                        <select class="form-control" required>
+                            <option value="">Please choose</option>
+                            <option value="rs">RS</option>
+                            <option value="te">TE</option>
+                            <option value="tp">TP</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Group / Job</label>
+                        <input type="text" class="form-control" placeholder="" required>
+                    </div>
+                </div>
+                
+                <div class="form-group pull-in clearfix">
+                    <div class="col-md-6">
+                        <label>Is this an additional site, and part of a group we already clean?</label>
+                        <select class="form-control" required>
+                            <option value="">Please choose</option>
+                            <option value="Y">YES</option>
+                            <option value="N">NO</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Group / Job</label>
+                        <input type="text" class="form-control" placeholder="" required>
+                    </div>
+                </div>
+                
+                <div class="form-group pull-in clearfix">
+                    <div class="col-md-6">
+                        <label>Is this quote for a TE contract only?</label>
+                        <select class="form-control" required>
+                            <option value="">Please choose</option>
+                            <option value="regcln">Regular cleaning</option>
+                            <option value="tenant">TE contract (tenant - additional services quote only)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Is a quote required from WP from this?</label>
+                        <select class="form-control" required>
+                            <option value="">Please choose</option>
+                            <option value="wp">Quote from wp</option>
+                            <option value="client">Quote costing only - client already accepted</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group pull-in clearfix">
+                    <div class="col-md-6">
+                        <label>Quote required Deadline</label>
+                        <div class="input-group" ng-controller="DatepickerCtrl">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="vm.quoteDate" is-open="opened" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Method of delivery</label>
+                        <input type="text" class="form-control" placeholder="" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>References - nominate 3</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+               
+                
+                <div class="form-group pull-in clearfix">
+                    <div class="col-md-6">
+                        <label>Other OP who assisted with walk around </label>
+                        <label class="text-muted">(Initials)</label>
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-6">
+                        <label>LTT assisted with costing or questions?</label>
+                        <select class="form-control" required>
+                            <option value="">Please choose</option>
+                            <option value="y">Y(estimator assist)</option>
+                            <option value="n">N(no estimator assist)</option>
+                            <option value="ltt">LTT(LTT alone completed)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Additional Information</label>
+                    <textarea class="form-control" rows="5"></textarea>
+                </div>
+            </form>
+            <div class="m-t m-b">
+                <button class="btn btn-sm btn-success" type="submit" data-ng-click="vm.confirm()" ng-disabled="form.$invalid">Confirm</button>
+                <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

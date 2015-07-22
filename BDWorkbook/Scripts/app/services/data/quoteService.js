@@ -19,9 +19,11 @@
             qpreview: qpreview,
             getToCurrentQuestions: getToCurrentQuestions,
             getNotCalledQuestions: getNotCalledQuestions,
+            getNoClientEmailQuestions:getNoClientEmailQuestions,
             getQuoteDeadQuestions: getQuoteDeadQuestions,
             getQuoteNoDeadQuestions: getQuoteNoDeadQuestions,
             getAdjustQuestions: getAdjustQuestions,
+            getQuestionResults:getQuestionResults,
             preFinalreview:preFinalreview,
             finalreview: finalreview,
             print:print,
@@ -35,7 +37,9 @@
             download: download,
             downloadPricePage:downloadPricePage,
             finalize: finalize,
-            notContact:notContact,
+            notContact: notContact,
+            notSendEmail: notSendEmail,
+            sendEmail:sendEmail,
             contact: contact,
             dead: dead,
             notDead: notDead,
@@ -67,6 +71,14 @@
             return $resource(baseUrl + '/notcontact/' + id).save(questionModels).$promise;
         }
 
+        function notSendEmail(id, questionModels) {
+            return $resource(baseUrl + '/notsendemail/' + id).save(questionModels).$promise;
+        }
+
+        function sendEmail(id) {
+            return $resource(baseUrl + '/sendemail/' + id).save().$promise;
+        }
+
         function finalize(id, questionModels) {
             return $resource(baseUrl + '/finalize/' + id).save(questionModels).$promise;
         }
@@ -85,6 +97,10 @@
 
         function getNotCalledQuestions() {
             return $resource(baseUrl + '/question').get({ questionType: questionType.notCalled }).$promise;
+        }
+
+        function getNoClientEmailQuestions() {
+            return $resource(baseUrl + '/question').get({ questionType: questionType.noEmail }).$promise;
         }
 
         function getToCurrentQuestions() {
@@ -165,6 +181,10 @@
             return $resource(baseUrl + '/cancel').save(params).$promise;
         }
 
+        function getQuestionResults(params) {
+            return $resource(baseUrl + '/result/:id').get(params).$promise;
+        }
+
         function resolveUpload(resolveModel, file) {
             return $upload.upload({
                 url: baseUrl + '/resolveupload',
@@ -172,7 +192,7 @@
                 file: file
             });
         }
-
+      
 
         function upload(model, file) {
             return $upload.upload({

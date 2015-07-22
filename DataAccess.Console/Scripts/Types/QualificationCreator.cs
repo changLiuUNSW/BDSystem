@@ -124,7 +124,7 @@ namespace DataAccess.Console.Scripts.Types
                                 Question = "I would like to confirm your address and phone number.",
                                 Actions = new Collection<ScriptAction>
                                 {
-                                    new CreateLead("Generate a new maintenance lead.",
+                                    new NewLead("New maintenance lead.",
                                         ScriptActionType.CreateMaintenanceLead)
                                 }
                             },

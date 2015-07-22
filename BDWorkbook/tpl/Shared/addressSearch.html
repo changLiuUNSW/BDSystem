@@ -1,0 +1,9 @@
+﻿<div class="form-group">
+    <ui-select ng-model="vm.selected" on-select="vm.onSelect($item, $model)">
+        <ui-select-match placeholder="Select or search an address in the list..." allow-clear>{{$select.selected.Name}}</ui-select-match>
+        <ui-select-choices repeat="item in vm.addrList track by $index" refresh="vm.searchAddress($select.search)" refresh-delay="0">
+            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+            <small ng-bind-html="item|address | highlight: $select.search"></small>
+        </ui-select-choices>
+    </ui-select>
+</div>

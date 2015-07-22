@@ -31,24 +31,11 @@
                     return 'label-warning';
             }
 
-
-            return 'label'
+            return 'label';
         };
 
         function makeCall(id) {
-            swal({
-                title: "Confirm",
-                text: "Switch to a new record",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes",
-                cancelButtonText: 'No',
-                confirmButtonColor: "#7266ba"
-            }, function (isConfirm) {
-                if (isConfirm) {
-                    $modalInstance.close(id);
-                }
-            });
+            $modalInstance.close(id);
         }
     }
 })();

@@ -1,4 +1,4 @@
-﻿<div class="vbox" data-ng-form="siteDetailForm">
+﻿<div class="vbox">
     <div class="bg-light lter b-b wrapper-md">
         <ul class="nav nav-pills nav-sm">
             <li data-ng-repeat="item in groups"
@@ -11,23 +11,11 @@
     <div class="row-row">
         <div class="cell">
             <div class="cell-inner">
-               
-                    <!--group: Call-->
-                <div data-ng-show="groups.selected==='call'&& bizTypes.selected==='cleaning'"
-                     data-ng-include="'tpl/Admin/Site/cleaning/call.cleaning.html'"></div>
-<!--                <div data-ng-show="groups.selected==='call'&& bizTypes.selected==='security'"-->
-<!--                     data-ng-include="'tpl/Admin/Site/security/call.security.html'"></div>-->
-<!--                <div data-ng-show="groups.selected==='call'&& bizTypes.selected==='maintenance'"-->
-<!--                     data-ng-include="'tpl/Admin/Site/maintenance/call.maintenance.html'"></div>-->
-                <!--/group: Call-->
-                <!--group: Contract-->
-                <div data-ng-show="groups.selected==='contract'&& bizTypes.selected==='cleaning'"
-                     data-ng-include="'tpl/Admin/Site/cleaning/contract.cleaning.html'"></div>
-<!--                <div data-ng-show="groups.selected==='contract'&& bizTypes.selected==='security'"-->
-<!--                     data-ng-include="'tpl/Admin/Site/security/contract.security.html'"></div>-->
-<!--                <div data-ng-show="groups.selected==='contract'&& bizTypes.selected==='maintenance'"-->
-<!--                     data-ng-include="'tpl/Admin/Site/maintenance/contract.maintenance.html'"></div>-->
-                <!--/group: Contract-->
+                <!--group: Call-->
+                <div data-ng-show="groups.selected==='call'"
+                     data-ng-include="'tpl/Admin/Site/site.detail.contact.html'"></div>
+                <div data-ng-show="groups.selected==='contract'"
+                     data-ng-include="'tpl/Admin/Site/site.detail.contract.cleaning.html'"></div>
             </div>
         </div>
     </div>

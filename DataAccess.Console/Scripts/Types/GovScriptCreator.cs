@@ -56,7 +56,7 @@ namespace DataAccess.Console.Scripts.Types
                     {
                         Actions = new Collection<ScriptAction>
                         {
-                            new UpdateContactName("Update contact name")
+                            new UpdateContactName()
                         }
                     },
                     Right = KnownContact(),
@@ -68,7 +68,7 @@ namespace DataAccess.Console.Scripts.Types
                         {
                             Actions = new Collection<ScriptAction>
                             {
-                                new UpdateContactName("Update contact name")
+                                new UpdateContactName()
                             }
                         },
                         Left = End(false),
@@ -86,7 +86,7 @@ namespace DataAccess.Console.Scripts.Types
                                              "- not by someone in your office - or whether you select the contractor yourselves.",
                         Replaceable.String[ReplaceType.ContactTitle],
                         Replaceable.String[ReplaceType.ContactName],
-                        Replaceable.String[ReplaceType.TelesaleName])))
+                        Replaceable.String[ReplaceType.CallerName])))
                 {
                     Right = new BinaryTreeNode<Script>
                     {
@@ -102,7 +102,10 @@ namespace DataAccess.Console.Scripts.Types
                     {
                         Value = new Script(
                             "Quad Services is a locally based commercial cleaning company, I am calling to see if I can arrange for our manager to provide " +
-                            "you with a quotation for your cleaning services."),
+                            "you with a quotation for your cleaning services.")
+                        {
+                            Text = "Internal"
+                        },
                         Left = new BinaryTreeNode<Script>
                         {
                             Value = new Script(
@@ -125,6 +128,7 @@ namespace DataAccess.Console.Scripts.Types
                 Value = new Script(
                     "Can you inform me of the contact and phone number of the external person who handles the cleaning?")
                 {
+                    Text = "External",
                     Actions = new Collection<ScriptAction>
                     {
                         new UpdateContactName("Update contact name")
@@ -158,7 +162,10 @@ namespace DataAccess.Console.Scripts.Types
             return new BinaryTreeNode<Script>(new Script(
                 string.Format(
                     "Would you confirm that the contact details for the external person who manages the cleaning is {0}",
-                    Replaceable.String[ReplaceType.ExtContactName])))
+                    Replaceable.String[ReplaceType.ExtContactName]))
+            {
+                Text = "Internal"
+            })
             {
                 Right = End(true),
                 Left = new BinaryTreeNode<Script>
@@ -185,7 +192,7 @@ namespace DataAccess.Console.Scripts.Types
             {
                 Actions = new Collection<ScriptAction>
                 {
-                    new CreateLead("CreateLeadAction cleaning lead", ScriptActionType.CreateCleaningLead)
+                    new NewLead("New cleaning lead", ScriptActionType.CreateCleaningLead)
                 }
             })
             {

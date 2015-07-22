@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 using System.Web.Http;
 using DataAccess.EntityFramework.Models.BD.Lead;
 using DateAccess.Services.ContactService;
+using Newtonsoft.Json;
+using ResourceMetadata.API.Json;
 
 namespace ResourceMetadata.API.Controllers
 {
@@ -32,20 +34,23 @@ namespace ResourceMetadata.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get(bool stats = false)
         {
-            var leadPerson = _leadPersonalService.GetWithInclude(new Expression<Func<LeadPersonal, object>>[]
-            {
-                x => x.LeadGroup, x => x.Leads
-            }, true);
+            var leadPerson = _leadPersonalService.Repository.Include(x => x.LeadGroup, x => x.Leads);
+
+            var converter = new CustomJsonConverter(new AllocationJsonResolver(),
+                Configuration.Formatters.JsonFormatter.SerializerSettings);
 
             if (stats)
             {
                 var personStats = _leadPersonalService.StatsProvider.GetStats(leadPerson);
                 var groups = _leadPersonalService.GetLeadGroup();
+
+                var resolved = converter.ResolveArray(leadPerson);
+
                 return Ok(new
                 {
                     data = new
                     {
-                        persons = leadPerson,
+                        persons = converter.ResolveArray(leadPerson),
                         stats = personStats,
                         groups = groups
                     }
@@ -54,7 +59,7 @@ namespace ResourceMetadata.API.Controllers
                 
             return Ok(new
             {
-                data = leadPerson
+                data = converter.ResolveArray(leadPerson)
             });
         }
 

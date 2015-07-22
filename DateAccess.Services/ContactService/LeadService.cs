@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DataAccess.Common;
 using DataAccess.EntityFramework;
+using DataAccess.EntityFramework.Models.BD;
+using DataAccess.EntityFramework.Models.BD.Contact;
 using DataAccess.EntityFramework.Models.BD.Lead;
+using DataAccess.EntityFramework.Models.BD.Telesale;
 using DataAccess.EntityFramework.Models.Quote;
 using DataAccess.EntityFramework.TypeLibrary;
+using DateAccess.Services.ContactService.Leads;
+using DateAccess.Services.Events;
 using DateAccess.Services.MailService;
 
 namespace DateAccess.Services.ContactService
@@ -34,17 +40,18 @@ namespace DateAccess.Services.ContactService
         Task<Lead> Cancel(int id, string user);
         Task<Lead> UpdateQp(int id, string user, UpdateQpModel updateQpModel);
         Task<List<LeadPersonal>> GetAllQpByZone(string zone);
+        Lead NewLead(int contactId, int? leadPersonId, int? telesaleId);
     }
 
     internal class LeadService :RepositoryService<Lead>, ILeadService
     {
-        private readonly ILeadEmailService _leadEmailService;
         private readonly ApplicationSettings _settings;
-        public LeadService(IUnitOfWork unitOfWork, ILeadEmailService leadEmailService, ApplicationSettings settings)
+        private readonly IEmailHelper _emailHelper;
+        public LeadService(IUnitOfWork unitOfWork, ApplicationSettings settings,IEmailHelper emailHelper)
             : base(unitOfWork)
         {
-            _leadEmailService = leadEmailService;
             _settings = settings;
+            _emailHelper = emailHelper;
         }
 
         public async Task<List<LeadStatus>> GetAllLeadStatus()
@@ -63,14 +70,10 @@ namespace DateAccess.Services.ContactService
             var lead = UpdateStatusAndHistory(id, status, user, description);
             lead.AppointmentDate = appointmentModel.AppointmentDate;
             await UnitOfWork.SaveAsync();
-            try
-            {
-                await _leadEmailService.SendAppointmentEmail(lead, appointmentModel.Url);
-            }
-            catch (Exception ex)
-            {
-                //Exception Handling
-            }
+            var leadAppointment = Mapper.Map<LeadAppointment>(lead);
+            leadAppointment.Url = appointmentModel.Url;
+            leadAppointment.Email = _emailHelper.GetEmailByInitial(lead.LeadPersonal.Initial);
+            await DomainEvents.Raise(leadAppointment);
             return lead;
         }
 
@@ -135,14 +138,10 @@ namespace DateAccess.Services.ContactService
             var lead = UpdateStatusAndHistory(id, status, user, description);
             lead.LeadPersonal = qp;
             await UnitOfWork.SaveAsync();
-            try
-            {
-                await _leadEmailService.SendNewLeadEmail(lead, updateQpModel.Url);
-            }
-            catch (Exception ex)
-            {
-                //Exception Handling
-            }
+            var newLead = Mapper.Map<NewLead>(lead);
+            newLead.Url = updateQpModel.Url;
+            newLead.Email = _emailHelper.GetEmailByInitial(lead.LeadPersonal.Initial);
+            await DomainEvents.Raise(newLead);
             return lead;
         }
 
@@ -163,6 +162,31 @@ namespace DateAccess.Services.ContactService
             return list;
         }
 
+        public Lead NewLead(int contactId, int? leadPersonId, int? telesaleId)
+        {
+            LeadPersonal leadPerson = null;
+            Telesale telesale = null;
+
+            if (contactId <= 0)
+                throw new Exception("Invalid contact id");
+
+            var contact = UnitOfWork.ContactRepository.Get(contactId);
+            if (contact == null)
+                throw new Exception("Target contact not found in database");
+
+            if (leadPersonId.HasValue)
+                leadPerson = UnitOfWork.LeadPersonalRepository.Get(leadPersonId);
+
+            if (telesaleId.HasValue)
+                telesale = UnitOfWork.TelesaleRepository.Get(telesaleId);
+
+            var assembler = new LeadAssembler(contact, leadPerson, telesale, new LeadFactory());
+            var leadType = (BusinessTypes) Enum.Parse(typeof (BusinessTypes), contact.BusinessTypeId.ToString());
+            var lead = assembler.Assemble(leadType);
+            UnitOfWork.LeadRepository.Add(lead);
+            UnitOfWork.Save();
+            return lead;
+        }
 
         private Lead UpdateStatusAndHistory(int id, int statusId, string user, string description)
         {
@@ -196,16 +220,22 @@ namespace DateAccess.Services.ContactService
                 BusinessTypeId = lead.BusinessType.Id,
                 CreatedDate = DateTime.Now,
                 LastUpdateDate = DateTime.Now,
-                Address = lead.Address,
-                State = lead.State,
-                Postcode = lead.Postcode,
-                Phone = lead.Phone,
                 Company = lead.Contact.Site.Name,
+                Address = new Address
+                {
+                    Number = lead.Contact.Site.Number,
+                    Street = lead.Contact.Site.Street,
+                    Suburb = lead.Contact.Site.Suburb,
+                    Unit = lead.Contact.Site.Unit
+                },
+                State = lead.Contact.Site.State,
+                Postcode = lead.Contact.Site.Postcode,
+                SiteId = lead.Contact.SiteId,
+                Phone = lead.Phone,
                 Firstname = lead.Contact.ContactPerson.Firstname,
                 Lastname = lead.Contact.ContactPerson.Lastname,
                 Title = lead.Contact.ContactPerson.Title,
                 Position = lead.Contact.ContactPerson.Position,
-
             };
             return quote;
         }

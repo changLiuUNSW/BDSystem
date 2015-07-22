@@ -9,6 +9,7 @@ namespace DataAccess.EntityFramework.Models.BD.Site
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [Required]
         public string GroupName { get; set; }
         public string AgentComp { get; set; }
@@ -16,10 +17,7 @@ namespace DataAccess.EntityFramework.Models.BD.Site
         public string Type { get; set; }
         public string Code { get; set; }
 
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
-        public string Phone { get; set; }
-
+        public virtual ICollection<ExternalManager> ExternalManagers { get; set; } 
         public virtual ICollection<Site> Sites { get; set; } 
     }
 }

@@ -45,7 +45,7 @@ namespace DataAccess.EntityFramework.Models.BD.Contact
         public bool ExtManagement { get; set; }
         public bool ReceptionName { get; set; }
 
-        [MaxLength(3)]
+        [MaxLength(3, ErrorMessage = "Code has a maximum of 3 characters")]
         public string Code { get; set; }
         public string Note { get; set; }
 

@@ -1,0 +1,29 @@
+﻿<div class="panel-heading b-b b-light">
+    <button class="btn btn-xs btn-danger pull-right"
+            data-ng-if="vm.quote.Status.Id===vm.quoteStatusType.Current&&!vm.quote.IsClientEmailSent"
+            data-ng-click="vm.emailModal()"
+            data-ng-disabled="vm.disableEmailAction()"
+            >
+        <i class="fa fa-fw fa-edit"></i>Action
+    </button>
+    <span class="text-muted">Client Email</span>
+</div>
+<ul class="list-group list-group-lg no-bg auto">
+    <li class="list-group-item clearfix">
+        <strong class="block">Send Date
+            <b class="m-l-xs badge bg-success" data-ng-if="vm.quote.IsClientEmailSent">Sent</b>
+            <b class="m-l-xs badge bg-info" data-ng-if="vm.quote.ClientEmailSendReminderDisabled">Aprroved</b>
+        </strong>
+        <span>{{(vm.quote.ClientEmailSendDate | date:'dd/MM/yyyy')||'N/A'}}</span>
+    </li>
+
+    <li class="list-group-item clearfix no-padder">
+        <div class="bg-info b wrapper-sm">
+            Not Send Email History
+        </div>
+        <div class="wrapper">
+            <div data-quote-qa="vm.quote.Id" data-qa-type="vm.questionType.noEmail"></div>
+        </div>
+       
+    </li>
+</ul>

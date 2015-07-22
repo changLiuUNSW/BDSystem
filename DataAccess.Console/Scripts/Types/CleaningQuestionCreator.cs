@@ -35,7 +35,7 @@ namespace DataAccess.Console.Scripts.Types
                                 "Hello {0}, my name is {1} from Quad Services a locally based commercial cleaning company. Currently we provide cleaning service to {2}." +
                                 " I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services.",
                                 Replaceable.String[ReplaceType.ContactName],
-                                Replaceable.String[ReplaceType.TelesaleName],
+                                Replaceable.String[ReplaceType.CallerName],
                                 Replaceable.String[ReplaceType.SiteGroup]),
                         },
                         Right = Accept(),
@@ -74,7 +74,7 @@ namespace DataAccess.Console.Scripts.Types
                                     "Hello {0}, my name is {1} from Quad Services a locally based commercial cleaning company. " +
                                     "I am calling to see if our manager can be of assistance with your cleaning requirements",
                                     Replaceable.String[ReplaceType.ContactName],
-                                    Replaceable.String[ReplaceType.TelesaleName]),
+                                    Replaceable.String[ReplaceType.CallerName]),
                         },
                         Right = Accept(),
                         Left = new BinaryTreeNode<Script>
@@ -112,7 +112,7 @@ namespace DataAccess.Console.Scripts.Types
                                     "Hello {0}, my name is {1} from Quad Services a locally based commercial cleaning & security company, " +
                                     "I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning and security services",
                                     Replaceable.String[ReplaceType.ContactName],
-                                    Replaceable.String[ReplaceType.TelesaleName])
+                                    Replaceable.String[ReplaceType.CallerName])
                         },
 
                         Right = Accept(),
@@ -152,8 +152,7 @@ namespace DataAccess.Console.Scripts.Types
                                     "Hello {0}, my name is {1} from Quad Services a locally based commercial cleaning company, " +
                                     "I am calling to see if I can arrange for our manager to provide you with a quotation for your cleaning services",
                                     Replaceable.String[ReplaceType.ContactName],
-                                    Replaceable.String[ReplaceType.TelesaleName]),
-
+                                    Replaceable.String[ReplaceType.CallerName]),
                         },
 
                         Right = Accept(),

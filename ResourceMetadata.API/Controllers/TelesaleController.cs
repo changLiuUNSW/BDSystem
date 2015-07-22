@@ -32,13 +32,12 @@ namespace ResourceMetadata.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get()
         {
-            //disable proxy
+
+            var data = _telesaleService.Repository.Include(x => x.Assignments);
+
             return Ok(new
             {
-                data = _telesaleService.GetWithInclude(new Expression<Func<Telesale, object>>[]
-                {
-                    x=>x.Assignments
-                }, true)
+                data = data
             });
         }
         
@@ -110,7 +109,7 @@ namespace ResourceMetadata.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                _telesaleService.Reload(telesale);
+                _telesaleService.Repository.Reload(telesale);
             }
 
             return Ok(new

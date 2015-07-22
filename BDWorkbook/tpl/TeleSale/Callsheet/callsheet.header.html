@@ -1,15 +1,15 @@
 ﻿<form name="form">
     <ul class="nav nav-pills nav-sm">
-        <li ng-show="callsheet.hasLeadPerson">
+        <li ng-show="callsheet.leadPerson">
             <label class="form-control" ng-bind="callsheet.leadPerson.Initial"></label>
         </li>
-        <li ng-show="callsheet.hasSite">
+        <li ng-show="callsheet.site">
             <label class="form-control" ng-bind="callsheet.site.Key"></label>
         </li>
-        <li ng-show="callsheet.hasContact">
+        <li ng-show="callsheet.contact">
             <label class="form-control" ng-bind="callsheet.contact.Code"></label>
         </li>
-        <li ng-if="callsheet.hasTelesale">
+        <li ng-if="callsheet.isTelesale">
             <input ng-model="callsheet.telesale.initial" class="form-control w-xs" placeholder="Initial" required />
         </li>
         <li>
@@ -20,7 +20,7 @@
                 <span class="text font-bold">Next</span>
             </button>
             <button class="btn btn-primary" type="button"
-                    ng-disabled="!form.$valid || !callsheet.site"
+                    ng-disabled="!form.$valid"
                     ng-click="callsheet.end()">
                 <span>End</span>
                 <i ng-if="callsheet.ended" class="fa fa-check"></i>

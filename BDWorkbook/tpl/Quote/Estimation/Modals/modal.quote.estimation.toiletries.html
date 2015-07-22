@@ -1,0 +1,23 @@
+﻿<div class="panel-heading bg-info wrapper-sm">
+    <span class="h3">Costing - Toiletries</span>
+</div>
+<div class="wrapper">
+    <tabset class="tab-container">
+        <tab class="text-md font-thin" active="vm.addTois" data-ng-click="vm.costToiEditTab='new'">
+            <tab-heading>
+                <i class="icon icon-list"></i> List
+            </tab-heading>
+            <div data-ng-if="vm.costToiEditTab==='new'"
+                 data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.toiletries.list.html'">
+            </div>
+        </tab>
+        <tab class="text-md font-thin" active="vm.editTois" data-ng-click="vm.costToiEditTab='editor'">
+            <tab-heading>
+                <i class="icon icon-note"></i> Editor
+            </tab-heading>
+            <div data-ng-if="vm.costToiEditTab==='editor'"
+                 data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.toiletries.editor.html'">
+            </div>
+        </tab>
+    </tabset>
+</div>

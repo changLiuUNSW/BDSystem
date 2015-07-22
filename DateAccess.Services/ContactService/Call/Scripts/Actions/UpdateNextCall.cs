@@ -1,6 +1,7 @@
 ﻿using System;
 using DataAccess.EntityFramework.Models.BD.Contact;
 using DataAccess.EntityFramework.Models.BD.Lead;
+using DataAccess.EntityFramework.Models.BD.Site;
 using DataAccess.EntityFramework.Models.BD.Telesale;
 using DateAccess.Services.ContactService.Call.Scripts.Info;
 
@@ -36,15 +37,17 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Actions
 
         public Boolean UpdateInMonth { get; set; }
 
-        public override void Update(Contact contact, LeadPersonal person, Telesale telesale)
+        public override ScriptActionResult Update(Site site, Contact contact, LeadPersonal person, Telesale telesale)
         {
-            if (contact != null && contact.CallFrequency.HasValue)
-            {
-                if (UpdateInMonth)
-                    contact.NextCall = DateTime.Today.AddMonths(contact.CallFrequency.Value);
-                else
-                    contact.NextCall = DateTime.Today.AddDays(3*7);
-            }
+            if (contact == null || !contact.CallFrequency.HasValue)
+                return ScriptActionResult.InCompeleted;
+
+            if (UpdateInMonth)
+                contact.NextCall = DateTime.Today.AddMonths(contact.CallFrequency.Value);
+            else
+                contact.NextCall = DateTime.Today.AddDays(3*7);
+
+            return ScriptActionResult.Completed;
         }
     }
 }

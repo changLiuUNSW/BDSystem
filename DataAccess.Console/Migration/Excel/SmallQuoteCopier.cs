@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Data.Entity.Validation;
 using DataAccess.EntityFramework.DbContexts;
+using DataAccess.EntityFramework.Extensions;
+using DataAccess.EntityFramework.Models.Quote.Cost;
 using DataAccess.EntityFramework.Models.Quote.Cost.Equipment;
+using DataAccess.EntityFramework.Models.Quote.Cost.Labour;
 using DataAccess.EntityFramework.Models.Quote.Cost.Supply;
+using DataAccess.EntityFramework.TypeLibrary;
 using DateAccess.Services.Excel;
 
 namespace DataAccess.Console.Migration.Excel
@@ -21,6 +25,18 @@ namespace DataAccess.Console.Migration.Excel
                 context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.Equipment"));
                 context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.Machine"));
                 context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.ToiletRequisite"));
+                context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.LabourRate"));
+                context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.AllowanceRate"));
+                context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.OnCostRate"));
+                context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.PublicLiability"));
+                context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.QuoteSource"));
+                context.Database.ExecuteSqlCommand(SqlCmd.EmptyTable("IMS_Test.quote.StandardRegion"));
+                context.Database.ExecuteSqlCommand(SqlCmd.Reseed("IMS_Test.quote.LabourRate", 0));
+                context.Database.ExecuteSqlCommand(SqlCmd.Reseed("IMS_Test.quote.AllowanceRate", 0));
+                context.Database.ExecuteSqlCommand(SqlCmd.Reseed("IMS_Test.quote.OnCostRate", 0));
+                context.Database.ExecuteSqlCommand(SqlCmd.Reseed("IMS_Test.quote.PublicLiability", 0));
+                context.Database.ExecuteSqlCommand(SqlCmd.Reseed("IMS_Test.quote.QuoteSource", 0));
+                context.Database.ExecuteSqlCommand(SqlCmd.Reseed("IMS_Test.quote.StandardRegion",0));
 
                 System.Console.WriteLine("Reading Machine...");
                 CopyMachine(context);
@@ -34,7 +50,29 @@ namespace DataAccess.Console.Migration.Excel
                 CopySupply(context);
                 System.Console.WriteLine("Saving Supply...");
 
-                
+                System.Console.WriteLine("Reading labour rate...");
+                CopyLabourRate(context);
+                System.Console.WriteLine("Saving labour rate...");
+
+                System.Console.WriteLine("Reading allowance rate...");
+                CopyAllowanceRate(context);
+                System.Console.WriteLine("Saving allowance rate...");
+
+                System.Console.WriteLine("Reading oncost rate...");
+                CopyOnCostRate(context);
+                System.Console.WriteLine("Saving oncost rate...");
+
+                System.Console.WriteLine("Reading publicLiability rate...");
+                CopyPublicLiability(context);
+                System.Console.WriteLine("Saving publicLiability rate...");
+
+                System.Console.WriteLine("Reading QuoteSource...");
+                CopyQuoteSource(context);
+                System.Console.WriteLine("Saving QuoteSource...");
+
+                System.Console.WriteLine("Reading StandardRegion...");
+                CopyStandardRegion(context);
+                System.Console.WriteLine("Saving StandardRegion...");
                 try
                 {
                     context.SaveChanges();
@@ -44,6 +82,57 @@ namespace DataAccess.Console.Migration.Excel
                     throw;
                 }
             }
+        }
+
+        private void CopyStandardRegion(SiteResourceEntities context)
+        {
+            Copy<StandardRegion> copy = (ref StandardRegion entity, int i, int j, string value, string sheet) =>
+            {
+                entity.Name = value;
+                return true;
+            };
+            Save<StandardRegion> save = entity => context.StandardRegions.Add(entity);
+            Read("Small Quote form","L190","L197",copy,save);
+        }
+
+        private void CopyQuoteSource(SiteResourceEntities context)
+        {
+            Copy<QuoteSource> copy = (ref QuoteSource entity, int i, int j, string value, string sheet) =>
+            {
+                switch (j)
+                {
+                    case 1:
+                        entity.Description = value;
+                        break;
+                    case 2:
+                        return false;
+                    case 3:
+                        entity.Name = value;
+                        break;
+                }
+                return true;
+            };
+            Save<QuoteSource> save = entity => context.QuoteSources.Add(entity);
+            Read("Small Quote form", "H191", "J199", copy, save);
+        }
+
+        private void CopyPublicLiability(SiteResourceEntities context)
+        {
+            Copy<PublicLiability> copy = (ref PublicLiability entity, int i, int j, string value, string sheet) =>
+            {
+                switch (j)
+                {
+                    case 1:
+                        entity.Description = value;
+                        break;
+                    case 2:
+                        entity.Precentage = Convert.ToDecimal(value);
+                        break;
+                }
+                return true;
+            };
+            Save<PublicLiability> save = entity => context.PublicLiabilities.Add(entity);
+            Read("Small Quote form","B189","C190",copy,save);
         }
 
         private void CopyMachine(SiteResourceEntities context)
@@ -191,6 +280,190 @@ namespace DataAccess.Console.Migration.Excel
             };
 
             Read("Toi", "B6", "O127", copy, save);
+        }
+
+        private void CopyLabourRate(SiteResourceEntities context)
+        {
+            Copy<LabourRate> copy = delegate(ref LabourRate entity, int i, int j, string value, string sheet)
+            {
+                switch (j)
+                {
+                    case 1:
+                        entity.Weekdays = Convert.ToDecimal(value);
+                        break;
+                    case 2:
+                        entity.Saturday = Convert.ToDecimal(value);
+                        break;
+                    case 3:
+                        entity.Sunday = Convert.ToDecimal(value);
+                        break;
+                    case 4:
+                        entity.Holiday = Convert.ToDecimal(value);
+                        break;
+                }
+
+                if (string.IsNullOrEmpty(entity.Title))
+                {
+                    switch (i)
+                    {
+                        case 1:
+                            entity.Title = LabourRateOptions.PartTimeDay.GetDescription();
+                            break;
+                        case 2:
+                            entity.Title = LabourRateOptions.PartTimeNight.GetDescription();
+                            break;
+                        case 3:
+                            entity.Title = LabourRateOptions.FullTimeDay.GetDescription();
+                            break;
+                        case 4:
+                            entity.Title = LabourRateOptions.FullTimeNight.GetDescription();
+                            break;
+                        case 5:
+                            entity.Title = LabourRateOptions.CasualNight.GetDescription();
+                            break;
+                        case 6:
+                            entity.Title = LabourRateOptions.FullTimeDayCleanStart.GetDescription();
+                            break;
+                        case 7:
+                            entity.Title = LabourRateOptions.PartTimeDayCleanStart.GetDescription();
+                            break;
+                        case 8:
+                            entity.Title = LabourRateOptions.PartTimeNightCleanStart.GetDescription();
+                            break;
+                        case 9:
+                            entity.Title = LabourRateOptions.Supervisor.GetDescription();
+                            break;
+                    }    
+                }
+
+                return true;
+            };
+
+            Save<LabourRate> save = entity => context.LabourRates.Add(entity);
+            Read("Quad Labour", "C122", "F130", copy, save);
+        }
+
+        private void CopyAllowanceRate(SiteResourceEntities context)
+        {
+            Copy<AllowanceRate> copy = (ref AllowanceRate entity, int i, int j, string value, string sheet) =>
+            {
+                switch (i)
+                {
+                    case 1:
+                        entity.State = "NSW";
+                        break;
+                    case 2:
+                        entity.State = "QLD";
+                        break;
+                    case 3:
+                        entity.State = "ACT";
+                        break;
+                    case 4:
+                        entity.State = "VIC";
+                        break;
+                    case 5:
+                        entity.State = "SA";
+                        break;
+                    case 6:
+                        entity.State = "NT";
+                        break;
+                    case 7:
+                        entity.State = "WA";
+                        break;
+                    case 8:
+                        entity.State = "TAS";
+                        break;
+                }
+
+                switch (j)
+                {
+                    case 1:
+                        entity.ToiletAllowPerShift = Convert.ToDecimal(value);
+                        break;
+                    case 2:
+                        entity.LeadingHandSmallGroup = Convert.ToDecimal(value);
+                        break;
+                    case 3:
+                        entity.LeadingHandLargeGroup = Convert.ToDecimal(value);
+                        break;
+                    case 5:
+                        entity.NumberOfHolidays = Convert.ToInt32(value);
+                        break;
+                }
+
+                return true;
+            };
+
+            Save<AllowanceRate> save = entity => context.AllowanceRates.Add(entity);
+            ReadHorizontally("Quad Labour", "C134", "J138", copy, save);
+        }
+
+        private void CopyOnCostRate(SiteResourceEntities context)
+        {
+            Copy<OnCostRate> copy = (ref OnCostRate entity, int i, int j, string value, string sheet) =>
+            {
+                switch (i)
+                {
+                    case 1:
+                        entity.State = "NSW";
+                        break;
+                    case 2:
+                        entity.State = "QLD";
+                        break;
+                    case 3:
+                        entity.State = "ACT";
+                        break;
+                    case 4:
+                        entity.State = "VIC";
+                        break;
+                    case 5:
+                        entity.State = "SA";
+                        break;
+                    case 6:
+                        entity.State = "NT";
+                        break;
+                    case 7:
+                        entity.State = "WA";
+                        break;
+                    case 8:
+                        entity.State = "TAS";
+                        break;
+                }
+
+                switch (j)
+                {
+                    case 1:
+                        entity.HolidayPay = Convert.ToDecimal(value);
+                        break;
+                    case 2:
+                        entity.SickPay = Convert.ToDecimal(value);
+                        break;
+                    case 3:
+                        entity.WorkerCompensation = Convert.ToDecimal(value);
+                        break;
+                    case 4:
+                        entity.Superannuation = Convert.ToDecimal(value);
+                        break;
+                    case 5:
+                        entity.PayrollTax = Convert.ToDecimal(value);
+                        break;
+                    case 6:
+                        entity.LongService = Convert.ToDecimal(value);
+                        break;
+                    case 7:
+                        entity.IncomeProtection = Convert.ToDecimal(value);
+                        break;
+                    case 9:
+                        entity.Materials = Convert.ToDecimal(value);
+                        break;
+                }
+
+
+                return true;
+            };
+
+            Save<OnCostRate> save = entity => context.OnCostRates.Add(entity);
+            ReadHorizontally("Quad Labour", "E142", "L150", copy, save);
         }
     }
 }

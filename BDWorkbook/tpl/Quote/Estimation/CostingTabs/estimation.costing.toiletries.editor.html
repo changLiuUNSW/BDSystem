@@ -1,0 +1,48 @@
+﻿<form name="form" class="form-validation">
+    <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+        <li class="list-group-item clearfix b-l-3x" data-ng-repeat="each in vm.editingToils track by $index" ng-class="{'b-l-info ': vm.editingToils.indexOf(each)%2==0, 'b-l-success ': vm.editingToils.indexOf(each)%2==1}">
+            <div class="clear">
+                <span class="pull-right">
+                    <a class="text-danger-lter" data-ng-click="vm.delCheckedToi(vm.editingToils.indexOf(each))"><i class="fa fa-times" tooltip="Delete"></i></a>
+                </span>
+                <span class="h4 font-thin text-dark-lter pull-left" data-ng-bind="each.ToiletRequisite.ItemCode"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-sm-8 b-r">
+                    <div class="line line-lg b-b b-light"></div>
+                    <div class="col-md-3"><span class="font-bold">Cost: </span><span class="font-thin" data-ng-bind="each.ToiletRequisite.Cost|currency"></span></div>
+                    <div class="col-md-3"><span class="font-bold">Size: </span><span class="font-thin" data-ng-bind="each.ToiletRequisite.Size"></span></div>
+                    <div class="col-md-3"><span class="font-bold">Quality: </span><span class="font-thin" data-ng-bind="each.ToiletRequisite.Quality"></span></div>
+                    <div class="col-md-3"><span class="font-bold">Price (incl GST): </span><span class="font-thin" data-ng-bind="each.ToiletRequisite.PriceIncludeGst|currency"></span></div>
+                    <div class="col-md-12"><span class="font-bold">Description: </span><span class="font-thin" data-ng-bind="each.ToiletRequisite.Description"></span></div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div>
+                        <label>No. units pw</label>
+                        <input type="number" class="form-control" data-ng-model="each.UnitsPw" min="0" ui-validate=" '$value >0' " required />
+                    </div>
+                    <div class="radio" data-ng-if="vm.estSchool===true">
+                        <label class="i-checks">
+                            <input type="radio" name="{{each.ItemCode}}" ng-model="each.admin" value="N" ng-required="!(each.admin==='N||each.admin==='Y')">
+                            <i></i>
+                            Regular
+                        </label>
+                    </div>
+                    <div class="radio" data-ng-if="vm.estSchool===true">
+                        <label class="i-checks">
+                            <input type="radio" name="{{each.ItemCode}}" ng-model="each.admin" value="Y" ng-required="!(each.admin==='N||each.admin==='Y')">
+                            <i></i>
+                            Admin
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="modal-footer">
+
+        <button data-ng-click="vm.costEquEditTab='list'" class="btn btn-sm  btn-info"><< Prev</button>
+        <button class="btn btn-sm btn-success" type="submit" data-ng-click="vm.confirm()" ng-disabled="form.$invalid">Confirm</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</form>

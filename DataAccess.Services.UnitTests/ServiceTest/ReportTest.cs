@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.EntityFramework;
 using DataAccess.EntityFramework.DbContexts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

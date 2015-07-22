@@ -20,7 +20,7 @@ namespace DataAccess.EntityFramework.Models.Quote
         public int? AnswerId { get; set; }
         public virtual QuoteAnswer Answer { get; set; }
 
-        public DateTime? Time { get; set; }
+        public DateTime Time { get; set; }
 
         public string User { get; set; }
 

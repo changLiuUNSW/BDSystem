@@ -4,6 +4,7 @@ using System.Web.Http;
 using DataAccess.EntityFramework.Models.BD.Lead;
 using DateAccess.Services.ContactService;
 using Microsoft.AspNet.Identity;
+using ResourceMetadata.API.ViewModels;
 
 namespace ResourceMetadata.API.Controllers
 {
@@ -34,7 +35,7 @@ namespace ResourceMetadata.API.Controllers
         {
             return Ok(new
             {
-                data = _leadService.Get(true)
+                data = _leadService.Get()
             });
         }
 
@@ -126,7 +127,6 @@ namespace ResourceMetadata.API.Controllers
             });
         }
 
-
         [Route("qp")]
         [HttpGet]
         public async Task<IHttpActionResult> GetAllQpByZone(string zone)
@@ -139,7 +139,7 @@ namespace ResourceMetadata.API.Controllers
         }
 
         /// <summary>
-        ///     create a new lead
+        /// save a new lead
         /// </summary>
         /// <param name="lead"></param>
         /// <returns></returns>
@@ -157,6 +157,38 @@ namespace ResourceMetadata.API.Controllers
             {
                 data = _leadService.Add(lead)
             });
+        }
+
+        /// <summary>
+        /// create new lead through the system using the contact id
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [Route("new")]
+        [HttpPost]
+        [Authorize(Roles = "BD")]
+        public IHttpActionResult PostLead(GenerateLeadViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var leadPersonId = model.LeadPersonId.HasValue
+                ? model.LeadPersonId.Value
+                : _leadService.UnitOfWork.LeadPersonalRepository.GetFromPhoneBook(User.Identity.Name).Id;
+
+            try
+            {
+                var lead = _leadService.NewLead(model.ContactId, leadPersonId, null);
+                return Ok(new
+                {
+                    data = lead
+                });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return BadRequest(ModelState);
+            }
         }
 
         /// <summary>
@@ -190,7 +222,6 @@ namespace ResourceMetadata.API.Controllers
             {
                 data=result
             });
-
         }
     }
 }

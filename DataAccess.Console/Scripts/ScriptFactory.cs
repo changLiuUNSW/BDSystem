@@ -12,6 +12,7 @@ namespace DataAccess.Console.Scripts
             Items.Add(new LpmScriptCreator());
             Items.Add(new BmsScriptCreator());
             Items.Add(new PmsScriptCreator());
+            Items.Add(new BdScriptCreator());
         }
     }
 }

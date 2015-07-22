@@ -40,5 +40,7 @@ namespace DataAccess.EntityFramework.Models.Quote.Cost.Labour
         public decimal? Total { get; set; }
 
         public decimal HolidayFactor { get; set; }
+
+        //TODO: Add description & Admin
     }
 }

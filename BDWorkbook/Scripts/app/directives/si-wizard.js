@@ -149,7 +149,7 @@
                         'onTabChange': onTabChange,
                         'onTabShow': onTabShow,
                         'onTabClick': onTabClick,
-                        'tabClass': 'nav nav-pills'
+                        'tabClass': 'nav nav-tabs'
                     });
                 };
             }],

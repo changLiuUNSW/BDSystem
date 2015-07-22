@@ -111,14 +111,14 @@ namespace DateAccess.Services.ContactService
         public void RemovePersonHistories(int [] ids)
         {
             var historyRepo = UnitOfWork.ContactPersonHistoryRepository;
-            UnitOfWork.ContactPersonHistoryRepository.RemoveRange(historyRepo.Get(l => ids.Contains(l.Id)));
+            UnitOfWork.ContactPersonHistoryRepository.RemoveRange(historyRepo.Get(l => ids.Contains(l.Id)).ToArray());
             Save();
         }
 
         public void HistoryChangeToNewManager(List<int> ids)
         {
             var historyRepo = UnitOfWork.ContactPersonHistoryRepository;
-            var historyList = historyRepo.Get(l => ids.Contains(l.Id)).OrderBy(l=>l.Time).ToList();
+            var historyList = historyRepo.Get(l => ids.Contains(l.Id)).OrderBy(l=>l.Time).ToArray();
             foreach (var history in historyList)
             {
                 var contacts= history.ContactPerson.Contacts.ToList();

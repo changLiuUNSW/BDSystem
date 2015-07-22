@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using Microsoft.Owin.Security.Cookies;
 
@@ -21,9 +22,19 @@ namespace ResourceMetadata.API
                     cookiesIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationType);
                     var groups=GetUserGroups(userName);
                     oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, userName));
-                    oAuthIdentity.AddClaim(new Claim(ClaimTypes.Role, string.Join(",",groups)));
                     cookiesIdentity.AddClaim(new Claim(ClaimTypes.Name, userName));
-                    cookiesIdentity.AddClaim(new Claim(ClaimTypes.Role, string.Join(",", groups)));
+                    
+                    if (groups.Contains("BD"))
+                    {
+                        oAuthIdentity.AddClaim(new Claim(ClaimTypes.Role, "BD"));
+                        cookiesIdentity.AddClaim(new Claim(ClaimTypes.Role, "BD"));                        
+                    }
+                    else
+                    {
+                        oAuthIdentity.AddClaim(new Claim(ClaimTypes.Role, string.Join(",", groups)));
+                        cookiesIdentity.AddClaim(new Claim(ClaimTypes.Role, string.Join(",", groups)));    
+                    }
+                    
                 }
                 else
                 {
@@ -35,7 +46,7 @@ namespace ResourceMetadata.API
             }
         }
 
-        private List<string> GetUserGroups(string username)
+        public static List<string> GetUserGroups(string username)
         {
             var groups=new List<string>();
             UserPrincipal user = UserPrincipal.FindByIdentity(new PrincipalContext(ContextType.Domain, DomainName), IdentityType.SamAccountName, username);

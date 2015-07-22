@@ -4,6 +4,7 @@ namespace DateAccess.Services.ViewModels
 {
     public class SecurityContractDTO
     {
+        public int SiteId { get; set; }
         public string Contarctor { get; set; }
         public DateTime? ReviewDate { get; set; }
         public bool GuardingPersonnel { get; set; }

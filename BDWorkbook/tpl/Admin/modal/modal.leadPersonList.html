@@ -1,0 +1,23 @@
+﻿<form class="form-validation" name="form">
+    <div class="modal-header clearfix">
+        <a class="pull-right" ng-click="cancel()"><i class="fa fa-times"></i></a>
+    </div>
+    <div class="modal-body">
+        <ui-select ng-model="data.selected" required>
+            <ui-select-match placeholder="Select or search a person name / initial / role in the list...">
+                {{$select.selected.Initial+' - '+$select.selected.Name}}
+            </ui-select-match>
+            <ui-select-choices repeat="person in persons | filter : $select.search">
+                <div ng-bind-html="person.Initial | highlight: $select.search"></div>
+                <small>
+                    Name: <span ng-bind="person.Name"></span><br />
+                    Role: <span ng-bind="person.LeadGroup.Group"></span>
+                </small>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-sm btn-danger" ng-click="cancel()" value="Cancel" />
+        <input type="submit" class="btn btn-sm btn-primary" ng-click="ok(form)" value="Ok" />
+    </div>
+</form>

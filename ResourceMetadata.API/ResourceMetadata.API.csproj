@@ -218,6 +218,7 @@
     <Compile Include="Controllers\ContactPersonController.cs" />
     <Compile Include="Controllers\LeadPersonalController.cs" />
     <Compile Include="Controllers\QuoteCostController.cs" />
+    <Compile Include="Controllers\QuoteEstimationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SiteGroupController.cs" />
     <Compile Include="Controllers\SummaryController.cs" />
@@ -236,17 +237,22 @@
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Controllers\TelesaleController.cs" />
     <Compile Include="Controllers\SalesBoxController.cs" />
+    <Compile Include="Filters\GlobalExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Json\AllocationJsonResolver.cs" />
     <Compile Include="Json\CustomJsonResolver.cs" />
     <Compile Include="Json\CustomJsonConverter.cs" />
     <Compile Include="Json\ICustomJsonConverter.cs" />
-    <Compile Include="Json\TelesaleContactJsonConverter.cs" />
-    <Compile Include="Models\Responses.cs" />
+    <Compile Include="Json\SiteGroupJsonResolver.cs" />
+    <Compile Include="Json\TelesaleContactJsonResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\EndCallViewModel.cs" />
+    <Compile Include="ViewModels\GenerateLeadViewModel.cs" />
+    <Compile Include="ViewModels\NextCallViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\MailTemplates\quoteDocument.htm" />

@@ -73,7 +73,7 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Visitors.QuestionFilte
                 !string.IsNullOrEmpty(Contact.Site.BuildingType.CriteriaDescription))
             {
                 var tree = Template.Scripts.SingleOrDefault(x => x.Tag == ScriptType.Quali_Question.ToString());
-
+                
                 if (tree != null)
                     yield return tree.Root;
             }

@@ -21,14 +21,17 @@ namespace DataAccess.EntityFramework.Models.Quote.Cost.Labour
         [DefaultValue(true)]
         public bool AddToPricePage { get; set; }
 
-        public int? Hours { get; set; }
+        public decimal? Hours { get; set; }
         public int? Frequency { get; set; }
 
         //Cost
         public decimal? Material { get; set; }
         public decimal? Wage { get; set; }
 
-
+        //TODO: DO we still need this??
         public int? WeeksToInvoice { get; set; }
+
+
+        //TODO:Description && Admin logic field
     }
 }

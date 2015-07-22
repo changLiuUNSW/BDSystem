@@ -1,0 +1,22 @@
+﻿<div class="panel-heading bg-info wrapper-sm">
+    <span class="h3">Areas to clean</span>
+</div>
+<div class="wrapper">
+    <tabset class="tab-container">
+        <tab class="text-md font-thin" disabled="vm.editAreaInc" active="vm.addAreaInc" select="vm.areaIncludeTab='new'">
+            <tab-heading>
+                <i class="icon icon-list"></i> Fill Rows
+            </tab-heading>
+            <div data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.areasToInclude.fillRow.html'">
+            </div>
+        </tab>
+        <tab class="text-md font-thin" disabled="vm.addAreaInc" active="vm.editAreaInc" select="vm.areaIncludeTab='editor'">
+            <tab-heading>
+                <i class="icon icon-note"></i> Editor
+            </tab-heading>
+            <div data-ng-if="vm.areaIncludeTab==='editor'"
+                 data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.areasToInclude.editor.html'">
+            </div>
+        </tab>
+    </tabset>
+</div>

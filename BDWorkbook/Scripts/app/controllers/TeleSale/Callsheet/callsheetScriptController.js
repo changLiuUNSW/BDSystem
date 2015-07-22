@@ -18,10 +18,11 @@
             self.defaultActions = $stateParms.ScriptActions;
         }
 
-        self.actions = [];
-        self.inputs = [];
-        self.histories = [];
-        self.next = next;
+        self.contactName = null;
+        self.actions = []; //total actions been selected from the scripts
+        self.inputs = []; //input for the current script
+        self.histories = []; //script history
+        self.next = next; 
         self.inputs = getInputsFromScript;
         self.selectHistory = onHistoryClicked;
         self.selectActions = onActionClicked;
@@ -39,27 +40,28 @@
             var nextPage,
                 history;
 
-            //todo default PSM response
-            /*if (self.type === 'PMS' && !self.selectedTenant) {
-                displayError("No tenant has been selected!");
-                return;
-            }*/
-
             nextPage = (isTrue) ? self.current.Right : self.current.Left;
-
             history = {
                 id: self.histories.length,
                 isTrue: isTrue,
                 script: self.current,
                 time: Date.now()
             };
+
             self.histories.push(history);
             self.current = nextPage;
             updateScriptQuestion(self.current.Value);
-            self.inputs = getInputsFromScript(self.current);
+
+            if (!self.current.Value.End) {
+                self.inputs = getInputsFromScript(self.current);
+            }
+            else {
+                self.inputs = [];
+            }
         };
 
-        //update script question only if there is a need to capture the name from the user
+        //this function captures the input from user ( mainly contact name )
+        //and replace the name into the rest of the scripts if neccessary
         function updateScriptQuestion(script) {
             if (!script || !script.Question)
                 return;
@@ -72,23 +74,22 @@
             if (latest.script &&
                 latest.script.Value &&
                 latest.script.Value.Actions) {
-                latest.script.Value.Actions.forEach(function (action) {
-                    var contactName;
-                    //13 update contact name
+                latest.script.Value.Actions.forEach(function(action) {
+                    //5 update contact name
                     //22 update tenant
-                    if (action.Type === 13 || action.Type === 22) {
+                    if (action.Type === 5 || action.Type === 22) {
                         if (action.Firstname || action.Lastname)
-                            contactName = '(' + action.Firstname + ' ' + action.Lastname + ')';
+                            self.contactName = '(' + action.Firstname + ' ' + action.Lastname + ')';
                         else
-                            contactName = '(the person / no name input)';
-
-                        if (script.Question.search(/\@\w*/i) != -1)
-                            script.Question = script.Question.replace(/\@\w*/i, contactName);
-                        else if (script.Question.search(/\([\w+\s?\/]*\)/i) != -1)
-                            script.Question = script.Question.replace(/\([\w+\s?\/]*\)/i, contactName);
-                    }
+                            self.contactName = '(the person / no name input)';
+                    };
                 });
-            }
+            };
+
+            if (script.Question.search(/\@\w*/i) != -1)
+                script.Question = script.Question.replace(/\@\w*/i, self.contactName);
+            else if (script.Question.search(/\([\w+\s?\/]*\)/i) != -1)
+                script.Question = script.Question.replace(/\([\w+\s?\/]*\)/i, self.contactName);
         }
 
         function getInputsFromScript(script) {
@@ -149,7 +150,6 @@
 
             $modal.open(modalOptions);
         }
-
 
         //there are two places where we need to look for actions
         //1. those in the histories that has been selected as positive respoonse

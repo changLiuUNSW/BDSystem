@@ -1,0 +1,180 @@
+﻿<div class="wrapper-xs">
+    <div class="panel-default bg-white-only b-dark box-shadow">
+        <div class="panel-heading">
+            <span class="pull-right">
+                <a href data-ng-click="vm.refresh()"><i class="glyphicon glyphicon-refresh"></i></a>
+            </span>
+            <div class="clear">
+               Cost Summary
+            </div>
+           
+        </div>
+        <div class="panel-body">
+            <div class="row font-bold">
+                <div class="col-md-4 col-xs-4">Week</div>
+                <div class="col-md-4 col-xs-4">Month</div>
+                <div class="col-md-4 col-xs-4">Year</div>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="text-primary font-bold">Sub Total</div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4">{{vm.cost.SubTotal/52|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.SubTotal/12|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.SubTotal}}</div>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="text-primary font-bold">
+                <span class="font-bold">Return</span><span class="font-thin pull-right">{{vm.cost.Return||'N/A'}}</span>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4">{{vm.cost.ReturnPw}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.ReturnPw*52/12|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.ReturnPw*52}}</div>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="text-primary font-bold">Subtotal</div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4">{{vm.cost.Total/52|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.Total/12|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.Total}}</div>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="text-primary font-bold">Total Cost</div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4">{{vm.cost.TotalCost/52|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.TotalCost/12|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.TotalCost}}</div>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="text-primary font-bold">
+                <span class="font-bold">GST</span><span class="font-thin pull-right">10%</span>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4">{{vm.cost.TotalCost*0.1/52|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.TotalCost*0.1/12|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.TotalCost*0.1}}</div>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="text-primary font-bold">Invoice Amount</div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4">{{(vm.cost.TotalCost+vm.cost.TotalCost*0.1)/52|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{(vm.cost.TotalCost+vm.cost.TotalCost*0.1)/12|number:2}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.TotalCost+vm.cost.TotalCost*0.1}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper-xs hidden-sm hidden-xs" id="cost-summary">
+    <accordion close-others="false">
+        <accordion-group is-open="vm.subcostCollapse.open">
+            <accordion-heading >
+                <span class="font-bold">Subcontractor Cost</span><i class="pull-right fa fa-angle-right" ng-class="{'fa-angle-down': vm.subcostCollapse.open, 'fa-angle-right': !vm.subcostCollapse.open}"></i>
+            </accordion-heading>
+            <div class="label bg-primary">Regular</div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4"></div>
+                <div class="col-md-4 col-xs-4"></div>
+                <div class="col-md-4 col-xs-4"></div>
+            </div>
+            <div class="label bg-info">Admin</div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4"></div>
+                <div class="col-md-4 col-xs-4"></div>
+                <div class="col-md-4 col-xs-4"></div>
+            </div>
+           
+        </accordion-group>
+        <accordion-group is-open="vm.othercostCollapseReg.open">
+            <accordion-heading>
+                <span class="font-bold">
+                    Other cleaning/supplies
+                </span>
+                    <i class="pull-right fa fa-angle-right" ng-class="{'fa-angle-down': vm.othercostCollapseReg.open, 'fa-angle-right': !vm.othercostCollapseReg.open}"></i>
+                </accordion-heading>
+            <div class="font-bold">Incontract work - by subcontractor</div>
+            <div class="label bg-primary">Regular</div>
+            <div class="row m-t-xs text-primary">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+            <div class="label bg-info">Admin</div>
+            <div class="row m-t-xs text-info">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="font-bold m-t-xs">Incontract supplies</div>
+            <div class="label bg-primary">Regular</div>
+            <div class="row m-t-xs text-primary">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+            <div class="label bg-info">Admin</div>
+            <div class="row m-t-xs text-info">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+            <div class="line m-t-xs b-b b-light"></div>
+            <div class="font-bold m-t-xs">Equipment</div>
+            <div class="row m-t-xs">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+        </accordion-group>
+        
+        <accordion-group is-open="vm.labourCollapse.open">
+            <accordion-heading>
+                <span class="font-bold">Quad Labour costing</span>
+                <i class="pull-right fa fa-angle-right" ng-class="{'fa-angle-down': vm.labourCollapse.open, 'fa-angle-right': !vm.labourCollapse.open}"></i>
+            </accordion-heading>
+            <div class="font-bold">Perioudicals, allowances, on costs</div>
+            <div class="label bg-primary">Regular</div>
+            <div class="row m-t-xs text-primary">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+            <div class="label bg-info">Admin</div>
+            <div class="row m-t-xs text-info">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+            <div class="font-bold m-t-xs">Mat, uniforms, crims check, phone</div>
+            <div class="row m-t-xs">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+            <div class="font-bold m-t-xs">Fixed price</div>
+            <div class="row m-t-xs">
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+                <div class="col-md-4 col-xs-4">$1,234.00</div>
+            </div>
+        </accordion-group>
+        <accordion-group is-open="vm.pliabilityCollapse.open">
+            <accordion-heading>
+                <span class="font-bold">Public Liability</span>
+                <i class="pull-right fa fa-angle-right" ng-class="{'fa-angle-down': vm.pliabilityCollapse.open, 'fa-angle-right': !vm.pliabilityCollapse.open}"></i>
+            </accordion-heading>
+            <div><span class="font-bold">{{vm.cost.PublicLiability.Description||'N/A'}}</span><span class="text-muted pull-right">{{vm.cost.PublicLiability.Precentage*100|number:2}}%</span></div>
+            <div class="row m-t-xs">
+                <div class="col-md-4 col-xs-4">{{(vm.cost.SubTotal+vm.cost.ReturnPw*52)/52}}</div>
+                <div class="col-md-4 col-xs-4">{{(vm.cost.SubTotal+vm.cost.ReturnPw*52)/12}}</div>
+                <div class="col-md-4 col-xs-4">{{vm.cost.SubTotal+vm.cost.ReturnPw*52}}</div>
+            </div>
+        </accordion-group>
+    </accordion>
+</div>

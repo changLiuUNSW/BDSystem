@@ -8,6 +8,6 @@ namespace DateAccess.Services.ContactService.Call.Providers
     /// </summary>
     public interface IGroupCall
     {
-        CallDetail Next(int siteId);
+        CallDetail Next(string name, int siteId);
     }
 }

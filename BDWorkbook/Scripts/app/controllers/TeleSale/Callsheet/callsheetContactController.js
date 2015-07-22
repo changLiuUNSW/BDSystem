@@ -108,7 +108,7 @@
                             update: angular.copy(exist.model),
                             history: angular.copy(exist.clone),
                             reason: obj.option,
-                            name: 'Jing' // for esting
+                            //name: 'Jing' // for esting
                         });
                     }
                 });
@@ -151,7 +151,8 @@
                 target.selected = !target.selected;
             };
 
-            function add(contact, user) {
+            function add() {
+                var contact = $stateParams.Contact;
                 if (!contact)
                     return;
 
@@ -160,13 +161,12 @@
                     controller: 'modalCallLineController',
                     resolve: {
                         $initial: function () {
-                            return user.Initial;
+                            return $stateParams.LeadPerson.Initial;
                         }
                     }
                 }
 
                 $modal.open(modalOptions).result.then(function(cl) {
-
                     var param = { contactId: contact.Id }
                     apiService.contact.addCallLine(param, cl, function(success) {
                         contact.CallLines.push(success.data);

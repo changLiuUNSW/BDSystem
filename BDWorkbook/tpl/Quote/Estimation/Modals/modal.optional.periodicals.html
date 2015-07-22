@@ -1,0 +1,22 @@
+﻿<div class="panel-heading bg-info wrapper-sm">
+    <span class="h3">Optional - Periodicals</span>
+</div>
+<div class="wrapper">
+    <tabset class="tab-container">
+        <tab class="text-md font-thin" disabled="vm.editPeriodical" active="vm.addPeriodical" select="vm.optionalPeriodicalsTab='list'">
+            <tab-heading>
+                <i class="icon icon-list"></i> List
+            </tab-heading>
+            <div quote-costingfillrows="vm">
+            </div>
+        </tab>
+        <tab class="text-md font-thin" disabled="vm.addPeriodical" active="vm.editPeriodical" select="vm.optionalPeriodicalsTab='editor'">
+            <tab-heading>
+                <i class="icon icon-note"></i> Editor
+            </tab-heading>
+            <div data-ng-if="vm.optionalPeriodicalsTab==='editor'"
+                 data-ng-include="'tpl/Quote/Estimation/OptionalTabs/estimation.optional.periodicals.editor.html'">
+            </div>
+        </tab>
+    </tabset>
+</div>

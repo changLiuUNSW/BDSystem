@@ -15,7 +15,7 @@ namespace BDWorkbook
             var jqlibs=new ScriptBundle("~/bundles/Jqlibs")
                 .Include("~/Scripts/vendor/jquery/dist/jquery.js")
                 .Include("~/Scripts/vendor/toastr/toastr.js")
-                .Include("~/Scripts/vendor/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js")
+                .Include("~/Scripts/vendor-others/jquery.bootstrap.wizard.js")
                 .Include("~/Scripts/vendor/bootstrap/dist/js/bootstrap.js")
                 .Include("~/Scripts/vendor/sweetalert/dist/sweetalert-dev.js")
                 .Include("~/Scripts/vendor/screenfull/dist/screenfull.js")

@@ -99,7 +99,6 @@
                         return;
                     }
 
-                    console.log($scope.edit.select);
                     var param = {
                         Zone: zone.Zone,
                         Size: size,

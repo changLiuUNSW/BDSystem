@@ -1,8 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using DataAccess.EntityFramework;
 using DataAccess.EntityFramework.TypeLibrary;
 using DateAccess.Services.ContactService.Call.Models;
 using DateAccess.Services.ContactService.Call.Providers;
+using DateAccess.Services.ContactService.Call.Scripts.Actions;
 using DateAccess.Services.MailService;
 
 namespace DateAccess.Services.ContactService.Call
@@ -10,28 +11,14 @@ namespace DateAccess.Services.ContactService.Call
     internal class CallService : ICallService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILeadEmailService _emailService;
+        private readonly IEmailHelper _emailHelper;
         private readonly IContactService _contactService;
 
-        public CallService(IUnitOfWork unitOfWork, ILeadEmailService emailService, IContactService contactService)
+        public CallService(IUnitOfWork unitOfWork, IEmailHelper emailHelper, IContactService contactService)
         {
             _unitOfWork = unitOfWork;
-            _emailService = emailService;
+            _emailHelper = emailHelper;
             _contactService = contactService;
-        }
-
-        public CallProvider Provider { get; set; } 
-        public CallProvider GetProvider(CallTypes type)
-        {
-            switch (type)
-            {
-                case CallTypes.Telesale:
-                    return new TelesaleCallProvider(_unitOfWork, _emailService);
-                case CallTypes.BD:
-                    return new BdCallProvider(_unitOfWork, _emailService);
-                default:
-                    return null;
-            }
         }
 
         /// <summary>
@@ -42,20 +29,24 @@ namespace DateAccess.Services.ContactService.Call
         /// <param name="siteId">siteId for find next call</param>
         /// <param name="lastCallId">Qccupied call id</param>
         /// <returns></returns>
-        public CallDetail GetNextCall(CallTypes type, string initial, int? siteId, int? lastCallId)
+        public CallDetail GetNextCall(CallType type, string initial, int? siteId, int? lastCallId)
         {
-            var provider = Provider ?? GetProvider(type);
-
+            var provider = GetProvider(type);
             if (lastCallId.HasValue)
                 _contactService.RemoveOccupiedCall(lastCallId.Value);
 
             if (siteId.HasValue)
-                return provider.GroupCall.Next(siteId.Value);
+                return provider.GroupCall.Next(initial, siteId.Value);
 
             if (!string.IsNullOrEmpty(initial))
                 return provider.StandardCall.Next(initial);
 
             return null;
+        }
+
+        public CallProvider GetProvider(CallType type)
+        {
+            return CallProvider.Create(type, _unitOfWork, _emailHelper);
         }
     }
 }

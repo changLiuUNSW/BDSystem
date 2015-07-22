@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using DataAccess.EntityFramework;
 using DataAccess.EntityFramework.Infrastructure;
+using Newtonsoft.Json.Linq;
 
 namespace DateAccess.Services
 {
     public interface IRepositoryService<T> where T : class
     {
-        IList<T> Get(bool disableProxy = false);
-        T GetByKey<TKey>(TKey key, bool disableProxy = false);
-        IList<T> GetWithInclude(Expression<Func<T, object>>[] paths, bool disableProxy = false);
+        IList<T> Get();
+        T GetByKey<TKey>(TKey key);
         T Add(T item);
-        bool Any(Expression<Func<T, bool>> predicate);
         int Delete<TKey>(TKey id);
         int Delete<TKey1, TKey2>(TKey1 keyOne, TKey2 keyTwo);
         int Update(T item);
-        int Update(IList<T> items);
-        void Reload(T entity);
+        IRepository<T> Repository { get; }
+        IUnitOfWork UnitOfWork { get; }
     }
 
     /// <summary>
@@ -29,18 +27,10 @@ namespace DateAccess.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private IRepository<T> _repository;
-        protected delegate IList<T> DelegateGet();
-        protected delegate T DelegateGet<in TKey>(TKey key);
-        protected delegate IList<T> DelegateInclude(params Expression<Func<T, object>>[] paths);
 
         protected RepositoryService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-        }
-
-        protected IUnitOfWork UnitOfWork
-        {
-            get { return _unitOfWork; }
         }
 
         protected int Save()
@@ -48,31 +38,12 @@ namespace DateAccess.Services
             return _unitOfWork.Save();
         }
 
-        protected IList<T> GetWithoutProxy(DelegateGet method)
+        public IUnitOfWork UnitOfWork
         {
-            UnitOfWork.EnableProxyCreation(false);
-            var result = method();
-            UnitOfWork.EnableProxyCreation(true);
-            return result;
+            get { return _unitOfWork; }
         }
 
-        protected T GetWithoutProxy<TKey>(DelegateGet<TKey> method, TKey key)
-        {
-            _unitOfWork.EnableProxyCreation(false);
-            var result = method(key);
-            _unitOfWork.EnableProxyCreation(true);
-            return result;
-        }
-
-        protected IList<T> GetWithoutProxy(DelegateInclude method, Expression<Func<T, object>>[] paths)
-        {
-            UnitOfWork.EnableProxyCreation(false);
-            var result = method(paths);
-            UnitOfWork.EnableProxyCreation(true);
-            return result;
-        }
-
-        protected IRepository<T> Repository
+        public IRepository<T> Repository
         {
             get
             {
@@ -90,50 +61,14 @@ namespace DateAccess.Services
         /// default get function
         /// </summary>
         /// <returns></returns>
-        public virtual IList<T> Get(bool disableProxy = false)
+        public virtual IList<T> Get()
         {
-            switch (disableProxy)
-            {
-                case true:
-                    DelegateGet method = Repository.Get;
-                    return GetWithoutProxy(method);
-                default:
-                    return Repository.Get();
-            }
-        } 
-
-        public virtual IList<TResult> Distinct<TResult>(Expression<Func<T, TResult>> predicate)
-        {
-            return Repository.Distinct(predicate);
+            return Repository.Get();
         }
 
-        public virtual bool Any(Expression<Func<T, bool>> predicate)
+        public virtual T GetByKey<TKey>(TKey key)
         {
-            return Repository.Any(predicate);
-        }
-
-        public virtual T GetByKey<TKey>(TKey key, bool disableProxy = false)
-        {
-            switch (disableProxy)
-            {
-                case true:
-                    DelegateGet<TKey> method = Repository.Get<TKey>;
-                    return GetWithoutProxy(method, key);
-                default:
-                    return Repository.Get(key);
-            }
-        }
-
-        public virtual IList<T> GetWithInclude(Expression<Func<T, object>>[] paths, bool disableProxy = false)
-        {
-            switch (disableProxy)
-            {
-                case true:
-                    DelegateInclude method = Repository.Include;
-                    return GetWithoutProxy(method, paths);
-                default:
-                    return Repository.Include(paths);
-            }
+            return Repository.Get(key);
         }
 
         /// <summary>
@@ -191,9 +126,35 @@ namespace DateAccess.Services
             return Save();
         }
 
-        public virtual void Reload(T entity)
+        /// <summary>
+        /// update database from json
+        /// </summary>
+        /// <typeparam name="TDestination"></typeparam>
+        /// <param name="id">id property name</param>
+        /// <param name="source">json src</param>
+        public void UpdateFromJson<TDestination>(string id, JObject source) where TDestination : class
         {
-            Repository.Reload(entity);
+            TDestination dest;
+            var jsonKey = source[id];
+            
+            if (jsonKey.Type == JTokenType.String)
+                dest = UnitOfWork.GetRepository<TDestination>().Get((string)source[id]);
+            else
+                dest = UnitOfWork.GetRepository<TDestination>().Get((int) source[id]);
+
+            var properties = source.Children<JProperty>();
+            var type = typeof (TDestination);
+            foreach (var property in properties)
+            {
+                if (property.Name == id || 
+                    property.Value.Type == JTokenType.Array || 
+                    property.Value.Type == JTokenType.Object)
+                    continue;
+
+                var propertyType = type.GetProperty(property.Name);
+                if (propertyType != null)
+                    propertyType.SetValue(dest, Convert.ChangeType(property.Value, propertyType.PropertyType));
+            }
         }
     }
 }

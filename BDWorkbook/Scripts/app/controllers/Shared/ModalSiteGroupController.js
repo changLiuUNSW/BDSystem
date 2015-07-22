@@ -76,21 +76,21 @@
 
        function getGroupDetail(id) {
             $scope.loading = true;
-            return siteGroupService.getGroup({ id: id }).then(function (result) {
-                siteList = result.data.Sites;
-                $scope.initNgTable();
-                $scope.loading = false;
-            });
-        }
+           return siteGroupService.getGroup({ id: id }).then(function(result) {
+               siteList = result.data.Sites;
+               $scope.initNgTable();
+               $scope.loading = false;
+           });
+       };
 
        function init(groupId) {
            $scope.group.selected = undefined;
            var loading = $scope.loadGroupList(groupId);
            if (groupId) loading = loading.then(getGroupDetail(groupId));
-            loading.catch(function(error) {
-                logger.serverError(error);
-            });
-        }
+           loading.catch(function (error) {
+               logger.serverError(error);
+           });
+       }
 
 
        function selectAction(action) {

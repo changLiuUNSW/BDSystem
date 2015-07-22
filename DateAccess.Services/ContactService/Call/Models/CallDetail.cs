@@ -34,21 +34,5 @@ namespace DateAccess.Services.ContactService.Call.Models
         
         [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
         public IList<ScriptAction> ScriptActions { get; set; }
-
-        public CallDetail()
-        {
-            ScriptActions = new List<ScriptAction>
-            {
-                new UpdateDaCheck(), //TS, BD
-                new UpdateExtManager(), //TS
-                new UpdateSendInfo(), //TS
-                new UpdateCallBack(), //TS, BD
-
-                //different list for BD
-                //generate lead //BD
-                //
-            };
-        }
-
     }
 }

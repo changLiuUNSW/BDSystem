@@ -76,6 +76,7 @@
     <Compile Include="DateConversionTest.cs" />
     <Compile Include="MockHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceTest\LeadServiceTest.cs" />
     <Compile Include="ServiceTest\QuoteServiceTest.cs" />
     <Compile Include="ServiceTest\ReportTest.cs" />
     <Compile Include="TestClass.cs" />

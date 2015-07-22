@@ -5,10 +5,10 @@
         </select>
         <button class="btn btn-sm btn-default" data-ng-click="vm.bulkAction()" data-ng-disabled="!vm.selectedBulkAction">Apply</button>
     </div>
-
+   
     <div class="pull-right" data-ng-if="vm.enableCostAdd(vm.quote)">
-        <div data-ng-if="vm.quote.BusinessType.Id===1&& vm.quote.State.toUpperCase()!=='NZ'">
-            <button type="button" class="btn btn-sm btn-default btn-addon" ng-click="vm.sendToWp()" data-ng-if="vm.checkAllDone(vm.quote)===true&&vm.enableSendBtn(vm.quote)">
+        <div data-ng-if="vm.quote.BusinessType.Id===vm.businessType.cleaning&& vm.quote.State.toUpperCase()!=='NZ'">
+            <button type="button" class="btn btn-sm btn-default btn-addon" ng-click="vm.sendToWp()" data-ng-if="vm.checkAllDone(vm.quote)===true&& vm.enableSendBtn(vm.quote)">
                 <i class=" fa fa-send">
                 </i>Send
             </button>
@@ -17,7 +17,7 @@
             </button>
         </div>
 
-        <div class="pull-right" data-ng-if="vm.quote.BusinessType.Id!==1||vm.quote.State.toUpperCase()==='NZ'">
+        <div class="pull-right" data-ng-if="vm.quote.BusinessType.Id!==vm.businessType.cleaning||vm.quote.State.toUpperCase()==='NZ'" >
             <button type="button" class="btn btn-sm btn-default btn-addon" ng-click="vm.sendToWpNoInfo()" data-ng-if="vm.checkAllDone(vm.quote)===true&& vm.enableSendBtn(vm.quote)">
                 <i class="fa  fa-send"></i>Send
             </button>
@@ -53,7 +53,7 @@
 
         <div>
             <label class="i-checks m-b-none" data-ng-if="cost.Status===0"><input type="checkbox" name="selectedCosts[]" value="{{cost.Id}}" data-ng-model="cost.selected"><i></i></label>
-            <a ui-sref="quote.detail.progress.costDetail({id:vm.quote.Id,costId:cost.Id})" class="text-md text-info">
+            <a href="{{vm.navigate(cost)}}" class="text-md text-info">
                 {{cost.Id}}
                 <ng-switch on="cost.IsSameAddress">
                     <span ng-switch-when="false">{{cost.Company}}</span>
@@ -83,8 +83,8 @@
 
 
         <small class="block m-t-xs">
-            <span class="m-r-sm">Price PA: {{cost.PricePa}}</span>
-            <span class="m-r-sm">Return PW: {{cost.ReturnPw}}</span>
+            <span class="m-r-sm">Price PA: {{cost.PricePa||'N/A'}}</span>
+            <span class="m-r-sm">Return PW: {{cost.ReturnPw||'N/A'}}</span>
         </small>
         <em class="text-xs">Last Update on <span class="text-danger">{{cost.LastUpdateDate | fromNow}}</span></em>
     </li>

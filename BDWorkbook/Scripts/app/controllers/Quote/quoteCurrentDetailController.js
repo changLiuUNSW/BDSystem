@@ -6,19 +6,22 @@
     function quoteCurrentDetailCtrl($stateParams, quoteService, logger, $modal, typeLibrary) {
         /* jshint validthis: true */
         var vm = this;
+        var ENABLE_EMAILACTION_DAYS = 7;
         vm.quote = undefined;
         vm.questionType = typeLibrary.quoteQuestionType;
         vm.answerType = typeLibrary.quoteAnswerType;
         vm.quoteStatusType = typeLibrary.quoteStatusType;
-        vm.tabs = ['Contact', 'Dead', 'Adjustment'];
+        vm.tabs = ['Contact', 'Dead', 'Adjustment','Email'];
         vm.tabs.selected = vm.tabs[0];
         vm.downloadQuote = downloadQuote;
         vm.contactModal = contactModal;
         vm.deadModal = deadModal;
         vm.adjustModal = adjustModal;
+        vm.emailModal = emailModal;
         vm.getDeadStatus = getDeadStatus;
         vm.getAdjustStatus = getAdjustStatus;
         vm.updateRating = updateRating;
+        vm.disableEmailAction = disableEmailAction;
         init();
         function init() {
             loadQuote();
@@ -50,6 +53,23 @@
             var modalInstance = $modal.open({
                 templateUrl: 'tpl/Quote/Modals/modal.quote.dead.html',
                 controller: 'ModalQuoteDeadCtrl',
+                controllerAs: 'vm',
+                size: null,
+                resolve: {
+                    quote: function () {
+                        return angular.copy(vm.quote);
+                    }
+                }
+            });
+            modalInstance.result.then(function (result) {
+                loadQuote();
+            });
+        }
+
+        function emailModal() {
+            var modalInstance = $modal.open({
+                templateUrl: 'tpl/Quote/Modals/modal.quote.email.html',
+                controller: 'ModalQuoteEmailCtrl',
                 controllerAs: 'vm',
                 size: null,
                 resolve: {
@@ -104,6 +124,18 @@
                 }
             }
             return null;
+        }
+
+        function disableEmailAction() {
+            if (vm.quote.ClientEmailSendDate) {
+                var now = moment();
+                var emaildate = moment(vm.quote.ClientEmailSendDate);
+                var diffDays = emaildate.diff(now, 'days');
+                if (diffDays <= ENABLE_EMAILACTION_DAYS) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         function updateRating(rate) {

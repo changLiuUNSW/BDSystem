@@ -67,8 +67,7 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Visitors
                         Contact.Site.Groups.SingleOrDefault(
                             x => x.Type.ToLower() == GroupType.Building.ToString().ToLower());
 
-                    if (group != null &&
-                        (!string.IsNullOrEmpty(group.Firstname) || !string.IsNullOrEmpty(group.Lastname)))
+                    if (group != null && group.ExternalManagers.Any())
                         return node.Right;
 
                     return node.Left;

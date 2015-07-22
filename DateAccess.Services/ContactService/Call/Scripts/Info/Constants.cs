@@ -13,5 +13,6 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Info
         public const string BMS = "BMS";
         public const string PMS = "PMS";
         public const string REA = "REA";
+        public const string Tenant = "MT";
     }
 }

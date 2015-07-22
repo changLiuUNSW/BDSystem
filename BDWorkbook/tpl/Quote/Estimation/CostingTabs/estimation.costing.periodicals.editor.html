@@ -1,0 +1,40 @@
+﻿<form name="form" class="form-validation">
+    <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+        <li class="list-group-item clearfix b-l-3x" data-ng-repeat="each in vm.addedPeriodicals track by $index" ng-class="{'b-l-info ': vm.addedPeriodicals.indexOf(each)%2==0, 'b-l-success ': vm.addedPeriodicals.indexOf(each)%2==1}">
+            <div class="clear">
+                <span class="pull-right">
+                    <a class="text-danger-lter" data-ng-click="vm.delCheckedPed(vm.addedPeriodicals.indexOf(each))"><i class="fa fa-times" tooltip="Delete"></i></a>
+                </span>
+                <span class="h4 font-thin text-dark-lter pull-left" >NO.{{vm.addedPeriodicals.indexOf(each)+1}}</span>
+            </div>
+            <div class="row">
+                <div class="line line-lg b-b b-light"></div>
+                <div class="col-md-9">
+                    <span class="font-bold">Description: </span><span class="font-thin text-muted">put below all details, eg Internal windows, Gr floor, twice PA</span>
+                    <input type="text" class="form-control" name="periodicals" data-ng-model="each.Description" required>
+                </div>
+                <div class="col-md-3">
+                    <span class="font-bold">Itemise on price page? </span>
+                    <select class="form-control" required data-ng-model="each.Itemise">
+                        <option value="">Please choose</option>
+                        <option value="true">YES</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <span class="font-bold">Cost / time: </span>
+                    <input type="number" min="0" ui-validate=" '$value >0' " class="form-control" name="costpertime" data-ng-model="each.CostPerTime" required>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <span class="font-bold">Freq Pa: </span>
+                    <input type="number" min="0" ui-validate=" '$value >0' " class="form-control" name="freqpa" data-ng-model="each.FreqPa" required>
+                </div>
+
+            </div>
+        </li>
+    </ul>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-success" type="submit" data-ng-click="vm.confirm()" ng-disabled="form.$invalid">Confirm</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</form>

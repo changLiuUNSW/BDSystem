@@ -4,12 +4,14 @@
         .controller('quoteProgressDetailCtrl', quoteProgressDetailCtrl);
     quoteProgressDetailCtrl.$inject = ['quoteService',
         'quoteCostService',
+        '$state',
         'quoteWorkFlowHelper',
         '$stateParams',
-        'logger', '$modal', 'SweetAlert', '$filter'];
+        'logger', '$modal', 'SweetAlert', '$filter', 'typeLibrary'];
     function quoteProgressDetailCtrl(quoteService,
         quoteCostService,
-        quoteWorkFlowHelper, $stateParams, logger, $modal, sweetAlert, $filter) {
+        $state,
+        quoteWorkFlowHelper, $stateParams, logger, $modal, sweetAlert, $filter, typeLibrary) {
         /* jshint validthis: true */
         var vm = this;
         vm.quote = undefined;
@@ -21,6 +23,7 @@
         vm.bulkActions = ['Delete', 'Finalize'];
         vm.selectedBulkAction = undefined;
         vm.costActions = ['Edit', 'Delete', 'Finalize'];
+        vm.businessType = typeLibrary.businessType;
         vm.numberOfPages = numberOfPages;
         vm.resetPage = resetPage;
         vm.enableCostAdd = quoteWorkFlowHelper.enableCostAdd;
@@ -42,8 +45,29 @@
         vm.sendToWp = sendToWp;
         vm.sendToWpNoInfo = sendToWpNoInfo;
         vm.addCost = addCost;
+        vm.navigate = navigate;
         init();
         
+        function navigate(cost) {
+            var type = cost.CostType;
+            var hrefUrl;
+            switch (type) {
+                //Upload
+//                case 1:
+//                    hrefUrl = $state.href('quote.progress.group', { id: cost.Id });
+//                    break;
+               //System
+                case 2:
+                    hrefUrl = $state.href('quote.estimation', { id: cost.Id });
+                    break;
+                default:
+                    hrefUrl = $state.href('access.404');
+                    break;
+            }
+            return hrefUrl;
+        }
+
+
         function cancelQuote(quote) {
             sweetAlert.confirm('Please Confirm', 'Cancel this quote ?').then(function() {
                 quoteService.cancelQuote(quote.Id).then(function (result) {
@@ -125,11 +149,36 @@
 
      
         function addCost() {
-            logger.error('cost estimation for Cleaning type is not implemented yet', 'error');
+            var modalInstance = $modal.open({
+                templateUrl: 'tpl/quote/estimation/modals/modal.estimation.preSteps.html',
+                controller: 'ModalEstimationPreStepsCtrl',
+                size: null,
+                controllerAs: 'vm',
+                resolve:{
+                    quote: function () {
+                        return vm.quote;
+                    }
+                }
+            });
+//            modalInstance.result.then(function () {
+//            });
         }
 
         function sendToWp() {
-            logger.error('send to WP for cleaning type is not implemented yet', 'error');
+           // logger.error('send to WP for cleaning type is not implemented yet', 'error');
+            var modalInstance = $modal.open({
+                templateUrl: 'tpl/quote/modals/modal.quote.preSendToWp.html',
+                controller: 'ModalSendToWPPreStepsCtrl',
+                size: 'lg',
+                controllerAs: 'vm',
+                resolve: {
+                    quote: function () {
+                        return vm.quote;
+                    }
+                }
+            });
+            modalInstance.result.then(function () {
+            });
         }
 
         function sendToWpNoInfo() {
@@ -161,7 +210,7 @@
             if (quote.State.toUpperCase() === 'NZ') {
                 quoteCostService.download('nz');
             } else {
-                if (quote.BusinessType.Id !== 1) {
+                if (quote.BusinessType.Id !== vm.businessType.cleaning) {
                     quoteCostService.download(quote.BusinessType.Type);
                 }
             }

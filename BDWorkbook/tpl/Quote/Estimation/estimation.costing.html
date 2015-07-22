@@ -1,0 +1,27 @@
+﻿<div class="panel-default bg-white-only b-dark b-r box-shadow">
+    <div class="panel-body">
+        <tabset class="tab-container">
+            <tab class="text-md font-thin" heading="Equipment" data-ng-click="vm.costAddTab='equ'">
+                <div data-ng-if="vm.costAddTab==='equ'"
+                     data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.equipment.html'">
+                </div>
+            </tab>
+            <tab class="text-md font-thin" heading="Incontract Supplies" data-ng-click="vm.costAddTab='toil'">
+                <div data-ng-if="vm.costAddTab==='toil'"
+                     data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.toiletries.html'">
+                </div>
+            </tab>
+            <tab class="text-md font-thin" heading="Incontract Periodicals" data-ng-click="vm.costAddTab='period'">
+                <div data-ng-if="vm.costAddTab==='period'"
+                     data-ng-include="'tpl/Quote/Estimation/CostingTabs/estimation.costing.periodicals.html'">
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="wrapper-sm form-group pull-down clearfix">
+        <div class="col-sm-12">
+            <a data-ng-click="vm.processSelected(vm.nextStep)" class="pull-right btn btn-sm  btn-info m-t-n-xs">Next >></a>
+            <a class="pull-right btn btn-sm  btn-primary m-t-n-xs m-r">Save for later</a>
+        </div>
+    </div>
+</div>

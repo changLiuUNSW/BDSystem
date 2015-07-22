@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +7,6 @@ using DataAccess.Common.Contact;
 using DataAccess.Common.SearchModels;
 using DataAccess.EntityFramework.Expressions;
 using DataAccess.EntityFramework.Extensions;
-using DataAccess.EntityFramework.Extensions.Utilities;
 using DataAccess.EntityFramework.Infrastructure;
 using DataAccess.EntityFramework.Models.BD.Allocation;
 using DataAccess.EntityFramework.Models.BD.Contact;
@@ -16,6 +16,13 @@ using DataAccess.EntityFramework.TypeLibrary;
 
 namespace DataAccess.EntityFramework.Repositories
 {
+    public class SummaryCount
+    {
+        //[JsonConverter(typeof(StringEnumConverter))]
+        public String Type { get; set; }
+        public int TotalCount { get; set; }
+    }
+
     public interface IContactRepository : IRepository<Contact>
     {
         IList<AllocationSummary> AllocationSummary();
@@ -29,11 +36,27 @@ namespace DataAccess.EntityFramework.Repositories
         Contact NextCleaningContact(IEnumerable<string> qpCodes, int leadPersonId, IEnumerable<int> exclude = null);
         Contact NextCleaningContact(IEnumerable<string> qpCodes, IEnumerable<Allocation> allocations, IEnumerable<int> exclude);
         Task<SearchResult<AdminSearch>> Search(Search search);
+
+        /// <summary>
+        /// total row count in contact table for each distinct business types
+        /// </summary>
+        /// <returns></returns>
+        List<SummaryCount>  BusinessTypeCount();
+
+        List<SummaryCount> BusinessTypeCount(string code); 
+            
+        /// <summary>
+        /// total row count for contact that has a valid contact person in contact table for each distinct business types
+        /// </summary>
+        /// <returns></returns>
+        List<SummaryCount> ContactPersonCount();
+
+        List<SummaryCount> ContactPersonCount(string code);
     }
 
     internal class ContactRepository : Repository<Contact>, IContactRepository
     {
-        internal ContactRepository(IDbContext dbContext) : base(dbContext)
+        internal ContactRepository(DbContext dbContext) : base(dbContext)
         {
         }
 
@@ -42,12 +65,12 @@ namespace DataAccess.EntityFramework.Repositories
             //only OPR can be allocated
             var codes = new List<string> {"OPR"};
 
-            var postcodeAndStates = DataContext.DbSet<Allocation>()
-                .Join(DataContext.DbSet<SalesBox>(), x => x.Zone, x => x.Zone,
+            var postcodeAndStates = DataContext.Set<Allocation>()
+                .Join(DataContext.Set<SalesBox>(), x => x.Zone, x => x.Zone,
                     (allocation, box) => new {allocation.Size, box.Postcode, box.State, allocation.LeadPersonalId});
 
 
-            var sites = DataContext.DbSet<Site>()
+            var sites = DataContext.Set<Site>()
                 .Join(postcodeAndStates, x => new {x.Size, x.Postcode, x.State}, x => new {x.Size, x.Postcode, x.State},
                     (site, a) => new {site, a.LeadPersonalId});
 
@@ -88,13 +111,13 @@ namespace DataAccess.EntityFramework.Repositories
 
         public IList<AssignableSummary> AssignableSummary()
         {
-            var sitesWithSalesbox = DataContext.DbSet<Site>()
-                .Join(DataContext.DbSet<SalesBox>(),
+            var sitesWithSalesbox = DataContext.Set<Site>()
+                .Join(DataContext.Set<SalesBox>(),
                     x => new {x.Postcode, x.State},
                     x => new {x.Postcode, x.State},
                     (site, salesbox) => new {site, salesbox});
 
-            var sitesWithAllocation = sitesWithSalesbox.Join(DataContext.DbSet<Allocation>(),
+            var sitesWithAllocation = sitesWithSalesbox.Join(DataContext.Set<Allocation>(),
                 x => new {x.site.Size, x.salesbox.Zone},
                 x => new {x.Size, x.Zone}, (site, allocation) => new {site.site, allocation});
 
@@ -188,7 +211,7 @@ namespace DataAccess.EntityFramework.Repositories
                 ? DbSet.Where(x => !exclude.Contains(x.Id)).CleaningContacts(qpCodes).ReadyToCall()
                 : DbSet.CleaningContacts(qpCodes).ReadyToCall();
 
-            var allocations = DataContext.DbSet<Allocation>().Where(x => x.LeadPersonalId == leadPersonId);
+            var allocations = DataContext.Set<Allocation>().Where(x => x.LeadPersonalId == leadPersonId);
             var contacts = cleaningContacts.Join(allocations, x => new {x.Site.Size, x.Site.SalesBox.Zone},
                 x => new {x.Size, x.Zone},
                 (contact, allocation) => contact);
@@ -236,9 +259,9 @@ namespace DataAccess.EntityFramework.Repositories
         public Contact NextCleaningContact(int telesaleId)
         {
             var telesales =
-                DataContext.DbSet<Telesale>()
+                DataContext.Set<Telesale>()
                     .Where(x => x.Id == telesaleId)
-                    .Join(DataContext.DbSet<Assignment>(), x => x.Id, x => x.TelesaleId,
+                    .Join(DataContext.Set<Assignment>(), x => x.Id, x => x.TelesaleId,
                         (ts, assignment) => assignment);
 
             var contacts = DbSet.CleaningContacts().ReadyToCall();
@@ -276,6 +299,52 @@ namespace DataAccess.EntityFramework.Repositories
                 List =await query.Skip((search.CurrentPage - 1)*search.PageSize)
                     .Take(search.PageSize).ToListAsync()
             };
+        }
+
+        public List<SummaryCount> BusinessTypeCount()
+        {
+            var list = DbSet.CountByBusinessType().ToList();
+            return MergeWithGroupCount(list);
+        }
+
+        public List<SummaryCount> BusinessTypeCount(string code)
+        {
+            var list = DbSet.Where(x => x.Code.StartsWith(code)).CountByBusinessType().ToList();
+            return MergeWithGroupCount(list);
+        }
+
+        public List<SummaryCount> ContactPersonCount()
+        {
+            var list = DbSet.Where(x => x.ContactPersonId != null).CountByBusinessType().ToList();
+            return ConvertBusinessTypeString(list);
+        }
+
+        public List<SummaryCount> ContactPersonCount(string code)
+        {
+            var list = DbSet.Where(x => x.ContactPersonId != null).Where(x => x.Code.StartsWith(code)).CountByBusinessType().ToList();
+            return ConvertBusinessTypeString(list);
+        }
+
+        private List<SummaryCount> ConvertBusinessTypeString(List<SummaryCount> list)
+        {
+            if (list == null)
+                return null;
+
+            list.AsParallel().ForAll(x => x.Type = Enum.Parse(typeof (BusinessTypes), x.Type).ToString());
+            return list;
+        }
+
+        private List<SummaryCount> MergeWithGroupCount(List<SummaryCount> list)
+        {
+            var groupCount = DataContext.Set<SiteGroup>().Count();
+
+            ConvertBusinessTypeString(list).Add(new SummaryCount
+            {
+                Type = "group",
+                TotalCount = groupCount
+            });
+
+            return list;
         }
 
         private IQueryable<AdminSearch> ProjectFilters(IList<SearchField> searchFields,IQueryable<Contact> query)

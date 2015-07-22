@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using DataAccess.EntityFramework.Models.Quote.Cost;
+using DateAccess.Services.ViewModels;
+
 namespace DateAccess.Services.Mappers
 {
     public class DtoToDatabaseMappingProfile : Profile
@@ -10,7 +13,6 @@ namespace DateAccess.Services.Mappers
 
         protected override void Configure()
         {
-        
 
 //            //TODO: need to add more
 //            Mapper.CreateMap<ContactDTO, Contact>()

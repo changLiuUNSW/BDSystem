@@ -1,0 +1,74 @@
+﻿<form name="form" class="form-horizontal form-validation">
+    <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+        <li class="list-group-item clearfix b-l-3x" data-ng-repeat="each in vm.editingPeriodicals" ng-class="{'b-l-info ': vm.editingPeriodicals.indexOf(each)%2==0, 'b-l-success ': vm.editingPeriodicals.indexOf(each)%2==1}">
+            <div class="clear">
+                <span class="pull-right">
+                    <a class="text-danger-lter" data-ng-click="vm.del(vm.editingPeriodicals.indexOf(each))"><i class="fa fa-times" tooltip="Delete"></i></a>
+                </span>
+            </div>
+            <div class="line b-b b-light"></div>
+            <div class="row" data-ng-if="!vm.loading">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 l-h-2x">Description of work:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" data-ng-model="each.Description" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 l-h-2x">Rate:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" data-ng-options="type as type.Title for type in each.workType"
+                                    data-ng-model="each.rate" data-ng-change="each.typeChoosed(each, $index)" required>
+                                <option value="">Please choose</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 l-h-2x">Special Materials cost /time:</label>
+                        <div class="col-sm-6">
+                            <input data-ng-model="each.Material" class="form-control"  ng-pattern="/^[0-9]+\.{0,1}[0-9]{0,2}$/" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 l-h-2x">Hours per time:</label>
+                        <div class="col-sm-6">
+                            <input data-ng-model="each.Hours" class="form-control" ng-pattern="/^[0-9]+\.{0,1}[0-9]{0,2}$/" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 l-h-2x">Freq done pa:</label>
+                        <div class="col-sm-6">
+                            <input data-ng-model="each.Frequency" type="number" class="form-control" min="0" ui-validate=" '$value >0' "  required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 l-h-2x">Add to price page:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control"
+                                    data-ng-model="each.AddToPricePage" required>
+                                <option value="">Please choose</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-success" type="submit" data-ng-click="vm.confirm()" ng-disabled="form.$invalid">Confirm</button>
+        <button class="btn btn-sm btn-danger" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</form>

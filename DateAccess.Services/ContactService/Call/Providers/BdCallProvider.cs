@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using DataAccess.EntityFramework;
 using DataAccess.EntityFramework.Models.BD.Lead;
 using DataAccess.EntityFramework.TypeLibrary;
 using DateAccess.Services.ContactService.Call.Models;
+using DateAccess.Services.ContactService.Call.Scripts.Actions;
 using DateAccess.Services.ContactService.Call.Scripts.Providers;
 using DateAccess.Services.MailService;
 
@@ -11,10 +14,18 @@ namespace DateAccess.Services.ContactService.Call.Providers
 {
     internal class BdCallProvider : CallProvider, IStandardCall, IGroupCall
     {
+        private IList<ScriptAction> DefaultActions { get; set; } 
+
         internal BdCallProvider(IUnitOfWork unitOfWork, 
-                                ILeadEmailService emailService
-                                ) : base(unitOfWork, emailService)
+                                IEmailHelper emailHelper
+                                ) : base(unitOfWork, emailHelper)
         {
+            DefaultActions = new Collection<ScriptAction>
+            {
+                new UpdateDaCheck(),
+                new NewLead(),
+                new UpdateCallBack()
+            };
         }
 
         public LeadPersonal LeadPerson { get; set; }
@@ -51,28 +62,33 @@ namespace DateAccess.Services.ContactService.Call.Providers
             {
                 Contact = contact,
                 Site = contact.Site,
-                LeadPerson = LeadPerson
+                LeadPerson = LeadPerson,
+                Script = new BdScriptProvider(contact, LeadPerson ).Get(),
+                ScriptActions = DefaultActions
             };
         }
 
-        public CallDetail Next(string initial)
+        public CallDetail Next(string loginName)
         {
-            return Prepare(initial) ? Fetch() : null;
+            return Prepare(loginName) ? Fetch() : null;
         }
 
-        public CallDetail Next(int siteId)
+        public CallDetail Next(string loginName, int siteId)
         {
             var site = UnitOfWork.SiteRepository.Get(siteId);
             if (site == null)
                 return null;
 
             var contact = site.Contacts.SingleOrDefault(x => x.BusinessTypeId == (int)BusinessTypes.Cleaning);
+            LeadPerson = UnitOfWork.LeadPersonalRepository.GetFromPhoneBook(loginName);
 
             return new CallDetail
             {
                 Contact = contact,
                 Site = site,
-                Script = new ScriptProvider(contact, null, null).Get()
+                LeadPerson = LeadPerson,
+                Script = new BdScriptProvider(contact, LeadPerson).Get(),
+                ScriptActions = DefaultActions
             };
         }
     }

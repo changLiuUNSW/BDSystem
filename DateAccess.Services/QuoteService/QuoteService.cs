@@ -51,6 +51,7 @@ namespace DateAccess.Services.QuoteService
         QuoteStatusTypes? NextStatus(Quote quote, bool success, int? issueId = null);
         Quote CancelQuote(int quoteId, string user);
         Quote Contact(QuotePostModel model);
+        Quote NotSendEmail(string user, int quoteId, List<QuestionResultModel> questionResults);
         Quote NotContact(string user, int quoteId, List<QuestionResultModel> questionResults);
         Quote Finalize(string user, int quoteId, List<QuestionResultModel> questionResults);
         Quote Dead(string user, int quoteId, List<QuestionResultModel> questionResults);
@@ -70,6 +71,7 @@ namespace DateAccess.Services.QuoteService
         Task<Quote> Adjust(string user, ReviewFailedModel model);
         Task<List<QuoteStatus>> GetAllStatus();
         Task<List<OverdueModel>> GetOverDueList();
+        List<QuoteResultModel> GetQuoteResultListByType(int quoteId, QuoteQuestionType? type);
         Task<Quote> SendToWp(QuotePostModel model, string user);
         IList<QuoteQuestion> GetQuestionsByType(int questionType);
     }
@@ -95,10 +97,6 @@ namespace DateAccess.Services.QuoteService
             quote.LastestPA = model.NewPa == null ? quote.LastestPA : model.NewPa.Value;
             quote.LastAdjustCheckDate = DateTime.Now;
             quote.AjustCheckOverDue = false;
-            //Delete all no adjust question results
-            var repo = UnitOfWork.GetRepository<QuoteQuestionResult>();
-            var noAdjustResults = repo.Get(l => l.Question.Type == QuoteQuestionType.NoAdjust && l.QuoteId == model.QuoteId);
-            repo.RemoveRange(noAdjustResults);
             if (model.IsPdf)
             {
                 issuenextStatusId = quote.StatusId;
@@ -147,6 +145,11 @@ namespace DateAccess.Services.QuoteService
         {
             var overdueList = await UnitOfWork.QuoteRepository.GetOverDueList();
             return overdueList;
+        }
+
+        public List<QuoteResultModel> GetQuoteResultListByType(int quoteId, QuoteQuestionType? type)
+        {
+            return UnitOfWork.QuoteRepository.GetQuoteResultListByType(quoteId, type);
         }
 
         public async Task<Quote> SendToWp(QuotePostModel model, string user)
@@ -314,10 +317,6 @@ namespace DateAccess.Services.QuoteService
             const string description = "Quote is dead";
             var quote = GetByKey(quoteId);
             if(quote==null) throw new ArgumentException("Invalid Quote Id "+quoteId);
-            //Delete No dead results
-            var repo=UnitOfWork.GetRepository<QuoteQuestionResult>();
-            var noDeadResult=repo.Get(l => l.Question.Type == QuoteQuestionType.NoDead && l.QuoteId == quoteId);
-            repo.RemoveRange(noDeadResult);
             //Save Dead results
             UpdateQuestionResult(questionResults, quoteId, user, QuoteQuestionType.Dead);
             UnitOfWork.GetRepository<QuoteHistory>().Add(new QuoteHistory
@@ -644,13 +643,25 @@ namespace DateAccess.Services.QuoteService
         {
             var quote = GetByKey(model.QuoteId);
             if(quote==null) throw new ArgumentException("Invalid quote Id "+model.QuoteId);
-            var questionResultRepo = UnitOfWork.GetRepository<QuoteQuestionResult>();
-            var notCalledAnswers = questionResultRepo.Get(l => l.Question.Type == QuoteQuestionType.NotCalled);
-            questionResultRepo.RemoveRange(notCalledAnswers);
+            quote.ContactCheckOverDue = false;
             quote.LastContactCheckDate = DateTime.Now;
             quote.LastContactDate = model.Date;
             quote.LastUpdateDate = DateTime.Now;
-            quote.ContactCheckOverDue = false;
+            Save();
+            return quote;
+        }
+
+        public Quote NotSendEmail(string user, int quoteId, List<QuestionResultModel> questionResults)
+        {
+            var quote = GetByKey(quoteId);
+            if (quote == null) throw new ArgumentException("Invalid quote Id " + quoteId);
+            UpdateQuestionResult(questionResults, quoteId, user, QuoteQuestionType.NoEmail);
+            quote.LastClientEmailCheckDate = DateTime.Now;
+            quote.LastUpdateDate = DateTime.Now;
+            quote.ClientEmailSendDate = quote.ClientEmailSendDate == null
+                ? quote.LastClientEmailCheckDate.Value.AddMonths(1)
+                : quote.ClientEmailSendDate.Value.AddMonths(1);
+            quote.ClientEmailSendReminderDisabled = false;
             Save();
             return quote;
         }
@@ -660,9 +671,9 @@ namespace DateAccess.Services.QuoteService
             var quote = GetByKey(quoteId);
             if(quote==null) throw new ArgumentException("Invalid quote Id "+quoteId);
             UpdateQuestionResult(questionResults, quoteId, user, QuoteQuestionType.NotCalled);
+            quote.ContactCheckOverDue = false;
             quote.LastContactCheckDate=DateTime.Now;
             quote.LastUpdateDate = DateTime.Now;
-            quote.ContactCheckOverDue = false;
             Save();
             return quote;
         }
@@ -696,9 +707,7 @@ namespace DateAccess.Services.QuoteService
             var questionIds = UnitOfWork.GetRepository<QuoteQuestion>().Filter(l => l.Type == type, l => l.Id, null).OrderBy(l => l).ToArray();
             if (!questionResultIds.SequenceEqual(questionIds)) throw new ArgumentException("Invalid Question Counts. Please answer all the questions");
             var questionResultRepo = UnitOfWork.GetRepository<QuoteQuestionResult>();
-            //Check and delete old result
-            var existingResult=questionResultRepo.Get(l => l.QuoteId == quoteId && l.Question.Type == type);
-            questionResultRepo.RemoveRange(existingResult);
+            var time = DateTime.Now;
             //Add new result
             foreach (var result in questionResults)
             {
@@ -708,7 +717,7 @@ namespace DateAccess.Services.QuoteService
                     QuestionId = result.QuestionId,
                     QuoteId = quoteId,
                     Additional = result.Additional,
-                    Time = DateTime.Now,
+                    Time = time,
                     User = user
                 };
                 questionResultRepo.Add(temp);

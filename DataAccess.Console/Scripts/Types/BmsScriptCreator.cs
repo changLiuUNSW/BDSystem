@@ -35,11 +35,12 @@ namespace DataAccess.Console.Scripts.Types
                 new BinaryTreeNode<Script>(
                     new Script(
                         string.Format(
-                            "Hello {0}, my name is {1} from Quad Services a locally based commercial cleaning, maintenance and security company. " +
+                            "Hello {0} {1}, my name is {2} from Quad Services a locally based commercial cleaning, maintenance and security company. " +
                             "I am calling to introduce our company to see if I can arrange for our maintenance manager to come and see you and " +
                             "talk about our maintenance services. (building repairs, fit outs, plumbing, light replacement, painting",
+                            Replaceable.String[ReplaceType.ContactTitle],
                             Replaceable.String[ReplaceType.ContactName],
-                            Replaceable.String[ReplaceType.TelesaleName]
+                            Replaceable.String[ReplaceType.CallerName]
                             )))
                 {
                     Right = new BinaryTreeNode<Script>
@@ -48,21 +49,22 @@ namespace DataAccess.Console.Scripts.Types
                         {
                             Actions = new Collection<ScriptAction>
                             {
-                                new CreateLead("Generate a new maintenance lead", ScriptActionType.CreateMaintenanceLead)
+                                new NewLead("New maintenance lead", ScriptActionType.CreateMaintenanceLead)
                             }
                         },
-                        Left = new BinaryTreeNode<Script>
+                        Right = End(true),
+                        Left = End(false)
+                    },
+                    Left = new BinaryTreeNode<Script>
+                    {
+                        Value = new Script()
                         {
-                            Value = new Script()
-                            {
-                                Branch = true,
-                                BranchType = BranchTypes.PropertyMananger.ToString()
-                            },
-                            Left = UnknownPm(),
-                            Right = KnownPm()
+                            Branch = true,
+                            BranchType = BranchTypes.PropertyMananger.ToString()
                         },
-                        Right = End(true)
-                    }
+                        Left = UnknownPm(),
+                        Right = KnownPm()
+                    },
                 };
             return root;
         }
@@ -107,7 +109,7 @@ namespace DataAccess.Console.Scripts.Types
                 new BinaryTreeNode<Script>(
                     new Script("Thanks, by the way are you currently happy with your cleaning service?"))
                 {
-                    Left = End(true, new CreateTaskForDh()),
+                    Left = End(true, new NewTaskForDh()),
                     Right = End(true)
                 };
         }

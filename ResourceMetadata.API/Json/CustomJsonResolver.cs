@@ -25,7 +25,7 @@ namespace ResourceMetadata.API.Json
             Type matchedType = null;
             if (IgnoreList.ContainsKey(type))
                 matchedType = type;
-            else if (IgnoreList.ContainsKey(type.BaseType))
+            else if (type.BaseType != null && IgnoreList.ContainsKey(type.BaseType))
                 matchedType = type.BaseType;
 
             if (matchedType != null)

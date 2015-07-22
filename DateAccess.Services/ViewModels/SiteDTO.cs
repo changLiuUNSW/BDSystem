@@ -15,7 +15,6 @@ namespace DateAccess.Services.ViewModels
         public CleaningContractDTO CleaningContract { get; set; }
         public SecurityContractDTO SecurityContract { get; set; }
 
-
         public string GmZone { get; set; }
 
         public string Region { get; set; }
@@ -28,7 +27,6 @@ namespace DateAccess.Services.ViewModels
 
         public string Suburb { get; set; }
 
-
         public string State { get; set; }
 
         public string Postcode { get; set; }
@@ -36,8 +34,6 @@ namespace DateAccess.Services.ViewModels
         public string Name { get; set; }
 
         public bool PropertyManaged { get; set; }
-
-        public string PropertyManagerName { get; set; }
 
         public bool PMSite { get; set; }
 

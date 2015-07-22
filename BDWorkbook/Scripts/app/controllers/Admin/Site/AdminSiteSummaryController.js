@@ -2,9 +2,9 @@
     'use strict';
     angular.module('app.Admin.site.controllers')
         .controller('AdminSiteSummaryCtrl', adminSiteSummaryCtrl);
-    adminSiteSummaryCtrl.$inject = ['summaryService', '$q', '$filter', 'logger', 'siteGroupService', 'ngTableParams', '$modal'];
+    adminSiteSummaryCtrl.$inject = ['summaryService', '$q', '$filter', 'logger', 'siteGroupService', 'ngTableParams', '$modal', 'userInfo', '$scope', '$state'];
 
-    function adminSiteSummaryCtrl(summaryService, $q, $filter, logger, siteGroupService, ngTableParams, $modal) {
+    function adminSiteSummaryCtrl(summaryService, $q, $filter, logger, siteGroupService, ngTableParams, $modal, userInfo, $scope, $state) {
         var vm = this;
         var groupList = [];
         var dashboardListConfig = [
@@ -29,12 +29,21 @@
                 linkable: false
             }
         ];
+
+        var userName = userInfo.userName;
+        $scope.$on('event:auth-loginConfirmed', function () {
+            if (userName.toLowerCase() !== userInfo.userName.toLowerCase()) {
+                $state.reload();
+            }
+        });
+
         vm.dashboardList = [];
         vm.groupList = [];
         vm.tableParams = undefined;
         vm.addGroup = addGroup;
         vm.groupDetail = groupDetail;
-        init(); 
+        init();
+
         function init() {
             vm.loading = true;
             $q.all([loadingCount(), loadingGroupList()]).then(function (result) {

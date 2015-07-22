@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Windows.Forms;
 using DataAccess.Common.Paging;
 using DataAccess.EntityFramework.Infrastructure;
 using DataAccess.EntityFramework.Models.BD.Allocation;
@@ -16,7 +16,7 @@ namespace DataAccess.EntityFramework.Repositories
     }
     internal class SalesBoxRepository : Repository<SalesBox>, ISalesBoxRepository
     {
-        internal SalesBoxRepository(IDbContext dbContext) : base(dbContext)
+        internal SalesBoxRepository(DbContext dbContext) : base(dbContext)
         {
         }
 

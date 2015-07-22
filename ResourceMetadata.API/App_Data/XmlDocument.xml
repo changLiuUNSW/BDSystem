@@ -642,17 +642,63 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResourceMetadata.API.Controllers.QuoteCostController.GetEquipment">
+        <member name="M:ResourceMetadata.API.Controllers.QuoteCostController.GetLabourRate">
             <summary>
-            get all available equipments for cost estimation
+            return full labour rate list
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResourceMetadata.API.Controllers.QuoteCostController.GetCost(System.Int32)">
+        <member name="T:ResourceMetadata.API.Controllers.QuoteEstimationController">
             <summary>
-            for test only
+            cost estimation calculator
             </summary>
-            <param name="id"></param>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.QuoteEstimationController.Wage(System.Collections.Generic.List{DataAccess.EntityFramework.Models.Quote.Cost.Labour.LabourEstimation})">
+            <summary>
+            calculate labour wage and return the original object with updated cost
+            </summary>
+            <param name="labours"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.QuoteEstimationController.Periodical(System.Collections.Generic.List{DataAccess.EntityFramework.Models.Quote.Cost.Labour.LabourPeriodical})">
+            <summary>
+            calculate labour periodical and return the original object with updated cost
+            </summary>
+            <param name="periodicals"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.QuoteEstimationController.Allowance(DataAccess.EntityFramework.Models.Quote.Cost.Labour.Labour)">
+            <summary>
+            calculate labour allowance and return the original object with updated cost
+            </summary>
+            <param name="labour"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.QuoteEstimationController.Total(DataAccess.EntityFramework.Models.Quote.Cost.Labour.Labour)">
+            <summary>
+            calculate the entire labour model and return the updated model
+            </summary>
+            <param name="labour"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.QuoteEstimationController.Equipment(System.Collections.Generic.List{DataAccess.EntityFramework.Models.Quote.Cost.Equipment.EquipmentSupply})">
+            <summary>
+            calculate the equipment cost
+            </summary>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.QuoteEstimationController.Supply(System.Collections.Generic.List{DataAccess.EntityFramework.Models.Quote.Cost.Supply.ToiletrySupply})">
+            <summary>
+            calculate toiletry supplies cost
+            </summary>
+            <param name="supplies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.QuoteEstimationController.Periodical(System.Collections.Generic.List{DataAccess.EntityFramework.Models.Quote.Cost.Periodical.Periodical},System.Int32)">
+            <summary>
+            calculate periodical costs
+            </summary>
+            <param name="periodicals"></param>
+            <param name="weeks"></param>
             <returns></returns>
         </member>
         <member name="T:ResourceMetadata.API.Controllers.SearchController">
@@ -675,7 +721,14 @@
         </member>
         <member name="M:ResourceMetadata.API.Controllers.SearchController.SearchSite(DataAccess.Common.SearchModels.Search)">
             <summary>
-            SearchSite
+            Search Site
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.SearchController.SearchExternalManager(DataAccess.Common.SearchModels.Search)">
+            <summary>
+            return external manager table base on the search criteria
             </summary>
             <param name="search"></param>
             <returns></returns>
@@ -718,6 +771,29 @@
             </summary>
             <param name="type"></param>
             <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ResourceMetadata.API.Controllers.SummaryController">
+            <summary>
+            provide table row count overview
+            </summary>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.SummaryController.#ctor(DateAccess.Services.StatisticService.ISummaryService)">
+            <summary>
+            default contructor
+            </summary>
+            <param name="summaryService"></param>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.SummaryController.GetContactPersonCount">
+            <summary>
+            return contact person count for each business type category
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.SummaryController.GetSiteCount">
+            <summary>
+            return site count for eac hbusiness type category 
+            </summary>
             <returns></returns>
         </member>
         <member name="T:ResourceMetadata.API.DependencyConfigure">
@@ -816,9 +892,16 @@
         </member>
         <member name="M:ResourceMetadata.API.Controllers.LeadController.PostLead(DataAccess.EntityFramework.Models.BD.Lead.Lead)">
             <summary>
-                create a new lead
+            save a new lead
             </summary>
             <param name="lead"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.LeadController.PostLead(ResourceMetadata.API.ViewModels.GenerateLeadViewModel)">
+            <summary>
+            create new lead through the system using the contact id
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:ResourceMetadata.API.Controllers.LeadController.DeleteLead(System.Int32)">
@@ -846,14 +929,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ResourceMetadata.API.Controllers.ContactController.GetNext(DataAccess.EntityFramework.TypeLibrary.CallTypes,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:ResourceMetadata.API.Controllers.ContactController.NextCall(ResourceMetadata.API.ViewModels.NextCallViewModel)">
             <summary>
             return next avaiable contact base on the underlying provider configuration
             </summary>
-            <param name="type">type of provider to use</param>
-            <param name="initial">if initial is supplied and siteId is not, provider will use initial to find next call</param>
-            <param name="siteId">if siteId is supplied, provider will use siteId to find next call and ignoring the value in initial</param>
-            <param name="lastCallId">if lastCallId is supplied, it will be removed from the occupied call list prior to finding the next call</param>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:ResourceMetadata.API.Controllers.ContactController.GetReport(DateAccess.Services.ContactService.Reports.Config.ReportType)">
@@ -877,7 +957,7 @@
         </member>
         <member name="M:ResourceMetadata.API.Controllers.ContactController.PutNote(System.Int32,System.String)">
             <summary>
-             update single field of the contact
+            update contact nodes
             </summary>
             <returns></returns>
         </member>
@@ -907,10 +987,17 @@
             <param name="type">business if new contact needs to be created</param>
             <returns></returns>
         </member>
-        <member name="M:ResourceMetadata.API.Controllers.ContactController.PutEndCall(System.Int32,Newtonsoft.Json.Linq.JObject)">
+        <member name="M:ResourceMetadata.API.Controllers.ContactController.EndCall(ResourceMetadata.API.ViewModels.EndCallViewModel)">
             <summary>
             end a call by updating next call date and relavent information
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Controllers.ContactController.GetScripts(DateAccess.Services.ContactService.Call.Scripts.Info.ScriptType)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="T:ResourceMetadata.API.Controllers.HomeController">
@@ -948,24 +1035,17 @@
             
             </summary>
         </member>
-        <member name="M:ResourceMetadata.API.Controllers.SiteController.#ctor(DateAccess.Services.SiteService.ISiteService,DataAccess.EntityFramework.IUnitOfWork)">
+        <member name="M:ResourceMetadata.API.Controllers.SiteController.#ctor(DateAccess.Services.SiteService.ISiteService)">
             <summary>
             default constructor
             </summary>
             <param name="siteService"></param>
-            <param name="unitOfWork"></param>
         </member>
         <member name="M:ResourceMetadata.API.Controllers.SiteController.Get(System.Int32)">
             <summary>
             
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ResourceMetadata.API.Controllers.SiteController.QueryGroupManager(System.Collections.Generic.IList{DataAccess.Common.SearchModels.SearchField})">
-            <summary>
-            query gorup manager
-            </summary>
             <returns></returns>
         </member>
         <member name="M:ResourceMetadata.API.Controllers.SiteController.Get(System.String)">
@@ -1077,6 +1157,17 @@
             <param name="postcode"></param>
             <returns></returns>
         </member>
+        <member name="T:ResourceMetadata.API.Filters.GlobalExceptionFilter">
+            <summary>
+            global exception hanlder / filter
+            </summary>
+        </member>
+        <member name="T:ResourceMetadata.API.Json.AllocationJsonResolver">
+            <summary>
+            custome json resolver to eliminate tables that are not needed or are heavily linked
+            use for allocation table  
+            </summary>
+        </member>
         <member name="T:ResourceMetadata.API.Json.CustomJsonResolver">
             <summary>
             custom json conversion for contact
@@ -1092,7 +1183,7 @@
             provide custom json serialization
             </summary>
         </member>
-        <member name="M:ResourceMetadata.API.Json.CustomJsonConverter.#ctor">
+        <member name="M:ResourceMetadata.API.Json.CustomJsonConverter.#ctor(Newtonsoft.Json.JsonSerializerSettings)">
             <summary>
             default constructor
             </summary>
@@ -1103,14 +1194,37 @@
             </summary>
             <param name="resolver"></param>
         </member>
-        <member name="M:ResourceMetadata.API.Json.CustomJsonConverter.Resolve(System.Object)">
+        <member name="M:ResourceMetadata.API.Json.CustomJsonConverter.ResolveObject(System.Object)">
             <summary>
-            resolve the object using set contract resolver and jsonSerializerSettings to JObject
+            resolve the object to JObject with the default resolver
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="P:ResourceMetadata.API.Json.CustomJsonConverter.ContactResolver">
+        <member name="M:ResourceMetadata.API.Json.CustomJsonConverter.ResolveObject(System.Object,ResourceMetadata.API.Json.CustomJsonResolver)">
+            <summary>
+            resolve an object model to JObject with provied resolver
+            </summary>
+            <param name="value"></param>
+            <param name="resolver"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Json.CustomJsonConverter.ResolveArray(System.Object)">
+            <summary>
+            resolve object to JArray with the default resolver
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceMetadata.API.Json.CustomJsonConverter.ResolveArray(System.Object,ResourceMetadata.API.Json.CustomJsonResolver)">
+            <summary>
+            resolve object to JArray with provided resolver
+            </summary>
+            <param name="value"></param>
+            <param name="resolver"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ResourceMetadata.API.Json.CustomJsonConverter.ContractResolver">
             <summary>
             default contact resolver for json serializer
             </summary>
@@ -1120,30 +1234,19 @@
             default settings
             </summary>
         </member>
-        <member name="T:ResourceMetadata.API.Json.TelesaleContactJsonConverter">
+        <member name="T:ResourceMetadata.API.Json.SiteGroupJsonResolver">
             <summary>
-            json serialization for contact from telesale call
+            manually reoslving the site group into json
             </summary>
         </member>
-        <member name="M:ResourceMetadata.API.Json.TelesaleContactJsonConverter.#ctor">
+        <member name="T:ResourceMetadata.API.Json.TelesaleContactJsonResolver">
+            <summary>
+            rules for resolving contact for telesale module
+            </summary>
+        </member>
+        <member name="M:ResourceMetadata.API.Json.TelesaleContactJsonResolver.#ctor">
             <summary>
             default constructor
-            </summary>
-        </member>
-        <member name="P:ResourceMetadata.API.Json.TelesaleContactJsonConverter.IgnoreList">
-            <summary>
-            list of ignore property when serializing json
-            </summary>
-        </member>
-        <member name="T:ResourceMetadata.API.Models.Response`1">
-            <summary>
-            standard api response class
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="T:ResourceMetadata.API.Models.ErrorResponse">
-            <summary>
-            standard api error response class     
             </summary>
         </member>
         <member name="T:ResourceMetadata.API.Providers.ApplicationOAuthProvider">
@@ -1179,6 +1282,81 @@
             </summary>
             <param name="context"></param>
             <returns></returns>
+        </member>
+        <member name="T:ResourceMetadata.API.ViewModels.EndCallViewModel">
+            <summary>
+            view model for call sheet end process
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.EndCallViewModel.SiteId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.EndCallViewModel.Initial">
+            <summary>
+            initial of the caller
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.EndCallViewModel.ContactId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.EndCallViewModel.LeadPersonId">
+            <summary>
+            id for person who gets assigned for lead
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.EndCallViewModel.OccupiedId">
+            <summary>
+            id for removing occupid contact status
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.EndCallViewModel.RedirectUrl">
+            <summary>
+            redirect url for lead
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.EndCallViewModel.Actions">
+            <summary>
+            actions needs to be performed during the end process
+            </summary>
+        </member>
+        <member name="T:ResourceMetadata.API.ViewModels.GenerateLeadViewModel">
+            <summary>
+            View model for crete a new lead
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.GenerateLeadViewModel.ContactId">
+            <summary>
+            contact id 
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.GenerateLeadViewModel.LeadPersonId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResourceMetadata.API.ViewModels.NextCallViewModel">
+            <summary>
+            view model for generate next available contact
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.NextCallViewModel.Initial">
+            <summary>
+            initial of the person requesting the call
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.NextCallViewModel.SiteId">
+            <summary>
+            if a site Id if provided, the call will generated from the site instead of from a call queue
+            </summary>
+        </member>
+        <member name="P:ResourceMetadata.API.ViewModels.NextCallViewModel.LastCallId">
+            <summary>
+            existing call id that has not been ended
+            </summary>
         </member>
     </members>
 </doc>

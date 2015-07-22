@@ -95,10 +95,7 @@
                             url: '/issues',
                             templateUrl: '/tpl/Quote/Progress/quote.detail.issues.html'
                         })
-                        .state('quote.detail.progress.costDetail', {
-                            url: '/cost/{costId:[0-9]{1,10}}',
-                            templateUrl: '/tpl/Quote/Progress/quote.detail.cost.html'
-                        })
+                        
                         .state('quote.detail.progress.history', {
                             url: '/history',
                             templateUrl: '/tpl/Quote/Progress/quote.detail.history.html',
@@ -110,6 +107,15 @@
                             controllerAs: 'vm',
                             templateUrl: '/tpl/Quote/Current/quote.current.detail.html'
                         })
+                        
+                        //Estimation
+                        .state('quote.estimation', {
+                            url: '/estimation/{id:[0-9]{1,10}}',
+                            controller: 'quoteEstimationCtrl',
+                            controllerAs: 'vm',
+                            templateUrl: '/tpl/Quote/Estimation/estimation.html'
+                        })
+                      
                         //Qute Cost
                         .state('quote.cost', {
                             url: '/cost',

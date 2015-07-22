@@ -45,9 +45,16 @@
 
         function serverError(errorMsg) {
             if (errorMsg.data) {
+
+                var stateError = getStateError(errorMsg.data.ModelState);
+                if (stateError) {
+                    toastr.error(stateError);
+                    $log.error(stateError);
+                    return;
+                }
+
                 var exceptionMsg = errorMsg.data.ExceptionMessage || '';
                 var message = errorMsg.data.Message + '<br>' + exceptionMsg;
-                console.log(message);
                 toastr.error(message, "Server Error");
                 $log.error("Server Error: " + message);
             } else if (errorMsg.status && errorMsg.status === 404) {
@@ -58,7 +65,21 @@
                 toastr.error("Unexpected error", "Server Error");
                 $log.error("Server Error: Unexpected error");
             }
+        }
 
+        function getStateError(state) {
+            if (!state)
+                return undefined;
+
+            var names = Object.getOwnPropertyNames(state);
+            for (var i = 0; i < names.length; i++) {
+                var propName = names[i];
+                if (state[propName] && state[propName].length > 0) {
+                    return state[propName][0];
+                }
+            }
+
+            return undefined;
         }
 
         function warning(message, title) {

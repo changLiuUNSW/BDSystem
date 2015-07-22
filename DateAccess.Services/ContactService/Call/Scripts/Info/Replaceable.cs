@@ -8,7 +8,7 @@ namespace DateAccess.Services.ContactService.Call.Scripts.Info
         ContactName,
         ExtContactName,
         ManagerName,
-        TelesaleName,
+        CallerName,
         SiteGroup,
         ContactTitle,
         AskQualification,

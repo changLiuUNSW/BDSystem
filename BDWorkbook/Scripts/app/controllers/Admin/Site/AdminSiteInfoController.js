@@ -115,10 +115,11 @@
             });
         }
 
-        function postCodeAndState(item) {
-            $scope.model.site.State = item.State;
-            $scope.model.site.GmZone = item.Zone;
-            $scope.model.site.Region = item.Region;
+        function postCodeAndState($item, $model, $label, formInput) {
+            $scope.model.site.State = $item.State;
+            $scope.model.site.GmZone = $item.Zone;
+            $scope.model.site.Region = $item.Region;
+            formInput.$setValidity('parse', true);
         }
     }
 })();
